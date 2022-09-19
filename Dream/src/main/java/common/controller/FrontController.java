@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "사용자가 웹에서 *.dream을 했을 경우 이 서블릿이 응답을 해주도록 한다.", 
 		urlPatterns = { "*.dream" },  // 앞에 / 가 없음 (뒤에 .dream 이 붙으면 무조건 fromtController 서블릿이 응답한다.)
 		initParams = { 	// 자바에서는 역슬래시 \ 한개는 탈출문자이므로 \\를 써줘야 한다 또는 /를 써주면 된다.
-				@WebInitParam(name = "propertyConfig", value = "C:/NCS/workspace(jsp)/SemiProject/src/main/webapp/WEB-INF/Command.properties", description = "*.dream에 대한 클래스의 매핑파일")
+				@WebInitParam(name = "propertyConfig", value = "C:\\Users\\sist\\git\\Dream\\Dream\\src\\main\\webapp\\WEB-INF/Command.properties", description = "*.dream에 대한 클래스의 매핑파일")
 		})
 		// initParams = 초기화 파라미터 
 public class FrontController extends HttpServlet {
@@ -38,16 +38,16 @@ public class FrontController extends HttpServlet {
 	// System.out.println("~~~ 확인용 => 서블릿 FrontController 의  init(ServletConfig config) 메소드가 실행됨.");
 	
 		String props = config.getInitParameter("propertyConfig"); // servelt 에 대한 환경 세팅값을 전부 읽어옴.
-		// value = "C:/NCS/workspace(jsp)/SemiProject/src/main/webapp/WEB-INF/Command.properties") 를 읽어온다.
+		// value = "C:/NCS/workspace(jsp)/Dream/src/main/webapp/WEB-INF/Command.properties") 를 읽어온다.
 		
 		// System.out.println("~~~ 확인용 props => " + props);
-		// ~~~ 확인용 props => C:/NCS/workspace(jsp)/SemiProject/src/main/webapp/WEB-INF/Command.properties
+		// ~~~ 확인용 props => C:/NCS/workspace(jsp)/Dream/src/main/webapp/WEB-INF/Command.properties
 		// 경로명 포함 파일 이름을 불러온다.
 		
 		try {
 			FileInputStream fis = new FileInputStream(props);
 			// 특정 파일(Command.properties)에 있는 내용을 읽어오기 위한 용도로 쓰이는 객체
-			// FileInputStream fis 은 C:/NCS/workspace(jsp)/SemiProject/src/main/webapp/WEB-INF/Command.properties 파일의 내용을 읽어오는데 사용되는 객체이다.
+			// FileInputStream fis 은 C:/NCS/workspace(jsp)/Dream/src/main/webapp/WEB-INF/Command.properties 파일의 내용을 읽어오는데 사용되는 객체이다.
 			
 			Properties pr = new Properties();
 			// Properties 는 Collection 중 HashMap 계열중의 하나로써
@@ -57,7 +57,7 @@ public class FrontController extends HttpServlet {
 			
 			pr.load(fis);
 		/*
-	         pr.load(fis); 은  fis 객체를 사용하여 C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어다가 
+	         pr.load(fis); 은  fis 객체를 사용하여 C:/NCS/workspace(jsp)/Dream/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어다가 
 	         Properties 클래스의 객체인 pr 에 로드시킨다.
 	         그러면 pr 은 읽어온 파일(Command.properties)의 내용에서 
 	         = 을 기준으로 왼쪽은 key로 보고, 오른쪽은 value 로 인식한다.
@@ -66,7 +66,7 @@ public class FrontController extends HttpServlet {
 			Enumeration<Object> en = pr.keys(); 
 			/*
 	          pr.keys(); 은
-	          C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용물에서 
+	          C:/NCS/workspace(jsp)/Dream/WebContent/WEB-INF/Command.properties 파일의 내용물에서 
 	          = 을 기준으로 왼쪽에 있는 모든 key 들만 가져오는 것이다.    
 			*/
 			
@@ -114,7 +114,7 @@ public class FrontController extends HttpServlet {
 			}// end of while()------------------------------------
 			
 		} catch (FileNotFoundException e) {
-			System.out.println(">>> C:/NCS/workspace(jsp)/SemiProject/src/main/webapp/WEB-INF/Command.properties 파일이 존재하지 않습니다. <<<");
+			System.out.println(">>> C:/NCS/workspace(jsp)/Dream/src/main/webapp/WEB-INF/Command.properties 파일이 존재하지 않습니다. <<<");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,21 +138,21 @@ public class FrontController extends HttpServlet {
 	private void requestProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 웹브라우저의 주소 입력창에서 
-	    // http://localhost:9090/SemiProject/member/idDuplicateCheck.dream?userid=leess 와 같이 입력되었더라면
+	    // http://localhost:9090/Dream/member/idDuplicateCheck.dream?userid=leess 와 같이 입력되었더라면
 		// String url = request.getRequestURL().toString(); // stringBuffer 타입의 url 주소를 String 타입으로 바꿔줌
 		
 		// System.out.println("~~~ 확인용 url => " + url);
-		// ~~~ 확인용 url => http://localhost:9090/SemiProject/member/idDuplicateCheck.dream
+		// ~~~ 확인용 url => http://localhost:9090/Dream/member/idDuplicateCheck.dream
 
 		// 웹브라우저의 주소 입력창에서 
-	    // http://localhost:9090/SemiProject/member/idDuplicateCheck.dream?userid=leess 와 같이 입력되었더라면
+	    // http://localhost:9090/Dream/member/idDuplicateCheck.dream?userid=leess 와 같이 입력되었더라면
 		String uri = request.getRequestURI(); 
 		// uri 를 통해 contextPathname + 주소를 가져올 수 있다.
 //		System.out.println("~~~ 확인용 uri => " + uri);
-		// ~~~ 확인용 uri => /SemiProject/member/idDuplicateCheck.dream
-		// ~~~ 확인용 uri => /SemiProject/test1.dream
-		// ~~~ 확인용 uri => /SemiProject/test/test2.dream
-		request.getContextPath(); // /SemiProject
+		// ~~~ 확인용 uri => /Dream/member/idDuplicateCheck.dream
+		// ~~~ 확인용 uri => /Dream/test1.dream
+		// ~~~ 확인용 uri => /Dream/test/test2.dream
+		request.getContextPath(); // /Dream
 		
 		String key = uri.substring(request.getContextPath().length());
 		/*
