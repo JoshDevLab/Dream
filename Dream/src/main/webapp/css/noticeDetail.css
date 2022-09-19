@@ -1,0 +1,39 @@
+div.Main{
+  width:80%;
+  overflow: hidden;
+  max-width: 1280px;
+  margin:auto;
+}
+
+
+div.sidebar{
+  width: 300px;
+}
+div#noticeDetail{
+  width:1000px;
+}
+div#noticeDetail > table > thead > tr > th{
+  border-bottom:solid 2px black;
+}
+td#noticeContent{
+  background-color: #FAFAFA;
+}
+div#noticeDetail > table.table > tbody > tr:nth-child(1) > td > span#date{
+  font-size: small;
+  color:gray;
+}
+div#noticeDetail > table.table > tbody > tr:nth-child(1) > td > p#title{
+  font-size:medium;
+}
+/* 480px ~ 768px 미디어 쿼리*/
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  div.Main{
+    width:90%;
+  }
+}
+/* 0 ~ 480px 미디어 쿼리*/
+@media (max-width: 480px) {
+}

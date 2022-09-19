@@ -1,0 +1,44 @@
+.image_box {
+    width:62px;
+    height:75px;
+    overflow:hidden;
+    margin: auto;
+    
+}
+
+img.product_img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.table, .card {
+    font-size: 10pt;
+}
+
+th {
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+   .sidebar {
+      display: none;
+   }
+}
+
+@media (max-width: 991px) {
+   .table_div {
+      display: none;
+   }
+    #cart_footer {
+        display: none;
+    }
+}
+
+@media (min-width: 991px) {
+   .mobile_cart {
+      display: none;
+   } 
+} 
