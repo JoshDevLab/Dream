@@ -1,3 +1,9 @@
+// js파일에서 contextPath를 알아내는 함수
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
 
 
 $(document).ready(function(){
@@ -59,6 +65,29 @@ $(document).ready(function(){
       $("input:checkbox[name='agree_age']").change(function(){
 		agree_check();	//회원가입 준비 완료인지 아닌지 검사하는 함수 호출
       });
+      
+      
+      //이메일 인증번호 전송을 클릭했을때
+      $("button#btn_send_email").click(function(){
+		const userid = input_userid.val();
+		
+		$("input#emailConfirmCode").css("display","inline-block");
+		$("span#send_guide").html(`입력하신 이메일 ${userid}로 <br> 인증번호를 전송하였습니다.`);
+		
+		const frm = document.joinFrm;
+		
+		
+		frm.action = getContextPath()+"/member/emailCheck.dream";
+		frm.method = "POST";
+		frm.submit();
+	  });
+	  
+	  //가입하기 버튼 클릭시
+	  $("button#btn_join").click(function(){
+		$("span#send_guide").html("");
+	  });
+      
+      
 
 
 
@@ -182,15 +211,16 @@ $(document).ready(function(){
 	  
 	  
 	  
+	  
 	  //가입하기 버튼 클릭시 이메일인증하기
-	  $("button#btn_join").click(function(e){
-			const userid = input_userid.val().trim();
-			const frm = document.pwdFindFrm;
-			frm.action ="<%= ctxPath%>/login/pwdFind.up"; // 자기 자신한테 보냄 
-			frm.method ="POST"; // 대소문자 구분 x (javascript)
-			frm.submit();
+	  //$("button#btn_join").click(function(e){
+		//	const userid = input_userid.val().trim();
+		//	const frm = document.joinFrm;
+		//	frm.action =getContextPath()+"/member/emailcheck.dream"; // 자기 자신한테 보냄 
+		//	frm.method ="POST"; // 대소문자 구분 x (javascript)
+	//	frm.submit();
 			
-	   });// end of $("button#btnFind").click(function(e)------------------------
+	  // });// end of $("button#btnFind").click(function(e)------------------------
 	  
 	  
 	  

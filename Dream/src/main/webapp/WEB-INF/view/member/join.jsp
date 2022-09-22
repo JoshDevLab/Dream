@@ -81,15 +81,19 @@
      
        <!-- Modal header -->
        <div class="modal-header">
-         <h4 class="modal-title">본인이메일인증을위한 인증코드발송</h4>
+         <h2 class="modal-title">이메일인증코드 발송</h2>
          <button type="button" class="close emailConfirmClose" data-dismiss="modal">&times;</button>
        </div>
        
        <!-- Modal body -->
        <div class="modal-body">
-         <p id="emailConfirmBody">본인이메일인증을 위한 인증번호를 발송하였습니다. <br> 인증코드를 입력해주세요</p>
-         <label for="emailConfirmCode">인증번호</label>
-         <input type="text" id="emailConfirmCode" name="emailConfirmCode">
+       		<span id="send_email_guide">가입을 하시려면 본인이메일인증을 해주세요</span>
+       		
+			<div class="d-flex flex-column mt-2">
+				<button id="btn_send_email" class="btn btn-white border mr-1">인증번호 전송</button>
+				<span id="send_guide" class="mt-2"></span>
+				<input class="mt-2" type="text" id="emailConfirmCode" name="emailConfirmCode" placeholder="인증번호를 입력해주세요">
+			</div>
        </div>
        
        <!-- Modal footer -->
