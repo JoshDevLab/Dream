@@ -1,4 +1,4 @@
-package member.model;
+package choi.member.model;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class MemberDAO implements InterMemberDAO{
 					// connection pool 을 위한 작업
 					Context initContext = new InitialContext();
 					Context envContext  = (Context)initContext.lookup("java:/comp/env");
-					ds = (DataSource)envContext.lookup("jdbc/myoracle");
+					ds = (DataSource)envContext.lookup("/jdbc/dream");
 					
 					aes = new AES256(SecretMyKey.KEY);// KEY는 스태틱 변수이기때문에 객체생성 필요 x
 					// SecretMyKey.KEY 는 우리가 만든 비밀키이다.
@@ -53,5 +53,33 @@ public class MemberDAO implements InterMemberDAO{
 					e.printStackTrace();
 				}// end of try ~ catch()---------------------------------
 				
+			}
+
+			@Override
+			// ID 중복검사 (tbl_member 테이블에서 userid 가 존재하면 true를 리턴해주고, userid 가 존재하지 않으면 false를 리턴한다)
+			public boolean idDuplicateCheck(String userid) throws SQLException{
+				boolean isExists = false;
+				
+				try {
+					
+					conn = ds.getConnection();
+					
+					String sql = " select userid "
+							   + " from tbl_member_login "
+							   + " where userid = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, userid);
+					
+					rs = pstmt.executeQuery();
+					
+					isExists = rs.next(); // 행이 있으면 (중복된 userid) true, 
+										  // 행이 없으면 (사용가능한 userid) false  
+					
+				} finally {
+					close();
+				}
+				
+				return isExists;
 			}
 }

@@ -220,6 +220,10 @@ width: 20%;
 text-align: center;
 }
 
+
+{
+}
+
 .division_btn_box{
   display: flex;
 }
@@ -615,7 +619,7 @@ division_btn_box.btn_buy{
 .floating_price {
  
   position: fixed;
-  top: 0;
+  top: 112.5px;
   left: 0;
   right: 0;
   padding: 10px 40px 15px;
@@ -721,3 +725,11 @@ division_btn_box.btn_buy{
   }
   
      
+   @media (max-width: 960px){
+    .floating_price {
+ 
+	  position: fixed;
+	  top: "";
+	  bottom:0;
+	}
+  }

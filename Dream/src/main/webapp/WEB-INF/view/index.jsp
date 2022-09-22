@@ -19,19 +19,24 @@
           <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li> <%-- active는 맨 처음에 보여줄 타겟을 정한다.--%>
           <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
           <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators2" data-slide-to="3"></li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="./images/carousel-item1.PNG" class="d-block w-100">
+          <img src="./images/dream.jpg" class="d-block w-100">
           <div class="carousel-caption d-none d-md-block"></div>
         </div>
         <div class="carousel-item">
-            <img src="./images/carousel-item2.PNG" class="d-block w-100">
+          <img src="./images/고양이꿀잠.jpg" class="d-block w-100">
+          <div class="carousel-caption d-none d-md-block"></div>
+        </div>
+        <div class="carousel-item">
+            <img src="./images/babysleep.png" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block"></div>            
         </div>
         <div class="carousel-item">
-          <img src="./images/carousel-item3.PNG" class="d-block w-100">
-          <div class="carousel-caption d-none d-md-block"></div>
+            <img src="./images/womensleep.jpg" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block"></div>            
         </div>
       </div>
       <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
@@ -51,7 +56,7 @@
       <div class="shortcut d-flex justify-content-between">
         <div class="shortcut_item">
           <div class="shortcut_img">
-            <img src="images/carousel-item3.PNG" alt="">
+            <img src="images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
@@ -83,7 +88,7 @@
       <div class="shortcut d-flex justify-content-between">
         <div class="shortcut_item mb-2">
           <div class="shortcut_img">
-            <img src="./images/carousel-item3.PNG" alt="">
+            <img src="images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>

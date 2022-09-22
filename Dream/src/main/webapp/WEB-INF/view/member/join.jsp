@@ -4,7 +4,6 @@
 <%
 	String ctxPath = request.getContextPath();
 %>
-
   <%--header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   
@@ -12,8 +11,7 @@
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/join.css" />
   
    <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/join.js" ></script>
-  
+  <script type="text/javascript" src="<%= ctxPath%>/js/join.js"></script>
   
     <div id="Main" class="">
       <div class="login_form">
@@ -21,13 +19,13 @@
           <h4 class="title">회원가입</h4>
         </div>
         <div class="Main d-flex flex-column w-100">
-          <form action="joinFrm">
+          <form name="joinFrm">
             <fieldset>
               <%-- userid --%>
               <div id="userid" class="login_input d-flex flex-column">
                 <label for="userid">이메일 주소<span id="login_label_ettential">필수입력</span></label>
                 <input type="text" id="userid" name="userid" placeholder="예) example@email.co.kr">
-                <p id="userid_error" class="login_error">아이디는 필수정보 입니다.</p>
+                <p id="userid_error" class="login_error"></p>
               </div>
 
               <%-- passwd --%>
@@ -61,7 +59,7 @@
                 </div>
               </div>
             </fieldset>
-            <button id="btn_join" type="submit" class="mt-4">가입하기</button>
+            <button id="btn_join" type="button" class="mt-4" data-toggle="modal" data-target="#emailConfirm" data-dismiss="modal">가입하기</button>
           </form>
         </div>
       </div>
@@ -71,3 +69,35 @@
     
 <%--footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+
+
+
+
+
+<%-- 이메일인증 modal --%>
+<div class="modal fade" id="emailConfirm">
+   <div class="modal-dialog">
+     <div class="modal-content">
+     
+       <!-- Modal header -->
+       <div class="modal-header">
+         <h4 class="modal-title">본인이메일인증을위한 인증코드발송</h4>
+         <button type="button" class="close emailConfirmClose" data-dismiss="modal">&times;</button>
+       </div>
+       
+       <!-- Modal body -->
+       <div class="modal-body">
+         <p id="emailConfirmBody">본인이메일인증을 위한 인증번호를 발송하였습니다. <br> 인증코드를 입력해주세요</p>
+         <label for="emailConfirmCode">인증번호</label>
+         <input type="text" id="emailConfirmCode" name="emailConfirmCode">
+       </div>
+       
+       <!-- Modal footer -->
+       <div class="modal-footer">
+         <button type="button" class="btn btn-white border">인증 완료</button>
+         <button type="button" class="btn btn-white border emailConfirmClose" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+     
+   </div>
+ </div>

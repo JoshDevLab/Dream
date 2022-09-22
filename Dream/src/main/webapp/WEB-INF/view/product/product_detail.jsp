@@ -8,10 +8,11 @@
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
-  <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product_detail_jsp.css" />
+  <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product_detail.css" />
   <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/product_detail_jsp.js" ></script>
+  <script type="text/javascript" src="<%= ctxPath%>/js/product_detail.js" ></script>
 
+	
 
 <body>
 
