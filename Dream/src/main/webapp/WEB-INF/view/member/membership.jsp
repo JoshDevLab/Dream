@@ -8,20 +8,20 @@
 <%--header 호출 --%>
 <jsp:include page="/WEB-INF/view/header.jsp" />
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/파일이름.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/membership.css" />
 <%-- 직접만든 javascript --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/파일이름.js" ></script>
+<script type="text/javascript" src="<%= ctxPath%>/js/membership.js" ></script>
 
 <div id="Main" class="d-flex">
 	<%-------------------- 사이드바 시작 ----------------------%>
   		
         
-        <%-- sidebar 호출 --%>
-  		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
-        
-        
-        
-        <%-------------------- 사이드바 끝 ----------------------%>
+     <%-- sidebar 호출 --%>
+		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
+     
+     
+     
+    <%-------------------- 사이드바 끝 ----------------------%>
 
 
    <div id="content">

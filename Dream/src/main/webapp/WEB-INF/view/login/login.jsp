@@ -31,9 +31,9 @@
             <button id="login" class="button">로그인</button>
             
             <ul class = "login_ul">
-               <li><a class="login_a" href="#">이메일 가입</a></li>
-               <li><a class="login_a" href="#">이메일 찾기</a></li>
-               <li><a class="login_a" href="#">비밀번호 찾기</a></li>
+               <li><a class="login_a" href="<%=ctxPath %>/member/join.dream">이메일 가입</a></li>
+               <li><a class="login_a" href="<%=ctxPath %>/login/findEmail.dream">이메일 찾기</a></li>
+               <li><a class="login_a" href="<%=ctxPath %>/login/findPwd.dream">비밀번호 찾기</a></li>
             </ul>
 
             <button id="login_naver" class="button social"><i class="fa-sharp fa-solid fa-n"></i>네이버로 로그인</button>

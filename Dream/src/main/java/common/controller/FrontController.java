@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "사용자가 웹에서 *.dream을 했을 경우 이 서블릿이 응답을 해주도록 한다.", 
 		urlPatterns = { "*.dream" },  // 앞에 / 가 없음 (뒤에 .dream 이 붙으면 무조건 fromtController 서블릿이 응답한다.)
 		initParams = { 	// 자바에서는 역슬래시 \ 한개는 탈출문자이므로 \\를 써줘야 한다 또는 /를 써주면 된다.
-				@WebInitParam(name = "propertyConfig", value = "C:/NCS/workspace(jsp)/SemiProject/src/main/webapp/WEB-INF/Command.properties", description = "*.dream에 대한 클래스의 매핑파일")
+				@WebInitParam(name = "propertyConfig", value = "C:\\Users\\sist\\git\\Dream\\Dream\\src\\main\\webapp\\WEB-INF\\Command.properties", description = "*.dream에 대한 클래스의 매핑파일")
 		})
 		// initParams = 초기화 파라미터 
 public class FrontController extends HttpServlet {
