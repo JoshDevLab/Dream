@@ -95,8 +95,12 @@ replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
 
+<<<<<<< HEAD
 Command.properties
 web.xml
 
 FrontController.java
 *.sql
+=======
+command.properties
+>>>>>>> branch 'jangjy' of https://github.com/hyunwoocastle/Dream.git

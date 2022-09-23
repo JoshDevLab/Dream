@@ -16,7 +16,7 @@
 <body>
    <div id = "container"> 
       <img src="<%=ctxPath %>/images/logo.png" alt="...">
-      <form action="joinFrm">
+      <form name="joinFrm">
          <fieldset>
             <div id="div_userid">
                <label for="userid">이메일 주소</label>
@@ -28,7 +28,7 @@
                <input id="input_passwd" name="passwd" class ="userinfo" type="password" >
             </div>
 
-            <button id="login" class="button">로그인</button>
+            <button type="button" id="login" class="button">로그인</button>
             
             <ul class = "login_ul">
                <li><a class="login_a" href="<%=ctxPath %>/member/join.dream">이메일 가입</a></li>
