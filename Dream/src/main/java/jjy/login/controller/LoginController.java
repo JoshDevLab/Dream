@@ -22,6 +22,10 @@ public class LoginController extends AbstractController{
 		
 		String userid = request.getParameter("userid"); // form 태그에서 입력받은 userid
 		String passwd = request.getParameter("passwd"); // form 태그에서 입력받은 passwd
+		
+		String message = "";  // msg.jsp 에 전달할 문자열
+		String loc = ""; //msg.jsp에 전달할 url 주소
+		// 원래는 위와같이 index.up 이 아니라 사용자의 암호를 변경해주는 페이지로 잡아주어야 한다. 
 
 		System.out.println("request에 저장된 userid : "+userid);
 		System.out.println("request에 저장된 passwd : "+passwd);
@@ -32,7 +36,7 @@ public class LoginController extends AbstractController{
 		userinfoMap.put("userid", userid);
 		userinfoMap.put("passwd", passwd);
 		
-		/** 사용자 정보를 저장하는 객체(userid, passwd,) */
+		/** 사용자 정보를 저장하는 객체(userid, passwd, update_passwd_date) */
 		LoginDTO loginuser = logindao.selectOneUser(userinfoMap);
 		
 		super.setViewPage("/WEB-INF/view/login/login.jsp");
@@ -46,9 +50,10 @@ public class LoginController extends AbstractController{
 			System.out.println("확인용 userid" + loginuser.getUserid());
 			System.out.println("확인용 session에 저장된 아이디 "+session.getAttribute("userid"));
 			
-			super.setViewPage("/WEB-INF/view/index.jsp");
+			super.setRedirect(true); // sendRedirect 방식으로 페이지 이동시키는 것이다.
+			super.setViewPage(request.getContextPath()+"/index.dream"); // 시작 홈페이지로 이동
 			
-		}
+		}// end of if(loginuser != null) {}---------------------
 		
 	}
 }

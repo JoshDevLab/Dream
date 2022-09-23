@@ -27,7 +27,7 @@
                <label for="passwd">비밀번호</label>
                <input id="input_passwd" name="passwd" class ="userinfo" type="password" >
             </div>
-
+		
             <button type="button" id="login" class="button">로그인</button>
             
             <ul class = "login_ul">

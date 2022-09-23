@@ -88,10 +88,10 @@ public class LoginDAO implements InterLoginDAO {
 				loginuser = new LoginDTO();
 				
 				loginuser.setUserid(rs.getString("userid"));
-				loginuser.setUserid(rs.getString("passwd"));
-				loginuser.setUserid(rs.getString("secession"));
-				loginuser.setUserid(rs.getString("rest_member"));
-				loginuser.setUserid(rs.getString("update_passwd_date"));
+				loginuser.setPasswd(rs.getString("passwd"));
+				loginuser.setSecession(rs.getString("secession"));
+				loginuser.setRest_member(rs.getString("rest_member"));
+				loginuser.setUpdate_passwd_date(rs.getString("update_passwd_date"));
 				
 			}
 		} finally {
