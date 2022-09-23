@@ -98,7 +98,7 @@
        
        <!-- Modal footer -->
        <div class="modal-footer">
-         <button type="button" class="btn btn-white border">인증 완료</button>
+         <button type="button" class="btn btn-white border" id="emailConfirmComplete">인증 완료</button>
          <button type="button" class="btn btn-white border emailConfirmClose" data-dismiss="modal">Close</button>
        </div>
      </div>

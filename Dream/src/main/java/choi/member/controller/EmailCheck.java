@@ -1,12 +1,12 @@
 package choi.member.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 import common.controller.AbstractController;
 import choi.member.model.InterMemberDAO;
@@ -76,16 +76,26 @@ public class EmailCheck extends AbstractController{
 				} catch(Exception e) {	//메일 전송이 실패한 경우
 					sendMailSuccess = false;	//메일 전송 실패했음을 기록함.
 				}//end of try-catch()----
-			request.setAttribute("userid", userid);
-			request.setAttribute("sendMailSuccess", sendMailSuccess);
+				
+				
+				
+			//제이슨 객체생성
+			JSONObject jsonobj = new JSONObject();
+			//제이슨에 값 담기
+			jsonobj.put("userid", userid);
+			jsonobj.put("sendMailSuccess", sendMailSuccess);
+			jsonobj.put("certificationCode", certificationCode);
+			
+			String json = jsonobj.toString();
+			request.setAttribute("json", json);
+			
+			// super.setRedirect(false);
+			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 		}//end of ("POST".equalsIgnoreCase(method))
 		else {	//"GET"방식일때
 			
 		}
 		
-		// super.setRedirect(false);
-		request.setAttribute("method", method);
-		super.setViewPage("/WEB-INF/view/join/join.jsp");
 	}
 		
 
