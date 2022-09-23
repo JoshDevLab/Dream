@@ -95,4 +95,8 @@ replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
 
-command.properties
+Command.properties
+web.xml
+
+FrontController.java
+*.sql
