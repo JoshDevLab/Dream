@@ -63,7 +63,7 @@
          <h5 class="category-title font-weight-bold">내 정보</h5>
          <ul class="nav flex-column">
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream">프로필 정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream?userid="+${sessionScope.userid}>프로필 정보</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>#####">주소록</a>

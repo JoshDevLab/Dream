@@ -1,5 +1,10 @@
 package common.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import josh.member.model.MemberDTO;
+
 public abstract class AbstractController implements InterCommand {
 
 	/*
@@ -47,7 +52,20 @@ public abstract class AbstractController implements InterCommand {
 	
 	///////////////////////////////////////////////////////////////////////
 	
-	
+	public boolean checkLogin(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		MemberDTO loginuser = (MemberDTO) session.getAttribute("loginuser");
+		
+		if(loginuser != null) {
+			// 로그인 한 경우
+			return true;
+		}
+		else {
+			// 로그인 안한 경우
+			return false;
+		}
+	}
 	
 	
 	

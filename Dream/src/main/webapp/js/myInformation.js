@@ -5,6 +5,8 @@ $(document).ready(function () {
     $("#div_modifyName").hide();
     $("#div_modifyEmail").hide();
     $("#div_modifyPasswd").hide();
+    $("#email_certification").hide();
+    $("button#certification_email_btn").prop("disabled",true);
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -80,14 +82,19 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $("#change_email_btn").click(function (e) { // 이메일 변경 버튼을 클릭했을 경우
+    
+    	   resetEmail();
        
        $("#change_email_btn").hide();
        $("#user_email").hide();
        $("#div_modifyEmail").show();
+       $("input#modify_email").prop("disabled",false);
 
        $("input#modify_email").val('');
        $("input#modify_email").focus();
        $("button#email_store").prop("disabled",true);
+
+
 
        $("#modify_email").keyup(function (e) {
            
@@ -108,25 +115,17 @@ $(document).ready(function () {
        $("#div_modifyEmail").hide();
        $("#change_email_btn").show();
        $("#user_email").show();
+       $("#email_certification").hide();
        $("input#modify_email").css("border-bottom","none");  //빨간색 밑줄
        $("#input_email_error").hide();
        $("#new_email").css("color","black");  //라벨 빨간색
        
    });// end of $(document).on("click","button#name_cancle",function(e){}
 
-   $(document).on("click","button#email_store",function(e){ // 이메일 변경 저장 버튼 클릭이벤트 
 
-       const modify_email = $("#modify_email").val();
 
-       $("#div_modifyEmail").hide();
-       $("#change_email_btn").show();
-       $("#user_email").show();
-       $("span#email").text(modify_email);
-       
 
-   }); // end of $(document).on("click","button#name_store",function(e){}
-
-   $(document).on("keyup","input#modify_email",function(e) { // 성명 2글자 이상 50글자 이하 유효성 검사 처리
+   $(document).on("keyup","input#modify_email",function(e) { // 이메일 유효성 처리
         
         const regExp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 
@@ -218,8 +217,10 @@ $(document).ready(function () {
         }
   
     });// end of $(document).on("keydown","input#modify_name",function(e) {}
+    
 
-    const check_length = $("input:checkbox[name='ModalCheckbox']").length;
+
+  const check_length = $("input:checkbox[name='ModalCheckbox']").length;
   const ModalCheckbox = $("input:checkbox[name='ModalCheckbox']");
   
   // 전체체크버튼 클릭
@@ -259,12 +260,28 @@ $(document).ready(function () {
 
 
   
-  $('#MemberOut').click(function (e){
+  $('#MemberOut').click(function (){
     alert("바이바이");
   });
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+function resetEmail() {
+   $("#div_modifyEmail").hide();
+   $("#change_email_btn").show();
+   $("#user_email").show();
+   $("#email_certification").hide();
+   $("input#modify_email").css("border-bottom","none");  //빨간색 밑줄
+   $("#input_email_error").hide();
+   $("#new_email").css("color","black");  //라벨 빨간색
+}
 
 });// end of $(document).ready(function () {} -----------------------------------------------------------------------------------------------------------------------------
+
+
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
+
