@@ -77,7 +77,7 @@ $(document).ready(function() {
 			}
 
 			if (bool_mobile && bool_email) {
-				alert("확인용 정규표현식 핸드폰, 이메일 통과 ");
+				//alert("확인용 정규표현식 핸드폰, 이메일 통과 ");
 				$("a.btn_find").css("background-color", "black");
 			}
 			else {

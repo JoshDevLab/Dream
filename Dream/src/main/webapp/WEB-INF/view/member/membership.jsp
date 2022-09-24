@@ -28,7 +28,7 @@
       <div id="membership_header" >
          <h2 id="membership_title">DREAM CATCHER</h2>
          <p id="membership_date"><span id="membership_year"></span>년 <span id="membership_month">mm</span>월 <span id="membership_date">d</span>일까지 멤버십 혜택이 유지되고, 이후 자동 해지됩니다.</p>
-         <button id="regist" type="button" >드림캐쳐 신청하기</button>
+         <button id="regist" type="button" onclick="location.href='<%= ctxPath%>/member/membershipRegist.dream'" >드림캐쳐 신청하기</button>
          <p style="font-size: 7px; margin-top: 8px;"><a href="" data-toggle="modal" data-target="#modal_membership_policy">드림캐처 맴버십 이용 약관</a>에 동의합니다.(월 39,000원 결제)</p>
       </div>
          <div id = "membership_info" class="row">

@@ -23,7 +23,7 @@
       /* 사이드바 script 시작 */
       $("div.category-section > ul > li").click(function(e){
          //  클릭할 경우 글자 css 변경
-         alert("클릭됨.");
+         // alert("클릭됨.");
          $("div.category-section > ul > li > a").css({"font-weight":"","color":""});
          $(e.target).css({"font-weight":"700","color":"black"});
       });
@@ -73,6 +73,10 @@
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/point.dream">포인트</a>
             </li>
+            <li class="nav-item">
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/membership.dream">멤버십 정보</a>
+            </li>
+            
          </ul>
       </div>
    </div>
