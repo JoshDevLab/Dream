@@ -3,6 +3,7 @@
 <%
    String ctxPath = request.getContextPath();
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
@@ -44,54 +45,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><span type="button" onclick="">[공지] 5월 거래 혜택 이벤트 안내</span></td>
+          <c:forEach var="notice" items="${requestScope.noticeList}">
+          <tr class="border-bottom">
+            <td onclick="location.href='<%= ctxPath%>/notice/noticeDetail.dream?num=${notice.notice_num}'" style="cursor:pointer"><span>${notice.notice_title}</span></td>
           </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] LUCKY DRAW - 뉴발란스 x JJJ자운드 990v3 & 자크뮈스 르 치키토 미니백</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 드림 첫 게시물</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 드림 게시판 더미게시글</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[공지] 세미프로젝트 시작</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 게시글 열개 채우기 이벤트</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[공지] 세미프로젝트 게시글 존나 귀찮</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[공지] 쌍용강북교육센터 화이팅</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 깃허브 어떻게 하지</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 제목 존나길게 하기 제목 존나길게 하기제목</span></td>
-          </tr>
+          </c:forEach>
         </tbody>
         <tfoot>
           <td>
             <%-- 페이지아이템 시작 --%>
             <div class="page-item d-flex justify-content-between">
+              <%--<c:set var="page" value="${(empty param.p)?1:param.p}"/>
+			  <c:set var="StartNum" value="${page-(page-1)%5}"/>
+			  <c:set var="LastNum" value="23"/>--%>
               <div id="btn_start" type="button" onclick="">
                 <i class="fa-solid fa-angles-left"></i>
               </div>
               <div id="btn_prev" type="button" class="ml-md-3" onclick="">
                 <i class="fa-solid fa-angle-left"></i>
               </div>
-              <ul class="pageNum d-flex justify-content-start list-unstyled m-auto">
-                <li><a class="pagination" href="" >1</a></li>
-                <li><a class="pagination" href="" >2</a></li>
-                <li><a class="pagination" href="" >3</a></li>
-                <li><a class="pagination" href="" >4</a></li>
-                <li><a class="pagination" href="" >5</a></li>
-              </ul>
+              <%--<ul class="pageNum d-flex justify-content-start list-unstyled m-auto">
+                <c:forEach var="i" begin="0" end="4">
+                <li><a class="pagination" href="" >${StartNum+i}</a></li>
+                </c:forEach>
+              </ul>--%>
               <div id="btn_end" type="button" class="mr-md-3" onclick="">
                 <i class="fa-solid fa-angle-right"></i>
               </div>

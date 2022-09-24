@@ -74,3 +74,30 @@
     <%-- header끝 --%>
     <div id="header_box">
 	</div>
+	
+	
+	<%-- 물결 --%>
+  		<a type="button" id="btn_scroll_top">
+            <div class="wrap">
+              <div class="circle">
+                <!-- wave -->
+                <div class="wave-one"></div>
+                <div class="wave-two"></div>
+                <div class="wave-three"></div>
+                <div class="wave-four"></div>
+                
+                <!-- moon -->
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-moon blur"></i>
+                
+                <!-- star -->
+                <div class="star">
+                  <i class="fas fa-asterisk star1"></i>
+                  <i class="fas fa-asterisk star2"></i>
+                  <i class="fas fa-asterisk star3"></i>
+                  <i class="fas fa-asterisk star4"></i>
+                  <i class="fas fa-asterisk star5"></i>
+                </div>
+              </div>
+            </div>   
+  		</a>

@@ -86,6 +86,7 @@ label[for='passwd_check']{
   top:10px; */
 }
 
+
 /* checkbox */
 div.login_checkbox{
   font-size: small;
@@ -99,3 +100,34 @@ input#agree_age,
 input#agree_message{
   color: black;
 }
+
+
+
+/* modal */
+span#send_email_guide{
+	font-size:14px;
+}
+
+span#send_guide{
+	font-size:12px;
+}
+
+input#emailConfirmCode{
+	width:150px;
+	display:none;
+}
+button#btn_send_email{
+	width:130px;
+	height:40px;
+}
+
+button.btn.btn-white:hover,
+button#btn_send_email:hover{
+	background-color:black;
+	color:white;
+}
+
+
+
+
+
