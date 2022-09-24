@@ -27,19 +27,22 @@ a.product:active {
 /* Main */
 
 div#carousel > div.carousel-inner > div.carousel-item > img{
-  height: 60vh;
+  height: 70vh;
   z-index:1;
+  object-fit:cover;
 }
 
 @media screen and (max-width: 768px){
   div#carousel > div.carousel-inner > div.carousel-item > img{
     height: 45vh;
+    object-fit:cover;
   }
 }
 
 @media screen and (max-width: 480px){
   div#carousel > div.carousel-inner > div.carousel-item > img{
-    height: 25vh;
+    height: 40vh;
+    object-fit:cover;
   }
 }
 

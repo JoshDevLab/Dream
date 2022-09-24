@@ -1,0 +1,452 @@
+ button, dd, div, dl, dt, fieldset, figcaption, figure, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:active, a:focus, a:hover {
+  text-decoration: none;
+}
+
+
+div.container{
+  background-color: #fafafa;
+}
+div.content{
+  margin: 0 auto;
+  padding: 20px 40px 160px;
+  max-width: 780px;
+}
+
+.product_info_area {
+  padding: 32px;
+  background-color: #fff;
+}
+
+.product_info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+}
+
+
+.product {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0);
+  width: 80px;
+  height: 80px;
+}
+.product>img{
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+
+.product_detail {
+  overflow: hidden;
+  flex: 1;
+  padding-left: 16px;
+}
+
+.product_detail .model_number {
+  display: block;
+  line-height: 17px;
+  font-size: 14px;
+  overflow: hidden;
+}
+.product_detail .model_desc{
+  display: flex;
+  align-items: flex-start;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+
+.model_ko {
+  line-height: 16px;
+  font-size: 13px;
+  letter-spacing: -.07px;
+}
+.product_detail .model_ko {
+  line-height: 16px;
+  margin-top: 2px;
+  font-size: 13px;
+  letter-spacing: -.07px;
+  letter-spacing: -.05px;
+  color: rgba(34,34,34,.5);
+}
+
+.product_detail .model_desc .size_txt {
+  line-height: 17px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.product_detail .model_title{
+  line-height: 17px;
+  margin-top: 1px;
+  font-size: 14px;
+}
+section{
+  padding: 32px;
+  background-color: #fff;
+  border-top: 8px solid #fafafa;
+}
+
+.section_title {
+  display: flex;
+  align-items: center;
+  padding-bottom: 12px;
+}
+
+section .section_title .title_txt, section.section_title .title_txt {
+  line-height: 22px;
+  font-size: 18px;
+  letter-spacing: -.27px;
+  font-weight: 700;
+  letter-spacing: -.15px;
+}
+
+.section_title .add_more_btn {
+  margin-left: auto;
+  padding-left: 2px;
+  font-size: 13px;
+  letter-spacing: -.07px;
+  color: rgba(34,34,34,.5);
+}
+.empty_delivery_info {
+  display: flex;
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #ebebeb;
+  background-color: #fafafa;
+  align-items: center;
+}
+.empty_delivery_info .guide_txt{
+  margin-left: 12px;
+  font-size: 14px;
+  letter-spacing: -.21px;
+  color: rgba(34,34,34,.5);
+}
+
+.section_unit+.section_unit {
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid #ebebeb;
+}
+
+.delivery_service{
+  cursor: pointer;
+  padding: 12px 15px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+}
+
+img.way_img, div.way_status_thumb{
+  width: 40px;
+  height: 40px;
+}
+.way_info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.company .badge_title, .company {
+  font-size: 14px;
+  letter-spacing: -.21px;
+}
+
+.sub_text{
+  line-height: 16px;
+  margin-top: 3px;
+  font-size: 14px;
+  color: rgba(34,34,34,.5);
+}
+
+
+/* 포인트 css */
+
+
+.section_input {
+  margin-top: 12px;
+}
+
+.section_input .input_credit {
+  font-size: 14px;
+  line-height: 100%;
+  padding: 17px 12px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  margin-right: 8px;
+  width: calc(100% - 76px);
+}
+
+.section_input .btn_use_credit.disabled {
+  background: rgba(34,34,34,.2);
+  cursor: not-allowed;
+}
+
+.section_input .btn_use_credit{
+  border:none;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 12px;
+  letter-spacing: -.06px;
+  line-height: 14px;
+  padding: 5px 10px;
+  background: #333;
+  color: #fff;
+}
+
+.info_point .text_current {
+  line-height: 17px;
+  color: rgba(34,34,34,.5);
+}
+
+.info_point .btn_question{
+  margin-left: 2px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.info_point .btn_question.i {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  === 반응형 css 정리 (최하단 배치) ==== */
+
+
+@media (max-width: 960px){
+  .content{
+    padding: 0;
+  }
+} 
+
+
+
+.content{
+  margin: 0 auto;
+  padding: 20px 40px 160px;
+  max-width: 780px;
+}
+
+div#total_price{
+  width: 100%;
+  border-bottom: solid 2px #ebebeb;
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+div#pirce_list > ul, ul#check_ul{
+  list-style: none;
+  padding: 0;
+}
+
+/* 최종 주문 정보 */
+div#final_order_title{
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: -0.15px;
+}
+/* 총 결제금액  */
+div#mini_title{
+  margin: 20px 0 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01px;
+}
+
+ul#check_ul > li:last-child{
+  margin-top: 20px;
+  
+}
+
+ul#check_ul > li:nth-child(4) > span{
+  font-size: 15px;
+  font-weight: 700;
+}
+
+span#amount{
+  height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+span.span_title{
+  font-size: 13px;
+  letter-spacing: -0.07px;
+  color : gray;
+}
+
+span.product_price{
+  font-size: 13px;
+  letter-spacing: -0.07px;
+  color : black;
+
+}
+
+ul#check_ul{
+  margin-top: 64px;
+}
+
+
+ul#check_ul > li{
+  display: flex;
+  justify-content: space-between;
+}
+
+a#payment{
+  width: 100%;
+  background-color: #ebebeb;
+  font-size: 16px;
+  font-weight: 600;
+  height: 52px;
+  text-align: center;
+  padding-top: 13px;
+  border-radius: 10px;
+}
+
+p.boldtext{
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+/* a태그 데코레이션 없애기 시작 */
+a:link {
+  color : white;
+  text-decoration: none;
+}
+a:visited {
+  color : white;
+  text-decoration: none;
+}
+a:hover {
+  color : white;
+  text-decoration: none;
+}
+a:active {
+  color : white;
+  text-decoration: none;
+}
+/* a태그 데코레이션 없애기 끝 */
+
+
+
+
+div#pirce_list > ul > li{
+  display: flex;
+  justify-content: space-between;
+  height: 26px;
+}
+
+
+p.content_1{
+  font-size: 15px;
+  line-height: 18px;
+  text-align: left;
+  margin-bottom: 0;
+}
+.no_margin
+{
+  margin: 0;
+}
+
+p.content_2{
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.05px;
+  text-align: left;
+  color: rgba(34,34,34,.5);
+
+  padding-bottom: 10px;
+  border-bottom: solid 1px #ebebeb;
+}
+
+
+input#checkbox_1,
+input#checkbox_2,
+input#checkbox_3{
+
+  position: relative;
+
+  top:35px;
+  height: 20px;
+
+  -ms-transform: scale(2); /* IE */
+  
+  -moz-transform: scale(2); /* FF */
+  
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  
+  -o-transform: scale(2); /* Opera */
+  
+  padding: 10px;
+     
+}
+
+.check_content{
+  padding-right: 26px;
+  padding-top: 2%;
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+/*  === 반응형 css 정리 (최하단 배치) ==== */
+
+
+@media (max-width: 960px){
+  .content{
+  padding: 0;
+  }
+} 
