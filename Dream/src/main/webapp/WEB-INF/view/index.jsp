@@ -19,19 +19,24 @@
           <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li> <%-- active는 맨 처음에 보여줄 타겟을 정한다.--%>
           <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
           <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators2" data-slide-to="3"></li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="./images/carousel-item1.PNG" class="d-block w-100">
+          <img src="<%= ctxPath%>/images/dream.jpg" class="d-block w-100">
           <div class="carousel-caption d-none d-md-block"></div>
         </div>
         <div class="carousel-item">
-            <img src="./images/carousel-item2.PNG" class="d-block w-100">
+          <img src="<%= ctxPath%>/images/고양이꿀잠.jpg" class="d-block w-100">
+          <div class="carousel-caption d-none d-md-block"></div>
+        </div>
+        <div class="carousel-item">
+            <img src="<%= ctxPath%>/images/babysleep.png" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block"></div>            
         </div>
         <div class="carousel-item">
-          <img src="./images/carousel-item3.PNG" class="d-block w-100">
-          <div class="carousel-caption d-none d-md-block"></div>
+            <img src="<%= ctxPath%>/images/womensleep.jpg" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block"></div>            
         </div>
       </div>
       <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
@@ -51,31 +56,31 @@
       <div class="shortcut d-flex justify-content-between">
         <div class="shortcut_item">
           <div class="shortcut_img">
-            <img src="images/carousel-item3.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
@@ -83,31 +88,31 @@
       <div class="shortcut d-flex justify-content-between">
         <div class="shortcut_item mb-2">
           <div class="shortcut_img">
-            <img src="./images/carousel-item3.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item mb-2">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item mb-2">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item mb-2">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
         <div class="shortcut_item mb-2">
           <div class="shortcut_img">
-            <img src="images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
           </div>
           <p class="text-center">NEW!</p>
         </div>
@@ -128,7 +133,7 @@
             <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
               <div class="product">
                 <div class="product_imgbox border">
-                  <img src="images/안대상품더미데이터1.PNG">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
                 </div>
                 <div id="product_simple_explain">
                   <%-- 상품 구분 넣을 곳 --%>
@@ -163,7 +168,7 @@
             <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
               <div class="product">
                 <div class="product_imgbox border">
-                  <img src="images/안대상품더미데이터1.PNG">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
                 </div>
                 <div id="product_simple_explain">
                   <%-- 상품 구분 넣을 곳 --%>
@@ -197,7 +202,7 @@
             <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
               <div class="product">
                 <div class="product_imgbox border">
-                  <img src="images/안대상품더미데이터1.PNG">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
                 </div>
                 <div id="product_simple_explain">
                   <%-- 상품 구분 넣을 곳 --%>
@@ -231,7 +236,7 @@
             <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
               <div class="product">
                 <div class="product_imgbox border">
-                  <img src="images/안대상품더미데이터1.PNG">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
                 </div>
                 <div id="product_simple_explain">
                   <%-- 상품 구분 넣을 곳 --%>
@@ -276,7 +281,15 @@
     <%-- Main > content 끝 --%>
   </div>
   <%-- Main끝 --%>
+  
+  
 
   <%-- footer 호출 --%>
   <jsp:include page="/WEB-INF/view/footer.jsp" />
+  
+  
+  
+  
+      
+  
   

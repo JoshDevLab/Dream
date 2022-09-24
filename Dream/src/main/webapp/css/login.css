@@ -9,6 +9,7 @@ input.userinfo{
    border-bottom: solid 2px #ebebeb;
    width: 100%;
    line-height: 40px;
+   outline:none;
 }
 
 div#container{
@@ -94,11 +95,32 @@ a.login_a:hover{
    color: black;
    text-decoration: none;
 }
+
+span.warning{
+	color: #f15746;
+	font-size: 11px;
+	line-height: 16px;
+}
+
+
+
+.changeColor_red{
+   color: #f15746;
+}
+.borderBottom_red{
+   border-bottom: solid 1px #f15746;
+}
+
+
+
 @media screen and (max-width: 480px){
    div#container{
       width: 90%;
    }
 }
+
+
+
 @media screen and (min-width: 480px){
    div#container{
       width: 400px;
@@ -108,3 +130,30 @@ a.login_a:hover{
 input:focus{
    border-bottom:solid 2px black;
 }
+
+
+/* input 태그 focus 시 placeholder 숨기기 */
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder { /* WebKit browsers */
+  color:transparent;
+}
+
+input:focus:-moz-placeholder,
+textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:transparent;
+}
+
+input:focus::-moz-placeholder,
+textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:transparent;
+}
+
+input:focus:-ms-input-placeholder,
+textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:transparent;
+}
+
+
+
+
+

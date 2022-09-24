@@ -1,4 +1,4 @@
-package member.model;
+package choi.member.model;
 
 public class MemberDTO {
 
