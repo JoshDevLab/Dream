@@ -26,15 +26,15 @@ public class MembershipController extends AbstractController {
 		}
 		*/
 		
-		String message ="";
-		String loc ="";
-		
-		HttpSession session = request.getSession(); 
-		String loginuserid = (String)session.getAttribute("userid"); // 세션에 저장된 사용자 아이디 불러오기
-		
-		InterMemberDAO mdao = new MemberDAO();
-		Map<String, String> useridMap = new HashMap<>();
-		useridMap.put("loginuserid", loginuserid);
+//		String message ="";
+//		String loc ="";
+//		
+//		HttpSession session = request.getSession(); 
+//		String loginuserid = (String)session.getAttribute("userid"); // 세션에 저장된 사용자 아이디 불러오기
+//		
+//		InterMemberDAO mdao = new MemberDAO();
+//		Map<String, String> useridMap = new HashMap<>();
+//		useridMap.put("loginuserid", loginuserid);
 		
 //		// 1. 멤버십 가입 여부 알아오기
 //		MemberDTO loginUserInfo = mdao.selectOneUser(useridMap);
