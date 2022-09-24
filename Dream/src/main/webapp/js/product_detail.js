@@ -1,3 +1,10 @@
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
+
+
 isLargerThan960 = false;
 
 // Function Declaration
@@ -114,13 +121,59 @@ $("#productImage").removeClass("fixed");
 
 
 
-
-
-
 $(document).ready(function() {
+	// url 에서 파라미터 값 가져오기
+	// 먼저 url 에서 ? 뒷부분만 가져오기
+/*	let param = new URLSearchParams(window.location.search);
+	// param.get('원하는 파라미터 이름'); 으로 값 가져오기
+	let product_Num = param.get('product_Num');
+	// 체크하기
+	console.log(product_Num);
+	
+	if(product_Num != null) {
+	    	localStorage.setItem('product_Num', product_Num);	
+	    }
+    else {
+    	localStorage.removeItem('product_Num');
+    }
+    */
+    
+    
+    
+	    
+	    
 
-$("#productImage").Scrolling(0 , ($("#column_2").height() - $("#productImage").height()-16));
-// 마지막 p 타입의 마진 16을 더빼줘야 글이랑 위치가 맞음
+
+	
+	
+
+	// 제품 페이지 로딩에 필요한 값들 가져오기
+	 
+	 
+	// html 값은 새로고침할때마다 비워주기
+	const html = "";
+
+	$("#productImage").Scrolling(0 , ($("#column_2").height() - $("#productImage").height()-16));
+	// 마지막 p 타입의 마진 16을 더빼줘야 글이랑 위치가 맞음
+
+
+	$('a.dropdown-item').click(function(e){
+	
+		const $target = $(e.target);
+		
+		const ProductOption= $target.text();
+		
+		console.log(ProductOption);
+		
+		html = html + 
+			`<div>${ProductOption}
+			<div>`;
+			
+			$('div#optionSelected').html(html);
+			
+			
+
+	});
 
 }); 
 

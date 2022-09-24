@@ -109,17 +109,7 @@ padding-left: 3.334%;
   color: rgba(34,34,34,.8);
 }
 
-.btn_size {
-  display: block;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -.21px;
-  font-weight: 700;
 
-  width: 117.24px;
-  height: 24px;
-  float: right;
-}
 .btn_text, .ico-arr-dir-down-circle {
   vertical-align: top;
 }
@@ -128,7 +118,7 @@ padding-left: 3.334%;
   padding-top: 19px;
   padding-bottom: 12px;
   border-bottom: 1px solid #ebebeb;
-  height: 54px;
+  min-height: 90px;
 
 
 }
@@ -221,8 +211,7 @@ text-align: center;
 }
 
 
-{
-}
+
 
 .division_btn_box{
   display: flex;
@@ -619,7 +608,7 @@ division_btn_box.btn_buy{
 .floating_price {
  
   position: fixed;
-  top: 112.5px;
+  bottom: 0;
   left: 0;
   right: 0;
   padding: 10px 40px 15px;
@@ -654,6 +643,31 @@ division_btn_box.btn_buy{
   display: flex;
   /* 반응형으로 나중에 바뀌게 */
 }
+
+
+a#selectOption {
+    width: 100%;
+    font-size: 15px;
+    padding: 1%;
+    background-color: #41b979;
+    color: #fff;
+    border-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    float: right;
+    text-align: center;
+}
+
+.dropdown-menu{
+	width: 100%;
+}
+a.dropdown-item{
+	/* 드랍다운 선택자 */
+}
+
+
 /* 미디어 태그 무조건 제일 아래호 */
 
 @media (min-width: 960px){
@@ -722,6 +736,11 @@ division_btn_box.btn_buy{
         padding: 0 1.5% 10%;
         border-bottom: 1px solid #ebebeb;
     }
+    #column_2 {
+        padding: 0 1.5% 10%;
+        border-bottom: 1px solid #ebebeb;
+    }
+    
   }
   
      

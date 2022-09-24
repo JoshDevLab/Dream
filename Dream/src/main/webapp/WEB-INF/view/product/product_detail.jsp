@@ -1,3 +1,4 @@
+<%@page import="org.eclipse.jdt.internal.compiler.ast.PrefixExpression"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -5,16 +6,27 @@
    String ctxPath = request.getContextPath();
 %>
 
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
+
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product_detail.css" />
   <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/product_detail.js" ></script>
+  <script type="text/javascript" src="<%= ctxPath%>/js/product_detail.js" >
 
-	
+  
+  </script>
+<%-- sessionScope 값 넣기용 나중에 지워야댐 --%>
+<% String productName = "제품이름"; session.setAttribute("productName", productName);%>
+
+
+
 
 <body>
+
 
   <div class="container">
   <%-- header footer 사이 모든것 --%>
@@ -66,34 +78,71 @@
         </div>
         <div id="column_2">
           <div class="main_title">
-            <a href="#" class="brand"> Salomon </a>
-            <p class="title">Salomon Speedverse PRG Black Nimbus Cloud Alloy</p>
-            <p class="sub_title">살로몬 스피드벌스 PRG 블랙 님버스 클라우드 알로이</p>
+            <a href="#" class="brand" value ="{sessionScope.productName}">  </a>
+            <p class="title" value = "{sessionScope.product.product_name}"></p>
+            <p class="sub_title" value = "{sessionScope.product.product_name}">살로몬 스피드벌스 PRG 블랙 님버스 클라우드 알로이</p>
           </div>
           <div class="product_figure">
             <div class = "detail_size">
               <div class="title">
                 <%-- 이 부분은 차후 모바일크기로 줄어들시<div class = "title"> 사라짐 구현시 없애기 !!!!!!!!!!!!! --%>
-                <span class="title_txt">사이즈</span>
+                <span class="title_txt">옵션</span>
               </div>  
               <%-- size div 는 의류처럼 사이즈 있는 애들한테만 노출되게 할 예정 --%>
               <div class ="size">
-                <a  href="#" class="btn_size">
-                  <span  class="btn_text">모든 사이즈</span>
+                
+                
+                <div class="dropdown">
 
-                  <input type="button" class="img-button">
-                  
-                </a>
+				
+				  <a id="selectOption" href="#" class="dropdown-toggle" data-toggle="dropdown">
+       				선택해주세요!
+                  </a>
+				  <div class="dropdown-menu">
+				    <a class="dropdown-item" >Link 1</a>
+				    <a class="dropdown-item" >Link 2</a>
+				    <a class="dropdown-item" >Link 3</a>
+				    
+				    <%-- 사이즈(옵션이) 존재한다면 --%>
+					<%-- 			    
+						<c:if test="!empty ${pd.size}">
+				    
+				    	<c:set var="splitSize" value="${fn:split(${pd.size},',')}" />
+				    	<c:forEach var="size" items="${splitSize}">
+				    		<a class="dropdown-item" val="${size}">${size}</a>
+		             	</c:forEach>
+			            </c:if>	 	
+			            
+			            <c:if test="empty ${pd.size}">
+			            </c:if>
+		             --%>
+				  </div>
+				</div>
+				
+				
+				
+				
               </div>
 
             </div>
+            
+            <%-- 옵션 선택시 생기는 목록표 --%>
+			<div id="optionSelected">
+			
+			
+			</div>
+            
+            
+            
+            
+            
             <div class = "detail_price">
               <div class="title">
                 <span class="title_txt">가격</span>
               </div>
               <div class="price">
                 <div  class="amount">
-                  <span class="num">290,000</span>
+                  <span class="num" value = "{sessionScope.product.price}"></span>
                   <%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
                   <span class="won">원</span>
                 </div>
@@ -103,11 +152,11 @@
               </div>
             </div>
             <div class="btn_box">
-              <a href="#" class="btn_buy">
+              <a href="../member/purchasePage.dream" class="btn_buy">
                 <strong class="title">구매</strong>
                 <div  class="price">
                   <span  class="amount">
-                    <em  class="num">248,000</em>
+                    <em  class="num" value = "{sessionScope.product.price}"></em>
                     <span  class="won">원</span>
                   </span>
                   <span  class="desc">즉시 구매가</span>
@@ -267,7 +316,7 @@
             </div>
           </a>
         </div>
-      </div>
+      	</div>
       
     </div>
   <%-- 가격, 즐겨찾기 안보이면 나오는 상단 구매탭 끝--%>
