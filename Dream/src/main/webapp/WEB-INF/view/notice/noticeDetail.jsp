@@ -52,39 +52,19 @@
         <tbody>
           <tr>
             <td>
-              <span id="date">2022-09-15</span>
-              <p id="title">[이벤트발표] LUCKY DRAW - 루이비통 x 나이키 에어포스 1 로우 바이 버질 아블로 화이트 짐 그린</p>
+              <span id="date">${requestScope.write_date}</span>
+              <p id="title">${requestScope.notice_title}</p>
             </td>
           </tr>
           <tr>
             <td id="noticeContent">
-              안녕하세요 DREAM 입니다.<br><br>
-
-              Lorem ipsum, dolor sit amet consectetur <br>
-              adipisicing elit. Iusto laboriosam earum exercitationem aperiam, <br>
-              rerum aspernatur eius, ducimus totam distinctio magnam iure <br>
-              voluptas iste sit a! Vitae quod at quisquam perferendis?<br>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
-              Obcaecati incidunt consectetur quidem et accusamus ab natus ea alias,<br>
-              itaque necessitatibus eum sequi enim? Molestias, quia temporibus quod numquam sequi velit!<br>
-              Laborum explicabo non pariatur molestiae inventore error illo. <br>
-              Totam sit ducimus laboriosam libero ex aliquid, optio porro maiores eius <br>
-              fuga recusandae doloribus explicabo similique velit in quam debitis, unde enim!<br>
-              Maiores, dolorum illum, qui ratione ea mollitia id quod facilis asperiores est <br>
-              accusamus hic libero quisquam. Accusantium, tempore voluptatem rem, alias quasi <br>
-              beatae natus consequatur repellat quis pariatur incidunt facere?<br>
-              Porro perspiciatis iure placeat quas esse accusantium asperiores totam sapiente, <br>
-              tempora pariatur cum at commodi? Enim id nostrum animi saepe quaerat amet aspernatur <br>
-              eligendi, sint, nulla temporibus illo dolorum beatae.<br>
-              Quibusdam vitae praesentium quo sit est maiores natus doloribus quos rerum labore. <br>
-              Exercitationem vero illo quasi asperiores, totam delectus adipisci dolor amet nesciunt <br>
-              accusantium obcaecati magnam animi, omnis, quo voluptatibus?<br>
+              ${requestScope.notice_content}
             </td>
           </tr>
         </tbody>
         <tfoot>
           <td class="d-flex justify-content-center">
-            <button class="btn btn-white border">목록보기</button>
+            <button id="btn_close" class="btn btn-white border" onclick="location.href='<%= ctxPath%>/notice/notice.dream'" style="cursor:pointer">목록보기</button>
           </td>
         </tfoot>
       </table>
