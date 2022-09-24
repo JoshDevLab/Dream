@@ -26,22 +26,34 @@ public class LoginController extends AbstractController{
 		
 		String userid = request.getParameter("userid"); // form 태그에서 입력받은 userid
 		String passwd = request.getParameter("passwd"); // form 태그에서 입력받은 passwd
+		String client_ip = request.getRemoteAddr(); // 접속한 사용자의 ip 주소 
+		System.out.println("확인용 접속 ip: "+client_ip);
 		
-		String message = "";  // msg.jsp 에 전달할 문자열
-		String loc = ""; //msg.jsp에 전달할 url 주소
-
 		InterLoginDAO logindao = new LoginDAO();
 		
 		Map<String, String> userinfoMap = new HashMap<>(); // userid, passwd 를 각각의 키값으로 저장
+		
 		userinfoMap.put("userid", userid);
 		userinfoMap.put("passwd", passwd);
+		userinfoMap.put("client_ip", client_ip);
 		
-		// 사용자 정보를 저장하는 객체(userid, passwd, update_passwd_date) 
+		// 사용자 정보를 저장하는 객체( userid , passwd , secession , rest_member , update_passwd_date)
 		LoginDTO loginuser = logindao.selectOneUser(userinfoMap);
 		
 		super.setViewPage("/WEB-INF/view/login/login.jsp");
 		
-		if(loginuser != null) {
+		if(loginuser != null) { // 로그인 사용자 정보가 있는 경우 
+			
+			
+			int secession = Integer.parseInt(loginuser.getSecession() ); // 탈퇴 유무 
+			if(secession == 0) { // 탈퇴 회원이 아닌 경우
+				int restMember = Integer.parseInt(loginuser.getRest_member() ); // 휴면 유무 
+				
+				if(restMember == 0) { // 휴면 사용자가 아닌 경우 
+					
+				}
+				
+			}
 			// session 영역에 로그인 한 사용자 아이디(userid) 저장
 			HttpSession session =  request.getSession();
 			session.setAttribute("userid", userid);

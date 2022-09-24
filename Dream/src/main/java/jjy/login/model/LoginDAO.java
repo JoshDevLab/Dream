@@ -68,7 +68,7 @@ public class LoginDAO implements InterLoginDAO {
 	public LoginDTO selectOneUser(Map<String, String> userinfoMap) throws SQLException {
 		
 		LoginDTO loginuser = null;
-
+		boolean login_flag = false; // 조회해온 사용자가 있을 경우 login_record 테이블에 insert 기록용도
 		try {
 			
 			conn = ds.getConnection();
@@ -92,8 +92,20 @@ public class LoginDAO implements InterLoginDAO {
 				loginuser.setSecession(rs.getString("secession"));
 				loginuser.setRest_member(rs.getString("rest_member"));
 				loginuser.setUpdate_passwd_date(rs.getString("update_passwd_date"));
+				login_flag = true; // 조회해온 사용자가 있다면 
+			}
+			
+			if(login_flag) { // 사용자가 있을경우 로그인 기록테이블에 insert
+				sql = " insert into tbl_login_record (login_num, userid,client_up) values "
+				    + " (seq_login_history.nextval, ?, ? ) ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userinfoMap.get("userid"));
+				pstmt.setString(2, userinfoMap.get("client_ip"));
+				
+				pstmt.executeUpdate();
 				
 			}
+			
 		} finally {
 			close();
 		}
