@@ -64,11 +64,11 @@
               <div id="btn_prev" type="button" class="ml-md-3" onclick="">
                 <i class="fa-solid fa-angle-left"></i>
               </div>
-              <%--<ul class="pageNum d-flex justify-content-start list-unstyled m-auto">
+              <ul class="pageNum d-flex justify-content-start list-unstyled m-auto">
                 <c:forEach var="i" begin="0" end="4">
                 <li><a class="pagination" href="" >${StartNum+i}</a></li>
                 </c:forEach>
-              </ul>--%>
+              </ul>
               <div id="btn_end" type="button" class="mr-md-3" onclick="">
                 <i class="fa-solid fa-angle-right"></i>
               </div>
