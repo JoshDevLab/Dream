@@ -4,6 +4,7 @@
    String ctxPath = request.getContextPath();
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
@@ -51,35 +52,59 @@
           </tr>
           </c:forEach>
         </tbody>
-        <tfoot>
-          <td>
-            <%-- 페이지아이템 시작 --%>
-            <div class="page-item d-flex justify-content-between">
-              <%--<c:set var="page" value="${(empty param.p)?1:param.p}"/>
-			  <c:set var="StartNum" value="${page-(page-1)%5}"/>
-			  <c:set var="LastNum" value="23"/>--%>
-              <div id="btn_start" type="button" onclick="">
-                <i class="fa-solid fa-angles-left"></i>
-              </div>
-              <div id="btn_prev" type="button" class="ml-md-3" onclick="">
-                <i class="fa-solid fa-angle-left"></i>
-              </div>
-              <ul class="pageNum d-flex justify-content-start list-unstyled m-auto">
-                <c:forEach var="i" begin="0" end="4">
-                <li><a class="pagination" href="" >${StartNum+i}</a></li>
-                </c:forEach>
-              </ul>
-              <div id="btn_end" type="button" class="mr-md-3" onclick="">
-                <i class="fa-solid fa-angle-right"></i>
-              </div>
-              <div id="btn_next" type="button" onclick="">
-                <i class="fas fa-solid fa-angles-right"></i>
-              </div>
-            </div>
-            <%-- 페이지아이템 끝 --%>
-          </td>
-        </tfoot>
       </table>
+      
+      <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
+        <nav aria-label="...">
+		    <ul class="pagination pagination-md justify-content-center">
+		    	<%-- 첫페이지로 이동버튼 --%>
+		    	<c:if test="${requestScope.page > requestScope.display_page}">
+		    	<li class="page-item">
+			      <a class="page-link" href="?p=1">
+			      	<i class="fa-solid fa-angles-left"></i>
+			      </a>
+			    </li>
+			    
+			    
+			    <%-- 전페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.startPage-1}">
+			      	<i class="fa-solid fa-angle-left"></i>
+			      </a>
+			    </li>
+			    </c:if>
+			    
+			    <%-- 페이지번호 시작--%>
+			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+                <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
+                <li class="page-item active" aria-current="page">
+			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                
+                <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
+                <li class="page-item">
+			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                </c:forEach>
+                <%-- 페이지번호 끝 --%>
+                
+                
+                
+			    <%-- 다음페이지로 이동버튼 --%>
+			    <c:if test="${!(requestScope.last_display_page)}">
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
+			    </li>
+			    <%-- 맨 끝페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
+			    </li>
+			    </c:if>
+		  	</ul>
+		</nav>
+		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
     </div>
     <%--공지사항 끝  --%>
   </div>

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -60,34 +61,39 @@ public class NoticeDAO implements InterNoticeDAO{
 			
 			
 			
-	// 모든 게시글들을 셀렉트 해오는 메소드
+	// 페이지 번호에 알맞는 게시물을 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 	@Override
-	public List<NoticeDTO> selectAllNotice() throws SQLException{
+	public List<NoticeDTO> selectAllNotice(Map<String,String> paraMap) throws SQLException{
 		List<NoticeDTO> noticeList = new ArrayList<>();
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select notice_num "
+			String sql = " select notice_num "
 					   + " ,notice_title "
 					   + " ,to_char(write_date,'yy-mm-dd hh:mi') write_date "
 					   + " from  "
 					   + " ( "
 					   + " select rownum R,notice_num,notice_title,write_date "
 					   + " from tbl_notice "
+					   + " order by notice_num desc "
 					   + " )A  "
-					   + " where R between 1*10-9 and 1*10 "
-					   + " order by notice_num desc ";
-			
+					   + " where R between (?*?)-(?-1) and (?*?) ";
+//			(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
 			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(,);
+			pstmt.setInt(1,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(2,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(3,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(4,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(5,Integer.parseInt(paraMap.get("display_cnt")));
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				NoticeDTO ndto = new NoticeDTO();
+				NoticeDTO ndto = new NoticeDTO();	//dto 하나 생성
 				ndto.setNotice_num(rs.getInt("NOTICE_NUM"));
 				ndto.setNotice_title(rs.getString("NOTICE_TITLE"));;
 				
-				noticeList.add(ndto);
+				noticeList.add(ndto);	//NoticeDTO들만 들어갈 수 있는 리스트에 담기
 			}
 		} finally {
 			close();
@@ -126,4 +132,27 @@ public class NoticeDAO implements InterNoticeDAO{
 		return ndto;
 		
 	}//end of public void select_one_notice(int notice_num)------
+
+	
+	//모든 공지사항 갯수를 가져오는 메소드
+	@Override
+	public int cntAllNotice() throws SQLException {
+		int total_cnt = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select count(*) from tbl_notice ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total_cnt = rs.getInt(1);
+			}
+			
+		} finally {
+			close();
+		}
+		return total_cnt;
+	}
 }
