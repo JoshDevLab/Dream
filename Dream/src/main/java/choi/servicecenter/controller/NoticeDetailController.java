@@ -1,11 +1,11 @@
-package choi.notice.controller;
+package choi.servicecenter.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import choi.notice.model.InterNoticeDAO;
-import choi.notice.model.NoticeDAO;
-import choi.notice.model.NoticeDTO;
+import choi.servicecenter.model.InterServiceCenterDAO;
+import choi.servicecenter.model.ServiceCenterDAO;
+import choi.servicecenter.model.NoticeDTO;
 import common.controller.AbstractController;
 
 public class NoticeDetailController extends AbstractController{
@@ -15,8 +15,8 @@ public class NoticeDetailController extends AbstractController{
 		
 		if("GET".equalsIgnoreCase(method)) {	// method가 "GET"이라면
 			int notice_num = Integer.parseInt(request.getParameter("num"));
-			InterNoticeDAO ndao = new NoticeDAO();
-			NoticeDTO ndto = ndao.select_one_notice(notice_num);
+			InterServiceCenterDAO sdao = new ServiceCenterDAO();
+			NoticeDTO ndto = sdao.select_one_notice(notice_num);
 			
 			request.setAttribute("notice_num", notice_num);
 			request.setAttribute("notice_title", ndto.getNotice_title());

@@ -1,15 +1,22 @@
-package product.controller;
+package choi.servicecenter.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class PdDetailController extends AbstractController{
+public class QnafilterController extends AbstractController{
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("cex");
+		String method = request.getMethod();
 		
-		super.setViewPage("/WEB-INF/view/product/product_detail.jsp");
+		if("GET".equalsIgnoreCase(method)) {	//method가 "GET"일 때
+		
+		}
+		else {	//method가 "POST"일 때
+			
+		}
+		
 	}
 }

@@ -1,13 +1,13 @@
-package login.controller;
+package choi.product.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class LoginController extends AbstractController{
+public class ShopController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		super.setViewPage("/WEB-INF/view/login/login.jsp");
+		super.setViewPage("/WEB-INF/view/product/shop.jsp");
 	}
 }

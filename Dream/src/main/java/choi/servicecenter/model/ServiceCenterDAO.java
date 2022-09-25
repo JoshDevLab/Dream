@@ -1,4 +1,4 @@
-package choi.notice.model;
+package choi.servicecenter.model;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import util.security.AES256;
 import util.security.SecretMyKey;
 
-public class NoticeDAO implements InterNoticeDAO{
+public class ServiceCenterDAO implements InterServiceCenterDAO{
 	// DBCP
 	private DataSource ds; // DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection pool)이다.
 	private Connection conn;
@@ -27,7 +27,7 @@ public class NoticeDAO implements InterNoticeDAO{
 	
 	
 	// 생성자 
-	public NoticeDAO() {
+	public ServiceCenterDAO() {
 		
 		try {
 			// connection pool 을 위한 작업
@@ -155,4 +155,86 @@ public class NoticeDAO implements InterNoticeDAO{
 		}
 		return total_cnt;
 	}
+
+	
+	
+	// 모든 qna 갯수를 가져오는 메소드
+	@Override
+	public int cntAllqna() throws SQLException{
+		int total_cnt = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select count(*) from tbl_faq ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total_cnt = rs.getInt(1);
+			}
+			
+		} finally {
+			close();
+		}
+		return total_cnt;
+	}
+
+	
+	// 페이지 번호에 알맞는 qna를 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
+	@Override
+	public List<QnaDTO> selectAllqna(Map<String, String> paraMap) throws SQLException {
+		List<QnaDTO> qnaList = new ArrayList<>();
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select FAQ_NUM "
+					   + "       ,FAQ_TITLE "
+					   + "       ,FAQ_CONTENT "
+					   + "       ,FAQ_SUBJECT"
+					   + " from "
+					   + " ("
+					   + " select FAQ_NUM "
+					   + "       ,FAQ_TITLE "
+					   + "       ,FAQ_CONTENT"
+					   + "       ,FAQ_SUBJECT"
+					   + " from  "
+					   + " ( "
+					   + " select rownum R,FAQ_NUM,FAQ_TITLE,FAQ_CONTENT,FAQ_SUBJECT"
+					   + " from tbl_faq "
+					   + " order by faq_num desc "
+					   + " )V "
+					   + " where R between (?*?)-(?-1) and (?*?) "
+					   + " )A";
+			if(paraMap.get("title")!= null && !("전체".equals(paraMap.get("title"))) ) {	//title이 null이 아니고 전체이지 않을 경우
+				sql += " where faq_title = ? ";
+			}
+//			(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(2,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(3,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(4,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(5,Integer.parseInt(paraMap.get("display_cnt")));
+			if(paraMap.get("title")!= null && !("전체".equals(paraMap.get("title"))) ) { //title이 null이아니고 전체이지 않을 경우
+				pstmt.setString(6,paraMap.get("title") );
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QnaDTO qdto = new QnaDTO();	//dto 하나 생성
+				qdto.setFaq_num(rs.getInt("FAQ_NUM"));
+				qdto.setFaq_title(rs.getString("FAQ_TITLE"));
+				qdto.setFaq_subject(rs.getString("FAQ_SUBJECT"));
+				qdto.setFaq_content(rs.getString("FAQ_CONTENT"));
+				
+				qnaList.add(qdto);	//NoticeDTO들만 들어갈 수 있는 리스트에 담기
+			}
+		} finally {
+			close();
+		}
+		return qnaList;
+	}
+
 }

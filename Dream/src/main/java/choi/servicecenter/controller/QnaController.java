@@ -1,7 +1,5 @@
-package choi.notice.controller;
+package choi.servicecenter.controller;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,25 +7,29 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import choi.notice.model.InterNoticeDAO;
-import choi.notice.model.NoticeDAO;
-import choi.notice.model.NoticeDTO;
+import choi.servicecenter.model.InterServiceCenterDAO;
+import choi.servicecenter.model.QnaDTO;
+import choi.servicecenter.model.ServiceCenterDAO;
 import common.controller.AbstractController;
 
-public class NoticeController extends AbstractController{
-	
+public class QnaController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod();
 		
-		if("GET".equalsIgnoreCase(method)) {	//method가 "GET"일 때
-			try {
+		if("GET".equalsIgnoreCase(method)) {	//요청이 "GET"라면
 			int page= 1;
 			if(request.getParameter("p")!=null && request.getParameter("p").trim() != "") {		//파라미터 page가 not empty라면!
 				page = Integer.parseInt(request.getParameter("p").trim());
 			}
-			InterNoticeDAO ndao = new NoticeDAO();
-			int total_cnt = ndao.cntAllNotice();                      //총 게시물 수
+			String title = "전체";
+			if(request.getParameter("title")!=null && request.getParameter("title").trim() != "") {
+				title = request.getParameter("title").trim();
+			}
+			
+			
+			InterServiceCenterDAO sdao = new ServiceCenterDAO();
+			int total_cnt = sdao.cntAllqna();                        //총 게시물 수
 			float display_cntf = 10f;	                              //한 페이지당 보여줄 게시물 수 float형
 			int display_cnt = (int)display_cntf;	                  //한 페이지당 보여줄 게시물 수 int형
 			int display_page = 5;					                  //한번에 보여줄 페이지번호의 갯수 int형
@@ -65,9 +67,10 @@ public class NoticeController extends AbstractController{
 		    Map<String,String> paraMap = new HashMap<>();
 		    paraMap.put("page", String.valueOf(page));
 		    paraMap.put("display_cnt",String.valueOf(display_cnt));
+		    paraMap.put("title",title);
 		    
 			
-			List<NoticeDTO> noticeList = ndao.selectAllNotice(paraMap);	//페이지 번호에 알맞는 게시물을 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
+			List<QnaDTO> qnaList = sdao.selectAllqna(paraMap);	//페이지 번호에 알맞는 게시물을 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 			
 			
 		    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -79,9 +82,10 @@ public class NoticeController extends AbstractController{
 		    System.out.println("아래 시작페이지 : "+ startPage);
 		    System.out.println("아래 끝페이지 : "+ endPage);
 		    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+		    System.out.println("타이틀 : "+title);
 			
 			
-			request.setAttribute("noticeList", noticeList);
+			request.setAttribute("qnaList", qnaList);
 			request.setAttribute("display_cnt", display_cnt);
 			request.setAttribute("display_page", display_page);
 			request.setAttribute("page", page);
@@ -90,22 +94,13 @@ public class NoticeController extends AbstractController{
 			request.setAttribute("startPage", startPage);	
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("last_display_page",last_display_page);
+			request.setAttribute("title",title);
 			
-			super.setViewPage("/WEB-INF/view/notice/notice.jsp");
-			
-			//page 번호가지고 장난질 쳤을 경우
-			}catch(SQLException e) {	//SQL오류가 떳을 경우
-				super.setRedirect(true);
-//				super.setViewPage(request.getContextPath()+"notice/notice.dream");	//SQL에러발생 페이지로 이동,경로 정해주기!!
-				e.printStackTrace();
-			}catch(Exception e) {
-				super.setRedirect(true);
-//				super.setViewPage(request.getContextPath()+"notice/notice.dream");	//그냥 notice.dream 페이지로 URL 어케적지?
-				e.printStackTrace();
-			}
+			super.setViewPage("/WEB-INF/view/notice/qna.jsp");
 		}
-		else {	//method가 "POST"일 때
+		else {	//요청이"POST"이라면
 			
 		}
 	}
+
 }

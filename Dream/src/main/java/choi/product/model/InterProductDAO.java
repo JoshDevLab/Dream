@@ -1,4 +1,4 @@
-package product.model;
+package choi.product.model;
 
 public interface InterProductDAO {
 

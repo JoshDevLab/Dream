@@ -4,7 +4,6 @@
    String ctxPath = request.getContextPath();
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
@@ -18,17 +17,17 @@
   <div class="Main d-flex">
   
     <%-- 사이드 바 시작 --%>
-    <div class="sidebar ml-5">
+    <div class="sidebar ml-5 mt-3">
       <div>
           <h4 class="mb-4" style="font-weight:bold;">고객센터</h4>
       </div>    
       <div class="category-section mb-5">
           <ul class="nav flex-column">
               <li class="nav-item">
-                  <a class="nav-link pl-0 text-muted" href="#">공지사항</a>
+                  <a class="nav-link pl-0 text-muted" href="<%=ctxPath %>/notice/notice.dream">공지사항</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link pl-0 text-muted" href="#">자주 묻는 질문</a>
+                  <a class="nav-link pl-0 text-muted" href="<%=ctxPath %>/notice/qna.dream">자주 묻는 질문</a>
               </li>
           </ul>
       </div>
@@ -38,16 +37,16 @@
 
     
     <%-- 공지사항 테이블 시작 --%>
-    <div class="notice d-flex flex-column">
+    <div id="notice" class="d-flex flex-column">
       <table class="table table-hover">
         <thead>
           <tr>
-            <th><h5 style="font-weight:bold;">공지사항</h5></th>
+            <th><h4 style="font-weight:bold;">공지사항</h4></th>
           </tr>
         </thead>
         <tbody>
           <c:forEach var="notice" items="${requestScope.noticeList}">
-          <tr class="border-bottom">
+          <tr>
             <td onclick="location.href='<%= ctxPath%>/notice/noticeDetail.dream?num=${notice.notice_num}'" style="cursor:pointer"><span>${notice.notice_title}</span></td>
           </tr>
           </c:forEach>

@@ -1,4 +1,4 @@
-package login.model;
+package choi.product.model;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import util.security.AES256;
 import util.security.SecretMyKey;
 
-public class LoginDAO implements InterLoginDAO{
+public class ProductDAO implements InterProductDAO{
 	// DBCP
 			private DataSource ds; // DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection pool)이다.
 			private Connection conn;
@@ -24,7 +24,7 @@ public class LoginDAO implements InterLoginDAO{
 			
 			
 			// 생성자 
-			public LoginDAO() {
+			public ProductDAO() {
 				
 				try {
 					// connection pool 을 위한 작업
