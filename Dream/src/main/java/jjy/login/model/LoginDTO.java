@@ -20,10 +20,14 @@ public class LoginDTO {
 		this.update_passwd_date = update_passwd_date;
 		
 	}
-	/////////////////////////////////////////////////////////////////
 	
 	// 삭제된 파라미터가 없는 기본 생성자 생성
 	public LoginDTO() {}
+	//////////////////////////////////////////////////////////////////
+	
+	private boolean requirePwdChange = false;
+	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지났으면 true
+	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지나지 않았으면 false
 
 
 	//Getter , Setter 시작 ///////////////////////////////////////////
@@ -69,8 +73,13 @@ public class LoginDTO {
 	//Getter , Setter 끝 ///////////////////////////////////////////
 	
 	
-	
-	
+	public boolean isRequirePwdChange() {
+		return requirePwdChange;
+	}
+
+	public void setRequirePwdChange(boolean requirePwdChange) {
+		this.requirePwdChange = requirePwdChange;
+	}
 	
 	
 	

@@ -1,3 +1,11 @@
+// JS 파일에서 contextPath 알아내기
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
+
+
 $(document).ready(function() {
 
 	$("div.warning").hide();
@@ -6,11 +14,11 @@ $(document).ready(function() {
 	let bool_mobile = true;
 	let bool2 = true;
 	let bool_email = true;
-
+	// 핸드폰번호 입력창 클릭시 
 	$("input#mobile").click(function(e) {
 		$("input#mobile").css("border-bottom", "solid 2px black");
 	});
-
+	// 핸드폰 번호 입력창 초점 상실시
 	$("input#mobile").blur(function(e) {
 		$("input#mobile").css("border-bottom", "");
 	});
@@ -86,7 +94,18 @@ $(document).ready(function() {
 
 		});
 	} // end of if~ else 
-
-
+	/*
+	// 문자 발송하기 클릭시
+	$("a#btn_findPwd").click(function(e){
+		alert("문자 발송하기");
+		
+		const frm = document.pwdfindFrm;
+		frm.action = getContextPath()+"/login/findPwd.dream";
+		// 나중에 post 방식으로 수정
+		frm.method = "POST";
+		frm.submit();
+		
+	});
+	*/
 
 });// end of $(document).ready(function(){}---------------------
