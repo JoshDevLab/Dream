@@ -333,13 +333,16 @@ function goPurchasePage(){
 		
 		outer : for(let i = 0; i < length; i++) {
 		 option_size = added_optionName[i];
-		 option_cnt = added_optionAmount[i];
+		 option_cnt = Number(added_optionAmount[i]);
+		 
+		 
+		 
 		 console.log("option_size"+option_size);
 		 	for(let n=0; n<(json.size).length; n++){
 				if(option_size == json.size[n]){
 					count++;
 					console.log(option_size+"의 재고는"+json.cnt[n]+"개 입니다.")
-					if(option_cnt > json.cnt[n]){
+					if(option_cnt > Number(json.cnt[n])){
 						alert(option_size + "의 주문수량은"+option_cnt);
 						isitOkay = false;
 						alert(option_size+"의 재고는"+json.cnt[n]+"개 입니다. 그 이하로 주문해주세요.")
