@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
 <%
    String ctxPath = request.getContextPath();
@@ -32,10 +34,10 @@
                     </div>
                     <div id="user-info">
                         <div id="user-name">
-                            <p style="font-weight:bold; font-size: 14pt;" class="pt-1 mb-0">조상운</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                            <p style="font-weight:bold; font-size: 14pt;" class="pt-1 mb-0">${requestScope.mdto.username}</p> <%-- 데이터베이스에서 값 가져옴  --%>
                         </div>
                         <div id="user-email" style="font-size:10pt;">
-                            <p>tkddns6621@naver.com</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                            <p>${requestScope.mdto.userid}</p> <%-- 데이터베이스에서 값 가져옴  --%>
                         </div>  
                         <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">프로필 수정</button>
                         <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">내 스타일</button>
@@ -43,12 +45,12 @@
                 </div>
                 <div id="user-membership-detail" style="margin-left: auto; display: flex; width: 200px;">
                     <div class="mr-4 align-self-center out">
-                        <div class="font-weight-bold">일반회원</div> <%-- 데이터베이스에서 값 가져옴  --%>
-                        <p style="font-size: 10pt; text-align: center;">회원등급</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <div class="font-weight-bold"><c:choose><c:when test="${requestScope.mdto.membership eq 0}">일반회원</c:when><c:otherwise>드림회원 </c:otherwise></c:choose></div> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <p style="font-size: 10pt; text-align: center;">회원등급</p> 
                     </div>
                     <div class="align-self-center out">
-                        <div class="font-weight-bold text-center">0p</div> <%-- 데이터베이스에서 값 가져옴  --%>
-                        <p style="font-size: 10pt;">포인트</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <div class="font-weight-bold text-center">${requestScope.mdto.point}p</div> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <p style="font-size: 10pt;">포인트</p> 
                     </div>
                 </div>
             </div>
@@ -63,11 +65,11 @@
                         <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
-                        <div class="font-weight-bold text-center">입찰 중</div>
+                        <div class="font-weight-bold text-center">배송 준비중</div>
                         <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
-                        <div class="font-weight-bold text-center">진행 중</div>
+                        <div class="font-weight-bold text-center">배송 진행중</div>
                         <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
