@@ -17,49 +17,6 @@
 <body>
 
 
-<!-- header시작 -->
-  <div class="header">
-    <!-- aside -->
-    <div id="mask"></div>
-    <div id="slide_menu">
-      <div id="menu_close"><i type="button" id="btn_menu_close" class="fas fa-light fa-x"></i></div>
-      <ul id="menu_list">
-        <li class="border-bottom"><a href="">STYLE</a></li>
-        <li class="border-bottom"><a href="">SHOP</a></li>
-        <li class="border-bottom"><a href="">자주묻는질문</a></li>
-        <li class="border-bottom"><a href="">공지사항</a></li>
-        <li class="border-bottom"><a href="">로그인</a></li>
-      </ul>
-    </div>
-
-    <div class="header_top border-bottom">
-      <ul class="header_top_list list-unstyled d-flex justify-content-between">
-        <li class="header_top_item" type="button" onclick="go_service_center()">고객센터</li>
-        <li class="header_top_item" type="button" onclick="go_cart()">관심상품</li>
-        <li class="header_top_item" type="button" onclick="go_mypage()">마이페이지</li>
-        <li class="header_top_item" type="button" onclick="go_login()">로그인</li>
-        <li class="header_top_item" type="button" onclick="logout()">로그아웃</li>
-      </ul>
-    </div>
-    <div class="header_main m-auto d-flex justify-content-between align-items-center">
-      <div id="img_logo">
-        <a href="index.html"><img src="images/logo.png"/></a>
-      </div>
-      <ul class="header_main_list list-unstyled">
-        <li class="header_main_list" type="button" onclick="">STYLE</li>
-        <li class="header_main_list" type="button" onclick="">SHOP</li>
-        <li class="header_main_list" type="button" onclick="">ABOUT</li>
-        <li class="header_main_list bg-white" type="button" onclick=""><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
-      </ul>
-      <!-- 768px 이하 아이콘 -->
-      <ul class="hidden_main_list list-unstyled">
-        <li class="hidden_main_list bg-white" type="button"><i class="fas fa-lg fa-thin fa-magnifying-glass"></i></li>
-        <li id="menu_open" class="hidden_main_list bg-white" type="button"><i class="fas fa-lg fa-bars"></i></li>
-      </ul>
-    </div>
-  </div>
-  <!-- header끝 -->
-
 
 
 
@@ -69,34 +26,8 @@
 
 
 <!--------------------------------------------------- 사이드바 시작 --------------------------------------------------->
-		<div class="sidebar mr-5" style="width: 180px;">
-			<div>
-				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
-			</div>
-			<div class="category-section mb-5">
-				<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">구매 내역</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">관심 상품</a></li>
-				</ul>
-			</div>
-
-			<div class="category-section">
-				<h5 class="category-title font-weight-bold">내 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">프로필 정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">주소록</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">결제정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">포인트</a></li>
-				</ul>
-			</div>
-		</div>
+		 <%-- sidebar 호출 --%>
+  		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
 <!--------------------------------------------------- 사이드바 끝 --------------------------------------------------->
 
 
