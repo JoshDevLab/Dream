@@ -1,4 +1,4 @@
-package choi.notice.model;
+package choi.servicecenter.model;
 
 public class NoticeDTO {
 	// fields
