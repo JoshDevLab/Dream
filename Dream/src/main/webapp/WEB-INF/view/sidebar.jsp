@@ -72,7 +72,18 @@
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/point.dream">포인트</a>
             </li>
+            <li class="nav-item">
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/membership.dream">멤버십 정보</a>
+            </li>
          </ul>
       </div>
    </div>
    <!-- 사이드바 끝 -->
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+</body>
+>>>>>>> refs/remotes/origin/hwanggb
+=======
+>>>>>>> refs/remotes/origin/hwanggb

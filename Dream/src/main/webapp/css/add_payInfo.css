@@ -166,6 +166,7 @@ div.my_item {
 	-ms-flex-align: center;
 	align-items: center;
 	
+	
 }
 
 div.my_item_is_active {
@@ -182,8 +183,8 @@ div.my_item_is_active {
 
 
 div#other_pay {
-	padding: 15px 0 15px;
-    border-bottom: 1px solid #ebebeb;
+	
+    
 	
 }
 
@@ -277,7 +278,14 @@ a.btn_page_active {
       margin-top: 30px;
     }
     
-
+    div.basic > #button {
+      border-bottom: none;
+    }
+    
+    div#button {
+       border-bottom: 1px solid #ebebeb;
+       
+    }
 
 
     
@@ -294,6 +302,10 @@ a.btn_page_active {
 		color: rgba(34, 34, 34, .5);
 	}
 	
+	
+	div.other_list > div.my_item {
+	   padding : 15px 0 15px;
+	}
 	
 
 
@@ -335,7 +347,7 @@ p.sub_title {
 	line-height: 32px;
 	border-radius: 10px;
 	display: inline-block;
-	margin-left: 8px;
+	
 }
 
 
@@ -902,3 +914,7 @@ input[type="checkbox"] {
 
 
 /* 모달 css 끝  */
+
+
+
+

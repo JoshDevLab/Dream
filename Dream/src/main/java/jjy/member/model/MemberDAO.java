@@ -76,13 +76,9 @@ public class MemberDAO implements InterMemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " update tbl_member set membership = 1 "
-					   + " where userid = ? ";
-			/*
-			나중에 tbl_member 테이블에 멤버십 가입 날짜 컬럼 추가시 아래 sql 문으로 수정 필요
 			String sql = " update tbl_member set membership = 1, membership_regist_date = sysdate "
 					   + " where userid = ? ";
-			*/
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, useridMap.get("loginuserid") );
 			result = pstmt.executeUpdate();

@@ -10,55 +10,14 @@
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/add_payInfo.css" />
   <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/만들어야 함.js" ></script>
+  <script type="text/javascript" src="<%= ctxPath%>/js/payinfo.js" ></script>
 
 
 
 <body>
 
 
-<!-- header시작 -->
-  <div class="header">
-    <!-- aside -->
-    <div id="mask"></div>
-    <div id="slide_menu">
-      <div id="menu_close"><i type="button" id="btn_menu_close" class="fas fa-light fa-x"></i></div>
-      <ul id="menu_list">
-        <li class="border-bottom"><a href="">STYLE</a></li>
-        <li class="border-bottom"><a href="">SHOP</a></li>
-        <li class="border-bottom"><a href="">자주묻는질문</a></li>
-        <li class="border-bottom"><a href="">공지사항</a></li>
-        <li class="border-bottom"><a href="">로그인</a></li>
-      </ul>
-    </div>
 
-    <div class="header_top border-bottom">
-      <ul class="header_top_list list-unstyled d-flex justify-content-between">
-        <li class="header_top_item" type="button" onclick="go_service_center()">고객센터</li>
-        <li class="header_top_item" type="button" onclick="go_cart()">관심상품</li>
-        <li class="header_top_item" type="button" onclick="go_mypage()">마이페이지</li>
-        <li class="header_top_item" type="button" onclick="go_login()">로그인</li>
-        <li class="header_top_item" type="button" onclick="logout()">로그아웃</li>
-      </ul>
-    </div>
-    <div class="header_main m-auto d-flex justify-content-between align-items-center">
-      <div id="img_logo">
-        <a href="index.html"><img src="images/logo.png"/></a>
-      </div>
-      <ul class="header_main_list list-unstyled">
-        <li class="header_main_list" type="button" onclick="">STYLE</li>
-        <li class="header_main_list" type="button" onclick="">SHOP</li>
-        <li class="header_main_list" type="button" onclick="">ABOUT</li>
-        <li class="header_main_list bg-white" type="button" onclick=""><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
-      </ul>
-      <!-- 768px 이하 아이콘 -->
-      <ul class="hidden_main_list list-unstyled">
-        <li class="hidden_main_list bg-white" type="button"><i class="fas fa-lg fa-thin fa-magnifying-glass"></i></li>
-        <li id="menu_open" class="hidden_main_list bg-white" type="button"><i class="fas fa-lg fa-bars"></i></li>
-      </ul>
-    </div>
-  </div>
-  <!-- header끝 -->
 
 
 
@@ -160,7 +119,7 @@
 								</div>
 							</div>
 							<div class="btn_bind">
-								<a href="#" class="btn_outlinegrey_small2"> 삭제 </a>
+								<a href="#" class="btn_outlinegrey_small2" id="basic_delete"> 삭제 </a>
 							</div>
 						</div>
 					</div>
@@ -190,11 +149,39 @@
 								</div>
 								<div class="btn_bind" id="other_bind">
 									<a href="#" class="btn_outlinegrey_small2"> 기본결제 </a> <a
-										href="#" class="btn_outlinegrey_small2"> 삭제 </a>
+										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
 								</div>
 							</div>
-							<p  class="notice">수수료(페널티, 착불배송비 등)가 정산되지
-								않을 경우, 별도 고지 없이 해당 금액을 결제 시도할 수 있습니다.</p>
+							
+								
+								
+								
+								
+								
+								<div id="button" data-v-7d49a47c="" class="my_item" data-v-1c284ef0="">
+								<div data-v-7d49a47c="" class="info_bind">
+									<div class="card_info" id="other_card_info">
+										<a class="btn_outlinegrey_small2"> KB</a>
+										<div class="card_num">
+											<span class="num_bind d-flex"> <span class="dot"><span
+													class="dot">****</span></span><span class="hyphen">-</span> <span
+												class="dot"><span class="dot">****</span></span><span
+												class="hyphen">-</span> <span class="dot">****</span><span
+												class="hyphen">-</span> <span class="last_num_box"><span
+													class="last_num">4005</span></span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+								<div class="btn_bind" id="other_bind">
+									<a href="#" class="btn_outlinegrey_small2"> 기본결제 </a> <a
+										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
+								</div>
+							</div>
+							
+								
+								
 						</div>
 					</div>
 
@@ -272,6 +259,7 @@
 
 </div>
 <!-- 컨테이너 끝  -->
+
 
 
 

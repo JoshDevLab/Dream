@@ -6,6 +6,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
 public class GoogleMail{
 	public void sendmail(String recipient, String certificationCode) throws Exception {
         
