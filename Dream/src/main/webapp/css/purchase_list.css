@@ -101,7 +101,7 @@ button.result_detail{
    background-color: white;
 }
 /* 구매일, 상태 버튼 정렬 */
-form#sort{
+div#sort{
    display: flex;
    justify-content: flex-end;
    width: 50%;

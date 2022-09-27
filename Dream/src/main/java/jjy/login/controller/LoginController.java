@@ -16,7 +16,7 @@ public class LoginController extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String method = request.getMethod(); // "GET" or "POST"
-		System.out.println("## 확인용 ## method : "+method);
+//		System.out.println("## 확인용 ## method : "+method);
 		String message = "";
 		String loc = "";
 		
@@ -52,13 +52,12 @@ public class LoginController extends AbstractController {
 
 				if (lastLoginDate == null) { // 만약 로그인 기록이 없는 경우
 					lastLoginDate = logindao.checkRegistDate(userid);
-					System.out.println("가입날짜 컨트롤러에서 확인 : " + lastLoginDate);
 				} else {
 					lastLoginDate = lastLoginDate.substring(0, 11);
 				}
 
-				System.out.println(lastLoginDate);
-				System.out.println(today);
+//				System.out.println("확인용 마지막 로그인 날짜: "+lastLoginDate);
+//				System.out.println("확인용 오늘 날짜 : "+today);
 
 				Date format1 = new SimpleDateFormat("yyyy-MM-dd").parse(lastLoginDate);
 				Date format2 = new SimpleDateFormat("yyyy-MM-dd").parse(today);
@@ -66,7 +65,7 @@ public class LoginController extends AbstractController {
 				long diffSec = (format2.getTime() - format1.getTime()) / 1000; // 초 차이
 				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
 
-				System.out.println(diffDays + "일 차이");
+//				System.out.println("확인용 마지막 로그인 날짜로부터 "+diffDays + "일 차이");
 
 				if (diffDays >= 365) {
 					logindao.updateRestMember(userid);
@@ -79,7 +78,7 @@ public class LoginController extends AbstractController {
 				int restMember = Integer.parseInt(loginuser.getRest_member()); // 휴면 유무
 
 				if (secession == 1) { // 탈퇴 회원인 경우
-					System.out.println("##확인용## 탈퇴한 회원");
+//					System.out.println("##확인용## 탈퇴한 회원");
 
 					message = "탈퇴회원입니다.";
 					loc = "javascript:history.back()";
@@ -92,7 +91,7 @@ public class LoginController extends AbstractController {
 				} else { // 탈퇴 회원이 아닌경우
 
 					if (restMember == 1) { // 휴면 사용자인경우
-						System.out.println("##확인용## 로그인 실패 휴면 회원.");
+//						System.out.println("##확인용## 로그인 실패 휴면 회원.");
 
 						message = "휴면 회원입니다. 관리자에게 문의바랍니다.";
 						loc = "javascript:history.back()";
@@ -103,7 +102,7 @@ public class LoginController extends AbstractController {
 						super.setViewPage("/WEB-INF/view/msg.jsp");
 						
 					} else { // 휴면사용자가 아닌경우
-						System.out.println(loginuser.isRequirePwdChange());
+//						System.out.println("확인용 암호변경 3개월 이상: "+loginuser.isRequirePwdChange());
 						// 비밀번호 변경일을 받아 3개월 이상인 경우 alert 창 띄우기 
 						if(loginuser.isRequirePwdChange()) {
 							message = "비밀번호를 변경한지 3개월이 지났습니다.!";
@@ -113,8 +112,8 @@ public class LoginController extends AbstractController {
 							HttpSession session = request.getSession();
 							session.setAttribute("userid", userid);
 	
-							System.out.println("확인용 userid" + loginuser.getUserid());
-							System.out.println("확인용 session에 저장된 아이디 " + session.getAttribute("userid"));
+							System.out.println("확인용 로그인된 아이디 : " + loginuser.getUserid());
+							System.out.println("확인용 session에 저장된 아이디 : " + session.getAttribute("userid"));
 							
 
 							request.setAttribute("message", message);
@@ -123,7 +122,7 @@ public class LoginController extends AbstractController {
 							super.setViewPage("/WEB-INF/view/msg.jsp");
 						}
 						else {
-							System.out.println("## 확인용 ## 로그인 성공!");
+							System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
 	
 							// session 영역에 로그인 한 사용자 아이디(userid) 저장
 							HttpSession session = request.getSession();

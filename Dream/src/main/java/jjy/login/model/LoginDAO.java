@@ -191,7 +191,7 @@ public class LoginDAO implements InterLoginDAO {
 			rs = pstmt.executeQuery();
 			rs.next();
 			lastLoginDate = (String)rs.getString("login_date");
-			System.out.println("DAO에서 확인: "+lastLoginDate);
+//			System.out.println("DAO에서 확인 마지막 로그인 날짜: "+lastLoginDate);
 
 		} finally {
 			close();
@@ -267,7 +267,7 @@ public class LoginDAO implements InterLoginDAO {
 			rs = pstmt.executeQuery();
 			rs.next();
 			registDate = (String)rs.getString("joindate");
-			System.out.println("DAO에서 확인: "+registDate);
+//			System.out.println("DAO에서 확인 가입날짜 : "+registDate);
 
 		} finally {
 			close();
