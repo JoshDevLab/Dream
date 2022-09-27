@@ -1,4 +1,3 @@
-
 //"우편번호" 를 클릭했는지 클릭을 안했는지 여부를 알아오기 위한 용도.
 let b_flag_zipcodeSearch_click = false;
 
@@ -26,7 +25,6 @@ $(document).ready(function(){
 	    */
 	    
 	});  
-	
 	
 	
 	
@@ -99,13 +97,13 @@ $(document).ready(function(){
 	        $("#name").css("color","red");  //라벨 빨간색 	        	        
 	        
 	        $("#add_address > input").prop("disabled", true);
-	        $target.prop("disabled", false);
+	        
 	        
 	       
 	        
 	    }
 	    else {
-	        $(e.target).css("border-bottom","");  
+	        $(e.target).css("border-bottom","solid 1px #ebebeb");
 	        $("span.name_error").hide();
 	        $("#name").css("color","black");  
 	        
@@ -178,6 +176,24 @@ $(document).ready(function(){
    	 b_flag_zipcodeSearch_click = true; 
     });
 	
+	
+	
+	/* 삭제버튼 클릭시 해당부분 div를 삭제해준다.  */
+    $("a#delete").click( (event)=>{ 
+    	
+    	const $target = $(event.target);    	
+    	
+    	$target.parent().parent().remove(".my_item_is_active");    	
+    	
+    });
+	
+	
+    
+    $("a#basic_delete").click( (event)=>{ 
+
+        alert("다른 주소를 기본 베송지로 변경 후, 삭제할 수 있습니다.");
+    		
+    });
 
 			
 
@@ -224,12 +240,13 @@ function Revise_add() {
 	/* 수정버튼 클릭시 이름,전화번호란은 비워주면서 저장되어있는 밸류값을 가져와준다  */
 	 $("div.input_item > input").val("");
 	
-	 $("input#address").val("주소 가져와본다"); 
+	 $("input#address").val("주소 가져와본다");
 	 $("input#postcode").val("우편번호밸류 가져와본다"); 
 	 $("input#extraAddress").val("참고항목밸류  가져와본다"); 
 	 $("input#detailAddress").val("상세주소밸류 가져와본다"); 
 	/*              여기까지                                */
 	
+	/* console.log($("span.address").text()); */
 	
 
 }// end of function Revise_add() {}------------------------	
@@ -249,7 +266,7 @@ function openDaumPOST() {
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
             let addr = ''; // 주소 변수
-            let extraAddr = ''; // 참고항목 변수
+            let address2 = ''; // 참고항목 변수
 
             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
             if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
@@ -263,26 +280,25 @@ function openDaumPOST() {
                 // 법정동명이 있을 경우 추가한다. (법정리는 제외)
                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                 if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
+                    address2 += data.bname;
                 }
                 // 건물명이 있고, 공동주택일 경우 추가한다.
                 if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    address2 += (address2 !== '' ? ', ' + data.buildingName : data.buildingName);
                 }                
                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
+                if(address2 !== ''){
+                    address2 = ' (' + address2 + ')';
                 }
-                // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("extraAddress").value = extraAddr;
+                
             
             } else {
-                document.getElementById("extraAddress").value = '';
+                
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('postcode').value = data.zonecode;
-            document.getElementById("address").value = addr;
+            document.getElementById("address").value = addr + address2;           
             document.getElementById("detailAddress").value = "";
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("detailAddress").focus();
@@ -324,8 +340,8 @@ function goRegister() {
             }                       
     }
 	
-    const frm = document.registerFrm;
-    frm.action = "memberRegister.up";
+    const frm = document.registerFrm;    
+    frm.action = "addressregister.dream";
     frm.method = "post";
     frm.submit();
 	
