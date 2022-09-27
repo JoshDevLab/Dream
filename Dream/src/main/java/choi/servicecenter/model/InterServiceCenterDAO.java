@@ -18,7 +18,7 @@ public interface InterServiceCenterDAO {
 	
 	
 	// 모든 qna 갯수를 가져오는 메소드
-	int cntAllqna() throws SQLException;
+	int cntAllqna(String title) throws SQLException;
 	
 	// 페이지 번호에 알맞는 qna를 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 	List<QnaDTO> selectAllqna(Map<String, String> paraMap) throws SQLException;

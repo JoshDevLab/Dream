@@ -160,16 +160,22 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 	
 	// 모든 qna 갯수를 가져오는 메소드
 	@Override
-	public int cntAllqna() throws SQLException{
+	public int cntAllqna(String title) throws SQLException{
 		int total_cnt = 0;
 		try {
 			conn = ds.getConnection();
 			
 			String sql =  " select count(*) from tbl_faq ";
 			
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			if(!("전체".equals(title))) {	//title이 null이 아니고 전체이지 않을 경우
+				sql += " where faq_title = ? ";
+			}
 			
+			pstmt = conn.prepareStatement(sql);
+			if(!("전체".equals(title))) { //title이 null이아니고 전체이지 않을 경우
+				pstmt.setString(1,title);
+			}
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				total_cnt = rs.getInt(1);
 			}

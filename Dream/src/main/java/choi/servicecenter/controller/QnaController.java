@@ -29,7 +29,7 @@ public class QnaController extends AbstractController{
 			
 			
 			InterServiceCenterDAO sdao = new ServiceCenterDAO();
-			int total_cnt = sdao.cntAllqna();                        //총 게시물 수
+			int total_cnt = sdao.cntAllqna(title);                    //총 게시물 수
 			float display_cntf = 10f;	                              //한 페이지당 보여줄 게시물 수 float형
 			int display_cnt = (int)display_cntf;	                  //한 페이지당 보여줄 게시물 수 int형
 			int display_page = 5;					                  //한번에 보여줄 페이지번호의 갯수 int형
@@ -39,17 +39,20 @@ public class QnaController extends AbstractController{
 			if(page<=1) {	//페이지가 1보다 작다면
 		    	page = 1;
 		    }
-		    else if(page>=totalPage) {	//페이지가 총페이지보다 크다면
+		    else if(page>totalPage) {	//페이지가 총페이지보다 크다면
 		    	page = totalPage;
 		    }
+			if(totalPage <= 1) {	//총페이지수가 1보다 작다면
+				totalPage = 1;
+			}
 			
 			int endPage = (int)(((page-1)/display_page)+1) * display_page;	//하단 페이지번호 마지막번호
-			if(totalPage<endPage){
+			if(totalPage<endPage || endPage == 0){
 			    endPage = totalPage;
 			}
 			
 		    int startPage = (int)((page-1)/display_page)*display_page+1;	//하단 페이지번호 시작번호
-		    if(totalPage<startPage) {
+		    if(totalPage<startPage || startPage == 0) {
 		    	startPage = totalPage;
 		    }
 		    

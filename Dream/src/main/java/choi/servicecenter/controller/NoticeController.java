@@ -90,17 +90,20 @@ public class NoticeController extends AbstractController{
 				request.setAttribute("endPage", endPage);
 				request.setAttribute("last_display_page",last_display_page);
 				
+				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/notice/notice.jsp");
 				
 			
 			}catch(SQLException e) {	//SQL오류가 떳을 경우
 				super.setRedirect(true);
-//				super.setViewPage(request.getContextPath()+"notice/notice.dream");	//SQL에러발생 페이지로 이동,경로 정해주기!!
+//				super.setViewPage(request.getContextPath()+"/notice/notice.dream");	//SQL에러발생 페이지로 이동,경로 정해주기!!
 				e.printStackTrace();
 			}catch(Exception e) {	//URL에있는 page번호로 장난했을 경우
-				super.setRedirect(true);
-//				super.setViewPage(request.getContextPath()+"notice/notice.dream");	//그냥 notice.dream 페이지로 URL 어케적지?
 				e.printStackTrace();
+				super.setRedirect(true);
+			//	super.setViewPage(request.getContextPath()+"/index.dream");	//그냥 notice.dream 페이지로 URL 어케적지?
+				
+				super.setViewPage(request.getContextPath()+"/notice/notice.dream");
 			}
 		}
 		else {	//method가 "POST"일 때

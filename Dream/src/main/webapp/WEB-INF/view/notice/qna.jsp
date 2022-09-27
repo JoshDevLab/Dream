@@ -25,12 +25,16 @@
 		   
  	  
  	  //필터버튼 클릭시 이벤트
- 	    $("button.btn_fillter").click(function(e){
- 	 	  const target = $(e.target);
- 	 	  
- 	 	  $("button.btn_filter").removeClass("active");
- 	 	  $("button.btn_fillter:contains(`${target.text()}`)").addClass("active");
- 		});
+ 	  $("button.btn_fillter").click(function(e){
+ 	 	const target = $(e.target);
+ 	 	$("button.btn_fillter").css("background-color","");
+		$("button.btn_fillter").css("color","");
+		
+	    target.css("background-color","black");
+	    target.css("color","white");
+ 	  });
+ 	  
+ 	  
  	});//end of $(document).ready(function(){})---
   </script>
 
