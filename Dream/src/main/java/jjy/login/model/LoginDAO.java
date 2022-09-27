@@ -11,8 +11,10 @@ import java.util.Map;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import jjy.member.model.MemberDTO;
 import util.security.AES256;
 import util.security.SecretMyKey;
+import util.security.Sha256;
 
 public class LoginDAO implements InterLoginDAO {
 	// DBCP
@@ -68,12 +70,12 @@ public class LoginDAO implements InterLoginDAO {
 	public LoginDTO selectOneUser(Map<String, String> userinfoMap) throws SQLException {
 		
 		LoginDTO loginuser = null;
-
 		try {
 			
 			conn = ds.getConnection();
 			
-			String sql = " select userid , passwd , secession , rest_member , update_passwd_date "
+			String sql = " select userid , passwd , secession , rest_member , update_passwd_date, "
+					   + " trunc( months_between(sysdate, update_passwd_date) ) AS update_passwd_gap "
 			           + " from tbl_member_login "
 					   + " where userid =  ?  and passwd =  ? ";
 			pstmt = conn.prepareStatement(sql);
@@ -83,7 +85,7 @@ public class LoginDAO implements InterLoginDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				
 				loginuser = new LoginDTO();
 				
@@ -93,7 +95,14 @@ public class LoginDAO implements InterLoginDAO {
 				loginuser.setRest_member(rs.getString("rest_member"));
 				loginuser.setUpdate_passwd_date(rs.getString("update_passwd_date"));
 				
+				if(rs.getInt("update_passwd_gap") >= 3) { // 비밀번호 바꾼날짜가 3개월 이상인경우
+					loginuser.setRequirePwdChange(true);
+				}
+				else { // 비밀번호 바꾼지 3개월 미만인경우 
+					loginuser.setRequirePwdChange(false);
+				}
 			}
+			
 		} finally {
 			close();
 		}
@@ -101,4 +110,169 @@ public class LoginDAO implements InterLoginDAO {
 		return loginuser;
 
 	}// end of public LoginDTO selectOneUser(Map<String, String> userinfoMap) throws SQLException {}--------
+
+	
+	
+	// 연락처(mobile), 이메일(email)을 Map에 담아 일치하는 사용자가 있으면 true, 없으면 false 를 반환하는 메소드 (select) 
+	@Override
+	public boolean checkMobileEmail(Map<String, String> findPwdMap)throws SQLException {
+		boolean isExistUser = false;
+		try {
+		
+		conn = ds.getConnection();
+		
+		String sql = " select * "
+				   + " from tbl_member "
+				   + " where mobile = ? and userid =? ";
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, findPwdMap.get("mobile") );
+		pstmt.setString(2, findPwdMap.get("userid") );
+		
+		rs = pstmt.executeQuery();
+		
+		isExistUser =rs.next();
+
+	} finally {
+		close();
+	}
+		
+	return isExistUser;
+	}// end of public boolean checkMobileEmail(Map<String, String> findPwdMap){}-------------
+
+	
+	
+	// 아이디(userid) 를 전달받아 일치하는 회원이 있으면 true, 없으면 false를 반환하는 메소드 (select) 
+	@Override
+	public MemberDTO userExist(String mobile) throws SQLException {
+//		System.out.println(mobile);
+		MemberDTO findUser = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid, mobile "
+					   + " from tbl_member "
+					   + " where mobile = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mobile);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				findUser = new MemberDTO();
+				findUser.setUserid(rs.getString("userid"));
+				findUser.setMobile(rs.getString("mobile"));
+			}
+	} finally {
+		close();
+	}
+		
+	return findUser;
+		
+	}
+
+	
+	// 아이디를 입력받아 가장 마지막에 로그인한 날짜를 구해오는 메소드(select) 
+	@Override
+	public String checkLastLoginDate(String userid) throws SQLException {
+		
+		String lastLoginDate = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select max(login_date) as login_date "
+					   + " from tbl_login_record "
+					   + " where userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			lastLoginDate = (String)rs.getString("login_date");
+//			System.out.println("DAO에서 확인 마지막 로그인 날짜: "+lastLoginDate);
+
+		} finally {
+			close();
+		}
+		
+		return lastLoginDate;
+		
+	}// end of public String checkLastLoginDate(String userid) throws SQLException {}---------------
+
+
+	
+	// 아이디를 입력받아 로그인 기록 테이블에 기록하는 메소드(insert) 
+	@Override
+	public int updateLoginDate(Map<String, String> userinfoMap)throws SQLException {
+		
+		int result = 0;
+
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " insert into tbl_login_record (login_num, userid,client_up) values "
+				       + " (seq_login_history.nextval, ?, ? ) ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userinfoMap.get("userid"));
+			pstmt.setString(2, userinfoMap.get("client_ip"));
+			
+			pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return result;
+	}// end of public int updateLoginDate(Map<String, String> userinfoMap)throws SQLException {---------------
+
+	
+	// 마지막 로그인 날짜로부터 1년 이상 지난경우 휴면유저로 바꿔주는 메소드 
+	@Override
+	public void updateRestMember(String userid) throws SQLException {
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_member_login set rest_member = 1  "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+	}// end of public void updateRestMember(String userid) throws SQLException {}--------------
+
+	
+	
+	//아이디(userid) 를 전달받아 회원가입 날짜를 String 타입으로 반환시켜주는 메소드 
+	@Override
+	public String checkRegistDate(String userid) throws SQLException {
+		String registDate = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select joindate  "
+					   + " from tbl_member "
+					   + " where userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			registDate = (String)rs.getString("joindate");
+//			System.out.println("DAO에서 확인 가입날짜 : "+registDate);
+
+		} finally {
+			close();
+		}
+		
+		return registDate;
+	}// end of public String checkRegistDate(String userid) throws SQLException {}-----------------------------
 }

@@ -8,14 +8,19 @@
 <%--header 호출 --%>
 <jsp:include page="/WEB-INF/view/header.jsp" />
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%=ctxPath %>/css/findEamilEnd.css" />
+<link rel="stylesheet" type="text/css" href="<%=ctxPath %>/css/findEmailEnd.css" />
 <%-- 직접만든 javascript --%>
-<script type="text/javascript" src="<%=ctxPath %>/js/findEamilEnd.js" ></script>
+<script type="text/javascript" src="<%=ctxPath %>/js/findEmailEnd.js" ></script>
+
+<script>
+$(document).ready(function(){
+	const email =  sessionStorage.getItem('userid'); 
+	$("div#email").html(email);
+	sessionStorage.removeItem('userid');
+});
 
 
-<%-- fullpage 라이브러리 --%>
-<link href="<%= ctxPath%>/fullpagelib/jquery.fullPage.css" rel="stylesheet"> 
-<script type="text/javascript" src="<%= ctxPath%>/fullpagelib/jquery.fullPage.js"></script>
+</script>
 
 
 <div id="container">
@@ -32,7 +37,7 @@
          <p id="p_notice">
             이메일 주소
          </p>
-         <div id="email">D***m@dream.com</div>
+         <div id="email"></div>
       </div>
       <%-- 안내 문구 --%>
       
