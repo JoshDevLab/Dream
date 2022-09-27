@@ -93,7 +93,7 @@ color:#222;
 div#column_2{
 border-left: solid 1px #ebebeb;
 padding-left: 3.334%;
-
+float:right;
 }
 
 .detail_size .title {
@@ -666,6 +666,53 @@ a#selectOption {
 a.dropdown-item{
 	/* 드랍다운 선택자 */
 }
+#added_option{
+	text-align:center;
+	vertical-align:middle;
+	background-color: #fff;
+	height: 38px;
+	vertical-align:middle;
+	border-radius: 6px;
+	border-bottom: solid 1px #ebebeb;
+}
+
+#added_option>button{
+	
+	min-width: 15px;
+	width:50px;
+	border-radius: 6px;
+	border: 3px #222 !important;
+	background-color: #fff;
+	float: right;
+	text-align: center;
+	font-weight:bold;
+
+}
+#added_option>span{
+	width:20px;
+	height:38px;
+	min-width:15px;
+	margin-left:3%;
+	margin-right: 10%;
+	font-weight:bold;
+	float: left;
+	vertical-align: middle;
+	line-height: 38px;
+}
+#added_option>:nth-child(3){
+	background-color: #222;
+	color: #fff;
+	
+}
+
+
+#added_option>:last-child{
+	margin-left: 30%;
+	
+}
+
+
+
 
 
 /* 미디어 태그 무조건 제일 아래호 */

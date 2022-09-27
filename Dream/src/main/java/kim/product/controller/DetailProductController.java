@@ -20,29 +20,50 @@ public class DetailProductController extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		InterProductDAO pdao = new ProductDAO();
-		// product_num 은 바뀔 수 있음
-		String product_num = request.getParameter("product_num");
+		String method = request.getMethod();
 		
-		try {
-
-			ProductVO product = pdao.getDetail(product_num);
+		System.out.println(method);
+		
+		if("GET".equalsIgnoreCase(method)) {	//method가 "GET" 일 때
+			InterProductDAO pdao = new ProductDAO();
+			// product_num 은 바뀔 수 있음
 			
-			HttpSession session =  request.getSession(); 
-			  // 메모리에 생성되어져 있는 session 을 불러오는 것이다.
-			  
-			session.setAttribute("product", product);
+			System.out.println("출발");
+			String product_num = request.getParameter("num");
+			System.out.println(product_num);
 			
+			try {
+				System.out.println("3");
+				ProductVO product = pdao.getDetail(product_num);
+		
+				request.setAttribute("pdNum", product.getProduct_num());
 			
-		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/product/detail.dream?product_no="+product.getProduct_num());
+				request.setAttribute("pdImage", product.getProduct_image_array());
+				request.setAttribute("pdName", product.getProduct_name());
+				request.setAttribute("pdSize", product.getProduct_size());
+				request.setAttribute("pdCnt", product.getProduct_cnt());
+				request.setAttribute("product", product);
+				
+				
+				System.out.println("img = "+product.getProduct_image_array());
+				System.out.println("size ="+product.getProduct_size());
+				System.out.println("cnt = "+product.getProduct_cnt());
 			
-		} catch(SQLException e) {
-		    e.printStackTrace();
-			super.setRedirect(true); 
-		    super.setViewPage(request.getContextPath()+"/error.up");
+			//	super.setRedirect(false);
+				super.setViewPage("/WEB-INF/view/product/product_detail.jsp");
+				
+			} catch(SQLException e) {
+			    e.printStackTrace();
+				super.setRedirect(true); 
+			    super.setViewPage(request.getContextPath()+"/error.up");
+			}
+			
+		}
+		else {	//method가 "POST" 일 때
+			
 		}
 		
+				
 	
 		
 		

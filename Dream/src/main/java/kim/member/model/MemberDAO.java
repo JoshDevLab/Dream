@@ -1,6 +1,7 @@
 package kim.member.model;
 
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.*;
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class MemberDAO implements InterMemberDAO {
 		try {
 			Context initContext = new InitialContext();
 		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    ds = (DataSource)envContext.lookup("jdbc/myoracle");
+		    ds = (DataSource)envContext.lookup("jdbc/dream");
 		    
 		    aes = new AES256(SecretMyKey.KEY);
 		    // SecretMyKey.KEY 은 우리가 만든 비밀키이다.
@@ -69,23 +70,16 @@ public class MemberDAO implements InterMemberDAO {
 			String sql = " update tbl_member set pwd = ?, lastpwdchangedate = sysdate "
 					   + " where userid = ? ";
 			
-			// update 이후 수량이 0개인 것만 delete 해야할듯 (트랜젝션 처리 필수)
-			
-			// 그런데 제품 즉시구매누르면 장바구니에 없기 때문에 장바구니에 즉시 추가되게 하거나
-			// 아니면 장바구니 출신인지 기록해서 구분해서 sql 작성하거나
-			
-			// 구매 완료되면 tbl_buylist 에 그내용 그대로 추가해줘야함
-			// 이거 select 해오고 그 값을 그대로 구매내역에 추가해줘야하는데
-			// 나중에 얘기해보고 구매내역과 카트 합치는거 어떤지 제안
-			
-			
-			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, Sha256.encrypt(paraMap.get("pwd")) ); // 암호를 SHA256 알고리즘으로 단방향 암호화 시켜서 갱신해준다.
 			pstmt.setString(2, paraMap.get("userid") );
 			
+		
+			
 			result = pstmt.executeUpdate();
+			
+			
 			
 		} finally {
 			close();
@@ -93,6 +87,125 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return result;
 		
+	}
+
+	@Override
+	public Map<String, String> likeCheck(Map<String, String> paraMap) throws SQLException {
+		
+		Map<String, String> resultMap = new HashMap<>();
+		String resultType = "";
+		String resultSuccess = "false";
+		int n = 0;
+		
+		String userid = paraMap.get("userid");
+		System.out.println("userid"+userid);
+		String productNum = paraMap.get("productNum");
+		System.out.println("productNum"+productNum);
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid, product_num "+
+					" from tbl_like "+
+					" where userid= ? and product_num = ? ";
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(userid+"/"+productNum);
+			
+			pstmt.setString(1, userid); 
+			pstmt.setString(2,productNum );
+			
+			rs = pstmt.executeQuery();
+			
+			
+	
+			
+
+			if(rs.next()) {
+				
+				sql = " delete from tbl_like "+
+						" where userid = ?  and product_num = ? ";
+				System.out.println("좋아요있음");
+				
+				pstmt = conn.prepareStatement(sql); 
+				pstmt.setString(1, userid); 
+				pstmt.setString(2,productNum );
+
+				n = pstmt.executeUpdate();
+				if(n==1) {
+					System.out.println("좋아요삭제성공");
+					resultType = "remove";
+					resultSuccess = "true";
+					
+				}
+				else {
+					System.out.println("좋아요삭제실패");
+					resultType = "remove";
+					resultSuccess = "false";
+				}
+				
+				System.out.println(n);
+				
+			
+				System.out.println(n);
+			}
+			 else {
+				 System.out.println("좋아요 없음");
+				 sql = " insert into tbl_like(userid, product_num) "+
+					   " values( ? , ?) ";
+ 
+				    pstmt = conn.prepareStatement(sql); 
+
+				    pstmt.setString(1, userid);
+					pstmt.setString(2, productNum );
+					 
+					n = pstmt.executeUpdate();
+					if(n==1) {
+						System.out.println("좋아요등록성공");
+						resultType = "add";
+						resultSuccess = "true";
+					
+					}
+					else {
+						System.out.println("좋아요등록실패");
+						resultType = "add";
+						resultSuccess = "false";
+					}
+
+			
+			 }
+			
+			
+			resultMap.put("resultType", resultType);
+			resultMap.put("resultSuccess", resultSuccess);
+			
+			// 좋아요 수 가져오기
+			String sql2 = "  select count(*) "+
+					" from tbl_like "+
+					" where product_num =? ";
+
+		    pstmt = conn.prepareStatement(sql2); 
+
+			pstmt.setString(1, productNum );
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("count" + rs.getString(1));
+				resultMap.put("count", rs.getString(1));
+			}
+			else { //없는경우
+				resultMap.put("count", "0");
+			}
+			return resultMap;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			close();
+			return resultMap;
+		}
+		
+
 	}
 
 }

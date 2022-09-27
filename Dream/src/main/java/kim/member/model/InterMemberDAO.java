@@ -7,4 +7,6 @@ public interface InterMemberDAO {
 
 	int updateCart(Map<String, String> paraMap) throws SQLException;
 
+	Map<String, String> likeCheck(Map<String, String> paraMap) throws SQLException;
+
 }

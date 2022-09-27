@@ -1,6 +1,8 @@
 package kim.product.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProductVO {
 
@@ -9,17 +11,44 @@ public class ProductVO {
 	private String product_name;    // 제품명       
 	private String product_image;   // 제품 이미지 ,로 구분         
 	private String category;        // 카테고리    
+	
+
 	private String detail_category; // 소카테고리  , 로 구분      
 	private int price;           	// 가격
 
-
-	private String gender;          // "없음" "남" "여"    
-	private String product_size;    // , 로 구분          
-	private int sale;            	// 0 : 판매중/ 1: 품절
-	private int product_cnt;   	// 제품 수량  
 	private int discount_rate;
+	private String gender;          // "없음" "남" "여"    
+
+	private String product_content;
 	
 	
+	// 주의!
+	private List<String> product_size;    // 제품 사이즈        
+	private List<String> product_cnt;     // 제품 수량  
+	
+	// 불러오기용 값
+	private int likeCnt;
+	private int discountPrice;
+	
+	// 위 두 배열은 같은 인덱스 => 관계있는 값임
+	 // index0 ==> size=s  cnt=20
+	 // index1 ==> size=m  cnt=10
+	 // index2 ==> size=l  cnt=40
+	
+	
+	
+	
+
+	private void setDiscountPrice(int discountPrice) {
+		// set 불가능하게 막아둠
+		this.discountPrice = discountPrice;
+	}
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
 	// 게러세러 
 	public int getProduct_num() {
 		return product_num;
@@ -69,24 +98,6 @@ public class ProductVO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getProduct_size() {
-		return product_size;
-	}
-	public void setProduct_size(String product_size) {
-		this.product_size = product_size;
-	}
-	public int getSale() {
-		return sale;
-	}
-	public void setSale(int sale) {
-		this.sale = sale;
-	}
-	public int getProduct_cnt() {
-		return product_cnt;
-	}
-	public void setProduct_cnt(int product_cnt) {
-		this.product_cnt = product_cnt;
-	}
 	
 	public int getDiscount_rate() {
 		return discount_rate;
@@ -94,33 +105,66 @@ public class ProductVO {
 	public void setDiscount_rate(int discount_rate) {
 		this.discount_rate = discount_rate;
 	}
+	
+
+	
+	public List<String> getProduct_size() {
+		return product_size;
+	}
+	public void setProduct_size(List<String> product_size) {
+		this.product_size = product_size;
+	}
+	public List<String> getProduct_cnt() {
+		return product_cnt;
+	}
+	public void setProduct_cnt(List<String> product_cnt) {
+		this.product_cnt = product_cnt;
+	}
+	
+	
+	
+	public String getProduct_content() {
+		return product_content;
+	}
+	public void setProduct_content(String product_content) {
+		this.product_content = product_content;
+	}
 
 
 	// 게러세러 끝
 	
 	
+	public int getDiscountPrice() {
+		
+		discountPrice = price *(100-discount_rate)/100;
+		return discountPrice;
+	}
+	
 	// , 로 들어간 녀석들 배열로 변환
 	
-	 public String[] getProduct_image_array	() {
+	 public List<String> getProduct_image_array	() {
 
-        String[] arr = product_image.split(",");
-        System.out.println(arr);
-       return arr;
+		List<String> resultList = new ArrayList<String>();
+		
+		if(product_image.trim().isEmpty()) {
+			return resultList;
+		}
+		else {
+			resultList = new ArrayList(Arrays.asList(product_image.split(","))); 
+			 
+			for(int i=0;i<resultList.size();i++)
+				
+			{
+			    System.out.println(" -->"+resultList.get(i));
+			}
+			return resultList;
+		}
+		
+		
+		
 	 }
 	 
-	 
-	 public String[] getProduct_size_array	() {
-
-	        String[] arr = product_size.split(",");
-	        System.out.println(arr);
-	        return arr;
-	 }
 	
-	 
-	
-	
-
-
 
 
 }
