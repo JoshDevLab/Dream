@@ -1,20 +1,39 @@
+<%@page import="java.util.*"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+
+<%@page import="org.eclipse.jdt.internal.compiler.ast.PrefixExpression"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
 
 <%
    String ctxPath = request.getContextPath();
 %>
+
+
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
 
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product_detail.css" />
   <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/product_detail.js" ></script>
+  <script type="text/javascript" src="<%= ctxPath%>/js/product_detail.js" >
 
-	
+  
+  </script>
+
+
+
+
+
+
 
 <body>
+
 
   <div class="container">
   <%-- header footer 사이 모든것 --%>
@@ -35,18 +54,34 @@
                 <%-- 제품 이미지 carousel slide --%>
                 <%-- Indicators --%>
                 <ul class="carousel-indicators">
-                  <li data-target="#productImage" data-slide-to="0" class="active"></li>
-                  <li data-target="#productImage" data-slide-to="1"></li>
+
+                <c:forEach items="${product.product_image_array}" varStatus="status">
+			        <c:if test="${status.index == 0}">
+			           <li data-target="#carousel_advertise" data-slide-to="${status.index}" class="active"></li>
+				    </c:if>
+				    <c:if test="${status.index > 0}">
+			           <li data-target="#carousel_advertise" data-slide-to="${status.index}"></li>
+				    </c:if>
+		    	</c:forEach>
+                
                 </ul>
               
                 <%-- The slideshow --%>
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="images/Koala.jpg" class = "d-block w-100 pdimage" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/logo2.png" class = "d-block w-100 pdimage" alt="...">
-                  </div>   
+                <c:forEach var="imgvo" items="${product.product_image_array}" varStatus="status">
+                	<c:if test="${status.index == 0}">
+		           		<div class="carousel-item active">
+			    	</c:if>
+			    	<c:if test="${status.index > 0}">
+		           		<div class="carousel-item">
+			    	</c:if>
+                			<img src="<%= ctxPath%>/images/${imgvo}" class = "d-block w-100 pdimage" alt="제품이미지를<br>등록해주세요">
+              			</div>
+                </c:forEach>
+                </div>
+                  
+                   
+                   
                   <%-- Left and right controls --%>
                   <a class="carousel-control-prev" href="#productImage" data-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
@@ -61,53 +96,91 @@
               
             </div>
             
-          </div>
+ 
 
         </div>
         <div id="column_2">
           <div class="main_title">
-            <a href="#" class="brand"> Salomon </a>
-            <p class="title">Salomon Speedverse PRG Black Nimbus Cloud Alloy</p>
-            <p class="sub_title">살로몬 스피드벌스 PRG 블랙 님버스 클라우드 알로이</p>
+            <a href="#" class="brand"></a>
+            <p class="title">${product.product_name} </p>
+            <p class="sub_title"><%=request.getAttribute("pdName") %></p>
           </div>
           <div class="product_figure">
             <div class = "detail_size">
               <div class="title">
                 <%-- 이 부분은 차후 모바일크기로 줄어들시<div class = "title"> 사라짐 구현시 없애기 !!!!!!!!!!!!! --%>
-                <span class="title_txt">사이즈</span>
+                <span class="title_txt">옵션</span>
               </div>  
               <%-- size div 는 의류처럼 사이즈 있는 애들한테만 노출되게 할 예정 --%>
               <div class ="size">
-                <a  href="#" class="btn_size">
-                  <span  class="btn_text">모든 사이즈</span>
+                
+                
+                <div class="dropdown">
 
-                  <input type="button" class="img-button">
-                  
-                </a>
+				
+				  <a id="selectOption" href="#" class="dropdown-toggle" data-toggle="dropdown">
+       				선택해주세요!
+                  </a>
+				  <div class="dropdown-menu">
+<%-- 				    <a class="dropdown-item" >Link 1</a>
+				    <a class="dropdown-item" >Link 2</a>
+				    <a class="dropdown-item" >Link 3</a>
+				     -->
+				    <%-- 사이즈(옵션이) 존재한다면 --%>
+				    
+				    <c:set value="${product.product_size}"  var="size" />    
+					  
+					<c:if test="${fn:length(size) == 0 or size == null}">
+ 			    		<a class="dropdown-item" >잘못된 제품입니다.</a>			
+				    </c:if>	
+					   
+				    <c:if test="${fn:length(size) == 1}">
+			    		<a class="dropdown-item" >one-size</a>			
+				    </c:if>	
+			    
+					 
+				    <c:if test="${fn:length(size) > 1}">
+				    	<c:forEach items="${size}" var="option">
+				    		<a class="dropdown-item" >${option}</a>	
+				    	</c:forEach>	
+				    </c:if>
+
+				  </div>
+				</div>
               </div>
-
             </div>
+            
+            <%-- 옵션 선택시 생기는 목록표 --%>
+			<div id="optionSelected">
+				
+			
+			</div>
+            
+            
+            
+            
+            
             <div class = "detail_price">
               <div class="title">
                 <span class="title_txt">가격</span>
               </div>
               <div class="price">
                 <div  class="amount">
-                  <span class="num">290,000</span>
+                  <span class="num"> ${product.price} </span>
                   <%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
                   <span class="won">원</span>
                 </div>
                 <div class="fluctuation">
-                  <p >0원 (0%)</p>
+                  <p id="discount_price" >${product.discountPrice}원 (${product.discount_rate}%)</p>
                 </div>
               </div>
             </div>
             <div class="btn_box">
-              <a href="#" class="btn_buy">
+              <a href="#" class="btn_buy" onclick="goPurchasePage()">
                 <strong class="title">구매</strong>
                 <div  class="price">
                   <span  class="amount">
-                    <em  class="num">248,000</em>
+                    <em  class="num">${product.discountPrice}</em>
                     <span  class="won">원</span>
                   </span>
                   <span  class="desc">즉시 구매가</span>
@@ -115,11 +188,11 @@
               </a>
             </div>
 
-            <a href="#" id="column2_btn_wish" class="btn btn_wish" aria-label="관심상품">
+            <a  onclick="likeCheck()" href="#" id="column2_btn_wish" class="btn btn_wish" aria-label="관심상품">
               <img style="height: 20px; width: 20px;"/>
               <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
-              <span class="btn_text">관심상품</span>
-              <span class="wish_count_num">111</span>
+              <span class="btn_text" type="button">관심상품</span>
+              <span class="wish_count_num">${product.likeCnt}</span>
               <%-- 여기 숫자는 제품 관심상품 등록된 횟수 카운트해줘야하니 나중에 제품자체에 관심등록 칼럼 추가해줘서 관리하는게 편할듯 --%>
             </a>
 
@@ -133,19 +206,19 @@
                 <%-- 여기 하위 내용들은 전부 제품테이블에 필수적으로 들어가야할 내용들 or 빼야댐 --%>
                 <div  class="detail_box model_num">
                   <dt  class="product_title"> 제품번호 </dt>
-                  <dd  class="product_info"> L41672000 </dd>
+                  <dd id="product_num" class="product_info"> ${product.product_num} </dd>
                 </div>
                 <div  class="detail_box">
                   <dt  class="product_title"> 출시일 </dt>
-                  <dd  class="product_info"> 22/09/15 </dd>
+                  <dd  class="product_info"> ${product.register_date} </dd>
                 </div>
                 <div  class="detail_box">
                   <dt  class="product_title"> 컬러 </dt>
-                  <dd  class="product_info"> BLACK/NIMBUS CLOUD/ALLOY </dd>
+                  <dd  class="product_info"> 여기 뭘로 하지 </dd>
                 </div>
                 <div  class="detail_box">
-                  <dt  class="product_title"> 발매가 </dt>
-                  <dd  class="product_info"> 210,000원 </dd>
+                  <dt  class="product_title"> 컬러랑 합치고 </dt>
+                  <dd  class="product_info"> 상세설명?</dd>
                 </div>
               </dl>
             </div>
@@ -245,34 +318,43 @@
           <img alt="상품 이미지" src="images/Koala.jpg" class="image">
         </div>
         <div class="product_info">
-          <p class="name">Stussy 8 Ball Sherpa Jacket Natural</p>
-          <p class="translated_name">스투시 8볼 쉐르파 자켓 내츄럴</p>
+          <p class="name">S${product.product_name}</p>
+          <p class="translated_name">${product.product_name}</p>
         </div>
       </div>
         
       <div class="btn_area">
-        <a href="#" class="btn outlinegrey btn_wish " aria-label="관심상품">
+        <a href="#" class="btn outlinegrey btn_wish " onclick="likeCheck()">
           <img style="height: 20px; width: 20px;"/>
-          <span data-v-2d0ab5c1="" class="wish_count_num">176</span>
+          <span class="wish_count_num">${product.likeCnt}</span>
         </a>
         <div class="division_btn_box">
           <a  href="#" class="btn_buy">
             <strong  class="title">구매</strong>
             <div  class="price">
               <span  class="amount">
-                <em  class="num">530,000</em>
+                <em  class="num">${product.discountPrice}</em>
                 <span  class="won">원</span>
               </span>
               <span  class="desc">즉시 구매가</span>
             </div>
           </a>
         </div>
-      </div>
+      	</div>
       
     </div>
   <%-- 가격, 즐겨찾기 안보이면 나오는 상단 구매탭 끝--%>
   </div>
-  <%-- banner_bottom 시작  --%>
+
+
+  <%-- 멈춰! 실험용 --%>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>1<br><br>
+
+  <%-- footer 예정 --%>
+  
+    <%-- banner_bottom 시작  --%>
   <div class="banner_bottom" style="margin-top: 80px;">
     <a href="#" class="banner_box">
       <div class="banner_info">
@@ -283,15 +365,23 @@
     </a>
   </div>
   <%-- banner_bottom 끝  --%>
+  
+  
+  
+ <form name="verifyCertificationFrm">
+    <input type="hidden" name="userid" />
+    <input type="hidden" name="userCertificationCode" />
+</form>
 
-  <%-- 멈춰! 실험용 --%>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>1<br><br>
 
-  <%-- footer 예정 --%>
-
-
+<c:forEach var="size" items="${product.product_size}" varStatus="status">
+  <c:if test="${status.index == 0}">
+  	       
+  </c:if>
+  <c:if test="${status.index > 0}">
+        <li data-target="#carousel_advertise" data-slide-to="${status.index}"></li>
+  </c:if>
+</c:forEach>
 
   
    

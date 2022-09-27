@@ -49,8 +49,8 @@
       <div class="header_top border-bottom">
         <ul class="header_top_list list-unstyled d-flex justify-content-between">
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/notice/notice.dream'">고객센터</li>
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/cart/cart.dream'">장바구니</li>
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/member/mypage.dream'">마이페이지</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/cart/cart.dream?userid=${sessionScope.userid}'">장바구니</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/member/mypage.dream?userid=${sessionScope.userid}'">마이페이지</li>
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/login/login.dream'">로그인</li>
           <li class="header_top_item" type="button" onclick="logout()">로그아웃</li>
         </ul>

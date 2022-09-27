@@ -10,14 +10,18 @@ div.Main{
 div.sidebar{
   width: 300px;
 }
-div.notice{
+div#notice{
   width:1000px;
 }
+
+
+
 table.table > tbody > tr > td{
   font-size:small;
 }
-div.notice > table > thead > tr > th{
-  border-bottom:solid 2px black;
+div#notice > table > thead > tr > th{
+  border-top:0;
+  border-bottom:solid 3px black;
 }
 
 div.page-item{
@@ -35,22 +39,13 @@ div.page-item > ul > li:nth-child(5){
   margin-left:20%;
 }
 
-a.pagination:link {
-  color : black;
-  text-decoration: none;
+
+li.page-item.active{
+	background-color:black;
+	color:white;
 }
-a.pagination:visited {
-  color : black;
-  text-decoration: none;
-}
-a.pagination:hover {
-  color : black;
-  text-decoration: none;
-}
-a.pagination:active {
-  color : #000000;
-  text-decoration: none;
-}
+
+
 
 /* 480px ~ 768px 미디어 쿼리*/
 @media (max-width: 768px) {

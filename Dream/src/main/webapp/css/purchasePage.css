@@ -9,7 +9,7 @@ a, a:active, a:focus, a:hover {
 
 
 div.container{
-  background-color: #fafafa;
+/*   background-color: #fafafa; */
 }
 div.content{
   margin: 0 auto;
@@ -97,7 +97,7 @@ div.content{
 section{
   padding: 32px;
   background-color: #fff;
-  border-top: 8px solid #fafafa;
+/*   border-top: 8px solid #fafafa; */
 }
 
 .section_title {
@@ -329,15 +329,20 @@ ul#check_ul > li{
   justify-content: space-between;
 }
 
-a#payment{
-  width: 100%;
-  background-color: #ebebeb;
-  font-size: 16px;
-  font-weight: 600;
-  height: 52px;
-  text-align: center;
-  padding-top: 13px;
-  border-radius: 10px;
+a#payment {
+    width: 100%;
+    background-color: #222;
+    font-size: 16px;
+    font-weight: 600;
+    height: 52px;
+    text-align: center;
+    padding-top: 13px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+a#payment.disabled{
+	background-color: #ebebeb;
 }
 
 p.boldtext{
@@ -421,9 +426,206 @@ input#checkbox_3{
 }
 
 .check_content{
-  padding-right: 26px;
-  padding-top: 2%;
- 
+	padding-top: 16px;
+}
+
+/*  물결  */
+
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 7px solid #464343;
+  border-radius: 100%;
+  background: linear-gradient(#3c5aff, #52f2fd);
+  transform: translate3d(0, 0, 0);
+}
+
+.wave-one {
+  width: 150%;
+  height: 150%;
+  position: absolute;
+  top: -65%;
+  left: -30%;
+  border-radius: 45%;
+  background: rgba(3,169,244,0.8);
+  animation: move 3s infinite linear;
+}
+
+.wave-two {
+  width: 170%;
+  height: 170%;
+  position: absolute;
+  top: -90%;
+  left: -30%;
+  border-radius: 45%;
+  background: rgba(34,79,242,0.8);
+  animation: move 5s infinite linear;
+}
+
+.wave-three {
+  width: 170%;
+  height: 170%;
+  position: absolute;
+  top: -100%;
+  left: -30%;
+  border-radius: 45%;
+  background: #1d074b;
+  border: 6px solid rgba(131,119,152,0.7);
+  animation: move 7s infinite linear;
+}
+
+.wave-four {
+  width: 170%;
+  height: 170%;
+  position: absolute;
+  top: -100%;
+  left: -30%;
+  border-radius: 46%;
+  background: linear-gradient(rgba(252,251,232,0.1) 10%,                  transparent);
+  animation: move 7s infinite linear;
+}
+
+@keyframes move {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* moon css & animation */
+.fa-moon {
+  position: absolute;
+  top: 19%;
+  left: 33%;
+  font-size: 10%;
+  color: rgba(255,255,255,0.8);
+  animation: moon-rotation 4s infinite linear;
+}
+
+.blur {
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+}
+
+@keyframes moon-rotation {
+  0%, 100% {
+    transform: rotate(0deg);
+   }
+  50% {
+    transform: rotate(-20deg);
+  }
+}
+
+
+
+/* star css & animation */
+.fa-asterisk {
+  position: absolute;
+  font-size: 13px;
+}
+
+.star1 {
+  color:#fff;
+  top: 9%;
+  left: 5%;
+  animation: star-one 1.2s infinite;
+}
+      
+.star2 {
+	color:#fff;
+  top: 5%;
+  right: 12%;
+  animation: star-two 1.7s infinite;
+}
+      
+.star3 {
+	color:#fff;
+  top: 30%;
+  left: 4%;
+  animation: star-three 1.5s infinite;
+}
+      
+.star4 {
+	color:#fff;
+  top: 20%;
+  right: 7%;
+  font-size: 5px;
+  animation: star-five 1.9s infinite;
+}
+
+.star5 {
+	color:#fff;
+  top: 32%;
+  right: 15%;
+  font-size: 0.5px;
+  animation: star-five 2s infinite;
+}
+
+
+@keyframes star-one {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+    
+@keyframes star-two {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+    
+@keyframes star-three {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+    
+@keyframes star-four {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes star-five {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 
@@ -450,3 +652,12 @@ input#checkbox_3{
   padding: 0;
   }
 } 
+
+
+@media (max-width: 768px){
+  .container{
+  padding: 0;
+  }
+} 
+
+
