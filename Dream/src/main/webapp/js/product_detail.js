@@ -331,12 +331,10 @@ function goPurchasePage(){
 		console.log((json.size));
 		console.log(json.cnt);
 		
-		outer : for(let i = 0; i < length; i++) {
+		 outer : for(let i = 0; i < length; i++) {
 		 option_size = added_optionName[i];
 		 option_cnt = Number(added_optionAmount[i]);
-		 
-		 
-		 
+		  
 		 console.log("option_size"+option_size);
 		 	for(let n=0; n<(json.size).length; n++){
 				if(option_size == json.size[n]){

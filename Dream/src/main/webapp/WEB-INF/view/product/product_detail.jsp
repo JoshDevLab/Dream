@@ -345,17 +345,9 @@
     </div>
   <%-- 가격, 즐겨찾기 안보이면 나오는 상단 구매탭 끝--%>
   </div>
-
-
-  <%-- 멈춰! 실험용 --%>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>1<br><br>
-
-  <%-- footer 예정 --%>
   
     <%-- banner_bottom 시작  --%>
-  <div class="banner_bottom" style="margin-top: 80px;">
+  <%-- <div class="banner_bottom" style="margin-top: 80px;">
     <a href="#" class="banner_box">
       <div class="banner_info">
         <strong class="info_subtitle">service guide</strong>
@@ -363,25 +355,29 @@
         <span class="info_txt">서비스 안내</span>
       </div>
     </a>
-  </div>
+  </div> --%>
   <%-- banner_bottom 끝  --%>
   
   
+  <jsp:include page="/WEB-INF/view/footer.jsp" />
   
  <form name="verifyCertificationFrm">
     <input type="hidden" name="userid" />
     <input type="hidden" name="userCertificationCode" />
+    
+  <c:forEach var="size" items="${product.product_size}" varStatus="status">
+	  <c:if test="${status.index == 0}">
+	  	       
+	  </c:if>
+	  <c:if test="${status.index > 0}">
+	        <li data-target="#carousel_advertise" data-slide-to="${status.index}"></li>
+	  </c:if>
+  </c:forEach>
+    
+    
 </form>
 
 
-<c:forEach var="size" items="${product.product_size}" varStatus="status">
-  <c:if test="${status.index == 0}">
-  	       
-  </c:if>
-  <c:if test="${status.index > 0}">
-        <li data-target="#carousel_advertise" data-slide-to="${status.index}"></li>
-  </c:if>
-</c:forEach>
 
   
    
