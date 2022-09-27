@@ -99,8 +99,6 @@ Command.properties
 web.xml
 
 FrontController.java
-<<<<<<< HEAD
+
 *.sql
-=======
-*.sql
->>>>>>> refs/heads/jangjy
+
