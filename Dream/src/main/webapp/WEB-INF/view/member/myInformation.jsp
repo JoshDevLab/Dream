@@ -11,102 +11,16 @@
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
   
   <script type="text/javascript">
-  
-  
-  $(document).ready(function () {
-	
-	  $(document).on("click","button#email_store",function(){ // 이메일 변경 인증하기 버튼 클릭이벤트 
-		  
-	      $.ajax({
-	        url:getContextPath()+"/member/emailDuplicateCheck.dream",
-	        data:{"email":$("input#modify_email").val()},
-	        type:"get",
-	        dataType:"json",
-	        async:true,   
-	        success:function(json){
-		
-			console.log(json.isExists);
-	            
-	            if(json.isExists) {
-	                // 입력한 email 이 이미 사용중이라면
-	                alert("이미 사용중인 E-mail 입니다.");
-	                $("input#modify_email").val("");
-	                return false;
-	            }
-	            
-	            else {
-					
-				    alert("사용가능한 이메일 입니다. 인증번호를 입력해주세요");
-				    $("button#email_store").prop("disabled",true);
-			        $("input#modify_email").css("border-bottom","none");
-			        $("#modify_email").prop("disabled",true);
-			        $("#email_certification").show();
-					
-					$.ajax({
-				        url:getContextPath()+"/member/sendEmail.dream",
-				        data:{"email":$("input#modify_email").val()},
-				        type:"get",
-				        dataType:"json",
-				        async:true,   
-				        success:function(json){
-							if(json.sendMailSuccess) { // 메일 전송에 성공하였다면
-	                				// alert("메일을 전송하였습니다. 인증번호를 입력해주세요");
-	                				const certificationCode = json.certificationCode;
-	                				console.log(certificationCode);
-	                				
-	                				$("button#certification_email_btn").prop("disabled",false);
-	                				
-	                				$("button#certification_email_btn").click(function() { // 인증번호 입력버튼 클릭이벤트
-			
-									const certification_email = $("input#certification_email").val().trim();
-									const modify_email = $("#modify_email").val();
-									
-									if(certification_email == "") {
-										alert("인증번호를 입력하세요.");
-									}
-									else {
-										if(certification_email == certificationCode) {
-											$("#div_modifyEmail").hide();
-									        $("#change_email_btn").show();
-									        $("#user_email").show();
-									        $("span#userid").text(modify_email);
-									        $("input#certification_email").val("");
-										}
-										else {
-											alert("인증번호가 일치하지 않습니다.");
-											$("input#certification_email").val("");
-										}
-									}
-									
-							   }); // end of $("button#certification_email_btn").click(function() {} -------------------------------------
-	            				}
-	            				else { // 메일 전송에 실패했다면
-								alert("메일전송에 실패하였습니다. 메일주소를 다시 입력해주세요.");
-							}
-						}
-					});		
-	                
-	            }
-	            
-	        },
-	        error: function(request, status, error){
-	            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-	        }
-	  });
-   
-       
-
-   }); // end of $(document).on("click","button#name_store",function(e){}	  
 	  
-});
-
-  function goMyEdit(userid) {
-		const myEdit = document.myEdit;
-	    myEdit.action = "<%= ctxPath %>/member/myInfo.dream?userid";
-	    myEdit.method = "POST";
-	    myEdit.sumit();
-	}  
-  
+	   function myInfoEdit() {
+			
+			const frm = document.myEdit;	
+			frm.action = "<%= ctxPath %>/member/myInfoEdit.dream";
+			frm.method = "POST";
+			frm.submit();
+			
+		}
+	  
   </script>
 
 <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%>
@@ -264,26 +178,34 @@
                     <div id="login_information_email" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small; width: 70px;" class="mb-1">이메일 주소</p>
-                            <div id="user_email" style="color: gray;"><span name="userid" id="userid">${requestScope.mdto.userid}</span></div>
+                            <div id="user_email" style="color: gray;"><span id="userid">${requestScope.mdto.userid}</span></div>
+                            <input type="hidden" value="${requestScope.mdto.userid}" name="userid"/>
+                            <%-- 
+                            <input type="text" value="" name="userid_store_cnt"/>
+                            --%>
                         </div>
+                        <%-- 
                         <div class="mt-4" id="div_modifyEmail" style="position: relative; left: -69px;">
                             <p id="new_email" style="color: black; font-size: small;" class="mb-1">새로운 이메일</p>
                             <input type="text" id="modify_email" placeholder="고객님의 이메일" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_email_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 이메일 양식으로 입력하세요</span>
                             <div id="email_certification" style="display: flex;">
                               <input class="mt-2" type="text" name="certification_email" id="certification_email"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 />
-                              <button type="button" id="certification_email_btn" class="btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
+                              <button type="button" id="certification_email_btn" class="can_modify btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
                             </div>
                             <br><br>
                             <button type="button"  id="email_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
                             <button type="button"  id="email_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">인증하기</button>
                           </div>
                         <button type="button" id="change_email_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        --%>
                     </div>
                     <div id="login_information_pwd" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small; width: 60px;" class="mb-1">비밀번호</p>
                             <div id="user_passwd" style="color: gray;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</div>
+                            <input type="hidden" value="${requestScope.mdto.passwd}" name="passwd"/>
+                            <input type="hidden" value="" name="passwd_store_cnt"/>
                         </div>
                         <div class="mt-4" id="div_modifyPasswd" style="position: relative; left: -60px;">
                             <p style="color: black; font-size: small;" class="mb-1" id="new_passwd">새로운 비밀번호</p>
@@ -291,7 +213,7 @@
                             <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</span>
                             <br><br>
                             <button type="button" id="passwd_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
-                            <button type="button" id="passwd_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
+                            <button type="button" id="passwd_store" class="can_modify btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
                           </div>
                         <button type="button" id="change_passwd_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
@@ -301,7 +223,8 @@
                     <div id="login_information_name" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small; width: 26px;" class="mb-1">이름</p>
-                            <div id="user_name" style="color: gray;"><span name="name" id="name">${requestScope.mdto.username}</span></div>
+                            <div id="user_name" style="color: gray;"><span id="name">${requestScope.mdto.username}</span></div>
+                            <input type="hidden" value="${requestScope.mdto.username}" name="username" />
                         </div>
                         <div class="mt-4" id="div_modifyName" style="position: relative; left: -27px;">
                             <p style="color: black; font-size: small;" class="mb-1" id="new_name">새로운 이름</p>
@@ -309,7 +232,7 @@
                             <span id="input_name_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 이름을 입력해주세요. (2-50자)</span>
                             <br><br>
                             <button type="button" id="name_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
-                            <button type="button" id="name_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
+                            <button type="button" id="name_store" class="can_modify btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
                           </div>
                         <button type="button" id="change_id_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
@@ -317,6 +240,7 @@
                         <div>
                             <p style="color: gray; font-size: small;" class="mb-1">휴대폰 번호</p>
                             <div style="color: gray;">${requestScope.mdto.mobile}</div>
+                            <input type="hidden" value="${requestScope.mdto.mobile}" name="mobile" />
                         </div>
                         <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
@@ -330,7 +254,7 @@
                         <div style="margin-left: auto;">
                             <label class="form-check-label mr-3" for="msg_agree">
                                 수신동의
-                                <input type="radio" name="msg_radio" id="msg_agree" value="agree">
+                                <input type="radio" name="msg_radio" id="msg_agree" value="agree" checked>
                             </label>
                             <label class="form-check-label" for="msg_disagree">
                                 수신거부
@@ -345,7 +269,7 @@
                         <div style="margin-left: auto;">
                             <label class="form-check-label mr-3" for="email_agree">
                                 수신동의
-                                <input type="radio" name="email_radio" id="email_agree" value="agree">
+                                <input type="radio" name="email_radio" id="email_agree" value="agree" checked>
                             </label>
                             <label class="form-check-label" for="email_disagree">
                                 수신거부
@@ -358,7 +282,7 @@
 		                      <a class="text-muted"   href="#" data-toggle="modal" data-target="#ModalMemberOut">
 		                          회원탈퇴 
 		                      </a>
-		                      <button type="button" class="btn btn-sm btn-secondary ml-auto" onclick="myEdit('${(sessionScope.loginuser).userid}')">수정하기</button>
+		                      <button type="button" class="btn btn-sm btn-secondary ml-auto" onclick="myInfoEdit()" id="myInfo_modify">수정하기</button>
 	                  	</div>
                 </div>
 

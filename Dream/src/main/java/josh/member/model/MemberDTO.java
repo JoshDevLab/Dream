@@ -6,8 +6,11 @@ public class MemberDTO {
 	private String joindate;		// 가입일자
 	private int membership;		// 멤버쉽 가입여부
 	private int point;			// 포인트
-	private int mobile;			// 전화번호
+	private String mobile;			// 전화번호
 	private String username;		// 유저 닉네임
+	
+	// == select 용 == //
+	private String passwd;
 	
 	
 	public String getUserid() {
@@ -34,10 +37,10 @@ public class MemberDTO {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public int getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
-	public void setMobile(int mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	public String getUsername() {
@@ -45,6 +48,12 @@ public class MemberDTO {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 	
 }

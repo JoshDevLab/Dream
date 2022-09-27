@@ -26,6 +26,7 @@ public class MyInfoController extends AbstractController{
 				InterMemberDAO mdao = new MemberDAO();
 				
 				MemberDTO mdto = mdao.selectOne(userid);
+				System.out.println(mdto.getUserid());
 				
 				request.setAttribute("mdto", mdto);
 			}
