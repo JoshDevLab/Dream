@@ -23,7 +23,6 @@
       /* 사이드바 script 시작 */
       $("div.category-section > ul > li").click(function(e){
          //  클릭할 경우 글자 css 변경
-         alert("클릭됨.");
          $("div.category-section > ul > li > a").css({"font-weight":"","color":""});
          $(e.target).css({"font-weight":"700","color":"black"});
       });
