@@ -3,6 +3,7 @@
 <%
    String ctxPath = request.getContextPath();
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%-- header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
@@ -16,17 +17,17 @@
   <div class="Main d-flex">
   
     <%-- 사이드 바 시작 --%>
-    <div class="sidebar ml-5">
+    <div class="sidebar ml-5 mt-3">
       <div>
           <h4 class="mb-4" style="font-weight:bold;">고객센터</h4>
       </div>    
       <div class="category-section mb-5">
           <ul class="nav flex-column">
               <li class="nav-item">
-                  <a class="nav-link pl-0 text-muted" href="#">공지사항</a>
+                  <a class="nav-link pl-0 text-muted" href="<%=ctxPath %>/notice/notice.dream">공지사항</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link pl-0 text-muted" href="#">자주 묻는 질문</a>
+                  <a class="nav-link pl-0 text-muted" href="<%=ctxPath %>/notice/qna.dream">자주 묻는 질문</a>
               </li>
           </ul>
       </div>
@@ -36,73 +37,73 @@
 
     
     <%-- 공지사항 테이블 시작 --%>
-    <div class="notice d-flex flex-column">
+    <div id="notice" class="d-flex flex-column">
       <table class="table table-hover">
         <thead>
           <tr>
-            <th><h5 style="font-weight:bold;">공지사항</h5></th>
+            <th><h4 style="font-weight:bold;">공지사항</h4></th>
           </tr>
         </thead>
         <tbody>
+          <c:forEach var="notice" items="${requestScope.noticeList}">
           <tr>
-            <td><span type="button" onclick="">[공지] 5월 거래 혜택 이벤트 안내</span></td>
+            <td onclick="location.href='<%= ctxPath%>/notice/noticeDetail.dream?num=${notice.notice_num}'" style="cursor:pointer"><span>${notice.notice_title}</span></td>
           </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] LUCKY DRAW - 뉴발란스 x JJJ자운드 990v3 & 자크뮈스 르 치키토 미니백</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 드림 첫 게시물</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 드림 게시판 더미게시글</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[공지] 세미프로젝트 시작</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 게시글 열개 채우기 이벤트</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[공지] 세미프로젝트 게시글 존나 귀찮</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[공지] 쌍용강북교육센터 화이팅</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 깃허브 어떻게 하지</span></td>
-          </tr>
-          <tr>
-            <td><span type="button" onclick="">[이벤트 발표] 제목 존나길게 하기 제목 존나길게 하기제목</span></td>
-          </tr>
+          </c:forEach>
         </tbody>
-        <tfoot>
-          <td>
-            <%-- 페이지아이템 시작 --%>
-            <div class="page-item d-flex justify-content-between">
-              <div id="btn_start" type="button" onclick="">
-                <i class="fa-solid fa-angles-left"></i>
-              </div>
-              <div id="btn_prev" type="button" class="ml-md-3" onclick="">
-                <i class="fa-solid fa-angle-left"></i>
-              </div>
-              <ul class="pageNum d-flex justify-content-start list-unstyled m-auto">
-                <li><a class="pagination" href="" >1</a></li>
-                <li><a class="pagination" href="" >2</a></li>
-                <li><a class="pagination" href="" >3</a></li>
-                <li><a class="pagination" href="" >4</a></li>
-                <li><a class="pagination" href="" >5</a></li>
-              </ul>
-              <div id="btn_end" type="button" class="mr-md-3" onclick="">
-                <i class="fa-solid fa-angle-right"></i>
-              </div>
-              <div id="btn_next" type="button" onclick="">
-                <i class="fas fa-solid fa-angles-right"></i>
-              </div>
-            </div>
-            <%-- 페이지아이템 끝 --%>
-          </td>
-        </tfoot>
       </table>
+      
+      <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
+        <nav aria-label="...">
+		    <ul class="pagination pagination-md justify-content-center">
+		    	<%-- 첫페이지로 이동버튼 --%>
+		    	<c:if test="${requestScope.page > requestScope.display_page}">
+		    	<li class="page-item">
+			      <a class="page-link" href="?p=1">
+			      	<i class="fa-solid fa-angles-left"></i>
+			      </a>
+			    </li>
+			    
+			    
+			    <%-- 전페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.startPage-1}">
+			      	<i class="fa-solid fa-angle-left"></i>
+			      </a>
+			    </li>
+			    </c:if>
+			    
+			    <%-- 페이지번호 시작--%>
+			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+                <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
+                <li class="page-item active" aria-current="page">
+			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                
+                <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
+                <li class="page-item">
+			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                </c:forEach>
+                <%-- 페이지번호 끝 --%>
+                
+                
+                
+			    <%-- 다음페이지로 이동버튼 --%>
+			    <c:if test="${!(requestScope.last_display_page)}">
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
+			    </li>
+			    <%-- 맨 끝페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
+			    </li>
+			    </c:if>
+		  	</ul>
+		</nav>
+		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
     </div>
     <%--공지사항 끝  --%>
   </div>

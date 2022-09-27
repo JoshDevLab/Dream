@@ -1,3 +1,11 @@
+// js파일에서 contextPath를 알아내는 함수
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
+
+
 $(document).ready(function(){
     // 변수선언
     const headline = $("tr.headline");
@@ -16,23 +24,9 @@ $(document).ready(function(){
       target.parent().children("td.upIcon").toggle();
       target.parent().children("td.downIcon").toggle();
     });
+	
+	
   });//end of $(document).ready(function(){}---
 
       
-      // Function Declaration
-      // 전체버튼 클릭시 실행함수
-      function select_all(){
-        alert("전체버튼 클릭");
-      }
-      // 이용정책 클릭시 실행될 함수
-      function select_policy(){
-        alert("이용정책버튼 클릭");
-      }
-      // 공통 클릭시 실행될 함수
-      function select_common(){
-        alert("공통버튼 클릭");
-      }
-      // 구매 클릭시 실행될 함수
-      function select_buy(){
-        alert("구매버튼 클릭");
-      }
+  // Function Declaration

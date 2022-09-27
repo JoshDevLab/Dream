@@ -16,7 +16,6 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/sidebar.css" />
 <%-- Optional JavaScript --%>
-<script type="text/javascript" src="<%= ctxPath%>/jquery3.6.0/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
 
 <script>
@@ -74,7 +73,18 @@
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/point.dream">포인트</a>
             </li>
+            <li class="nav-item">
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/membership.dream">멤버십 정보</a>
+            </li>
          </ul>
       </div>
    </div>
    <!-- 사이드바 끝 -->
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+</body>
+>>>>>>> refs/remotes/origin/hwanggb
+=======
+>>>>>>> refs/remotes/origin/hwanggb

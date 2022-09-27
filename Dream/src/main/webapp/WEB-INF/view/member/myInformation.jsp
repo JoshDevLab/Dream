@@ -9,6 +9,19 @@
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/myInformation.css" />
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
+  
+  <script type="text/javascript">
+	  
+	   function myInfoEdit() {
+			
+			const frm = document.myEdit;	
+			frm.action = "<%= ctxPath %>/member/myInfoEdit.dream";
+			frm.method = "POST";
+			frm.submit();
+			
+		}
+	  
+  </script>
 
 <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%> <%-- 회원탈퇴 modal 시작 --%>
     <div id="ModalMemberOut" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -112,7 +125,7 @@
                 </div>
               </div>
               <%-- Modal footer --%>
-              <button id="x" type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="button" type="button" id="x" type="button" class="close" data-dismiss="modal">&times;</button>
       
               
            </div>
@@ -138,8 +151,7 @@
         
         
         
-
-        <div id="right-content" style="width: 90%;" class="mt-4">
+        <form id="right-content" style="width: 90%;" class="mt-4" name="myEdit">
             <div id="content_title border">
                 <h4 class="mb-4 pb-3" style="font-weight:bold; border-bottom: solid 3px black;">프로필 정보</h4>
             </div>
@@ -150,13 +162,13 @@
                     </div>
                     <div id="user-info">
                         <div id="user-name">
-                            <p style="font-weight:bold; font-size: 14pt;" class="pt-1 mb-0">조상운</p> <%-- 백단에서 이름 가져오기 --%>
+                            <p style="font-weight:bold; font-size: 14pt;" class="pt-1 mb-0">${requestScope.mdto.username}</p> <%-- 백단에서 이름 가져오기 --%>
                         </div>
                         <div id="user-email" style="font-size:10pt;">
-                            <p>tkddns6621@naver.com</p> <%-- 백단에서 아이디 가져오기 --%>
+                            <p>${requestScope.mdto.userid}</p> <%-- 백단에서 아이디 가져오기 --%>
                         </div>  
-                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">이미지 변경</button>
-                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">내 스타일</button>
+                        <button type="button" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">이미지 변경</button>
+                        <button type="button" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">내 스타일</button>
                     </div>
                 </div>
             </div>
@@ -165,33 +177,45 @@
                     <h5 class="category-title font-weight-bold">로그인 정보</h5>
                     <div id="login_information_email" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
-                            <p style="color: gray; font-size: small; width: 69px;" class="mb-1">이메일 주소</p>
-                            <div id="user_email" style="color: gray;"><span name="email" id="email">회원의 이메일이 나오는곳</span></div>
+                            <p style="color: gray; font-size: small; width: 70px;" class="mb-1">이메일 주소</p>
+                            <div id="user_email" style="color: gray;"><span id="userid">${requestScope.mdto.userid}</span></div>
+                            <input type="hidden" value="${requestScope.mdto.userid}" name="userid"/>
+                            <%-- 
+                            <input type="text" value="" name="userid_store_cnt"/>
+                            --%>
                         </div>
+                        <%-- 
                         <div class="mt-4" id="div_modifyEmail" style="position: relative; left: -69px;">
                             <p id="new_email" style="color: black; font-size: small;" class="mb-1">새로운 이메일</p>
                             <input type="text" id="modify_email" placeholder="고객님의 이메일" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_email_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 이메일 양식으로 입력하세요</span>
+                            <div id="email_certification" style="display: flex;">
+                              <input class="mt-2" type="text" name="certification_email" id="certification_email"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 />
+                              <button type="button" id="certification_email_btn" class="can_modify btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
+                            </div>
                             <br><br>
-                            <button id="email_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
-                            <button id="email_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
+                            <button type="button"  id="email_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
+                            <button type="button"  id="email_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">인증하기</button>
                           </div>
-                        <button id="change_email_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        <button type="button" id="change_email_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        --%>
                     </div>
                     <div id="login_information_pwd" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small; width: 60px;" class="mb-1">비밀번호</p>
-                            <div id="user_passwd" style="color: gray;">회원의 비밀번호가 나오는곳</div>
+                            <div id="user_passwd" style="color: gray;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</div>
+                            <input type="hidden" value="${requestScope.mdto.passwd}" name="passwd"/>
+                            <input type="hidden" value="" name="passwd_store_cnt"/>
                         </div>
                         <div class="mt-4" id="div_modifyPasswd" style="position: relative; left: -60px;">
                             <p style="color: black; font-size: small;" class="mb-1" id="new_passwd">새로운 비밀번호</p>
                             <input type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</span>
                             <br><br>
-                            <button id="passwd_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
-                            <button id="passwd_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
+                            <button type="button" id="passwd_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
+                            <button type="button" id="passwd_store" class="can_modify btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
                           </div>
-                        <button id="change_passwd_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        <button type="button" id="change_passwd_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
                 </div>
                 <div class="profile_group" style="margin-top: 7%;">
@@ -199,24 +223,26 @@
                     <div id="login_information_name" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small; width: 26px;" class="mb-1">이름</p>
-                            <div id="user_name" style="color: gray;"><span name="name" id="name">회원의 이름이 나오는곳</span></div>
+                            <div id="user_name" style="color: gray;"><span id="name">${requestScope.mdto.username}</span></div>
+                            <input type="hidden" value="${requestScope.mdto.username}" name="username" />
                         </div>
                         <div class="mt-4" id="div_modifyName" style="position: relative; left: -27px;">
                             <p style="color: black; font-size: small;" class="mb-1" id="new_name">새로운 이름</p>
                             <input type="text" id="modify_name" placeholder="고객님의 이름" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_name_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 이름을 입력해주세요. (2-50자)</span>
                             <br><br>
-                            <button id="name_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
-                            <button id="name_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
+                            <button type="button" id="name_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
+                            <button type="button" id="name_store" class="can_modify btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
                           </div>
-                        <button id="change_id_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        <button type="button" id="change_id_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
                     <div id="login_information_phone" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small;" class="mb-1">휴대폰 번호</p>
-                            <div style="color: gray;">회원의 휴대폰번호가 나오는곳</div>
+                            <div style="color: gray;">${requestScope.mdto.mobile}</div>
+                            <input type="hidden" value="${requestScope.mdto.mobile}" name="mobile" />
                         </div>
-                        <button class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
                 </div>
                 <div class="profile_group" style="margin-top: 7%;">
@@ -228,7 +254,7 @@
                         <div style="margin-left: auto;">
                             <label class="form-check-label mr-3" for="msg_agree">
                                 수신동의
-                                <input type="radio" name="msg_radio" id="msg_agree" value="agree">
+                                <input type="radio" name="msg_radio" id="msg_agree" value="agree" checked>
                             </label>
                             <label class="form-check-label" for="msg_disagree">
                                 수신거부
@@ -243,7 +269,7 @@
                         <div style="margin-left: auto;">
                             <label class="form-check-label mr-3" for="email_agree">
                                 수신동의
-                                <input type="radio" name="email_radio" id="email_agree" value="agree">
+                                <input type="radio" name="email_radio" id="email_agree" value="agree" checked>
                             </label>
                             <label class="form-check-label" for="email_disagree">
                                 수신거부
@@ -252,15 +278,16 @@
                         </div>
                     </div>
 
+						<div style="margin-top: 50px; display: flex;">
+		                      <a class="text-muted"   href="#" data-toggle="modal" data-target="#ModalMemberOut">
+		                          회원탈퇴 
+		                      </a>
+		                      <button type="button" class="btn btn-sm btn-secondary ml-auto" onclick="myInfoEdit()" id="myInfo_modify">수정하기</button>
+	                  	</div>
                 </div>
 
-                <div style="margin-top: 50px;">
-                    <a class="text-muted"   href="#" data-toggle="modal" data-target="#ModalMemberOut">
-                        회원탈퇴 
-                    </a>
-                </div>
             </div>
-        </div>
+        </form>
     </div>
     
     

@@ -11,11 +11,6 @@
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/findEmail.js" ></script>
 
-<%-- fullpage 라이브러리 --%>
-<link href="fullpagelib/jquery.fullPage.css" rel="stylesheet"> 
-<script type="text/javascript" src="fullpagelib/jquery.fullPage.js"></script>
-
-
 <div class="notfound_notice" id="notfound_notice">
       <p><i class="fa-solid fa-lg fa-triangle-exclamation" style="color: red;"></i>일치하는 사용자 정보를 찾을 수 없습니다.</p>
    </div>
@@ -52,8 +47,8 @@
 
       <%-- 이메일 아이디찾기 버튼 부분  --%>
       <div class="find_buttonbox">
-         <%-- href = ""findEmailEnd로 이동 --%>
-         <a  id="btn_find" href="<%=ctxPath %>/login/findEmailEnd.dream" class="btn_find">이메일 아이디 찾기</a>
+         <%-- href = ""findEmailEnd로 이동 href="<%=ctxPath %>/login/findEmailEnd.dream"--%>
+         <a  id="btn_find" class="btn_find">이메일 아이디 찾기</a>
       </div>
       <%-- 이메일 아이디찾기 버튼 부분  --%>
 

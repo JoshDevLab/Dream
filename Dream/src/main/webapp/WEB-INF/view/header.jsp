@@ -49,8 +49,8 @@
       <div class="header_top border-bottom">
         <ul class="header_top_list list-unstyled d-flex justify-content-between">
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/notice/notice.dream'">고객센터</li>
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/cart/cart.dream'">장바구니</li>
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/member/mypage.dream'">마이페이지</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/cart/cart.dream?userid=${sessionScope.userid}'">장바구니</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/member/mypage.dream?userid=${sessionScope.userid}'">마이페이지</li>
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/login/login.dream'">로그인</li>
           <li class="header_top_item" type="button" onclick="logout()">로그아웃</li>
         </ul>
@@ -74,3 +74,30 @@
     <%-- header끝 --%>
     <div id="header_box">
 	</div>
+	
+	
+	<%-- 물결 --%>
+  		<a type="button" id="btn_scroll_top">
+            <div class="wrap">
+              <div class="circle">
+                <!-- wave -->
+                <div class="wave-one"></div>
+                <div class="wave-two"></div>
+                <div class="wave-three"></div>
+                <div class="wave-four"></div>
+                
+                <!-- moon -->
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-moon blur"></i>
+                
+                <!-- star -->
+                <div class="star">
+                  <i class="fas fa-asterisk star1"></i>
+                  <i class="fas fa-asterisk star2"></i>
+                  <i class="fas fa-asterisk star3"></i>
+                  <i class="fas fa-asterisk star4"></i>
+                  <i class="fas fa-asterisk star5"></i>
+                </div>
+              </div>
+            </div>   
+  		</a>

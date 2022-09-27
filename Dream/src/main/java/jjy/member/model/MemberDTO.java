@@ -9,6 +9,7 @@ public class MemberDTO {
 	private String mobile;   // 핸드폰 번호 
 	
 	
+	
 	// Getter, Setter  ////////////////////////////////////////////////////////////
 	public String getUserid() {
 		return userid;

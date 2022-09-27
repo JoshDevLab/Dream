@@ -20,8 +20,31 @@
       <%-- 제품 이미지 + 상품 디테일 --%>
       <div class="product_info_area">
         <div class="product_info">
-          <div class="product" style="background-color: rgb(246, 238, 237);">
-            <img  alt="상품 이미지" src="images/Koala.jpg" class="image">
+          <div class="product">
+          	      <%-- 물결 --%>
+		      <div class="wrap">
+		  		<div class="circle">
+				    <!-- wave -->
+				    <div class="wave-one"></div>
+				    <div class="wave-two"></div>
+				    <div class="wave-three"></div>
+				    <div class="wave-four"></div>
+				    
+				    <!-- moon -->
+				    <i class="fas fa-moon"></i>
+				    <i class="fas fa-moon blur"></i>
+				    
+				    <!-- star -->
+				    <div class="star">
+				      <i class="fas fa-asterisk star1"></i>
+				      <i class="fas fa-asterisk star2"></i>
+				      <i class="fas fa-asterisk star3"></i>
+				      <i class="fas fa-asterisk star4"></i>
+				      <i class="fas fa-asterisk star5"></i>
+				    </div>
+				  </div>
+				</div>	
+            
           </div>
           <div class="product_detail">
             <strong class="model_numbe-r">JYJ-8426-527</strong>
@@ -52,6 +75,7 @@
           <div class="section_title">
             <h3 class="title_txt">배송 방법</h3>
           </div>
+        </div>
           <div class="section_content">
             <div class="delivery_service">
               <div class="delivery_way">
@@ -68,8 +92,13 @@
                   </div>
                 </div>
               </div>
-            </div>  
+            </div>
+       	</div>  
       </section>
+      
+      
+      
+
 
       <%-- 포인트 섹션 --%>
       <section>
@@ -129,7 +158,9 @@
         <ul id="check_ul">
            <li>
               <div class="check_content">
-                 <label class="no_margin" for="checkbox_1"><p class="content_1">판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.</p></label>
+                 <label class="no_margin" for="checkbox_1">
+                 	<p class="content_1">판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.</p>
+               	 </label>
                  <label class="no_margin" for="checkbox_1"><p class="content_2">앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</p></label>
               </div>
               <input class = "aaaa" name="li_check" id="checkbox_1" type="checkbox" />
@@ -151,7 +182,7 @@
               <span class="total_amount">총결제금액</span><span>-</span>
            </li>
            <li>
-              <a id="payment" href="#">결제하기</a>
+              <a id="payment">결제하기</a>
            </li>
         </ul>
 

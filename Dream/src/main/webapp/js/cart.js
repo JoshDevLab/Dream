@@ -9,6 +9,16 @@ $(document).ready(function () {
         const bool = $("input.chk_all").prop("checked");
         $("input:checkbox[name='prd_check']").prop("checked",bool);
         $("input#mobile_chk_all").prop("checked",bool);
+        
+        let total_price = 0;
+        $("table input:checkbox[name='prd_check']:checked").each(function (index,item) {
+            total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
+        }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
+
+        // console.log(total_price);
+
+        $("span#prd_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text(total_price.toLocaleString('en'));
 
     });// end of $("input:checkbox[name='chk_all']").click(function (e) ----------------
 
@@ -17,8 +27,19 @@ $(document).ready(function () {
         const bool = $("input#mobile_chk_all").prop("checked");
         $("input:checkbox[name='prd_check']").prop("checked",bool);
         $("input#chk_all").prop("checked",bool);
+        
+        let total_price = 0;
+        $("table input:checkbox[name='prd_check']:checked").each(function (index,item) {
+            total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
+        }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
+        
+        // console.log(total_price);
 
-    });// end of $("input:checkbox[name='chk_all']").click(function (e) ----------------
+        $("span#prd_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text(total_price.toLocaleString('en'));
+
+
+    });// end of $("input:checkbox[name='chk_all']").click(function (e) ----------------*/
 
 
     $("table input:checkbox[name='prd_check']").click(function (e) {  // 각각 체크박스 선택시 이벤트 처리
@@ -94,7 +115,6 @@ $(document).ready(function () {
 
     $("input:checkbox[name='prd_check']").change(function (e) {
         // 체크된 상품들의 total price들을 가져와서 합계를 구한것을 아래 html에 넣어주기
-
         let total_price = 0;
         $("table input:checkbox[name='prd_check']:checked").each(function (index,item) {
             total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
@@ -103,6 +123,7 @@ $(document).ready(function () {
         // console.log(total_price);
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text(total_price.toLocaleString('en'));
         
     });// end of $(document).on("change","table#tbl_cart", function (e)
 
@@ -119,13 +140,10 @@ $(document).ready(function () {
         // console.log(total_price);
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text(total_price.toLocaleString('en'));
         
     });// end of $(document).on("DOMSubtreeModified","table#tbl_cart", function (e)
 
-    function comma(price) {
-        number(price).toLocaleString('en')  
-    };
-    
 
 
 });// end of $(document).ready(function () {} -----------------------------------------------------------------------------------------------------------------------------

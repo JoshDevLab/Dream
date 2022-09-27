@@ -1,6 +1,13 @@
+// js파일에서 contextPath를 알아내는 함수
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
 
 
 $(document).ready(function(){
+	  
       $("button#btn_join").attr("disabled",true);
       $("button#btn_join").css("background","#EBEBEB");
       
@@ -9,6 +16,7 @@ $(document).ready(function(){
       const input_passwd = $("input:password[name='passwd']");
       const input_passwd_check = $("input:password[name='passwd_check']");
       
+      let emailConfirmCode;
       let id_ok = false;
       let passwd_ok = false;
       let passwd_check_ok = false;
@@ -59,6 +67,55 @@ $(document).ready(function(){
       $("input:checkbox[name='agree_age']").change(function(){
 		agree_check();	//회원가입 준비 완료인지 아닌지 검사하는 함수 호출
       });
+      
+      
+      //이메일 인증번호 전송을 클릭했을때
+      $("button#btn_send_email").click(function(){
+		const userid = input_userid.val();
+		$("input#emailConfirmCode").css("display","inline-block");
+	    $("span#send_guide").html(`입력하신 이메일 ${userid}로 <br> 인증번호를 전송하였습니다.`);
+		$.ajax({ 
+			url:getContextPath()+"/member/emailCheck.dream", 
+			data:{"userid": userid},
+			type:"post",
+			dataType:"json",
+			success:function(json){
+				if(json.sendMailSuccess){	//이메일 전송에 성공했다면
+				  emailConfirmCode = json.certificationCode;
+				}
+				else{	//이메일 전송에 실패했다면
+					$("span#send_guide").html("입력하신 이메일로 전송을 실패했습니다.이메일을 다시한번 확인해주세요")
+				}
+			},//end of success
+			
+			//success 대신 error가 발생하면 실행될 코드 
+			error: function(request,status,error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		  });//end of $.ajax({})---
+	  });
+	  
+	  
+	  
+	  //이메일 인증완료 버튼 클릭시
+	  $("button#emailConfirmComplete").click(function(){
+		if(emailConfirmCode == $("input:text[name='emailConfirmCode']").val()){ //입력한 코드와 인증코드가 같다면
+		  const frm = document.joinFrm;
+		  frm.action = "join.dream"; // 상대경로이므로 맨 뒤에만 바뀜
+		  frm.method = "post"; // get 방식이라면 회원가입 창을 보여주고, post 방식이라면 DB에 데이터 전달
+		  frm.submit();
+		}
+		else{
+			alert("이메일인증코드가 다릅니다!!!!!!");	
+		}
+	  });
+	  
+	  //가입하기 버튼 클릭시
+	  $("button#btn_join").click(function(){
+		$("span#send_guide").html("");
+	  });
+      
+      
 
 
 
@@ -182,15 +239,8 @@ $(document).ready(function(){
 	  
 	  
 	  
-	  //가입하기 버튼 클릭시 이메일인증하기
-	  $("button#btn_join").click(function(e){
-			const userid = input_userid.val().trim();
-			const frm = document.pwdFindFrm;
-			frm.action ="<%= ctxPath%>/login/pwdFind.up"; // 자기 자신한테 보냄 
-			frm.method ="POST"; // 대소문자 구분 x (javascript)
-			frm.submit();
-			
-	   });// end of $("button#btnFind").click(function(e)------------------------
+	  
+	  // });// end of $("button#btnFind").click(function(e)------------------------
 	  
 	  
 	  

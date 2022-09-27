@@ -10,6 +10,22 @@ h2#menu_title{
   position:relative;
   top:80px;
 }
+div#container{
+  width:80%;
+  margin:auto;
+}
+@media screen and (max-width: 768px){
+	div#container{
+	  width:90%;
+	  margin:auto;
+	}
+}
+@media screen and (max-width: 480px){
+	div#container{
+	  width:100%;
+	  margin:auto;
+	}
+}
 button.btn_fillter{
   background-color: #F4F4F4;
   font-size: 13px;
@@ -107,7 +123,7 @@ div.sidefilter{
   width:200px;
   display:flex;
   flex-direction: column;
-  z-index:2;
+  z-index:1;
 }
 @media screen and (max-width: 768px){
   div.sidefilter{
@@ -169,6 +185,14 @@ div#product_detail_division{
   text-decoration: underline;
 }
 div#product_name{
+  font-size:15px;
+}
+div#product_name{
+    font-size:14px;
+  }
+span#product_price,
+div#product_sale_price{
+  font-size:15px;
   font-size:15px;
 }
 @media screen and (max-width: 768px){
