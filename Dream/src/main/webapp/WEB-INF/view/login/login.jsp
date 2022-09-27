@@ -16,7 +16,7 @@
 <body>
    <div id = "container"> 
       <img src="<%=ctxPath %>/images/logo.png" alt="...">
-      <form action="joinFrm">
+      <form name="joinFrm">
          <fieldset>
             <div id="div_userid">
                <label for="userid">이메일 주소</label>

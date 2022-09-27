@@ -10,11 +10,13 @@
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/add_payInfo.css" />
   <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/만들어야 함.js" ></script>
+  <script type="text/javascript" src="<%= ctxPath%>/js/payinfo.js" ></script>
 
 
 
 <body>
+
+
 
 
 
@@ -26,8 +28,34 @@
 
 
 <!--------------------------------------------------- 사이드바 시작 --------------------------------------------------->
-		 <%-- sidebar 호출 --%>
-  		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
+		<div class="sidebar mr-5" style="width: 180px;">
+			<div>
+				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
+			</div>
+			<div class="category-section mb-5">
+				<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">구매 내역</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">관심 상품</a></li>
+				</ul>
+			</div>
+
+			<div class="category-section">
+				<h5 class="category-title font-weight-bold">내 정보</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">프로필 정보</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">주소록</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">결제정보</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">포인트</a></li>
+				</ul>
+			</div>
+		</div>
 <!--------------------------------------------------- 사이드바 끝 --------------------------------------------------->
 
 
@@ -91,7 +119,7 @@
 								</div>
 							</div>
 							<div class="btn_bind">
-								<a href="#" class="btn_outlinegrey_small2"> 삭제 </a>
+								<a href="#" class="btn_outlinegrey_small2" id="basic_delete"> 삭제 </a>
 							</div>
 						</div>
 					</div>
@@ -121,11 +149,39 @@
 								</div>
 								<div class="btn_bind" id="other_bind">
 									<a href="#" class="btn_outlinegrey_small2"> 기본결제 </a> <a
-										href="#" class="btn_outlinegrey_small2"> 삭제 </a>
+										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
 								</div>
 							</div>
-							<p  class="notice">수수료(페널티, 착불배송비 등)가 정산되지
-								않을 경우, 별도 고지 없이 해당 금액을 결제 시도할 수 있습니다.</p>
+							
+								
+								
+								
+								
+								
+								<div id="button" data-v-7d49a47c="" class="my_item" data-v-1c284ef0="">
+								<div data-v-7d49a47c="" class="info_bind">
+									<div class="card_info" id="other_card_info">
+										<a class="btn_outlinegrey_small2"> KB</a>
+										<div class="card_num">
+											<span class="num_bind d-flex"> <span class="dot"><span
+													class="dot">****</span></span><span class="hyphen">-</span> <span
+												class="dot"><span class="dot">****</span></span><span
+												class="hyphen">-</span> <span class="dot">****</span><span
+												class="hyphen">-</span> <span class="last_num_box"><span
+													class="last_num">4005</span></span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+								<div class="btn_bind" id="other_bind">
+									<a href="#" class="btn_outlinegrey_small2"> 기본결제 </a> <a
+										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
+								</div>
+							</div>
+							
+								
+								
 						</div>
 					</div>
 
@@ -203,6 +259,7 @@
 
 </div>
 <!-- 컨테이너 끝  -->
+
 
 
 

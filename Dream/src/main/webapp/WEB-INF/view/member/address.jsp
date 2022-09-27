@@ -14,14 +14,45 @@
 
 <!-- 다음 주소검색  -->
 <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
+
+
+
 <!-- 컨테이너 시작  -->
 <div class="container">
 
 
 
 <!--------------------------------------------------- 사이드바 시작 --------------------------------------------------->
-		 <%-- sidebar 호출 --%>
-  		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
+		<div class="sidebar mr-5" style="width: 180px;">
+			<div>
+				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
+			</div>
+			<div class="category-section mb-5">
+				<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">구매 내역</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">관심 상품</a></li>
+				</ul>
+			</div>
+
+			<div class="category-section">
+				<h5 class="category-title font-weight-bold">내 정보</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">프로필 정보</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">주소록</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">결제정보</a></li>
+					<li class="nav-item"><a class="nav-link pl-0 text-muted"
+						href="#">포인트</a></li>
+				</ul>
+			</div>
+		</div>
 <!--------------------------------------------------- 사이드바 끝 --------------------------------------------------->
 
 
@@ -71,28 +102,23 @@
 								
 								<div class="address_info">
 									<div class="name_box">
-										<span id="basic_text" class="name">ㄱ**</span>
+										<span id="basic_text" class="name">${requestScope.basic_adto.order_name}</span>
 										<span class="mark">기본 배송지</span>
 									</div>
 									<p id="basic_text" class="phone">
-										010<span class="hyphen">-</span>9<span class="dot">*</span>
-										<span class="dot">*</span>
-										<span class="dot">*</span>
-										<span class="hyphen">-</span><span
-											class="dot">*</span>999
+										${requestScope.basic_first_mobile}-${requestScope.basic_second_mobile}-${requestScope.basic_third_mobile}
 									</p>
 									<div  class="address_box">
-										<span id="basic_text"  class="zipcode">(06257)</span><span
-											 id="basic_text" class="address">서울 강남구 도곡로23길 6
-											(역삼동) ㄴㅇㄹㄴㄹㅇㄴㄹ</span>
+										(<span id="basic_text"  class="zipcode">${requestScope.basic_adto.post_code }</span>)
+										 <span id="basic_text" class="address">${requestScope.basic_adto.address} ${requestScope.basic_adto.detail_address}</span>
 									</div>
 								</div>
 							</div>
 							<div  class="btn_bind">
 								<!---->
 								<a data-toggle="modal" data-target="#add_address" href="#"
-									class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a><a
-								    href="#" class="btn_outlinegrey_small">
+									class="btn_outlinegrey_small"  onclick="Revise_add()"> 수정 </a><a
+								    href="#"  class="btn_outlinegrey_small" id="basic_delete">
 									삭제 </a>
 							</div>
 						</div>
@@ -105,6 +131,46 @@
 
 					<div class="other">
 						<div class="other_list">
+						
+						
+						
+							<%--for문 반복횟수는 태그라이브러리를 써서 하는데 var='리스트안에 들어있는 한개아이템' items='리스트이름' --%>
+							<%-- <c:forEach var="" items="${requestScope.addressList}"> --%>
+							<div class="my_item_is_active" id="active"
+								style="">
+								<div class="info_bind">
+								
+								<div class="address_info">
+									<div class="name_box">
+										<span id="basic_text" class="name">${requestScope.basic_adto.order_name}</span>
+										
+									</div>
+									<p id="basic_text" class="phone">
+										${requestScope.basic_first_mobile}-${requestScope.basic_second_mobile}-${requestScope.basic_third_mobile}
+									</p>
+									<div  class="address_box">
+										(<span id="basic_text"  class="zipcode">${requestScope.basic_adto.post_code }</span>)
+										 <span id="basic_text" class="address">${requestScope.basic_adto.address} ${requestScope.basic_adto.detail_address}</span>
+									</div>
+								</div>
+							</div>
+								<div id="basic_text" class="btn_bind">
+									<a href="/member/basic_address.dream?address_num=" class="btn_outlinegrey_small"> 기본 배송지 </a>
+										<a data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
+										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
+								</div>
+							</div>
+							
+							<%--for문 --%>
+							
+							
+							
+							
+							
+							
+							
+							
+							
 							<div class="my_item_is_active"
 								style="">
 								<div class="info_bind">
@@ -120,7 +186,7 @@
 												class="dot"></span>312
 										</p>
 										<div class="address_box">
-											<span class="zipcode" id="basic_text" >(05344)</span>
+											(<span class="zipcode" id="basic_text" >05344</span>)
 											<span class="address" id="basic_text" >서울 강동구 천중로56길 6 (길동) ㅇㄴㅁㅇㅇ</span>
 										</div>
 									</div>
@@ -128,7 +194,7 @@
 								<div id="basic_text" class="btn_bind">
 									<a href="#" class="btn_outlinegrey_small"> 기본 배송지 </a>
 										<a data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
-										<a href="#" class="btn_outlinegrey_small"> 삭제 </a>
+										<a href="#" id="delete" class="btn_outlinegrey_small" > 삭제 </a>
 								</div>
 							</div>
 							
@@ -217,9 +283,11 @@
 
 
  
-
+             
 				<div class="modal modal_box layer lg" id="add_address">
+				      
 					<div class="layer_container">
+					  
 					  <button type="button" class="close passwdFindClose" data-dismiss="modal">&times;</button>
 						<div class="layer_header">
 						    <h2 class="title1">새 주소 추가</h2> 
@@ -229,14 +297,14 @@
 						</div>
 						<div class="layer_content">
 							<div class="delivery_bind">
-								<form class="delivery_input">
+								<form name="registerFrm" class="delivery_input">
 								
 								  
 								  
 									<div class="input_box has_error">
 										<h4 id="name" class="input_title">이름</h4>
 										<div class="input_item">
-											<input class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" >
+											<input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" >
 										</div>
 										<span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
 									</div>
@@ -244,7 +312,7 @@
 									<div class="input_box">
 										<h4 id="mobile" class="input_title">휴대폰 번호</h4>
 										<div class="input_item">
-											<input id="mobile" type="text" placeholder=" '010' 으로 시작하는 11자리 번호, - 제외 " autocomplete="off"
+											<input id="mobile" name="mobile" type="text" placeholder=" '010' 으로 시작하는 11자리 번호, - 제외 " autocomplete="off"
 												class="input_txt">
 												
 												<span class="mobile_error" style="color:red">정확한 휴대폰 번호를 입력해주세요 (- 제외).</span>
@@ -256,7 +324,7 @@
 										<h4 class="input_title">우편번호</h4>
 										<div class="input_item">
 										<a href="#"  id="zipcodeSearch" class="btn btn_zipcode outline small;" onclick="openDaumPOST();"> 우편번호 </a>
-										<input type="text" id="postcode" value="우편번호밸류" name="postcode" size="6" maxlength="5" placeholder="우편 번호를 검색하세요" readonly/><br/>
+										<input type="text" id="postcode" value="우편번호밸류" name="post_code" size="6" maxlength="5" placeholder="우편 번호를 검색하세요" readonly/><br/>
 											<!-- <input type="text" placeholder="우편 번호를 검색하세요"
 												readonly="readonly" autocomplete="off" class="input_txt"> -->
 												
@@ -268,23 +336,17 @@
 									<div class="input_box">
 										<h4 class="input_title">주소</h4>
 										<div class="input_item" >
-										<input id="address" value="주소밸류" type="text" placeholder="우편 번호 검색 후,자동입력 됩니다." readonly>
+										<input id="address" name="address" value="주소밸류" type="text" placeholder="우편 번호 검색 후,자동입력 됩니다." readonly>
 										
 										</div>
 									</div>
 									
-									<div class="input_box">
-										<h4 class="input_title">참고항목</h4>
-										<div class="input_item" >
-										<input id=extraAddress value="참고항목밸류" type="text" required >
-										
-										</div>
-									</div>
+									
 									
 									<div class="input_box">
 										<h4 class="input_title">상세 주소</h4>
 										<div class="input_item">
-											<input id="detailAddress" value="상세주소밸류" type="text" placeholder="건물, 아파트, 동/호수 입력"	 autocomplete="off" class="input_txt">
+											<input name="detail_address" id="detailAddress" value="상세주소밸류" type="text" placeholder="건물, 아파트, 동/호수 입력"	 autocomplete="off" class="input_txt">
 										</div>
 									</div>
 									
@@ -310,8 +372,9 @@
 						
 						
 					</div>
-				</div>
+			     
 				
+				  
 				
 				
 				<!------------------------------------------------------------------ 모달 끝  -------------------------------------------------------------------->
@@ -336,8 +399,11 @@
 </div>
 <!-- 컨테이너 끝  -->
 
+
 <%--footer 호출 --%>
  <jsp:include page="/WEB-INF/view/footer.jsp" />
+ 
+ 
 
 
 
