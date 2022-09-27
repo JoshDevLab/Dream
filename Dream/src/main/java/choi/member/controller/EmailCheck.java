@@ -1,12 +1,12 @@
 package choi.member.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 import common.controller.AbstractController;
 import choi.member.model.InterMemberDAO;
@@ -20,10 +20,9 @@ public class EmailCheck extends AbstractController{
 		String method = request.getMethod();	//"GET" 또는 "POST"
 		
 		if("POST".equalsIgnoreCase(method)) {	//"POST"방식일 때 
-			//비밀번호 찾기 모달창에서 찾기 버튼을 클릭했을 경우
-			String email = request.getParameter("userid");
+			//이메일인증번호 전송버튼을 클릭했을 경우
+			String userid = request.getParameter("userid");
 			
-			InterMemberDAO mdao = new MemberDAO();
 			
 			boolean sendMailSuccess = false; // 메일이 정상적으로 전송되었는지 유무를 알아오기 위한 용도
 				//인증키를 랜덤하게 생성하도록 한다.
@@ -66,7 +65,7 @@ public class EmailCheck extends AbstractController{
 				// 랜덤하게 생성한 인증코드(certificationCode)를
 				GoogleMail mail = new GoogleMail();
 				try {
-					mail.sendmail(email,certificationCode);
+					mail.sendmail(userid,certificationCode);
 					sendMailSuccess = true;	//메일 전송했음을 기록함.
 					
 //					세션 불러오기
@@ -77,16 +76,26 @@ public class EmailCheck extends AbstractController{
 				} catch(Exception e) {	//메일 전송이 실패한 경우
 					sendMailSuccess = false;	//메일 전송 실패했음을 기록함.
 				}//end of try-catch()----
-			request.setAttribute("email", email);
-			request.setAttribute("sendMailSuccess", sendMailSuccess);
+				
+				
+				
+			//제이슨 객체생성
+			JSONObject jsonobj = new JSONObject();
+			//제이슨에 값 담기
+			jsonobj.put("userid", userid);
+			jsonobj.put("sendMailSuccess", sendMailSuccess);
+			jsonobj.put("certificationCode", certificationCode);
+			
+			String json = jsonobj.toString();
+			request.setAttribute("json", json);
+			
+			// super.setRedirect(false);
+			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 		}//end of ("POST".equalsIgnoreCase(method))
 		else {	//"GET"방식일때
 			
 		}
 		
-		// super.setRedirect(false);
-		request.setAttribute("method", method);
-		super.setViewPage("/WEB-INF/view/join/join.jsp");
 	}
 		
 

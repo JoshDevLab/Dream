@@ -29,9 +29,11 @@ th {
 }
 
 @media (max-width: 991px) {
-   .table_div {
-      display: none;
+   
+   div.table_div {
+   		display: none;
    }
+   
     #cart_footer {
         display: none;
     }
@@ -41,4 +43,5 @@ th {
    .mobile_cart {
       display: none;
    } 
+  
 } 

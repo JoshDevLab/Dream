@@ -8,27 +8,26 @@
 <%--header 호출 --%>
 <jsp:include page="/WEB-INF/view/header.jsp" />
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/파일이름.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/membership.css" />
 <%-- 직접만든 javascript --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/파일이름.js" ></script>
+<script type="text/javascript" src="<%= ctxPath%>/js/membership.js" ></script>
 
 <div id="Main" class="d-flex">
 	<%-------------------- 사이드바 시작 ----------------------%>
   		
         
-        <%-- sidebar 호출 --%>
-  		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
-        
-        
-        
-        <%-------------------- 사이드바 끝 ----------------------%>
+     <%-- sidebar 호출 --%>
+		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
+     
+     
+    <%-------------------- 사이드바 끝 ----------------------%>
 
 
    <div id="content">
       <div id="membership_header" >
          <h2 id="membership_title">DREAM CATCHER</h2>
          <p id="membership_date"><span id="membership_year"></span>년 <span id="membership_month">mm</span>월 <span id="membership_date">d</span>일까지 멤버십 혜택이 유지되고, 이후 자동 해지됩니다.</p>
-         <button id="regist" type="button" >드림캐쳐 신청하기</button>
+         <button id="regist" type="button">드림캐쳐 신청하기</button>
          <p style="font-size: 7px; margin-top: 8px;"><a href="" data-toggle="modal" data-target="#modal_membership_policy">드림캐처 맴버십 이용 약관</a>에 동의합니다.(월 39,000원 결제)</p>
       </div>
          <div id = "membership_info" class="row">
