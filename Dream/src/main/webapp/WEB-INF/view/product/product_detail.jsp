@@ -324,7 +324,7 @@
       </div>
         
       <div class="btn_area">
-        <a href="#" class="btn outlinegrey btn_wish " onclick="likeCheck()">
+        <a  onclick="likeCheck()" href="#" class="btn outlinegrey btn_wish ">
           <img style="height: 20px; width: 20px;"/>
           <span class="wish_count_num">${product.likeCnt}</span>
         </a>
@@ -361,7 +361,7 @@
   
   <jsp:include page="/WEB-INF/view/footer.jsp" />
   
- <form name="temporaryCart">
+ <form id=temporaryCart name="temporaryCart">
     
 </form>
 
