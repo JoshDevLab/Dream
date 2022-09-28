@@ -305,20 +305,21 @@ function goPurchasePage(){
 	let sizeArray =[];
 	let cntArray =[];
 	
-	let isitOkay = false;
+	let isitOkay = true;
 	let option_size = "";
 	let count = 0;
 	
 	// 선택한 옵션의 수 만큼 반복
 	for(let i = 0; i < length; i++) {
 		 sizeArray.push(added_optionName[i]);
-		 console.log(added_optionName[i]);
 		 cntArray.push(added_optionAmount[i]);
 		}
 		
 	// 선택한 옵션의 순서대로 옵션의 사이즈, 개수가 같은 인덱스로 들어감
 	// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것이므로 json 쓰자자자자자자ㅏ자자자ㅏㅈ
-	
+		console.log("sizeArray"+sizeArray);
+		console.log("cntArray"+cntArray);
+		
 	$.ajax({
 		url:getContextPath()+"/product/cntCheck.dream",
 		data:{"productNum":productNum},  // data 는 /MyMVC/member/emailDuplicateCheck_2.up 로 전송해야할 데이터를 말한다. 
@@ -328,52 +329,66 @@ function goPurchasePage(){
                       // async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다. 
         success:function(json){
 	
-		console.log((json.size));
-		console.log(json.cnt);
-		
-		 outer : for(let i = 0; i < length; i++) {
-		 option_size = added_optionName[i];
-		 option_cnt = Number(added_optionAmount[i]);
-		  
-		 console.log("option_size"+option_size);
-		 	for(let n=0; n<(json.size).length; n++){
-				if(option_size == json.size[n]){
-					count++;
-					console.log(option_size+"의 재고는"+json.cnt[n]+"개 입니다.")
-					if(option_cnt > Number(json.cnt[n])){
-						alert(option_size + "의 주문수량은"+option_cnt);
-						isitOkay = false;
-						alert(option_size+"의 재고는"+json.cnt[n]+"개 입니다. 그 이하로 주문해주세요.")
-							
-						break outer; 
+			console.log((json.size));
+			console.log(json.cnt);
+			
+			 outer : for(let i = 0; i < length; i++) {
+			 option_size = added_optionName[i];
+			 option_cnt = Number(added_optionAmount[i]);
+			  
+			 console.log("option_size"+option_size);
+			 	for(let n=0; n<(json.size).length; n++){
+					if(option_size == json.size[n]){
+						count++;
+						console.log(option_size+"의 재고는"+json.cnt[n]+"개 입니다.")
+						if(option_cnt > Number(json.cnt[n])){
+							alert(option_size + "의 주문수량은"+option_cnt);
+							isitOkay = false;
+							alert(option_size+"의 재고는"+json.cnt[n]+"개 입니다. 그 이하로 주문해주세요.")
+								
+							break outer; 
+						}
+						
 					}
-					
 				}
+			 
+			 }// end of outer
+			 
+			 if(count != length){
+				// 옵션의 갯수만큼 체크하지 않았다면 확인
+				console.log("!!!");
+				isitOkay = false;
+				alert("데이터를 확인하는 중 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
 			}
-		 
-		 }// end of outer
-		 
-		 if(count == length){
-			// 옵션의 갯수만큼 체크했는지 확인
-			isitOkay = false;
-		}
-		 
-		 
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-        	
-     
-        	
-        },
-        error: function(request, status, error){
+			
+			if(isitOkay){
+				
+				console.log("성공")
+				//	frm.asdsadasdas 예정;
+				
+				let html = "";
+				
+				for(let i=0; i<length; i++){
+					option_size = added_optionName[i];
+			 		option_cnt = Number(added_optionAmount[i]);
+			 
+					html += 
+					`<input type="hidden" name="size${i}" value="${option_size}" readonly />
+					 <input type="hidden" name="size${i}" value="${option_cnt}" readonly /> `
+					} // end of for
+				
+				console.log(html);
+				const frm = $("form#temporaryCart"); 
+			    
+				frm.append(html);
+			    frm.action = "<%= request.getContextPath()%>/member/purchasePage.dream";
+			    frm.method = "post";
+			    frm.submit();
+				
+			}// end of if(isitOkay)
+	        	
+        }// end of succes
+        ,error: function(request, status, error){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		}
 	});

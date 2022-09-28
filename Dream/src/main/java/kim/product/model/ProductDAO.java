@@ -70,7 +70,7 @@ public class ProductDAO implements InterProductDAO {
 					 " from tbl_product\n "+
 					 " where product_num = ? ";
 			 
-			 System.out.println(product_num);
+			 
 			 int product_num_int = Integer.parseInt(product_num);
 			 
 			 pstmt = conn.prepareStatement(sql);

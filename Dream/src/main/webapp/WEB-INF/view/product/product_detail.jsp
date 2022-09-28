@@ -361,19 +361,7 @@
   
   <jsp:include page="/WEB-INF/view/footer.jsp" />
   
- <form name="verifyCertificationFrm">
-    <input type="hidden" name="userid" />
-    <input type="hidden" name="userCertificationCode" />
-    
-  <c:forEach var="size" items="${product.product_size}" varStatus="status">
-	  <c:if test="${status.index == 0}">
-	  	       
-	  </c:if>
-	  <c:if test="${status.index > 0}">
-	        <li data-target="#carousel_advertise" data-slide-to="${status.index}"></li>
-	  </c:if>
-  </c:forEach>
-    
+ <form name="temporaryCart">
     
 </form>
 
