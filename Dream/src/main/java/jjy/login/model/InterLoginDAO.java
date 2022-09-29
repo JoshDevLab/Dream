@@ -28,5 +28,8 @@ public interface InterLoginDAO {
 	/** 아이디(userid) 를 전달받아 회원가입 날짜를 String 타입으로 반환, 결과가 없을경우 null을 반환하는 메소드 (select)*/
 	String checkRegistDate(String userid)throws SQLException;
 
+	/** 아이디, 핸드폰 번호, 임시 비밀번호를 Map 을 전달받아 비밀번호를 변경하는 메소드 (update) */
+	int updatePassword(HashMap<String, String> findPwdMap)throws SQLException;
+
 
 }

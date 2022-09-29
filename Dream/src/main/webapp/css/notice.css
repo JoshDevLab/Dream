@@ -24,26 +24,19 @@ div#notice > table > thead > tr > th{
   border-bottom:solid 3px black;
 }
 
-div.page-item{
-  width:70%;
-  margin:auto;
-  min-width:392px;
-}
-div.page-item > ul {
-  width:60%;
-}
-div.page-item > ul > li:nth-child(2),
-div.page-item > ul > li:nth-child(3),
-div.page-item > ul > li:nth-child(4),
-div.page-item > ul > li:nth-child(5){
-  margin-left:20%;
+
+.my.pagination > .active > a, 
+.my.pagination > .active > span, 
+.my.pagination > .active > a:hover, 
+.my.pagination > .active > span:hover, 
+.my.pagination > .active > a:focus, 
+.my.pagination > .active > span:focus {
+  z-index:0;
+  background: black;
+  border-color:black;
+  color: white;
 }
 
-
-li.page-item.active{
-	background-color:black;
-	color:white;
-}
 
 
 
@@ -55,18 +48,8 @@ li.page-item.active{
   div.Main{
     width:90%;
   }
-  div.page-item{
-    width:70%;
-    margin:auto;
-    min-width:400px;
-  }
+  
+
 }
-/* 0 ~ 480px 미디어 쿼리*/
-@media (max-width: 480px) {
-  div.page-item{
-    width:70%;
-    min-width:320px;
-    margin:auto;
-  }
-}
+
 

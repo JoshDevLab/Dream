@@ -10,12 +10,9 @@ public class ProductDTO {
 	private String category;    	//카테고리
 	private String detail_category;	//상세카테고리
 	private String gender;      	//성별
-	private String product_size;	//사이즈
 	private float discount_rate;	//할인율
 	private int product_num;        //상품번호
 	private int price;          	//가격
-	private int sale;  				//판매여부
-	private int product_cnt;		//수량
 	
 	//method
 	public String getRegister_date() {
@@ -54,12 +51,6 @@ public class ProductDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getProduct_size() {
-		return product_size;
-	}
-	public void setProduct_size(String product_size) {
-		this.product_size = product_size;
-	}
 	public float getDiscount_rate() {
 		return discount_rate;
 	}
@@ -77,18 +68,6 @@ public class ProductDTO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	public int getSale() {
-		return sale;
-	}
-	public void setSale(int sale) {
-		this.sale = sale;
-	}
-	public int getProduct_cnt() {
-		return product_cnt;
-	}
-	public void setProduct_cnt(int product_cnt) {
-		this.product_cnt = product_cnt;
 	}
 	
 }

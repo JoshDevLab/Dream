@@ -55,9 +55,7 @@ public class ProductDAO implements InterProductDAO {
 
 	@Override
 	public ProductVO getDetail(String product_num) throws SQLException {
-		/*
-		 * http://localhost:9090/Dream/product/detail.dream?num=2
-		 */		
+			
 		ProductVO pvo = new ProductVO();
 		
 		try {
@@ -70,7 +68,7 @@ public class ProductDAO implements InterProductDAO {
 					 " from tbl_product\n "+
 					 " where product_num = ? ";
 			 
-			 System.out.println(product_num);
+			 
 			 int product_num_int = Integer.parseInt(product_num);
 			 
 			 pstmt = conn.prepareStatement(sql);
