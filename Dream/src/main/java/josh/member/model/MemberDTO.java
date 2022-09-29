@@ -11,6 +11,7 @@ public class MemberDTO {
 	
 	// == select 용 == //
 	private String passwd;
+	private int Shipping;
 	
 	
 	public String getUserid() {
@@ -54,6 +55,12 @@ public class MemberDTO {
 	}
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
+	}
+	public int getShipping() {
+		return Shipping;
+	}
+	public void setShipping(int shipping) {
+		Shipping = shipping;
 	}
 	
 }

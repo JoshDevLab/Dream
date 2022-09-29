@@ -18,21 +18,17 @@ public class CartController extends AbstractController{
 		if(super.checkLogin(request)) { // 로그인이 된 상태라면
 			
 			HttpSession session = request.getSession();
-			String sessionUserid = (String) session.getAttribute("userid");
-			String userid = request.getParameter("userid");
+			String userid = (String) session.getAttribute("userid");
+				
+			InterCartDAO mdao = new CartDAO();
 			
-			if(sessionUserid.equals(userid)) {
-				
-				InterCartDAO mdao = new CartDAO();
-				
-				List<CartDTO> cartList = new ArrayList<>();
-				
-				cartList = mdao.selectCart(userid);
-				
-				request.setAttribute("cartList", cartList);
-				
-			}
+			List<CartDTO> cartList = new ArrayList<>();
 			
+			cartList = mdao.selectCart(userid);
+			
+			request.setAttribute("cartList", cartList);
+				
 		}
+		
 	}
 }

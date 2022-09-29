@@ -62,19 +62,34 @@
                 <div id="purchase_list_tab" class="row rounded bg-light">
                     <div class="col-3 border-right">
                         <div class="font-weight-bold text-center">전체</div>
-                        <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <p style="font-size: 10pt; text-align: center;">${requestScope.map.shipping_ready + requestScope.map.shipping_now + requestScope.map.shipping_end}</p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
                         <div class="font-weight-bold text-center">배송 준비중</div>
-                        <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <p style="font-size: 10pt; text-align: center;">
+	                        <c:choose>
+	                        		<c:when test="${empty requestScope.map.shipping_ready}">0</c:when>
+	                        		<c:otherwise>${requestScope.map.shipping_ready}</c:otherwise>
+	                        </c:choose>
+                        </p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
                         <div class="font-weight-bold text-center">배송 진행중</div>
-                        <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <p style="font-size: 10pt; text-align: center;">
+						<c:choose>
+	                        		<c:when test="${empty requestScope.map.shipping_now}">0</c:when>
+	                        		<c:otherwise>${requestScope.map.shipping_now}</c:otherwise>
+	                    </c:choose>
+						</p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
                         <div class="font-weight-bold text-center">종료</div>
-                        <p style="font-size: 10pt; text-align: center;">0</p> <%-- 데이터베이스에서 값 가져옴  --%>
+                        <p style="font-size: 10pt; text-align: center;">
+                        <c:choose>
+	                        		<c:when test="${empty requestScope.map.shipping_end}">0</c:when>
+	                        		<c:otherwise>${requestScope.map.shipping_end}</c:otherwise>
+	                    </c:choose>
+                        </p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                 </div>
             </div>

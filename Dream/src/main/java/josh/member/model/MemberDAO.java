@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -12,6 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import josh.purchase.model.PurchaseListDTO;
 import util.security.AES256;
 import util.security.SecretMyKey;
 import util.security.Sha256;
@@ -58,7 +62,7 @@ public class MemberDAO implements InterMemberDAO{
 		}
 
 		@Override
-		public boolean emailDuplicateCheck(String email) throws SQLException{
+		public boolean mobileDuplicateCheck(String mobile) throws SQLException{
 			
 			boolean isExists = false;
 			
@@ -66,12 +70,12 @@ public class MemberDAO implements InterMemberDAO{
 			
 				conn = ds.getConnection();
 				
-				String sql = " select userid "
+				String sql = " select mobile "
 						   + " from tbl_member "
-						   + " where userid = ? ";
+						   + " where mobile = ? ";
 				
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,email);
+				pstmt.setString(1,mobile);
 				
 				rs = pstmt.executeQuery();
 				
@@ -94,18 +98,18 @@ public class MemberDAO implements InterMemberDAO{
 			try {
 				conn = ds.getConnection();
 				
-				String sql = " select A.userid, mobile, username, passwd, point, membership\n"
-						    + " from\n"
-						    + " (\n"
-							+ " select userid, mobile, username, point, membership\n"
-							+ " from tbl_member\n"
-							+ " )A\n"
-							+ " join\n"
-							+ " (\n"
-							+ " select userid, passwd\n"
-							+ " from tbl_member_login\n"
-							+ " )B\n"
-							+ " on A.userid = B.userid\n"
+				String sql = " select A.userid, mobile, username, passwd, point, membership "
+						    + " from "
+						    + " ( "
+							+ " select userid, mobile, username, point, membership "
+							+ " from tbl_member "
+							+ " )A "
+							+ " join "
+							+ " ( "
+							+ " select userid, passwd "
+							+ " from tbl_member_login "
+							+ " )B "
+							+ " on A.userid = B.userid "
 							+ " where A.userid = ? ";
 				
 				pstmt = conn.prepareStatement(sql);
@@ -140,7 +144,7 @@ public class MemberDAO implements InterMemberDAO{
 			//System.out.println("dao에 넘어옴");
 			
 			int passwd_store_cnt = Integer.parseInt(paraMap.get("passwd_store_cnt"));
-			//int userid_store_cnt = Integer.parseInt(paraMap.get("userid_store_cnt"));
+			int mobile_store_cnt = Integer.parseInt(paraMap.get("mobile_store_cnt"));
 			// System.out.println("passwd_store_cnt 확인용 >>> "+ passwd_store_cnt );
 			//System.out.println("userid_store_cnt 확인용 >>> "+ userid_store_cnt );
 			
@@ -162,7 +166,7 @@ public class MemberDAO implements InterMemberDAO{
 				n = pstmt.executeUpdate();
 				
 				
-				if(passwd_store_cnt > 0) {
+				if(passwd_store_cnt > 0 || mobile_store_cnt > 0) {
 					sql = " update tbl_member_login set passwd = ? "
 						+ " where userid = ? ";
 						
@@ -184,6 +188,50 @@ public class MemberDAO implements InterMemberDAO{
 			
 			
 			return n;
+		}
+
+		// 마이페이지 진입할때 로그인한 회원의 정보
+		@Override
+		public HashMap<String, Integer> shippingCnt(String userid) throws SQLException {
+			
+			HashMap<String, Integer> map = new HashMap<>();
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = " select shipping, count(*) as count "
+							+ " from tbl_member m join tbl_buylist b "
+							+ " on m.userid = b.userid "
+							+ " where m.userid = ? and shipping between '0' and '2' "
+							+ " group by shipping "
+							+ " order by shipping asc ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, userid);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+
+					if(rs.getInt(1) == 0) {
+						map.put("shipping_ready", rs.getInt(2));
+					}
+					if(rs.getInt(1) == 1) {
+						map.put("shipping_now", rs.getInt(2));
+					}
+					if(rs.getInt(1) == 2) {
+						map.put("shipping_end", rs.getInt(2));
+					}
+					
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			return map;
 		}
 }
 
