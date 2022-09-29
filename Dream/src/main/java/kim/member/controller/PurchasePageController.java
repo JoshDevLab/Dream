@@ -49,7 +49,7 @@ public class PurchasePageController extends AbstractController {
 			
 			HttpSession session = request.getSession();
 			String sessionUserid = (String) session.getAttribute("userid");
-			
+			System.out.println(sessionUserid);
 			// memberVO 객체 하나로 드갈 예정
 			InterMemberDAO mdao = new MemberDAO();
 			MemberVO user = new MemberVO();

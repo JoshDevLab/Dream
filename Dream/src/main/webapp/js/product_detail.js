@@ -214,11 +214,14 @@ function calcbutton(objNo){
 	
 	let count = objNo;
 	console.log("objNo"+objNo);
+	// 플러스 버튼 누르면
 	$(`button#plus${count}`).click(function(){
 		Selected = $(`button#plus${count}`).parent().children("#optionAmount");
 		
 		SelectedAmount = parseInt(Selected.text())+1;
-		Selected.text(SelectedAmount);			
+		Selected.text(SelectedAmount);		
+		// 금액 변경 반영	
+		HowMuchIsit();
 	});
 	$(`button#minus${objNo}`).click(function(){
 		Selected = $(`button#minus${objNo}`).parent().children("#optionAmount");
@@ -230,6 +233,8 @@ function calcbutton(objNo){
 		else{
 			Selected.text(SelectedAmount);	
 		}
+		// 금액 변경 반영	
+		HowMuchIsit();
 	});
 	
 	$(`button#deleteObj${objNo}`).click(function(){
@@ -243,7 +248,8 @@ function calcbutton(objNo){
 		    i--;
 	  		}
 		}
-		console.log(optionArray);
+		// 금액 변경 반영	
+		HowMuchIsit();
 	
 	});
 	
@@ -295,7 +301,7 @@ function likeCheck() {
 function goPurchasePage(){
 	
 	// 일단 선택한 옵션의 사이즈 배열과 갯수 배열을 각각 만들어보자자자자자자자자자ㅏ자자자ㅏ자자
-	
+	console.log("cex");
 	
 	let length = $("div#added_option").length;
 	added_optionName = $("div#added_option>#optionName").text();
@@ -399,24 +405,27 @@ function goPurchasePage(){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		}
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 		
 	}// end of function goPurchasePage()-----------------
+	
+		// 선택갯수 * 할인적용금액 된 가격을 구해서 넣어주는 함수
+	function HowMuchIsit() {
+		optionObj = $("div#added_option");
+	
+		added_optionAmount = $("div#added_option>#optionAmount").text();
+		
+		console.log(added_optionAmount);
+		
+		let sum=0;
+		for(i=0; i<$("div#added_option").length;i++){
+			console.log("더할값1"+optionObj[i].find("span#optionAmount").text());
+			console.log("더할값"+Number(added_optionAmount[i]));
+			sum += Number(added_optionAmount[i]);
+		}
+		
+		console.log(sum);
+		
+		$("span.num").text(sum);
+		
+	};
