@@ -101,12 +101,7 @@ web.xml
 FrontController.java
 
 *.sql
-
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
-
->>>>>>> refs/remotes/origin/hwanggb
 =======
->>>>>>> refs/remotes/origin/kimjs
+>>>>>>> branch 'choihw' of https://github.com/hyunwoocastle/Dream.git

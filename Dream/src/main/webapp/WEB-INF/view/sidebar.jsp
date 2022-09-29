@@ -52,7 +52,7 @@
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/buylist.dream">구매 내역</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream?userid=${sessionScope.userid}">관심 상품</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream">관심 상품</a>
             </li>
          </ul>
       </div>
@@ -61,7 +61,7 @@
          <h5 class="category-title font-weight-bold">내 정보</h5>
          <ul class="nav flex-column">
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream?userid=${sessionScope.userid}">프로필 정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream">프로필 정보</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>#####">주소록</a>
@@ -79,11 +79,4 @@
       </div>
    </div>
    <!-- 사이드바 끝 -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
 </body>
->>>>>>> refs/remotes/origin/hwanggb
-=======
->>>>>>> refs/remotes/origin/hwanggb
