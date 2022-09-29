@@ -89,6 +89,16 @@ div.content{
   font-weight: 700;
   letter-spacing: 0;
 }
+div#option_box{
+	
+	width:100%
+}
+p.size_txt{
+	width: 100%
+}
+ul,li{
+	list-style-type: none;
+}
 .product_detail .model_title{
   line-height: 17px;
   margin-top: 1px;

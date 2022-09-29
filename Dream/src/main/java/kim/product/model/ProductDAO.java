@@ -55,9 +55,7 @@ public class ProductDAO implements InterProductDAO {
 
 	@Override
 	public ProductVO getDetail(String product_num) throws SQLException {
-		/*
-		 * http://localhost:9090/Dream/product/detail.dream?num=2
-		 */		
+			
 		ProductVO pvo = new ProductVO();
 		
 		try {

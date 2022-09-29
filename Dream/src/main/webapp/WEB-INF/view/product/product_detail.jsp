@@ -206,7 +206,7 @@
                 <%-- 여기 하위 내용들은 전부 제품테이블에 필수적으로 들어가야할 내용들 or 빼야댐 --%>
                 <div  class="detail_box model_num">
                   <dt  class="product_title"> 제품번호 </dt>
-                  <dd id="product_num" class="product_info"> ${product.product_num} </dd>
+                  <dd id="product_num" class="product_info">${product.product_num}</dd>
                 </div>
                 <div  class="detail_box">
                   <dt  class="product_title"> 출시일 </dt>

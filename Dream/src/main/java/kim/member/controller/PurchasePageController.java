@@ -37,8 +37,8 @@ public class PurchasePageController extends AbstractController {
 			ArrayList<String>cntArr = new ArrayList<String>();
 			
 			for(int i=0; i<length ;i++) {
-				sizeArr.add(request.getParameter("size"+i)); 
-				cntArr.add(request.getParameter("cnt"+i)); 
+				sizeArr.add((String)request.getParameter("size"+i)); 
+				cntArr.add((String)request.getParameter("cnt"+i)); 
 			}
 			
 			System.out.println("sizeArr"+sizeArr);
@@ -64,7 +64,17 @@ public class PurchasePageController extends AbstractController {
 			
 			InterProductDAO pdao = new ProductDAO();
 			ProductVO product = pdao.getDetail(productNum);
+			product.setOrder_product_size(sizeArr);
+			product.setOrder_product_cnt(cntArr);
+			
+			System.out.println(product.getOrder_product_cnt());
+			System.out.println(product.getOrder_product_size());
+			
+			
+			
 			request.setAttribute("product", product);
+			
+			
 			
 			
 			super.setViewPage("/WEB-INF/view/member/purchasePage.jsp");
