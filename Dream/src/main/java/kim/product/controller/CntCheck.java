@@ -27,6 +27,8 @@ public class CntCheck extends AbstractController {
 	
 			String productNum = request.getParameter("productNum");
 			
+			
+			
 			InterProductDAO pdao = new ProductDAO();
 
 			Map<String, ArrayList<String>> result = pdao.cnt_check(productNum);

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*" %>
+<%@ page import="jjy.purchase.model.*" %>
 <%
    String ctxPath = request.getContextPath();
 %>
@@ -47,11 +50,24 @@
             
           </div>
           <div class="product_detail">
-            <strong class="model_numbe-r">JYJ-8426-527</strong>
-            <p class="model_title">Jordan 1 Mid Dark Concord Taxi</p>
-            <p class="model_ko">조던 1 미드 다크 콩코드 택시</p>
+            <strong class="model_numbe-r">${product.product_num}</strong>
+            <p class="model_title">${product.product_name}</p>
+            <p class="model_ko">${product.product_name}</p>
             <div class="model_desc">
-              <p class="size_txt">280</p>
+            	<ul id="option_box">
+            	<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
+			        
+				
+			          	
+			          	 <li>
+			          	 		<p class="size_txt">${size}</p>
+			          	 		<p class="size_txt">${product.order_product_cnt[status.index]}</p>
+			  			</li>
+				
+		    	</c:forEach>
+            
+            
+              </ul>
             </div>
           </div>
         </div>  
@@ -117,7 +133,7 @@
                 <i class="fa-regular fa-circle-question"></i>
               </button>
               <div class="value_current">
-                <span class="point">0</span>
+                <span class="point">${user.point}</span>
                 <span class="unit">P</span>
               </div>
             </div>

@@ -36,6 +36,9 @@ public class ProductVO {
 	 // index2 ==> size=l  cnt=40
 	
 	
+	private List<String> order_product_size;    // 주문 제품 사이즈        
+	
+	private List<String> order_product_cnt; 	  // 주문 제품 수량  
 	
 	
 
@@ -128,6 +131,19 @@ public class ProductVO {
 	}
 	public void setProduct_content(String product_content) {
 		this.product_content = product_content;
+	}
+
+	public List<String> getOrder_product_size() {
+		return order_product_size;
+	}
+	public void setOrder_product_size(List<String> order_product_size) {
+		this.order_product_size = order_product_size;
+	}
+	public List<String> getOrder_product_cnt() {
+		return order_product_cnt;
+	}
+	public void setOrder_product_cnt(List<String> order_product_cnt) {
+		this.order_product_cnt = order_product_cnt;
 	}
 
 
