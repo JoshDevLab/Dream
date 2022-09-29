@@ -88,7 +88,7 @@ public class ProductDAO implements InterProductDAO{
 						sql += " and gender = '"+gender + "'";
 					}
 					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
-						sql += " and price = between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
+						sql += " and price between '"+Integer.parseInt(start_price)+"' and '"+Integer.parseInt(end_price)+"'";
 					}
 										
 					pstmt = conn.prepareStatement(sql);
@@ -144,8 +144,8 @@ public class ProductDAO implements InterProductDAO{
 							   + "      , gender "
 							   + "      , bestyn "
 							   + " from tbl_product "
-							   + " )A  "
-							   + " where R between (?*?)-(?-1) and (?*?) ";
+							   + " where 1=1 ";
+							   
 					
 					
 					if(category != null && !category.equals("전체")) {
@@ -161,26 +161,31 @@ public class ProductDAO implements InterProductDAO{
 						sql += " and gender = '"+gender + "'";
 					}
 					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
-						sql += " and price = between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
+						sql += " and price - (price*discount_rate) between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
 					}
 					if(sort != null && !sort.equals("") ) {
 						switch (sort) {
-						case "인기순":
+						case "전체":
+							break;
+						case "인기순":	//좋아요 갯수 내림차순
 							
 							break;
-						case "신제품":
+						case "업로드순":	//등록일자 내림차순
 							
 							break;
-						case "최저가순":
-//							sql +=
+						case "최저가순":	//가격
+							
 							break;
 						default:
 							break;
 						}
 					}
 					
-					
+					//조건 넣을것 넣고 후에 페이징처리
+					sql += " )A  "
+				         + " where R between (?*?)-(?-1) and (?*?) ";
 //					(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
+					
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setInt(1,Integer.parseInt(paraMap.get("page")));
 					pstmt.setInt(2,Integer.parseInt(paraMap.get("display_cnt")));

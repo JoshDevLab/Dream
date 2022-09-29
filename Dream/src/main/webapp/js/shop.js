@@ -4,6 +4,7 @@ function getContextPath(){
   let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
   return contextPath;
 }
+
 //URL관련 변수선언
 let URL = sessionStorage.getItem("currentURL");
 
@@ -11,92 +12,66 @@ let URL = sessionStorage.getItem("currentURL");
 const category_start_idx = URL.indexOf('=',URL.indexOf('category'))+1;
 const category_last_idx = URL.indexOf('&',category_start_idx);
 let category_val = "전체";
-if(category_start_idx != 0 && category_last_idx != -1){
- category_val = URL.substring(category_start_idx,category_last_idx);
+if(sessionStorage.getItem("category").trim() != ""){
+	category_val = sessionStorage.getItem("category").trim();
 }
-else if(category_start_idx != 0){
- category_val = URL.substring(category_start_idx);
-}
-
 
 //detail_category
 const detail_category_start_idx = URL.indexOf('=',URL.indexOf('detail_category'))+1;
 const detail_category_last_idx = URL.indexOf('&',detail_category_start_idx);
 let detail_category_val = "";
-if(detail_category_start_idx != 0 && detail_category_last_idx != -1){
- detail_category_val = URL.substring(detail_category_start_idx,detail_category_last_idx);
+if(sessionStorage.getItem("detail_category").trim() != ""){
+	detail_category_val = sessionStorage.getItem("detail_category").trim();
 }
-else if(detail_category_start_idx != 0){
- detail_category_val = URL.substring(detail_category_start_idx);
-}
-
 
 
 //bestyn
 const bestyn_start_idx = URL.indexOf('=',URL.indexOf('bestyn'))+1;
 const bestyn_last_idx = URL.indexOf('&',bestyn_start_idx);
 let bestyn_val = 'N';
-if(bestyn_start_idx != 0 && bestyn_last_idx != -1){
- bestyn_val = URL.substring(bestyn_start_idx, bestyn_last_idx);
+if(sessionStorage.getItem("bestyn").trim() != ""){
+	bestyn_val = sessionStorage.getItem("bestyn").trim();
 }
-else if(bestyn_start_idx != 0){
- bestyn_val = URL.substring(bestyn_start_idx);
-}
-
 
 //gender
 const gender_start_idx = URL.indexOf('=',URL.indexOf('gender'))+1;
 const gender_last_idx = URL.indexOf('&',gender_start_idx);
 let gender_val = '없음';
-if(gender_start_idx != 0 && gender_last_idx != -1){
- gender_val = URL.substring(gender_start_idx, gender_last_idx);
+if(sessionStorage.getItem("gender").trim() != ""){
+	gender_val = sessionStorage.getItem("gender").trim();
 }
-else if(gender_start_idx != 0){
- gender_val = URL.substring(gender_start_idx);
-}
-
 
 
 //start_price
 const start_price_start_idx = URL.indexOf('=',URL.indexOf('start_price'))+1;
 const start_price_last_idx = URL.indexOf('&',start_price_start_idx);
-let start_price_val = '0';
-if(start_price_start_idx != 0 && start_price_last_idx != -1){
- start_price_val = URL.substring(start_price_start_idx, start_price_last_idx);
+let start_price_val = "";
+if(sessionStorage.getItem("start_price").trim() != ""){
+	start_price_val = sessionStorage.getItem("start_price").trim();
 }
-else if(start_price_start_idx != 0){
- start_price_val = URL.substring(start_price_start_idx);
-}
+
 
 //end_price
 const end_price_start_idx = URL.indexOf('=', URL.indexOf('end_price'))+1;
 const end_price_last_idx = URL.indexOf('&', end_price_start_idx);
-if(end_price_start_idx != 0 && end_price_last_idx != -1){
- end_price_val = URL.substring(end_price_start_idx, end_price_last_idx);
+let end_price_val = "";
+if(sessionStorage.getItem("end_price").trim() != ""){
+	end_price_val = sessionStorage.getItem("end_price").trim();
 }
-else if(end_price_start_idx != 0){
- end_price_val = URL.substring(end_price_start_idx);
-}
-
 
 
 //sort
 const sort_start_idx = URL.indexOf('=',URL.indexOf('sort'))+1;
 const sort_last_idx = URL.indexOf('&',sort_start_idx);
-if(sort_start_idx != 0 && sort_last_idx != -1){
- sort_val = URL.substring(sort_start_idx, sort_last_idx);
+let sort_val = "";
+if(sessionStorage.getItem("sort").trim() != ""){
+	sort_val = sessionStorage.getItem("sort").trim();
 }
-else if(sort_start_idx != 0){
- sort_val = URL.substring(sort_start_idx);
-}
+
 
 //page
 
-
-
 //URL관련 변수선언 끝
-
-
 
 $("document").ready(function(){
       // 변수선언
@@ -131,19 +106,19 @@ $("document").ready(function(){
       });//end of btn_toggle_filter.click(function(e){}--
       
       
-      
-      
-	  
-      
-      
-      
       // ===== sidefilter 부분 javascript 끝 ===== //
+      
+      
+      
+      
+      
+      //============================= >> 문서가 로딩되고 해야할 일 시작 << =============================
+      
+      
       //URL에서 카테고리값에 맞는것 버튼 클릭한효과랑 필터부분 카테고리라디오 체크하기
       $(`button.btn_fillter:contains(${category_val})`).css("background-color","black");
       $(`button.btn_fillter:contains(${category_val})`).css("color","white");
       $(`label:contains(${category_val})`).prev().attr("checked",true);
-      
-      
       
       //bestyn이 y일 경우 문서가 로딩되면 체크하기
       if(bestyn_val == 'Y'){
@@ -177,57 +152,14 @@ $("document").ready(function(){
 		const category = target.next().text();
 		
 		$(`button:contains(${category})`).trigger("click");
+		return;
 	  });
 	  
 	  
-	  //필터버튼 클릭시 이벤트 잡기
-	  $("button.btn_fillter").click(e=>{
-		const target = $(e.target);
-		const val = target.text();
-		btn_filterClick(val);
-		
-	  });
+	  //URL에 있는 start_price 와 end_price 값 넣어주기
 	  
-	  //bestyn 라디오 버튼 값이 변경시 이벤트 잡기
-      $("input:checkbox[name='bestyn']").change(e=>{
-		if($("input:checkbox[name='bestyn']").is(":checked")){//bestyn을 체크했을 경우
-		  bestynCheck();
-		}
-		else{	//bestyn을 체크해제했을 경우
-		  bestynClear();
-		}
-	  });
-	  
-	  
-	  //gender 라디오 버튼 값이 변경시 이벤트 잡기
-      $("input:radio[name='gender']").change(e=>{
-		const target = $(e.target);
-		const val = target.next().text();
-		genderChange(val);
-	  });
-	  
-	  //가격대 검색창 입력시 숫자만 입력 가능하게 만들기
-	  $("input#start_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
-	  $("input#end_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
-	  //가격대로 검색 버튼 클릭시 이벤트
-	  $("button#btn_price_search").click(e=>{
-		const input_start_price = $("input#start_price");
-		const input_end_price = $("input#end_price");
-		const start_price = input_start_price.val();
-		const end_price = input_end_price.val();
-		
-		if(start_price>end_price){
-		  alert("최고가격은 최저가격보다 높아야 합니다!");
-		  input_end_price.val("");
-		  input_end_price.focus();
-		}
-		else{
-		  
-		}
-	  });
-	  
-	  
-	  
+	  $("input#start_price").val(start_price_val);
+	  $("input#end_price").val(end_price_val);
 	  
 	  
 	  
@@ -242,7 +174,7 @@ $("document").ready(function(){
 	      html =(`<a type=button class="detail_category">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리베개.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리베개.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         베개
@@ -253,7 +185,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리베개커버.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리베개커버.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         베개커버
@@ -264,7 +196,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리이불.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리이불.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         이불
@@ -275,7 +207,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리침대.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리침대.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         침대
@@ -286,7 +218,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리침대커버.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리침대커버.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         침대커버
@@ -297,7 +229,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리매트리스.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리매트리스.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         매트리스
@@ -310,7 +242,7 @@ $("document").ready(function(){
 	      html =(`<a type=button class="detail_category">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리장스탠드.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리장스탠드.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         장스탠드
@@ -321,7 +253,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리무드등.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리무드등.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         무드등
@@ -332,7 +264,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리북라이트.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리북라이트.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         북라이트
@@ -343,7 +275,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리LED양초.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리LED양초.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         LED양초
@@ -356,20 +288,30 @@ $("document").ready(function(){
 	      html =(`<a type=button class="detail_category">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리겨울파자마.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리동물잠옷.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
-                        겨울파자마
+                        동물잠옷
                       </p>
                     </div>
                   </a>
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리여름파자마.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리수면잠옷.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
-                        여름파자마
+                        수면잠옷
+                      </p>
+                    </div>
+                  </a>
+                  <a type=button class="detail_category ml-3">
+                    <div class="d-flex flex-column">
+                      <div class="category_img">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리커플파자마.PNG" class="rounded-circle">
+                      </div>
+                      <p class="details_category_name text-center">
+                        커플파자마
                       </p>
                     </div>
                   </a>`);
@@ -379,7 +321,7 @@ $("document").ready(function(){
 	      html =(`<a type=button class="detail_category">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리안대.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리안대.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         안대
@@ -389,7 +331,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리필로우미스트.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리필로우미스트.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         필로우미스트
@@ -400,7 +342,7 @@ $("document").ready(function(){
                   <a type=button class="detail_category ml-3">
                     <div class="d-flex flex-column">
                       <div class="category_img">
-                        <img src="${getContextPath()}/images/카테고리캔들.PNG" class="rounded-circle">
+                        <img src="${getContextPath()}/images/디테일카테고리/카테고리캔들.PNG" class="rounded-circle">
                       </div>
                       <p class="details_category_name text-center">
                         캔들
@@ -410,6 +352,115 @@ $("document").ready(function(){
           $("div.details_category").html(html);
 	      break;
 	  }
+	  
+	  
+	  
+	  //============================= >> 문서가 로딩되고 해야할 일 끝 << =============================
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  //======================= >> 이벤트처리부분 시작 << =================================
+	  
+	  
+	  //필터버튼 클릭시 이벤트 잡기
+	  $("button.btn_fillter").click(e=>{
+		const target = $(e.target);
+		const val = target.text();
+		btn_filterClick(val);
+		return;
+	  });
+	  
+	  //bestyn 라디오 버튼 값이 변경시 이벤트 잡기
+      $("input:checkbox[name='bestyn']").change(e=>{
+		if($("input:checkbox[name='bestyn']").is(":checked")){//bestyn을 체크했을 경우
+		  bestynCheck();
+		  return;
+		}
+		else{	//bestyn을 체크해제했을 경우
+		  bestynClear();
+		  return;
+		}
+	  });
+	  
+	  
+	  //gender 라디오 버튼 값이 변경시 이벤트 잡기
+      $("input:radio[name='gender']").change(e=>{
+		const target = $(e.target);
+		const val = target.next().text();
+		genderChange(val);
+		return;
+	  });
+	  
+	  
+	  
+	  //가격대 검색창 입력시 숫자만 입력 가능하게 만들기
+	  $("input#start_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
+	  $("input#end_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
+	  //가격대로 검색 버튼 클릭시 이벤트
+	  $("button#btn_price_search").click(e=>{
+		const input_start_price = $("input#start_price");
+		const input_end_price = $("input#end_price");
+		const start_price = input_start_price.val();
+		const end_price = input_end_price.val();
+		if(parseInt(start_price) > parseInt(end_price)){	//시작가격이 끝 가격보다 높다면
+		  alert("최고가격은 최저가격보다 높아야 합니다!");
+		  input_end_price.val("");
+		  input_end_price.focus();
+		  return;
+		}
+		else if(start_price == ""){  //최저가격을 입력하지 않은경우
+		  alert("최저가격을 입력해주세요!");
+		  input_start_price.focus();
+		  return;
+		}
+		else if(end_price == "") {//최고가격을 입력하지 않은경우
+		  alert("최고가격을 입력해주세요!");
+		  input_end_price.focus();
+		  return;
+		}
+		else{	//정상적으로 입력했을 경우
+		  search_price(start_price,end_price);
+		  return;
+		}
+	  });
+	  
+	  
+	  //가격대 검색부분 지우기버튼클릭시 
+	  $("button#btn_price_clear").click(e=>{
+		$("input#start_price").val("");
+		$("input#end_price").val("");
+	  });
+	  
+	  
+	  
+	  // detail_category 클릭시 detail_category URL에 넣어서 전송하기
+	  $("a.detail_category").click(e=>{
+        const target = $(e.currentTarget);	//이벤트버블링방지 currentTarget 사용
+        const detail_category = target.children().children("p.details_category_name").text().trim();
+        alert(detail_category);
+        detail_categoryClick(detail_category);
+	  });
+	  
+	  // 정렬옵션 선택시 URL에 정렬옵션 넣어서 전송하기
+	  $("select#sort_option").change(e=>{
+		const target = $(e.target);
+		const sort = target.val();
+		alert("셀렉트태그 체인지이벤트 잡힘");
+		alert("값은 : "+ sort);
+		sortChange(sort);
+	  });
+	  
+	  
+	  
+	  //======================= >> 이벤트처리부분 끝 << =================================
   }); // end of $("document").ready(function(){}----
   
   
@@ -441,6 +492,7 @@ $("document").ready(function(){
 	   let start_URL = URL.substring(0,category_start_idx)+val;
 	   let last_URL = URL.substring(category_start_idx+category_val_length);
 	   location.href=getContextPath()+start_URL + last_URL;
+	   return;
 	 }
 	 
 	 
@@ -453,7 +505,8 @@ $("document").ready(function(){
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
-	    location.href=getContextPath()+'/product/shop.dream?category='+val
+	    location.href=getContextPath()+'/product/shop.dream?category='+val;
+	    return;
 	 }
 	 
 	 
@@ -465,17 +518,19 @@ $("document").ready(function(){
 	 		 URL.indexOf('end_price=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
-	   location.href=getContextPath()+URL.substring(0,category_start_idx)+val
+	   location.href=getContextPath()+URL.substring(0,category_start_idx)+val;
+	   return;
 	 } 
 		
 		
 		
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
-		URL += '&category='+val
+		URL += '&category='+val;
 		location.href=getContextPath()+URL;
+		return;
 	 }
 	  
-  }//end of function btn_allClick()
+  }//end of function btn_filterClick()
   
   
   
@@ -498,6 +553,7 @@ $("document").ready(function(){
 	   let start_URL = URL.substring(0,bestyn_start_idx)+'Y';
 	   let last_URL = URL.substring(bestyn_start_idx+1);
 	   location.href=getContextPath()+start_URL + last_URL;
+	   return;
 	 }
 	 
 	 
@@ -510,7 +566,8 @@ $("document").ready(function(){
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
-	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'Y'
+	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'Y';
+	    return;
 	 }
 	 
 	 
@@ -522,7 +579,8 @@ $("document").ready(function(){
 	 		 URL.indexOf('end_price=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
-	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'Y'
+	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'Y';
+	   return;
 	 } 
 		
 		
@@ -530,6 +588,7 @@ $("document").ready(function(){
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
 		URL += '&bestyn=Y';
 		location.href=getContextPath()+URL;
+		return;
 	 }
   }//end of function bestynCheck()
   
@@ -550,6 +609,7 @@ $("document").ready(function(){
 	   let start_URL = URL.substring(0,bestyn_start_idx)+'N';
 	   let last_URL = URL.substring(bestyn_start_idx+1);
 	   location.href=getContextPath()+start_URL + last_URL;
+	   return;
 	 }
 	 
 	 
@@ -562,7 +622,8 @@ $("document").ready(function(){
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
-	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'N'
+	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'N';
+	    return;
 	 }
 	 
 	 
@@ -574,7 +635,8 @@ $("document").ready(function(){
 	 		 URL.indexOf('end_price=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
-	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'N'
+	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'N';
+	   return;
 	 } 
 		
 		
@@ -582,6 +644,7 @@ $("document").ready(function(){
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
 		URL += '&bestyn=N';
 		location.href=getContextPath()+URL;
+		return;
 	 }
   }//end of function bestynCheck()
   
@@ -603,6 +666,7 @@ $("document").ready(function(){
 	   let start_URL = URL.substring(0,gender_start_idx)+val;
 	   let last_URL = URL.substring(gender_start_idx+gender_val_length);
 	   location.href=getContextPath()+start_URL + last_URL;
+	   return;
 	 }
 	 
 	 
@@ -615,7 +679,8 @@ $("document").ready(function(){
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
-	    location.href=getContextPath()+'/product/shop.dream?gender='+val
+	    location.href=getContextPath()+'/product/shop.dream?gender='+val;
+	    return;
 	 }
 	 
 	 
@@ -627,18 +692,190 @@ $("document").ready(function(){
 	 		 URL.indexOf('end_price=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
-	   location.href=getContextPath()+URL.substring(0,gender_start_idx)+val
+	   location.href=getContextPath()+URL.substring(0,gender_start_idx)+val;
+	   return;
 	 } 
-		
 		
 		
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
 		URL += '&gender='+val
 		location.href=getContextPath()+URL;
+		return;
+	 }
+	 
+  }//end of function genderChange(val){}-----
+  
+  
+  //가격대 검색버튼을 눌렀을 때, 시작가격과 끝 가격을 URL에 넣어줄 함수
+  function search_price(start_price,end_price){
+	const start_price_val_length = start_price_val.length;
+	const end_price_val_length = end_price_val.length;
+	
+	
+	// 1.start_price 먼저 URL에 추가
+	if(URL.indexOf('start_price=')!=-1 &&
+	  !(URL.indexOf('detail_category=')== -1 &&
+	    URL.indexOf('bestyn=') == -1 &&
+	    URL.indexOf('category=') == -1 &&
+	 	URL.indexOf('gender=') == -1 &&
+	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('sort=') == -1) )
+	 {	//URL에 start_price파라미터가 있고,다른파라미터가 있다면
+	   let start_URL = URL.substring(0,start_price_start_idx)+start_price+'&end_price='+end_price;
+	   let last_URL = URL.substring(start_price_start_idx+start_price_val_length+end_price_val_length+11);
+	   location.href=getContextPath()+start_URL + last_URL;
+	   return;
+	 }
+	 
+	 
+	 else if (URL.indexOf('start_price=')==-1 &&
+		      URL.indexOf('detail_category=')== -1 &&
+	 		  URL.indexOf('bestyn=') == -1 &&
+	 		  URL.indexOf('category=') == -1 &&
+	 		  URL.indexOf('gender=') == -1 &&
+	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('sort=') == -1
+	          )
+	 {	//URL에 start_price 파라미터가 없고,다른 파라미터도 없다면
+	    location.href=getContextPath()+'/product/shop.dream?start_price='+start_price+'&end_price='+end_price;
+	    return;
+	 }
+	 
+	 
+	 else if(URL.indexOf('start_price=')!=-1 &&
+	         URL.indexOf('detail_category=')== -1 &&
+	 		 URL.indexOf('bestyn=') == -1 &&
+	 		 URL.indexOf('category=') == -1 &&
+	 		 URL.indexOf('gender=') == -1 &&
+	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('sort=') == -1)
+	 {  //URL에 start_price 파라미터는 있고, 다른파라미터는 없다면
+	   location.href=getContextPath()+URL.substring(0,start_price_start_idx)+start_price+'&end_price='+end_price;
+	   return;
+	 } 
+		
+	 else {	//URL에 start_price파라미터는 없고,다른파라미터는 있다면,
+		URL += '&start_price='+start_price+'&end_price='+end_price;
+		location.href=getContextPath()+URL;
+		return;
+	 }
+	
+  }//end of function search_price(start_price,end_price){}----
+  
+  
+  
+  
+  
+  //detail_category 클릭시 선택한값을 파라미터로 받아 URL에 넣고 컨트롤러에 전송해주는 메소드
+  function detail_categoryClick(detail_category){
+	const detail_category_val_length = detail_category_val.length;
+	 if(URL.indexOf('detail_category=')!=-1 &&
+	  !(URL.indexOf('category=')== -1 &&
+	    URL.indexOf('bestyn=') == -1 &&
+	    URL.indexOf('gender=') == -1 &&
+	 	URL.indexOf('start_price=') == -1 &&
+	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('sort=') == -1) )
+	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
+	   let start_URL = URL.substring(0,detail_category_start_idx)+detail_category;
+	   let last_URL = URL.substring(detail_category_start_idx+detail_category_val_length);
+	   location.href=getContextPath()+start_URL + last_URL;
+	   return;
+	 }
+	 
+	 
+	 else if (URL.indexOf('detail_category=')==-1 &&
+		      URL.indexOf('category=')== -1 &&
+	 		  URL.indexOf('bestyn=') == -1 &&
+	 		  URL.indexOf('gender=') == -1 &&
+	 		  URL.indexOf('start_price=') == -1 &&
+	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('sort=') == -1
+	          )
+	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
+	    location.href=getContextPath()+'/product/shop.dream?detail_category='+detail_category;
+	    return;
+	 }
+	 
+	 
+	 else if(URL.indexOf('detail_category=')!=-1 &&
+	         URL.indexOf('category=')== -1 &&
+	 		 URL.indexOf('bestyn=') == -1 &&
+	 		 URL.indexOf('gender=') == -1 &&
+	 		 URL.indexOf('start_price=') == -1 &&
+	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('sort=') == -1)
+	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
+	   location.href=getContextPath()+URL.substring(0,detail_category_start_idx)+detail_category;
+	   return;
+	 } 
+		
+		
+		
+	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
+		URL += '&detail_category='+detail_category;
+		location.href=getContextPath()+URL;
+		return;
+	 }
+	
+	
+  }//end of function detail_categoryClick(detail_category){}--
+  
+  
+  
+  
+  //정렬방식 값을 바꿀 경우 정렬방식 값을 URL에 넣고 전송하기
+  function sortChange(sort){
+	const sort_val_length = sort_val.length;
+	 if(URL.indexOf('sort=')!=-1 &&
+	  !(URL.indexOf('category=')== -1 &&
+	    URL.indexOf('bestyn=') == -1 &&
+	    URL.indexOf('gender=') == -1 &&
+	 	URL.indexOf('start_price=') == -1 &&
+	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('detail_category=') == -1) )
+	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
+	   let start_URL = URL.substring(0,sort_start_idx)+sort;
+	   let last_URL = URL.substring(sort_start_idx+sort_val_length);
+	   location.href=getContextPath()+start_URL + last_URL;
+	   return
+	 }
+	 
+	 
+	 else if (URL.indexOf('sort=')==-1 &&
+		      URL.indexOf('category=')== -1 &&
+	 		  URL.indexOf('bestyn=') == -1 &&
+	 		  URL.indexOf('gender=') == -1 &&
+	 		  URL.indexOf('start_price=') == -1 &&
+	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('detail_category=') == -1
+	          )
+	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
+	    location.href=getContextPath()+'/product/shop.dream?sort='+sort;
+	    return;
+	 }
+	 
+	 
+	 else if(URL.indexOf('sort=')!=-1 &&
+	         URL.indexOf('category=')== -1 &&
+	 		 URL.indexOf('bestyn=') == -1 &&
+	 		 URL.indexOf('gender=') == -1 &&
+	 		 URL.indexOf('start_price=') == -1 &&
+	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('detail_category=') == -1)
+	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
+	   location.href=getContextPath()+URL.substring(0,sort_start_idx)+sort;
+	   return;
+	 } 
+		
+		
+		
+	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
+		URL += '&sort='+sort;
+		location.href=getContextPath()+URL;
+		return;
 	 }
   }
-  
-
 
 
 

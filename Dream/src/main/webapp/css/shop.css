@@ -110,6 +110,7 @@ p.details_category_name{
 div.details_category > a {
   color : black;
   text-decoration: none;
+  z-index:1;
 }
 /* a태그 데코레이션 없애기 시작 */
 div.details_category > a:link {
@@ -128,6 +129,7 @@ div.details_category > a:active {
   color : black;
   text-decoration: none;
 }
+
 /* a태그 데코레이션 없애기 끝 */
 /* 디테일카테고리이미지들 css  끝*/
 /* menu 끝 */
@@ -291,6 +293,11 @@ input#end_price:focus {
 } 
 
 input#start_price::placeholder{
+  color:darkgray;
+  font-size: 10px;
+  position:relative;
+}
+input#end_price::placeholder{
   color:darkgray;
   font-size: 10px;
   position:relative;

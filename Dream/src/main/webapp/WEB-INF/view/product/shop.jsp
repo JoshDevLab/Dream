@@ -19,9 +19,9 @@
 	sessionStorage.setItem("detail_category",'${requestScope.detail_category}');
 	sessionStorage.setItem("bestyn",'${requestScope.bestyn}');
 	sessionStorage.setItem("gender",'${requestScope.gender}');
+	sessionStorage.setItem("sort",'${requestScope.sort}');
 	sessionStorage.setItem("start_price",'${requestScope.start_price}');
 	sessionStorage.setItem("end_price",'${requestScope.end_price}');
-	sessionStorage.setItem("sort",'${requestScope.sort}');
 	<%-- 
 	sessionStorage.setItem("display_cnt", '${requestScope.display_cnt}');
 	sessionStorage.setItem("display_page", '${requestScope.display_page}');
@@ -214,8 +214,9 @@
 	        <div class="sort_option text-right">
 	          <select name="sort_option" id="sort_option" class="border rounded">
 	            <option value="정렬옵션">정렬옵션</option>
+	            <option>전체</option>
 	            <option>인기순</option>
-	            <option>신제품</option>
+	            <option>업로드순</option>
 	            <option>최저가순</option>
 	          </select>
 	          <%-- select 쓰지말고 버튼으로 한다음에 모달로 할지 고민중임!!!!!!!!!!!!! --%>

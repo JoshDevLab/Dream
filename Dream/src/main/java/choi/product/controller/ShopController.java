@@ -28,8 +28,8 @@ public class ShopController extends AbstractController{
 				String bestyn = "N";			//베스트상품여부
 				String gender = null;			//남성용인지 여성용인지
 				String sort = null;				//정렬방식
-				String str_start_price = null;	//시작가격
-				String str_end_price = null;	//끝가격
+				String start_price = null;	//시작가격
+				String end_price = null;	//끝가격
 				int page= 1;					//페이지번호
 				
 				
@@ -53,10 +53,10 @@ public class ShopController extends AbstractController{
 					sort = request.getParameter("sort").trim();
 				}
 				if(request.getParameter("start_price")!=null && request.getParameter("start_price").trim() != "") {		
-					str_start_price = request.getParameter("start_price").trim();
+					start_price = request.getParameter("start_price").trim();
 				}
 				if(request.getParameter("end_price")!=null && request.getParameter("end_price").trim() != "") {
-					str_end_price = request.getParameter("end_price").trim();
+					end_price = request.getParameter("end_price").trim();
 				}
 				
 				InterProductDAO pdao = new ProductDAO();
@@ -67,8 +67,8 @@ public class ShopController extends AbstractController{
 				paraMap.put("bestyn", bestyn);
 				paraMap.put("gender", gender);
 				paraMap.put("sort", sort);
-				paraMap.put("start_price", str_start_price);
-				paraMap.put("end_price", str_end_price);
+				paraMap.put("start_price", start_price);
+				paraMap.put("end_price", end_price);
 				
 				int total_cnt = pdao.cntAllProduct(paraMap);              //총 게시물 수
 				float display_cntf = 20f;	                              //한 페이지당 보여줄 게시물 수 float형
@@ -125,6 +125,15 @@ public class ShopController extends AbstractController{
 //			    System.out.println("아래 끝페이지 : "+ endPage);
 //			    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
 				
+				
+				
+				request.setAttribute("category", category);
+				request.setAttribute("detail_category", detail_category);
+				request.setAttribute("bestyn", bestyn);
+				request.setAttribute("gender", gender);
+				request.setAttribute("sort", sort);
+				request.setAttribute("start_price", start_price);
+				request.setAttribute("end_price", end_price);
 				request.setAttribute("productList", productList);
 				request.setAttribute("display_cnt", display_cnt);
 				request.setAttribute("display_page", display_page);
