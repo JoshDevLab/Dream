@@ -7,8 +7,15 @@ public class AddressDTO {
 	private String mobile;                 // 배송받을사람 전화번호 (SHA-256 암호화 대상)
     private String post_code;              // 우편번호
     private String address;                // 주소 
-    private String detail_address;         // 상세주소 
-   
+    
+	private String detail_address;         // 상세주소 
+    
+    
+    // 불러오기용 전화번호 나누기
+    String first_mobile;
+	String second_mobile; 
+	String third_mobile;
+    
 	
     
     public AddressDTO() {}
@@ -22,8 +29,11 @@ public class AddressDTO {
 		this.post_code = post_code;
 		this.address = address;
 		this.mobile = mobile;
-		this.detail_address = detail_address;			 	
-    	
+		this.detail_address = detail_address;	
+		
+		
+		
+		
     }
 	
 	
@@ -57,6 +67,39 @@ public class AddressDTO {
 	}
 	public void setDetail_address(String detail_address) {
 		this.detail_address = detail_address;
+	}
+	
+	
+	public String getFirst_mobile() {
+		first_mobile = mobile.substring(0,3);
+		return first_mobile;
+	}
+
+
+	private void setFirst_mobile(String first_mobile) {
+		this.first_mobile = first_mobile;
+	}
+
+
+	public String getSecond_mobile() {
+		second_mobile = mobile.substring(3,4)+ "***";
+		return second_mobile;
+	}
+
+
+	private void setSecond_mobile(String second_mobile) {
+		this.second_mobile = second_mobile;
+	}
+
+
+	public String getThird_mobile() {
+		third_mobile = mobile.substring(7,8)+ "***";
+		return third_mobile;
+	}
+
+
+	private void setThird_mobile(String third_mobile) {
+		this.third_mobile = third_mobile;
 	}
 	
 	

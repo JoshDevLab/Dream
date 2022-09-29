@@ -1,9 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="hgb.address.model.*" %> 
+<%@ page import="java.util.*" %>
 
 <%
-   String ctxPath = request.getContextPath();
+
+String ctxPath = request.getContextPath();
+
+   List<AddressDTO> addressList = (List)request.getAttribute("addressList");
 %>
+
+
+
+
 
   <%--header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
@@ -12,19 +24,18 @@
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/address.js" ></script>
 
-<!-- 다음 주소검색  -->
+<%-- 다음 주소검색  --%>
 <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+ 
 
 
-
-
-<!-- 컨테이너 시작  -->
+<%-- 컨테이너 시작  --%>
 <div class="container">
 
 
 
-<!--------------------------------------------------- 사이드바 시작 --------------------------------------------------->
+<%--------------------------------------------------- 사이드바 시작 ---------------------------------------------------%>
 		<div class="sidebar mr-5" style="width: 180px;">
 			<div>
 				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
@@ -53,12 +64,12 @@
 				</ul>
 			</div>
 		</div>
-<!--------------------------------------------------- 사이드바 끝 --------------------------------------------------->
+<%--------------------------------------------------- 사이드바 끝 ---------------------------------------------------%>
 
 
 
 
-<!--------------------------------------------------- 메인컨텐츠 시작 --------------------------------------------------->
+<%--------------------------------------------------- 메인컨텐츠 시작 ---------------------------------------------------%>
 <div class="content_area">
     <div class="my_addressbook">
       <div class="content_title">
@@ -66,14 +77,14 @@
 						<h3>주소록</h3>						
 					</div>
 					 <div class="btn_box">
-						<a href="#" data-toggle="modal" data-target="#add_address" id="add_btn" class="btn_add">							
-							<span class="btn_txt" id="add_btn2" onclick="new_add()" >+ 새 배송지 추가</span>
+						<a href="#" data-toggle="modal" data-target="#add_address" id="add_btn" class="btn_add" onclick="new_add()">							
+							<span class="btn_txt" id="add_btn3"  >+ 새 배송지 추가</span>
 						</a>
 					</div>
 </div>				
 				
 				
-				<!------------------------------------------------------------- 주소정보 없을시 출력되는 부분 시작 ------------------------------------------------------------->
+				<%------------------------------------------------------------- 주소정보 없을시 출력되는 부분 시작 -------------------------------------------------------------%>
 				
 				
 				
@@ -88,12 +99,12 @@
 				
 				
 				
-				<!------------------------------------------------------------- 주소정보 없을시 출력되는 부분 끝 ------------------------------------------------------------->
+				<%------------------------------------------------------------- 주소정보 없을시 출력되는 부분 끝 -------------------------------------------------------------%>
 
 
 
 
-                <!------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 시작 ------------------------------------------------------------->
+                <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 시작 -------------------------------------------------------------%>
              
                 <div class="my_list" id="yes_add_area">
                      		<div class="basic">
@@ -102,7 +113,7 @@
 								
 								<div class="address_info">
 									<div class="name_box">
-										<span id="basic_text" class="name">${requestScope.basic_adto.order_name}</span>
+										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
 										<span class="mark">기본 배송지</span>
 									</div>
 									<p id="basic_text" class="phone">
@@ -115,7 +126,7 @@
 								</div>
 							</div>
 							<div  class="btn_bind">
-								<!---->
+								<%----%>
 								<a data-toggle="modal" data-target="#add_address" href="#"
 									class="btn_outlinegrey_small"  onclick="Revise_add()"> 수정 </a><a
 								    href="#"  class="btn_outlinegrey_small" id="basic_delete">
@@ -133,34 +144,37 @@
 						<div class="other_list">
 						
 						
-						
+						<c:forEach var="adao" items="${requestScope.addressList}"> 
 							<%--for문 반복횟수는 태그라이브러리를 써서 하는데 var='리스트안에 들어있는 한개아이템' items='리스트이름' --%>
 							<%-- <c:forEach var="" items="${requestScope.addressList}"> --%>
 							<div class="my_item_is_active" id="active"
 								style="">
+							
 								<div class="info_bind">
-								
+						  
 								<div class="address_info">
 									<div class="name_box">
-										<span id="basic_text" class="name">${requestScope.basic_adto.order_name}</span>
+										<span id="basic_text" class="name">${adao.order_name}</span>
 										
 									</div>
 									<p id="basic_text" class="phone">
-										${requestScope.basic_first_mobile}-${requestScope.basic_second_mobile}-${requestScope.basic_third_mobile}
+										${adao.first_mobile}-${adao.second_mobile}-${adao.third_mobile}
 									</p>
 									<div  class="address_box">
-										(<span id="basic_text"  class="zipcode">${requestScope.basic_adto.post_code }</span>)
-										 <span id="basic_text" class="address">${requestScope.basic_adto.address} ${requestScope.basic_adto.detail_address}</span>
+										(<span id="basic_text"  class="zipcode">${adao.post_code}</span>)
+										 <span id="basic_text" class="address">${adao.address} ${adao.detail_address}</span>
 									</div>
 								</div>
 							</div>
+							 	 
 								<div id="basic_text" class="btn_bind">
 									<a href="/member/basic_address.dream?address_num=" class="btn_outlinegrey_small"> 기본 배송지 </a>
 										<a data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
 										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
 								</div>
+						 	  
 							</div>
-							
+							</c:forEach>	
 							<%--for문 --%>
 							
 							
@@ -171,32 +185,7 @@
 							
 							
 							
-							<div class="my_item_is_active"
-								style="">
-								<div class="info_bind">
-									<!---->
-									<div class="address_info">
-										<div id="basic_text" class="name_box" style="">
-											<span class="name">ㅇ**</span>
-											<!---->
-										</div>
-										<p id="basic_text" class="phone">010<span class="hyphen">-</span>
-										1<span class="dot"></span><span
-												class="dot"></span><span class="hyphen"></span><span
-												class="dot"></span>312
-										</p>
-										<div class="address_box">
-											(<span class="zipcode" id="basic_text" >05344</span>)
-											<span class="address" id="basic_text" >서울 강동구 천중로56길 6 (길동) ㅇㄴㅁㅇㅇ</span>
-										</div>
-									</div>
-								</div>
-								<div id="basic_text" class="btn_bind">
-									<a href="#" class="btn_outlinegrey_small"> 기본 배송지 </a>
-										<a data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
-										<a href="#" id="delete" class="btn_outlinegrey_small" > 삭제 </a>
-								</div>
-							</div>
+							
 							
 
 
@@ -208,14 +197,14 @@
 </div>
 
 
-<!-------------------------------------------------------- 페이지번호 시작 ---------------------------------------------------------->
+<%-------------------------------------------------------- 페이지번호 시작 ----------------------------------------------------------%>
 
 
 					<div class="pagination">
 						<div class="pagination_box_first_last">
 						
-						<!---------------------첫 페이지 버튼 시작  ----------------------->
-							<!-- <div data-v-1f9de2f0="" class="prev_btn_box">
+						<%---------------------첫 페이지 버튼 시작  -----------------------%>
+							<%-- <div data-v-1f9de2f0="" class="prev_btn_box">
 								<a data-v-1f9de2f0="" href="/my/address?page=1" class="btn_arr"
 									aria-label="첫 페이지"><svg data-v-1f9de2f0=""
 										xmlns="http://www.w3.org/2000/svg"
@@ -230,8 +219,8 @@
 										<use data-v-1f9de2f0=""
 											href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-prev"
 											xlink:href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-prev"></use></svg></a>
-							</div> -->
-							<!---------------------첫 페이지 버튼 끝  ----------------------->
+							</div> --%>
+							<%---------------------첫 페이지 버튼 끝  -----------------------%>
 							
 							
 							<div class="page_bind">
@@ -241,8 +230,8 @@
 							
 							
 							
-							<!---------------------마지막 페이지 버튼 시작  ----------------------->
-							<!-- <div data-v-1f9de2f0="" class="next_btn_box">
+							<%---------------------마지막 페이지 버튼 시작  -----------------------%>
+							<%-- <div data-v-1f9de2f0="" class="next_btn_box">
 								<a data-v-1f9de2f0="" href="/my/address?page=2" class="btn_arr"
 									aria-label="다음 페이지"><svg data-v-1f9de2f0=""
 										xmlns="http://www.w3.org/2000/svg"
@@ -257,15 +246,15 @@
 										<use data-v-1f9de2f0=""
 											href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-last"
 											xlink:href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-last"></use></svg></a>
-							</div> -->
-							<!---------------------마지막 페이지 버튼 끝  ----------------------->
+							</div> --%>
+							<%---------------------마지막 페이지 버튼 끝  -----------------------%>
 							
 						</div>
 					</div>
 
 
 
-					<!-------------------------------------------------------- 페이지번호 끝 ---------------------------------------------------------->
+					<%-------------------------------------------------------- 페이지번호 끝 ----------------------------------------------------------%>
 
 
 
@@ -273,22 +262,22 @@
 
 
 </div>				
-<!------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 끝 ------------------------------------------------------------->			
+<%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 끝 -------------------------------------------------------------%>			
  
  
               
 
-  <!-------------------------------------------------------------- 모달 시작 ----------------------------------------------------------->
+  <%-------------------------------------------------------------- 모달 시작 -----------------------------------------------------------%>
         
 
 
  
              
-				<div class="modal modal_box layer lg" id="add_address">
+				<div class="modal modal_box layer lg " id="add_address" >
 				      
 					<div class="layer_container">
 					  
-					  <button type="button" class="close passwdFindClose" data-dismiss="modal">&times;</button>
+					  <button type="button" class="close passwdFindClose" data-dismiss="modal" >&times;</button>
 						<div class="layer_header">
 						    <h2 class="title1">새 주소 추가</h2> 
 						    <h2 class="title2">배송지 수정</h2> 
@@ -325,8 +314,8 @@
 										<div class="input_item">
 										<a href="#"  id="zipcodeSearch" class="btn btn_zipcode outline small;" onclick="openDaumPOST();"> 우편번호 </a>
 										<input type="text" id="postcode" value="우편번호밸류" name="post_code" size="6" maxlength="5" placeholder="우편 번호를 검색하세요" readonly/><br/>
-											<!-- <input type="text" placeholder="우편 번호를 검색하세요"
-												readonly="readonly" autocomplete="off" class="input_txt"> -->
+											<%-- <input type="text" placeholder="우편 번호를 검색하세요"
+												readonly="readonly" autocomplete="off" class="input_txt"> --%>
 												
 												
 												
@@ -377,7 +366,7 @@
 				  
 				
 				
-				<!------------------------------------------------------------------ 모달 끝  -------------------------------------------------------------------->
+				<%------------------------------------------------------------------ 모달 끝  --------------------------------------------------------------------%>
 				            
               
 
@@ -392,12 +381,12 @@
 
 
 </div>
-<!--------------------------------------------------- 메인컨텐츠 끝 --------------------------------------------------->
+<%--------------------------------------------------- 메인컨텐츠 끝 ---------------------------------------------------%>
 
 
 
 </div>
-<!-- 컨테이너 끝  -->
+<%-- 컨테이너 끝  --%>
 
 
 <%--footer 호출 --%>

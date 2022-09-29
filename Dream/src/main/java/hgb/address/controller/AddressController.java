@@ -21,10 +21,7 @@ public class AddressController extends AbstractController{
 		String method = request.getMethod();
 		
 		if("POST".equalsIgnoreCase(method)) {	//method가 "POST" 일 때
-			
-			
-			
-			
+						
 			
 		}
 		
@@ -38,8 +35,14 @@ public class AddressController extends AbstractController{
 			// 기본배송지 하나 가져오기(한개)
 			InterAddressDAO adao = new AddressDAO();
 			
+			
+			
+			List<AddressDTO> addressList = adao.selectAddress(userid);
+			
 			AddressDTO basic_adto = adao.select_basic_address(userid);
 			String basic_mobile = basic_adto.getMobile();
+			
+			
 			
 			//전화번호를 첫번째자리 3자리, 두번째자리 4자리, 세번째자리 4자리 
 //			01074239713
@@ -47,13 +50,12 @@ public class AddressController extends AbstractController{
 			String basic_second_mobile = basic_mobile.substring(3,4) + "***";
 			String basic_third_mobile = basic_mobile.substring(7,8) + "***";
 			
+			request.setAttribute("addressList", addressList);
 				
 			request.setAttribute("basic_first_mobile", basic_first_mobile);
 			request.setAttribute("basic_second_mobile", basic_second_mobile);
 			request.setAttribute("basic_third_mobile", basic_third_mobile);
-			request.setAttribute("basic_adto", basic_adto);
-			
-			
+			request.setAttribute("basic_adto", basic_adto);		
 			
 			
 			
@@ -62,6 +64,9 @@ public class AddressController extends AbstractController{
 			
 //			나온 값을
 //			request에 담아서
+			
+			
+			
 			
 			
 			

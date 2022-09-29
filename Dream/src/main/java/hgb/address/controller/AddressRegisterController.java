@@ -27,8 +27,7 @@ public class AddressRegisterController extends AbstractController{
 		
 		else {
 			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
-			 String order_name = request.getParameter("order_name"); 	
-			 System.out.println(order_name);
+			 String order_name = request.getParameter("order_name"); 				
 			 String mobile = request.getParameter("mobile"); 
 			 String post_code = request.getParameter("post_code"); 
 			 String address = request.getParameter("address"); 	         
@@ -38,7 +37,7 @@ public class AddressRegisterController extends AbstractController{
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         
-			 System.out.println("1");
+			 
 	         try {
 	        	 int n = adao.registerAddress(address1);
 	     

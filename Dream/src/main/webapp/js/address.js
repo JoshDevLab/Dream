@@ -5,7 +5,7 @@ let b_flag_zipcodeSearch_click = false;
 
 
 $(document).ready(function(){
-	console.log("3");
+	
 	
 	
 	/* 모달창이 열리면 이름입력부분에 오토포커스를 주는 기능  */
@@ -194,8 +194,8 @@ $(document).ready(function(){
         alert("다른 주소를 기본 베송지로 변경 후, 삭제할 수 있습니다.");
     		
     });
-
-			
+    
+    
 
 });	// end of $(document).ready(function(){} -------------------------------	
 		
@@ -206,6 +206,8 @@ $(document).ready(function(){
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function new_add() {
+	
+	$('#add_address').modal('show');
 
     $("h2.title2").hide();
     $("h2.title1").show();	
@@ -225,6 +227,7 @@ function new_add() {
 /* 수정 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function Revise_add() {
 	
+	$('#add_address').modal('show');
 
     $("h2.title1").hide();	
     $("h2.title2").show();
@@ -313,11 +316,26 @@ function openDaumPOST() {
 
 //"저장하기" 버튼 클릭시 호출되는 함수  
 function goRegister() {
+	
+	const name_length = $("input:text[name='order_name']").val().trim().length;
+	      if(name_length < 2) {
+	    	  alert("이름 형식에 맞지 않습니다!!");
+	    	  $("input:text[name='order_name']").val("").focus();
+	    	  return false; // submit 을 하지 않고 종료한다.
+	}
+	      
+    const mobile_length = $("input:text[name='mobile']").val().trim().length;
+    if(mobile_length < 11) {
+	    alert("전화번호 형식에 맞지않습니다 !!");
+	    $("input:text[name='mobile']").val("").focus();
+	    return false; // submit 을 하지 않고 종료한다.
+    }
 
 	// "우편번호찾기" 을 클릭했는지 여부 알아오기 
     if(!b_flag_zipcodeSearch_click) { 
     	// "우편번호찾기" 을 클릭 안 했을 경우 
     	alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
+    	
     	return; // 종료
     }
     else {
