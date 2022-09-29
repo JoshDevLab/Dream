@@ -87,7 +87,7 @@
 	          <div class="d-flex flex-column mt-3">
 	            <div>
 	              <input type="radio" name="category" id="all">
-	              <label for="bad" class="category_radio">전체</label>
+	              <label for="all" class="category_radio">전체</label>
 	            </div>
 	            <div>
 	              <input type="radio" name="category" id="bad">
@@ -182,15 +182,21 @@
 	        <%-- 가격 토글부분 --%>
 	        <form class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
-	            <p style="font-size:13px;">가격대를 입력해주세요</p>
 	            <div>
-	              <input type="text" name="start_price" id="start_price" placeholder="최저가격" class="border rounded">
+	              <p style="font-size:13px;"><i class="fa-solid fa-circle-info mr-1"></i>  가격대를 입력해주세요</p>
+	            </div>
+	            <div>
+	              <input type="text" name="start_price" id="start_price" placeholder="최저가격(숫자만입력)">
 	              <label for="start_price" class="price_input"></label>
 	            </div>
 	
 	            <div>
-	              <input type="text" name="end_price" id="end_price" placeholder="최고가격" class="border rounded">
+	              <input type="text" name="end_price" id="end_price" placeholder="최고가격(숫자만입력)">
 	              <label for="end_price" class="price_input"></label>
+	            </div>
+	            <div class="d-flex">
+	              <button type="button" id="btn_price_search" class="price btn border rounded">검색</button>
+	              <button type="button" id="btn_price_clear" class="price btn border rounded ml-3">지우기</button>
 	            </div>
 	          </div>
 	        </form>

@@ -10,15 +10,12 @@ let URL = sessionStorage.getItem("currentURL");
 //category
 const category_start_idx = URL.indexOf('=',URL.indexOf('category'))+1;
 const category_last_idx = URL.indexOf('&',category_start_idx);
-let category_val = "";
+let category_val = "전체";
 if(category_start_idx != 0 && category_last_idx != -1){
  category_val = URL.substring(category_start_idx,category_last_idx);
 }
 else if(category_start_idx != 0){
  category_val = URL.substring(category_start_idx);
-}
-else{
- category_val = "전체";
 }
 
 
@@ -38,7 +35,7 @@ else if(detail_category_start_idx != 0){
 //bestyn
 const bestyn_start_idx = URL.indexOf('=',URL.indexOf('bestyn'))+1;
 const bestyn_last_idx = URL.indexOf('&',bestyn_start_idx);
-let bestyn_val = 'n';
+let bestyn_val = 'N';
 if(bestyn_start_idx != 0 && bestyn_last_idx != -1){
  bestyn_val = URL.substring(bestyn_start_idx, bestyn_last_idx);
 }
@@ -149,22 +146,33 @@ $("document").ready(function(){
       
       
       //bestyn이 y일 경우 문서가 로딩되면 체크하기
-      if(bestyn_val == 'y'){
+      if(bestyn_val == 'Y'){
 	    $(`input:checkbox[name='bestyn']`).attr("checked",true);
       }
-      else if(bestyn_val =='n'){
+      else if(bestyn_val =='N'){
 	    $(`input:checkbox[name='bestyn']`).attr("checked",false);
+	  }
+	  
+	  //gender값에따라 체크하기 
+      if(gender_val == '남'){
+	    $(`input:radio[id='man']`).attr("checked",true);
+      }
+      else if(gender_val =='여'){
+	    $(`input:radio[name='women']`).attr("checked",true);
+	  }
+	  else{
+		$("input:radio[id='no_gender']").attr("checked",true);
 	  }
 
 
       // selet 태그에서 첫번째 옵션 값을 숨기는 함수 
-      $("select#sort_option").click(function(e){
+      $("select#sort_option").click(e=>{
           $("select#sort_option").children("option[value='정렬옵션']").prop("hidden",true);
       });
       
       
       //카테고리 라디오버튼 값이 변경시 버튼에 클릭트리거
-      $("input:radio[name='category']").change((e)=>{
+      $("input:radio[name='category']").change(e=>{
 		const target = $(e.target);
 		const category = target.next().text();
 		
@@ -172,10 +180,8 @@ $("document").ready(function(){
 	  });
 	  
 	  
-	  
-	  
 	  //필터버튼 클릭시 이벤트 잡기
-	  $("button.btn_fillter").click((e)=>{
+	  $("button.btn_fillter").click(e=>{
 		const target = $(e.target);
 		const val = target.text();
 		btn_filterClick(val);
@@ -183,7 +189,7 @@ $("document").ready(function(){
 	  });
 	  
 	  //bestyn 라디오 버튼 값이 변경시 이벤트 잡기
-      $("input:checkbox[name='bestyn']").change(function(e){
+      $("input:checkbox[name='bestyn']").change(e=>{
 		if($("input:checkbox[name='bestyn']").is(":checked")){//bestyn을 체크했을 경우
 		  bestynCheck();
 		}
@@ -194,8 +200,30 @@ $("document").ready(function(){
 	  
 	  
 	  //gender 라디오 버튼 값이 변경시 이벤트 잡기
-      $("input:radio[name='gender']").change(function(e){
-		genderChange();
+      $("input:radio[name='gender']").change(e=>{
+		const target = $(e.target);
+		const val = target.next().text();
+		genderChange(val);
+	  });
+	  
+	  //가격대 검색창 입력시 숫자만 입력 가능하게 만들기
+	  $("input#start_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
+	  $("input#end_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
+	  //가격대로 검색 버튼 클릭시 이벤트
+	  $("button#btn_price_search").click(e=>{
+		const input_start_price = $("input#start_price");
+		const input_end_price = $("input#end_price");
+		const start_price = input_start_price.val();
+		const end_price = input_end_price.val();
+		
+		if(start_price>end_price){
+		  alert("최고가격은 최저가격보다 높아야 합니다!");
+		  input_end_price.val("");
+		  input_end_price.focus();
+		}
+		else{
+		  
+		}
 	  });
 	  
 	  
@@ -392,8 +420,12 @@ $("document").ready(function(){
   
   
   
+  //=================================================================================//
+  //================================= Function Declaration ==========================//
+  //=================================================================================//
   
-  //====================== Function Declaration ====================//
+  
+  
   
   //category필터 버튼 클릭시 URL에 category=값 넣기 함수
   function btn_filterClick(val){
@@ -463,7 +495,7 @@ $("document").ready(function(){
 	 	URL.indexOf('end_price=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
-	   let start_URL = URL.substring(0,bestyn_start_idx)+'y';
+	   let start_URL = URL.substring(0,bestyn_start_idx)+'Y';
 	   let last_URL = URL.substring(bestyn_start_idx+1);
 	   location.href=getContextPath()+start_URL + last_URL;
 	 }
@@ -478,7 +510,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
-	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'y'
+	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'Y'
 	 }
 	 
 	 
@@ -490,13 +522,13 @@ $("document").ready(function(){
 	 		 URL.indexOf('end_price=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
-	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'y'
+	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'Y'
 	 } 
 		
 		
 		
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
-		URL += '&bestyn=y';
+		URL += '&bestyn=Y';
 		location.href=getContextPath()+URL;
 	 }
   }//end of function bestynCheck()
@@ -515,7 +547,7 @@ $("document").ready(function(){
 	 	URL.indexOf('end_price=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
-	   let start_URL = URL.substring(0,bestyn_start_idx)+'n';
+	   let start_URL = URL.substring(0,bestyn_start_idx)+'N';
 	   let last_URL = URL.substring(bestyn_start_idx+1);
 	   location.href=getContextPath()+start_URL + last_URL;
 	 }
@@ -530,7 +562,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
-	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'n'
+	    location.href=getContextPath()+'/product/shop.dream?bestyn='+'N'
 	 }
 	 
 	 
@@ -542,13 +574,13 @@ $("document").ready(function(){
 	 		 URL.indexOf('end_price=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
-	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'n'
+	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'N'
 	 } 
 		
 		
 		
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
-		URL += '&bestyn=n';
+		URL += '&bestyn=N';
 		location.href=getContextPath()+URL;
 	 }
   }//end of function bestynCheck()
@@ -558,30 +590,52 @@ $("document").ready(function(){
   
   
   //성별부분 라디오버튼 값이 바뀔시 호출될 함수
-  function genderChange(){
-	const gender_val = $("input:radio[name='gender']:checked").id();
-	alert(gender_val);
-	if(URL.indexOf('gender')!=-1){	//URL에 category파라미터가 있다면
-		if(gender_last_idx!=-1){  //뒤에 파라미터가 더 있다면
-		  if(gender_start_idx != gender_last_idx){ //시작인덱스와 라스트인덱스가 같지 않다면
-		    URL = URL.replace(URL.substring(gender_start_idx,gender_last_idx),'수면용품');
-		    location.href=getContextPath()+URL;
-		  }
-		  else{	//시작인덱스와 라스트인덱스가 같다면
-			let start_URL = URL.substring(0,gender_start_idx) +'수면용품';
-			let last_URL = URL.substring(gender_start_idx);
-			location.href=getContextPath()+start_URL+last_URL;
-		  }
-		}
-		else{	//뒤에 파라미터가 더 없다면
-		  URL = URL.replace(URL.substring(gender_start_idx),'수면용품');
-		  location.href=getContextPath()+URL;
-		}
-	  }
-	  else{	//URL에 category 파라미터가 없다면
-	  	URL += '?category=수면용품';
-	  	location.href=getContextPath()+URL;
-	  }
+  function genderChange(val){
+	const gender_val_length = gender_val.length;
+	 if(URL.indexOf('gender=')!=-1 &&
+	  !(URL.indexOf('detail_category=')== -1 &&
+	    URL.indexOf('bestyn=') == -1 &&
+	    URL.indexOf('category=') == -1 &&
+	 	URL.indexOf('start_price=') == -1 &&
+	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('sort=') == -1) )
+	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
+	   let start_URL = URL.substring(0,gender_start_idx)+val;
+	   let last_URL = URL.substring(gender_start_idx+gender_val_length);
+	   location.href=getContextPath()+start_URL + last_URL;
+	 }
+	 
+	 
+	 else if (URL.indexOf('gender=')==-1 &&
+		      URL.indexOf('detail_category=')== -1 &&
+	 		  URL.indexOf('bestyn=') == -1 &&
+	 		  URL.indexOf('category=') == -1 &&
+	 		  URL.indexOf('start_price=') == -1 &&
+	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('sort=') == -1
+	          )
+	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
+	    location.href=getContextPath()+'/product/shop.dream?gender='+val
+	 }
+	 
+	 
+	 else if(URL.indexOf('gender=')!=-1 &&
+	         URL.indexOf('detail_category=')== -1 &&
+	 		 URL.indexOf('bestyn=') == -1 &&
+	 		 URL.indexOf('category=') == -1 &&
+	 		 URL.indexOf('start_price=') == -1 &&
+	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('sort=') == -1)
+	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
+	   location.href=getContextPath()+URL.substring(0,gender_start_idx)+val
+	 } 
+		
+		
+		
+	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
+		URL += '&gender='+val
+		location.href=getContextPath()+URL;
+	 }
   }
   
 
