@@ -168,7 +168,7 @@ $(document).ready(function() {
 				
 				$("div#optionSelected").append(
 				`<div id='added_option'>
-					<span id="optionAmount">1</span>
+					<span id="optionAmount" class="optionAmount" name="optionAmount">1</span>
 					<span id="optionName">${ProductOption}</span>
 					<button id="deleteObj${objNo}" class="btn">x</button>
 					<button id="minus${objNo}" class="btn">-</button>
@@ -189,7 +189,7 @@ $(document).ready(function() {
 			
 			$("div#optionSelected").append(
 				`<div id='added_option'>
-					<span id="optionAmount">1</span>
+					<span name = "optionAmount" id="optionAmount" class="optionAmount">1</span>
 					<span id="optionName">${ProductOption}</span>
 					<button id="deleteObj${objNo}" class="btn">x</button>
 					<button id="minus${objNo}" class="btn">-</button>
@@ -202,6 +202,7 @@ $(document).ready(function() {
 			optionArray.push(ProductOption);
 		}
 		calcbutton(objNo);
+		HowMuchIsit();
 		
 	});	
 	
@@ -411,21 +412,29 @@ function goPurchasePage(){
 	
 		// 선택갯수 * 할인적용금액 된 가격을 구해서 넣어주는 함수
 	function HowMuchIsit() {
-		optionObj = $("div#added_option");
-	
-		added_optionAmount = $("div#added_option>#optionAmount").text();
 		
-		console.log(added_optionAmount);
-		
+		let added_optionAmount = document.getElementsByName("optionAmount");
+		/*let addArr = Array.from(added_optionAmount);
+		console.log(typeof(addArr));
+		console.log("확인용 배열"+addArr);
+		console.log("확인용 배열 길이"+addArr.length);
+		*/
 		let sum=0;
-		for(i=0; i<$("div#added_option").length;i++){
-			console.log("더할값1"+optionObj[i].find("span#optionAmount").text());
-			console.log("더할값"+Number(added_optionAmount[i]));
-			sum += Number(added_optionAmount[i]);
+	
+		for(let i=0; i< added_optionAmount.length; i++){
+			Selected = Number(added_optionAmount[i].textContent);
+			sum+=Selected;
 		}
 		
-		console.log(sum);
+		//	Selected = added_optionAmount[1].textContent;
+		//	console.log("씨발값"+Selected);
+		//	sum += Number(Selected);
+		let discount_price = Number($("input#discountPrice").val());
+		console.log(discount_price);
+			
+		let price = sum * discount_price;
+		$("input#fullPrice").val(price);
 		
-		$("span.num").text(sum);
+		$("em.num").text(price);
 		
 	};
