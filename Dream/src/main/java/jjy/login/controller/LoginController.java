@@ -21,10 +21,12 @@ public class LoginController extends AbstractController {
 		String loc = "";
 		
 		if("GET".equalsIgnoreCase(method)) { // "GET" 방식일때
+			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/login/login.jsp");
 		}
 		else { // "POST" 방식일때
 			//////////////////////////////////////////////////////////////////////////////////////
+//			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/login/login.jsp");
 
 			String userid = request.getParameter("userid"); // form 태그에서 입력받은 userid
@@ -81,7 +83,7 @@ public class LoginController extends AbstractController {
 //					System.out.println("##확인용## 탈퇴한 회원");
 
 					message = "탈퇴회원입니다.";
-					loc = "javascript:history.back()";
+					loc = request.getContextPath()+"/login/login.dream";
 
 					request.setAttribute("message", message);
 					request.setAttribute("loc", loc);
@@ -94,7 +96,7 @@ public class LoginController extends AbstractController {
 //						System.out.println("##확인용## 로그인 실패 휴면 회원.");
 
 						message = "휴면 회원입니다. 관리자에게 문의바랍니다.";
-						loc = "javascript:history.back()";
+						loc = request.getContextPath()+"/login/login.dream";
 
 						request.setAttribute("message", message);
 						request.setAttribute("loc", loc);
