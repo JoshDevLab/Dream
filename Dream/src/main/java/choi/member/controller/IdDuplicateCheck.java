@@ -38,6 +38,9 @@ public class IdDuplicateCheck extends AbstractController{
 			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 			
 		}// end of if("post".equalsIgnoreCase(method)) -----
+		else {
+			
+		}
 		
 	}
 	

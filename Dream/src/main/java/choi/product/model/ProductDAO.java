@@ -79,16 +79,16 @@ public class ProductDAO implements InterProductDAO{
 						sql += " and category = '"+category +"'";
 					}
 					if(detail_category != null) {
-						sql += " and detail_category = "+ detail_category;
+						sql += " and detail_category = '"+ detail_category + "'";
 					}
-					if(bestyn != null) {
-						sql += " and bestyn = "+ bestyn;
+					if(bestyn != null && bestyn.equalsIgnoreCase("y")) {
+						sql += " and bestyn = '"+ bestyn + "'";
 					}
 					if(gender != null) {
-						sql += " and gender = "+gender;
+						sql += " and gender = '"+gender + "'";
 					}
-					if(start_price != null && end_price != null) {
-						sql += " and price = between "+Integer.parseInt(sql)+" and "+end_price;
+					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
+						sql += " and price = between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
 					}
 										
 					pstmt = conn.prepareStatement(sql);
@@ -111,6 +111,12 @@ public class ProductDAO implements InterProductDAO{
 			@Override
 			public List<ProductDTO> selectAllProduct(Map<String, String> paraMap) throws SQLException {
 				List<ProductDTO> productList = new ArrayList<>();
+				String category = paraMap.get("category");
+				String detail_category = paraMap.get("detail_category");
+				String bestyn = paraMap.get("bestyn");
+				String gender = paraMap.get("gender");
+				String start_price = paraMap.get("start_price");
+				String end_price = paraMap.get("end_price");
 				try {
 					conn = ds.getConnection();
 					String sql = " select product_num "
@@ -138,6 +144,25 @@ public class ProductDAO implements InterProductDAO{
 							   + " order by product_num desc "
 							   + " )A  "
 							   + " where R between (?*?)-(?-1) and (?*?) ";
+					
+					
+					if(category != null) {
+						sql += " and category = '"+category +"'";
+					}
+					if(detail_category != null) {
+						sql += " and detail_category = '"+ detail_category + "'";
+					}
+					if(bestyn != null && bestyn.equalsIgnoreCase("y")) {
+						sql += " and bestyn = '"+ bestyn + "'";
+					}
+					if(gender != null) {
+						sql += " and gender = '"+gender + "'";
+					}
+					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
+						sql += " and price = between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
+					}
+					
+					
 //					(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setInt(1,Integer.parseInt(paraMap.get("page")));

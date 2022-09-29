@@ -55,7 +55,7 @@ public class ShopController extends AbstractController{
 				if(request.getParameter("start_price")!=null && request.getParameter("start_price").trim() != "") {		
 					str_start_price = request.getParameter("start_price").trim();
 				}
-				if(request.getParameter("start_price")!=null && request.getParameter("start_price").trim() != "") {
+				if(request.getParameter("end_price")!=null && request.getParameter("end_price").trim() != "") {
 					str_end_price = request.getParameter("end_price").trim();
 				}
 				
@@ -138,17 +138,16 @@ public class ShopController extends AbstractController{
 				
 				String currentURL = MyUtil.getCurrentURL(request);
 				request.setAttribute("currentURL", currentURL);
-				
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/product/shop.jsp");
 			}catch(SQLException e) {	//SQL오류가 떳을 경우
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath()+"product/shop.dream");	//shop.dream 페이지로 redirect
 				e.printStackTrace();
+				super.setRedirect(true);
+				super.setViewPage(request.getContextPath()+"/product/shop.dream");	//shop.dream 페이지로 redirect
 			}catch(Exception e) {	//URL에있는 page번호로 장난했을 경우
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath()+"product/shop.dream");	//shop.dream 페이지로 redirect
 				e.printStackTrace();
+				super.setRedirect(true);
+				super.setViewPage(request.getContextPath()+"/product/shop.dream");	//shop.dream 페이지로 redirect
 			}
 		}
 		else {	//요청방식이 "POST"일 때 
