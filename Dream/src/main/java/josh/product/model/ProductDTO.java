@@ -5,6 +5,7 @@ public class ProductDTO {
 	   //fields
 	   private String register_date;   //등록날짜
 	   private String product_name;   //상품명
+	   private String product_content; // 상품설명
 	   private String product_image;   //상품이미지파일
 	   private String category;       //카테고리
 	   private String detail_category;   //상세카테고리
@@ -89,5 +90,39 @@ public class ProductDTO {
 	   public void setProduct_cnt(int product_cnt) {
 	      this.product_cnt = product_cnt;
 	   }
+	public String getProduct_content() {
+		return product_content;
+	}
+	public void setProduct_content(String product_content) {
+		this.product_content = product_content;
+	}
+	
+	public int getDiscount_price() {
+		
+		int discountPrice = 0;
+		
+		discountPrice = (int) (price * discount_rate);
+		
+		return discountPrice;
+		
+	}
+	
 	   
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
