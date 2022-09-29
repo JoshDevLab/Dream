@@ -170,7 +170,7 @@ String ctxPath = request.getContextPath();
 								<div id="basic_text" class="btn_bind">
 									<a href="/member/basic_address.dream?address_num=" class="btn_outlinegrey_small"> 기본 배송지 </a>
 										<a data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
-										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
+										<a href="#"  id="delete" class="btn_outlinegrey_small" onclick="adress_delete()"> 삭제 </a>
 								</div>
 						 	  
 							</div>

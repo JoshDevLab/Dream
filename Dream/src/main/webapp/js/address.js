@@ -365,10 +365,23 @@ function goRegister() {
    
     
 
-
-    
-	
-	
-	
 	
 }// end of function goRegister()----------------------
+
+
+
+
+function address_delete() {
+	
+	action
+	
+}
+
+
+
+
+
+
+
+
+
