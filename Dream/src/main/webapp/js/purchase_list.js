@@ -1,6 +1,44 @@
+/*
+
+function getContextPath() {
+	let hostIndex = location.href.indexOf(location.host) + location.host.length;
+	let contextPath = location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
+	return contextPath;
+}
+
+
+function callAjax() {
+	let dataObj;
+
+	dataObj = {
+		"end_date": $("input#start_date").val(),
+		"start_date": $("input#end_date").val(),
+		"input_shipping": $("input_shipping#userid").val(),
+		"sort": $("input#sort").val(),
+		"userid": $("input#userid").val()
+	};
+
+	console.log("확인용 json 에 입력된 값"+dataObj);
+	$.ajax({
+		url: getContextPath()+"/member/buylist.dream",
+		type: "GET",
+		data: dataObj,
+		dataType: "json",
+		success: function(json) {
+			// json  => {"group_id":"R2GkYskBSgPG6uVP","success_count":1,"error_count":0}
+			alert("확인용"); 
+		},
+		error: function(request, status, error) {
+			alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		}
+	});
+}// end of function callAjax() {}-----------------------
+
 $(document).ready(function() {
 
-	const purchaseFrm = document.purchaseFrm;
+
+	
+
 
 	// DatePicker 한글, 기타 속성 시작
 	$.datepicker.setDefaults({
@@ -22,7 +60,7 @@ $(document).ready(function() {
 		// ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 		// ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
 	});
-	
+
 
 	//input을 datepicker로 선언
 	$("input#start_date").datepicker();
@@ -46,8 +84,7 @@ $(document).ready(function() {
 		$("div#show_shipping").show();
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("0");
-		
-		
+
 	});
 	$("div#shipping_cnt_left").trigger("click"); // 진행중 tirgger 로 설정
 
@@ -62,11 +99,11 @@ $(document).ready(function() {
 		$("div#shipping_cnt_right > div.shipping_status").css({ "font-weight": "700", "color": "#222" });
 		$("div#show_shipping").hide();
 		$("div#show_shipping_completed").show();
-		
+
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("1");
-		
-		
+		callAjax();
+
 	});
 
 	//구매일 버튼 클릭시 아이콘 변경 
@@ -86,7 +123,7 @@ $(document).ready(function() {
 			sort.prop('value', "desc");
 			alert(sort.val());
 		}
-
+		callAjax();
 		// sort.val()에 저장된  asc / desc 전달
 
 	});
@@ -119,12 +156,11 @@ $(document).ready(function() {
 	});
 	*/
 
-
+	/*
 	// 최근 2개월 버튼 클릭시 발생하는 이벤트
 	$("button#two_month").click(function(e) {
 		// alert("최근 2개월 버튼 클릭시");
 		$('input#start_date').datepicker('setDate', '-2M');
-
 
 		$("button#search_simple").trigger('click'); // 조회버튼 클릭 
 
@@ -162,6 +198,7 @@ $(document).ready(function() {
 
 		alert("startdate : " + start_date + "  enddate : " + end_date);
 
+		callAjax();
 	});
 
 	// 태블릿, 모바일에서 기간 조회 버튼 클릭시 
@@ -175,8 +212,8 @@ $(document).ready(function() {
 			const month = date_selected.substring(6, 8);
 
 			alert(year + "," + month);
-
 		}
+		callAjax();
 	});
 
 	// select 태그 클릭 클릭시 기간선택 option hidden 처리하기
@@ -187,6 +224,7 @@ $(document).ready(function() {
 
 
 	/* 사이드바 script 시작 */
+	/*
 	$("div.category-section > ul > li").click(function(e) {
 		//  클릭할 경우 글자 css 변경
 		alert("클릭됨.");
@@ -197,14 +235,20 @@ $(document).ready(function() {
 
 
 	/* 현재 날짜 구하기 */
+	/*
 	let today = new Date();
 
 	let year = today.getFullYear(); // 년도
 	let month = today.getMonth() + 1;  // 월
 
 	/* 모바일 화면에서 기간선택 클릭 시 나오는 년도/월 현재날짜 기준으로 입력 */
+	/*
 	for (let i = 2; i < 9; i++) {
 		$("select#select_month > option:nth-child(" + i + ")").text(year + "년 " + (month - (i - 2)) + "월");
 	}
 
 });// end of $(document).ready(function()----------------------------------
+
+
+
+*/
