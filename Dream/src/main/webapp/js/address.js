@@ -5,7 +5,7 @@ let b_flag_zipcodeSearch_click = false;
 
 
 $(document).ready(function(){
-	
+	console.log("3");
 	
 	
 	/* 모달창이 열리면 이름입력부분에 오토포커스를 주는 기능  */
@@ -344,5 +344,13 @@ function goRegister() {
     frm.action = "addressregister.dream";
     frm.method = "post";
     frm.submit();
+   
+    
+
+
+    
+	
+	
+	
 	
 }// end of function goRegister()----------------------

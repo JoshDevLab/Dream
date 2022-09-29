@@ -27,7 +27,8 @@ public class AddressRegisterController extends AbstractController{
 		
 		else {
 			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
-			 String order_name = request.getParameter("order_name"); 			 
+			 String order_name = request.getParameter("order_name"); 	
+			 System.out.println(order_name);
 			 String mobile = request.getParameter("mobile"); 
 			 String post_code = request.getParameter("post_code"); 
 			 String address = request.getParameter("address"); 	         
@@ -37,24 +38,22 @@ public class AddressRegisterController extends AbstractController{
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         
-			
+			 System.out.println("1");
 	         try {
 	        	 int n = adao.registerAddress(address1);
-	        	 
-	        	 if(n==1) {
-	        		 String message = "회원가입 성공";
-	        		 String loc = request.getContextPath()+"/index.up"; // 시작페이지로 이동한다.
-	        		 
-	        		 request.setAttribute("message", message);
-	        		 request.setAttribute("loc", loc);
-	        		 
-	        	 	 super.setRedirect(true);
-	        		 super.setViewPage("/WEB-INF/view/member/address.jsp");
+	     
+     			if(n==1) {
+	     			
+     				
+     				super.setRedirect(true);
+     				super.setViewPage(request.getContextPath()+"/member/address.dream"); 
+     				 
+	     			
 	        	 }
 	        	 
 	         } catch(SQLException e) {
 	        	e.printStackTrace();
-	 			super.setRedirect(false);
+	 			super.setRedirect(true);
 	 			super.setViewPage(request.getContextPath()+"/WEB-INF/view/member/address.jsp"); 
 	         }
 			
@@ -62,6 +61,8 @@ public class AddressRegisterController extends AbstractController{
 			
 		}
 		
+		
+
 		
 	}
 
