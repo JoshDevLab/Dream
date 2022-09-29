@@ -50,22 +50,23 @@ public class PurchaseListJsonController extends AbstractController {
 				String sort = request.getParameter("sort");
 				
 				// 맨처음 기본값 지정 //================================================= 
-				if(start_date == null) {
+				if(start_date == null || start_date=="") {
 					//2022/09/27
 					start_date = currentYear+"/"+currentMonth+"/"+currentDay;
 				}
-				if(end_date == null) {
+				
+				if(end_date == null || end_date=="") {
 					end_date = currentYear+"/"+(currentMonth-2)+"/"+currentDay;
 				}
-				if(input_shipping == null) {
+				
+				if(input_shipping == null|| input_shipping =="") {
 					input_shipping="0";
 				}
-				if(sort == null) {
+				
+				if(sort == null || sort == "") {
 					sort = "asc";
 				}
-				else {
-					sort = "desc";
-				}
+				
 				// 맨처음 기본값 지정 끝 //===============================================
 				
 				purchaseMap.put("userid", userid);

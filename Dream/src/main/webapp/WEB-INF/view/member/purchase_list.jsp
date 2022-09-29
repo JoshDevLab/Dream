@@ -7,7 +7,6 @@
 
 <%
 String ctxPath = request.getContextPath();
-List<PurchaseListDTO> purchaseList = (List) request.getAttribute("purchaseList");
 %>
 
 <%--header 호출 --%>
@@ -33,7 +32,11 @@ let html =" ";
 let dataObj;
 
 function callAjax() {
-	console.log("함수 callAjax 호출됨");
+	console.log("전달될 값 end_date : "+$("input#end_date").val());
+	console.log("전달될 값 start_date : "+$("input#start_date").val());
+	console.log("전달될 값 input_shipping: : "+$("input#input_shipping").val());
+	console.log("전달될 값 sort : "+$("input#sort_date").val());
+	console.log("전달될 값 userid : "+$("input#userid").val());
 	<%--
 	
 	dataObj = {
@@ -51,13 +54,11 @@ function callAjax() {
 		type: "POST",
 		data: {"end_date": $("input#start_date").val(),
 			   "start_date": $("input#end_date").val(),
-			   "input_shipping": $("input_shipping#userid").val(),
-			   "sort": $("input#sort").val(),
+			   "input_shipping": $("input#input_shipping").val(),
+			   "sort": $("input#sort_date").val(),
 			   "userid": $("input#userid").val()},
 		dataType: "json",
 		success: function(json) {
-			
-			console.log("확인용 json.success");
 			
 			if(json.length == 0){
 				$("div#no_result").html("거래 내역이 없습니다.");
@@ -72,8 +73,8 @@ function callAjax() {
 		                           "<img id ='' class='product_img' src='' alt='...'>"+
 		                        "</div>"+
 		                        "<div id = 'name_cnt'>"+
-		                           "<div class='item_name'> 제품명 </div>"+
-		                           "<div class='purchase_cnt'> "+item.buy_cnt+" </div>"+
+		                           "<div class='item_name'> "+item.product_name+" </div>"+
+		                           "<div class='purchase_cnt'> 구매수량"+item.buy_cnt+" </div>"+
 		                        "</div>"+
 		                     "</div>"+
 		                     "<div id='date_status'>"+
@@ -127,8 +128,8 @@ $(document).ready(function() {
 	$("input#end_date").datepicker();
 
 	//From의 초기값을 오늘 날짜로 설정
-	$('input#start_date').datepicker('setDate', '-2M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-	$('input#end_date').datepicker('setDate', 'today');
+	//$('input#start_date').datepicker('setDate', '-2M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+	//$('input#end_date').datepicker('setDate', 'today');
 	// DatePicker 한글, 기타 속성 끝
 
 
@@ -144,10 +145,12 @@ $(document).ready(function() {
 		$("div#show_shipping").show();
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("0");
+		
 		callAjax();
 	});
-	$("div#shipping_cnt_left").trigger("click"); // 진행중 tirgger 로 설정
-
+	
+	$("div#shipping_cnt_left").trigger("click"); 
+	
 
 	// 종료 클릭시 테두리, 글자 속성 변경 
 	$("div#shipping_cnt_right").click(function(e) {
@@ -162,6 +165,7 @@ $(document).ready(function() {
 
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("1");
+		
 		callAjax();
 
 	});
@@ -176,14 +180,17 @@ $(document).ready(function() {
 
 		if ($("button#btn_purchaseDate > i").hasClass("fa-sort-up")) {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-up").addClass("fa-sort-down");
+			$("input#sort_date").val("asc");
 			alert(sort.val());
+		callAjax();
 		}
 		else {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-down").addClass("fa-sort-up");
 			sort.prop('value', "desc");
+			$("input#sort_date").val("desc");
 			alert(sort.val());
-		}
 		callAjax();
+		}
 		// sort.val()에 저장된  asc / desc 전달
 
 	});
@@ -221,9 +228,9 @@ $(document).ready(function() {
 	$("button#two_month").click(function(e) {
 		// alert("최근 2개월 버튼 클릭시");
 		$('input#start_date').datepicker('setDate', '-2M');
-
+		$('input#end_date').datepicker('setDate', 'today');
 		$("button#search_simple").trigger('click'); // 조회버튼 클릭 
-
+	
 
 	});
 
@@ -231,7 +238,7 @@ $(document).ready(function() {
 	$("button#four_month").click(function(e) {
 		// alert("최근 4개월 버튼 클릭시");
 		$('input#start_date').datepicker('setDate', '-4M');
-
+		$('input#end_date').datepicker('setDate', 'today');
 		$("button#search_simple").trigger('click'); // 조회버튼 클릭 
 
 	});
@@ -243,6 +250,7 @@ $(document).ready(function() {
 	$("button#six_month").click(function(e) {
 		// alert("최근 6개월 버튼 클릭시");
 		$('input#start_date').datepicker('setDate', '-6M');
+		$('input#end_date').datepicker('setDate', 'today');
 
 		$("button#search_simple").trigger('click'); // 조회버튼 클릭 
 
@@ -253,10 +261,6 @@ $(document).ready(function() {
 
 	// 날짜 입력 후 조회 버튼클릭시
 	$("button#search_simple").click(function(e) {
-		const start_date = $("input#start_date").val();
-		const end_date = $("input#end_date").val();
-
-		alert("startdate : " + start_date + "  enddate : " + end_date);
 
 		callAjax();
 	});
@@ -394,9 +398,8 @@ $(document).ready(function() {
 
 				<%-- 상단 진행중, 종료 버튼 시작 --%>
 				<div id="status_button">
-					<input type="hidden" id="input_shipping" name="input_shipping"
-						value="0" /> <input type="hidden" id="userid" name="userid"
-						value="${sessionScope.userid}" readonly />
+					<input type="hidden" id="input_shipping" name="input_shipping" value="0" /> 
+					<input type="hidden" id="userid" name="userid" value="${sessionScope.userid}" readonly />
 
 					<div id="shipping_cnt_left" class="shipping_cnt">
 						<div class="purchase_count">0</div>
@@ -415,22 +418,20 @@ $(document).ready(function() {
 
 				<%-- 기간조회 시작 --%>
 				<div id="date_button">
-					<button id="two_month" class="btn_month">최근 2개월</button>
-					<button id="four_month" class="btn_month">4개월</button>
-					<button id="six_month" class="btn_month">6개월</button>
+					<button type="button" id="two_month" class="btn_month">최근 2개월</button>
+					<button type="button" id="four_month" class="btn_month">4개월</button>
+					<button type="button" id="six_month" class="btn_month">6개월</button>
 
 					<div id="from_date" class="input_date">
-						<input type="text" name="start_date" id="start_date"
-							style="width: 120px;"></input>~
+						<input type="text" name="start_date" id="start_date" style="width: 120px;"value =""></input>~
 					</div>
 
 					<div id="to_date" class="input_date">
-						<input type="text" name="end_date" id="end_date"
-							style="width: 120px;">
+						<input type="text" name="end_date" id="end_date" style="width: 120px;" value="">
 					</div>
 
-					<button id="search_simple">조회</button>
-					<button id="search_date">기간조회</button>
+					<button type="button" id="search_simple">조회</button>
+					<button type="button" id="search_date">기간조회</button>
 
 				</div>
 				<%-- 기간조회 끝 --%>
@@ -467,7 +468,7 @@ $(document).ready(function() {
 						<div id="sort">
 							<%-- 여기 input 태그 name 은 테이블의 컬럼? 오름차순, 내림차순 여부 , 진행중, 상태 --%>
 							<button type="button" id="btn_purchaseDate" class="result_detail">
-								<input id="sort_date" name="sort" type="hidden" value="asc" />
+								<input id="sort_date" name="sort" type="hidden" value="" />
 								구매일<i class="fas fa-duotone fa-sort-up"></i>
 							</button>
 							<%-- <button type="button" id="btn_purchaseStatus" class="result_detail"><input id="sort_status" name="status" type="hidden" value="진행중"/> 상태<i class="fas fa-duotone fa-sort-up"></i></button>--%>
