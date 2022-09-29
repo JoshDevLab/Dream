@@ -9,23 +9,22 @@ import common.controller.AbstractController;
 import josh.member.model.InterMemberDAO;
 import josh.member.model.MemberDAO;
 
-
-public class EmailDuplicateCheck extends AbstractController {
+public class MobileDuplicateCheck extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
 		String method = request.getMethod(); // "GET" 또는 "POST"
 		
 		if("POST".equalsIgnoreCase(method)) {
 		
-			String email = request.getParameter("email");
+			String mobile = request.getParameter("mobile");
 			
 			InterMemberDAO mdao = new MemberDAO();
-			//boolean isExists = mdao.emailDuplicateCheck(email);
+			boolean isExists = mdao.mobileDuplicateCheck(mobile);
 			
 			JSONObject jsonObj = new JSONObject(); // {}
-			//jsonObj.put("isExists", isExists);     // {"isExists":true} 또는 {"isExists":false} 으로 만들어준다. 
+			jsonObj.put("isExists", isExists);     // {"isExists":true} 또는 {"isExists":false} 으로 만들어준다. 
 			
 			String json = jsonObj.toString(); // 문자열 형태인 "{"isExists":true}" 또는 "{"isExists":false}" 으로 만들어준다.
 		//	System.out.println(">> 확인용 json => " + json);
@@ -37,6 +36,8 @@ public class EmailDuplicateCheck extends AbstractController {
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/joshJsonview.jsp");
 		}
+		
+		
 	}
 
 }
