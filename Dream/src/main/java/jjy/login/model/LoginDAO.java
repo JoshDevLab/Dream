@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.naming.*;
@@ -275,4 +276,29 @@ public class LoginDAO implements InterLoginDAO {
 		
 		return registDate;
 	}// end of public String checkRegistDate(String userid) throws SQLException {}-----------------------------
+
+	
+	
+	//아이디, 핸드폰 번호, 임시 비밀번호를 Map 을 전달받아 비밀번호를 변경하는 메소드 (update)
+	@Override
+	public int updatePassword(HashMap<String, String> findPwdMap) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "  update tbl_member_login set passwd = ? "
+					   + " ,update_passwd_date = sysdate "
+					   + "  where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, findPwdMap.get("smsContent"));
+			pstmt.setString(2, findPwdMap.get("userid"));
+			pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return result;
+	}
 }
