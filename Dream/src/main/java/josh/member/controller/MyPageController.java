@@ -39,6 +39,17 @@ public class MyPageController extends AbstractController {
 				super.setViewPage("/WEB-INF/joshmsg.jsp");
 			}
 		}
+		else {
+			// 로그인을 안 했으면
+			String message = "회원정보를 수정하기 위해서는 먼저 로그인을 하세요!!";
+			String loc = "javascript:history.back()";
+			
+			request.setAttribute("message", message);
+			request.setAttribute("loc", loc);
+			
+		//	super.setRedirect(false);
+			super.setViewPage("/WEB-INF/msg.jsp");
+		}
 		
 		
 		

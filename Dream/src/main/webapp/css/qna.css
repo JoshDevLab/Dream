@@ -101,6 +101,21 @@ div#content{
 }
 
 
+.my.pagination > .active > a, 
+.my.pagination > .active > span, 
+.my.pagination > .active > a:hover, 
+.my.pagination > .active > span:hover, 
+.my.pagination > .active > a:focus, 
+.my.pagination > .active > span:focus {
+  z-index:0;
+  background: black;
+  border-color:black;
+  color: white;
+}
+
+
+
+
 
 /* 0 ~ 480px 미디어 쿼리*/
 @media (max-width: 480px) {

@@ -16,7 +16,6 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/sidebar.css" />
 <%-- Optional JavaScript --%>
-<script type="text/javascript" src="<%= ctxPath%>/jquery3.6.0/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
 
 <script>
@@ -24,7 +23,6 @@
       /* 사이드바 script 시작 */
       $("div.category-section > ul > li").click(function(e){
          //  클릭할 경우 글자 css 변경
-         alert("클릭됨.");
          $("div.category-section > ul > li > a").css({"font-weight":"","color":""});
          $(e.target).css({"font-weight":"700","color":"black"});
       });

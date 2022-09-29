@@ -25,7 +25,7 @@ public class ShopController extends AbstractController{
 				//변수 선언
 				String category = null;			//제품카테고리
 				String detail_category = null;	//제품상세카테고리
-				String bestyn = null;			//베스트상품여부
+				String bestyn = "N";			//베스트상품여부
 				String gender = null;			//남성용인지 여성용인지
 				String sort = null;				//정렬방식
 				String str_start_price = null;	//시작가격
@@ -55,7 +55,7 @@ public class ShopController extends AbstractController{
 				if(request.getParameter("start_price")!=null && request.getParameter("start_price").trim() != "") {		
 					str_start_price = request.getParameter("start_price").trim();
 				}
-				if(request.getParameter("start_price")!=null && request.getParameter("start_price").trim() != "") {
+				if(request.getParameter("end_price")!=null && request.getParameter("end_price").trim() != "") {
 					str_end_price = request.getParameter("end_price").trim();
 				}
 				
@@ -77,6 +77,9 @@ public class ShopController extends AbstractController{
 				float display_pagef = 5f;								  //한번에 보여줄 페이지번호의 갯수 float형
 				int totalPage = (int)Math.ceil(total_cnt/ display_cntf); //총 게시물수 / 한페이지당 보여줄 게시물 수 를 올림
 				
+				if(totalPage == 0) {	//총페이지가 0이라면
+					totalPage = 1;
+				}
 				if(page<=1) {	//페이지가 1보다 작다면
 			    	page = 1;
 			    }
@@ -109,7 +112,6 @@ public class ShopController extends AbstractController{
 			    paraMap.put("page", String.valueOf(page));
 			    paraMap.put("display_cnt",String.valueOf(display_cnt));
 			    
-				
 				List<ProductDTO> productList = pdao.selectAllProduct(paraMap);	//페이지 번호에 알맞는 게시물을 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 				
 				
@@ -122,7 +124,6 @@ public class ShopController extends AbstractController{
 //			    System.out.println("아래 시작페이지 : "+ startPage);
 //			    System.out.println("아래 끝페이지 : "+ endPage);
 //			    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
-				
 				
 				request.setAttribute("productList", productList);
 				request.setAttribute("display_cnt", display_cnt);
@@ -138,17 +139,16 @@ public class ShopController extends AbstractController{
 				
 				String currentURL = MyUtil.getCurrentURL(request);
 				request.setAttribute("currentURL", currentURL);
-				
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/product/shop.jsp");
 			}catch(SQLException e) {	//SQL오류가 떳을 경우
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath()+"product/shop.dream");	//shop.dream 페이지로 redirect
 				e.printStackTrace();
+				super.setRedirect(true);
+				super.setViewPage(request.getContextPath()+"/product/shop.dream");	//shop.dream 페이지로 redirect
 			}catch(Exception e) {	//URL에있는 page번호로 장난했을 경우
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath()+"product/shop.dream");	//shop.dream 페이지로 redirect
 				e.printStackTrace();
+				super.setRedirect(true);
+				super.setViewPage(request.getContextPath()+"/product/shop.dream");	//shop.dream 페이지로 redirect
 			}
 		}
 		else {	//요청방식이 "POST"일 때 

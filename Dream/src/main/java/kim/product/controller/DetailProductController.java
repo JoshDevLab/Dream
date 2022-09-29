@@ -28,13 +28,13 @@ public class DetailProductController extends AbstractController {
 			InterProductDAO pdao = new ProductDAO();
 			// product_num 은 바뀔 수 있음
 			
-			System.out.println("출발");
-			String product_num = request.getParameter("num");
-			System.out.println(product_num);
+			
+			String productnum = request.getParameter("num");
+			
 			
 			try {
-				System.out.println("3");
-				ProductVO product = pdao.getDetail(product_num);
+				
+				ProductVO product = pdao.getDetail(productnum);
 		
 				request.setAttribute("pdNum", product.getProduct_num());
 			
@@ -45,10 +45,6 @@ public class DetailProductController extends AbstractController {
 				request.setAttribute("product", product);
 				
 				
-				System.out.println("img = "+product.getProduct_image_array());
-				System.out.println("size ="+product.getProduct_size());
-				System.out.println("cnt = "+product.getProduct_cnt());
-			
 			//	super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/product/product_detail.jsp");
 				
