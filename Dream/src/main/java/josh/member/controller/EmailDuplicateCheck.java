@@ -22,10 +22,10 @@ public class EmailDuplicateCheck extends AbstractController {
 			String email = request.getParameter("email");
 			
 			InterMemberDAO mdao = new MemberDAO();
-			boolean isExists = mdao.emailDuplicateCheck(email);
+			//boolean isExists = mdao.emailDuplicateCheck(email);
 			
 			JSONObject jsonObj = new JSONObject(); // {}
-			jsonObj.put("isExists", isExists);     // {"isExists":true} 또는 {"isExists":false} 으로 만들어준다. 
+			//jsonObj.put("isExists", isExists);     // {"isExists":true} 또는 {"isExists":false} 으로 만들어준다. 
 			
 			String json = jsonObj.toString(); // 문자열 형태인 "{"isExists":true}" 또는 "{"isExists":false}" 으로 만들어준다.
 		//	System.out.println(">> 확인용 json => " + json);

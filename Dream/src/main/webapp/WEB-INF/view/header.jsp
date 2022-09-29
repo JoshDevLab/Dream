@@ -3,8 +3,9 @@
 
 <%
 	String ctxPath = request.getContextPath();
-	//
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,17 +43,26 @@
           <li class="border-bottom"><a href="<%=ctxPath %>/product/shop.dream">SHOP</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/qna.dream">자주묻는질문</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/notice.dream">공지사항</a></li>
+          <c:if test="${empty sessionScope.userid}">
           <li class="border-bottom"><a href="<%=ctxPath %>/login/login.dream">로그인</a></li>
+          </c:if>
+          <c:if test="${not empty sessionScope.userid}">
+          <li class="border-bottom"><a href="<%=ctxPath %>/login/logout.dream">로그아웃</a></li>
+          </c:if>
         </ul>
       </div>
   
       <div class="header_top border-bottom">
         <ul class="header_top_list list-unstyled d-flex justify-content-between">
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/notice/notice.dream'">고객센터</li>
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/cart/cart.dream?userid=${sessionScope.userid}'">장바구니</li>
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/member/mypage.dream?userid=${sessionScope.userid}'">마이페이지</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/cart/cart.dream'">장바구니</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/member/mypage.dream'">마이페이지</li>
+          <c:if test="${empty sessionScope.userid}">
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/login/login.dream'">로그인</li>
-          <li class="header_top_item" type="button" onclick="logout()">로그아웃</li>
+          </c:if>
+          <c:if test="${not empty sessionScope.userid}">
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/login/logout.dream'">로그아웃</li>
+          </c:if>
         </ul>
       </div>
       <div class="header_main m-auto d-flex justify-content-between align-items-center">

@@ -206,7 +206,7 @@
                 <%-- 여기 하위 내용들은 전부 제품테이블에 필수적으로 들어가야할 내용들 or 빼야댐 --%>
                 <div  class="detail_box model_num">
                   <dt  class="product_title"> 제품번호 </dt>
-                  <dd id="product_num" class="product_info"> ${product.product_num} </dd>
+                  <dd id="product_num" class="product_info">${product.product_num}</dd>
                 </div>
                 <div  class="detail_box">
                   <dt  class="product_title"> 출시일 </dt>
@@ -324,7 +324,7 @@
       </div>
         
       <div class="btn_area">
-        <a href="#" class="btn outlinegrey btn_wish " onclick="likeCheck()">
+        <a  onclick="likeCheck()" href="#" class="btn outlinegrey btn_wish ">
           <img style="height: 20px; width: 20px;"/>
           <span class="wish_count_num">${product.likeCnt}</span>
         </a>
@@ -345,17 +345,9 @@
     </div>
   <%-- 가격, 즐겨찾기 안보이면 나오는 상단 구매탭 끝--%>
   </div>
-
-
-  <%-- 멈춰! 실험용 --%>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>1<br><br>
-
-  <%-- footer 예정 --%>
   
     <%-- banner_bottom 시작  --%>
-  <div class="banner_bottom" style="margin-top: 80px;">
+  <%-- <div class="banner_bottom" style="margin-top: 80px;">
     <a href="#" class="banner_box">
       <div class="banner_info">
         <strong class="info_subtitle">service guide</strong>
@@ -363,25 +355,17 @@
         <span class="info_txt">서비스 안내</span>
       </div>
     </a>
-  </div>
+  </div> --%>
   <%-- banner_bottom 끝  --%>
   
   
+  <jsp:include page="/WEB-INF/view/footer.jsp" />
   
- <form name="verifyCertificationFrm">
-    <input type="hidden" name="userid" />
-    <input type="hidden" name="userCertificationCode" />
+ <form id=temporaryCart name="temporaryCart">
+    
 </form>
 
 
-<c:forEach var="size" items="${product.product_size}" varStatus="status">
-  <c:if test="${status.index == 0}">
-  	       
-  </c:if>
-  <c:if test="${status.index > 0}">
-        <li data-target="#carousel_advertise" data-slide-to="${status.index}"></li>
-  </c:if>
-</c:forEach>
 
   
    

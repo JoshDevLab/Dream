@@ -22,20 +22,43 @@
   <div id="purchase_list" class="mt-4">
 <%-- 내용물 시작 --%>
 
-   <%-- 사이드바 시작 --%>
+   		<%-------------------- 사이드바 시작 ----------------------%>
+  		<script>
+   $(document).ready(function(){
+      /* 사이드바 script 시작 */
+      $("div.category-section > ul > li").click(function(e){
+         //  클릭할 경우 글자 css 변경
+         alert("클릭됨.");
+         $("div.category-section > ul > li > a").css({"font-weight":"","color":""});
+         $(e.target).css({"font-weight":"700","color":"black"});
+      });
+      /* 사이드바 script 끝  */
+
+   });// end of $(document).ready(function()----------------------------------
+
+</script>
+
+
+</head>
+<body>
+   
+<!-- 내용물 시작 -->
+
+   <!-- 사이드바 시작 -->
    <div id="sidebar" class="sidebar ml-5" style="width: 180px;">
       <div>
-         <h4 class="mb-4" style="font-weight:bold;">마이 페이지</h4>
+         <h4 class="mb-4" style="font-weight:bold;"><a href="<%= ctxPath%>/member/mypage.dream">마이 페이지</a></h4>
+            
       </div>    
 
       <div class="category-section mb-5">
          <h5 class="category-title font-weight-bold">쇼핑 정보</h5>
          <ul class="nav flex-column">
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="#">구매 내역</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/buylist.dream">구매 내역</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="#">관심 상품</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream">관심 상품</a>
             </li>
          </ul>
       </div>
@@ -44,21 +67,30 @@
          <h5 class="category-title font-weight-bold">내 정보</h5>
          <ul class="nav flex-column">
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="#">프로필 정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream">프로필 정보</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="#">주소록</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>#####">주소록</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="#">결제정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>######">결제정보</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="#">포인트</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/point.dream">포인트</a>
+            </li>
+            <li class="nav-item">
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/membership.dream">멤버십 정보</a>
             </li>
          </ul>
       </div>
    </div>
-   <%-- 사이드바 끝 --%>
+   <!-- 사이드바 끝 -->
+        
+        
+        
+        
+        
+        <%-------------------- 사이드바 끝 ----------------------%>
 
 
    <%-- 구매내역 시작  --%>
@@ -70,8 +102,8 @@
 
       <%-- 상단 진행중, 종료 버튼 시작 --%>
       <div id="status_button">
-            <input type="hidden" id="input_shipping" name="input_shipping" value="" />
-            <input type="hidden" id="userid" name="userid" value="${sessionScope.userid}" readonly/>
+            <input type="text" id="input_shipping" name="input_shipping" value="0" />
+            <input type="text" id="userid" name="userid" value="${sessionScope.userid}" readonly/>
 			
          <div id="shipping_cnt_left" class="shipping_cnt" >
             <div class="purchase_count">0</div>
@@ -94,7 +126,7 @@
          <button id="six_month" class="btn_month">6개월</button>
 
          <div id="from_date" class="input_date">
-            <input type="text" id="start_date" style="width: 120px;"></input>~
+            <input type="text" name = "start_date" id="start_date" style="width: 120px;"></input>~
          </div>
 
          <div id="to_date" class="input_date">

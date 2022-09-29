@@ -8,6 +8,115 @@
 
 <jsp:include page="/WEB-INF/view/header.jsp" />
 
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		displayDiscount("1");
+		
+		$("button#more_btn").click(function() { 
+			
+			
+			if($(this).text() == "처음으로") {
+				$("div#discountDisplay").empty();
+				displayDiscount("1");
+				$(this).text("더보기");
+			}
+			else {
+				displayDiscount($(this).val());
+			}
+		});
+		
+	});// end of $(document).ready(function() {})----------------------------
+	
+	// Function Declation
+	let lenDiscount = 4;
+	// 보여줄 상품의 개수
+	
+	function displayDiscount(start) { // 할인상품들만 뽑아와서 보여주는 AJAX
+		
+		$.ajax({
+			url:"<%= request.getContextPath() %>/product/discountDisplay.dream",
+		//	type:"GET", default 값이 GET 방식
+			data:{"start":start,  
+				  "len":lenDiscount},  
+			dataType:"JSON",
+			success: function(json) {
+				
+				let html = ``;
+				
+				
+				if( start == "1" && json.length == 0) {
+					html = "<span>할인중인 상품이 없습니다.</span>";
+				}
+				
+				else if(json.length > 0) {
+				
+					$.each(json, function(index, item) {
+						
+					    html += "<div class='item col-6 col-md-3 d-flex flex-column py-3'>"+
+									"<a id='"+item.product_num+"' class='product' href='#'>"+
+										"<div class='product'>"+	
+											"<div class='product_imgbox border'>"+
+												"<img src='Dream/images/"+item.product_image+"'>"+
+											"</div>"+
+											"<div id='product_simple_explain'>"+	
+												"<div id='product_division'>"+item.product_category+"</div>"+
+												"<div id='product_name' class='my-2'>"+item.product_name+"</div>"+
+											"<div id='product_price' class='d-flex justify-content-between'>"+
+												"<span id='product_price' style='text-decoration: line-through;''>&#8361;"+item.price+"</span>"+
+												"<div id='discount_mark'>"+
+													"<span id='discount_percent'>"+item.discount_rate+"%</span>"+
+													"<button id='discount' class='rounded'><span id='discount'>discount</span></button>"+
+												"</div>"+
+											"</div>"+
+											"<div id='product_sale_price'>&#8361;"+item.discount_price+"<span>원</span></div>"+
+											"</div>"+
+										"</div>"+
+									"</a>"+
+								"</div>"; 
+								
+					}); // end of $.each(json, function(index, item) {}) -----------------
+					
+					$("div#discountDisplay").append(html);
+					
+					$("button#more_btn").val( Number(start) + lenDiscount);
+					
+					$("input#countDiscount").val( Number($("input#countDiscount").val()) + json.length );
+					
+					console.log($("input#countDiscount").val())
+					console.log($("input#totalDiscount").val())
+					
+					if( $("input#countDiscount").val() == $("input#totalDiscount").val()) {
+						$("button#more_btn").text("처음으로");
+						$("input#countDiscount").val(0);
+					}
+				}
+				
+				
+				
+				
+			},
+			error: function(request, status, error){
+	            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	        }
+		});						 
+								 
+		
+	}// end of function displayHIT()------------------
+
+</script>
+
+
+
+
+
+
+
+
+
+
 <%--직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/index.css" />
 
@@ -126,138 +235,35 @@
         <div id="card_title" class="font-weight-bold">Discount</div>
         <p id="Released_product">할인상품</p>
         <%-- 아이템박스 시작 --%>
-        <div class="item_box row mt-4">
+        <div class="item_box row mt-4" id="discountDisplay">
 
-          <%-- 1 --%>
+          <%-- 1
           <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
+            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
               <div class="product">
                 <div class="product_imgbox border">
                   <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
                 </div>
                 <div id="product_simple_explain">
-                  <%-- 상품 구분 넣을 곳 --%>
+                  상품 구분 넣을 곳
                   <div id="product_division">수면용품</div>
-                  <%-- 상품이름 넣을 곳 --%>
+                  상품이름 넣을 곳
                   <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  <%-- 상품가격 넣을 곳 --%>
+                  상품가격 넣을 곳
                   <div id="product_price" class="d-flex justify-content-between">
-                    <%-- if문!!상품자체할인가격이 없다면 아래태그,상품가격 --%>
+                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
                     <span id="product_price">&#8361;5,000원</span>
 
-                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
-                    <%-- <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span> --%>
-                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
-                    <%-- <div id="discount_mark"> --%>
-                      <%-- 할인율 넣을 곳 --%>
-                      <%-- <span id="discount_percent">30%</span> --%>
-                      <%-- <button id="discount" class="rounded"><span id="discount">discount</span></button> --%>
-                    <%-- </div> --%>
-                  </div>
-                  <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
-                  <%-- <div id="product_sale_price">&#8361;3,500<span>원</span></div> --%>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-
-          <%-- 2 --%>
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  <%-- 상품 구분 넣을 곳 --%>
-                  <div id="product_division">수면용품</div>
-                  <%-- 상품이름 넣을 곳 --%>
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  <%-- 상품가격 넣을 곳 --%>
-                  <div id="product_price" class="d-flex justify-content-between">
-                    <%-- if문!!상품자체할인가격이 없다면 아래태그,상품가격 --%>
-                    <span id="product_price">&#8361;5,000원</span>
-
-                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
-                    <%-- <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span> --%>
-                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
-                    <%-- <div id="discount_mark"> --%>
-                      <%-- 할인율 넣을 곳 --%>
-                      <%-- <span id="discount_percent">30%</span> --%>
-                      <%-- <button id="discount" class="rounded"><span id="discount">discount</span></button> --%>
-                    <%-- </div> --%>
-                  </div>
-                  <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
-                  <%-- <div id="product_sale_price">&#8361;3,500<span>원</span></div> --%>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-          <%-- 3 --%>
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  <%-- 상품 구분 넣을 곳 --%>
-                  <div id="product_division">수면용품</div>
-                  <%-- 상품이름 넣을 곳 --%>
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  <%-- 상품가격 넣을 곳 --%>
-                  <div id="product_price" class="d-flex justify-content-between">
-                    <%-- if문!!상품자체할인가격이 없다면 아래태그,상품가격 --%>
-                    <span id="product_price">&#8361;5,000원</span>
-
-                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
-                    <%-- <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span> --%>
-                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
-                    <%-- <div id="discount_mark"> --%>
-                      <%-- 할인율 넣을 곳 --%>
-                      <%-- <span id="discount_percent">30%</span> --%>
-                      <%-- <button id="discount" class="rounded"><span id="discount">discount</span></button> --%>
-                    <%-- </div> --%>
-                  </div>
-                  <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
-                  <%-- <div id="product_sale_price">&#8361;3,500<span>원</span></div> --%>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-          <%-- 4 --%>
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#"><%-- id값에 제품번호 넣기!!!!*** --%>
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  <%-- 상품 구분 넣을 곳 --%>
-                  <div id="product_division">수면용품</div>
-                  <%-- 상품이름 넣을 곳 --%>
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  <%-- 상품가격 넣을 곳 --%>
-                  <div id="product_price" class="d-flex justify-content-between">
-                    <%-- if문!!상품자체할인가격이 없다면 아래태그,상품가격 --%>
-                    <%-- <span id="product_price">&#8361;5,000원</span> --%>
-
-                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
+                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
                     <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
-                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
+                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
                     <div id="discount_mark">
-                      <%-- 할인율 넣을 곳 --%>
+                      할인율 넣을 곳
                       <span id="discount_percent">30%</span>
                       <button id="discount" class="rounded"><span id="discount">discount</span></button>
                     </div>
                   </div>
-                  <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
+                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
                   <div id="product_sale_price">&#8361;3,500<span>원</span></div>
                 </div>
               </div>
@@ -265,6 +271,109 @@
           </div>
 
 
+
+          2
+          <div class="item col-6 col-md-3 d-flex flex-column py-3">
+            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
+              <div class="product">
+                <div class="product_imgbox border">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
+                </div>
+                <div id="product_simple_explain">
+                  상품 구분 넣을 곳
+                  <div id="product_division">수면용품</div>
+                  상품이름 넣을 곳
+                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
+                  상품가격 넣을 곳
+                  <div id="product_price" class="d-flex justify-content-between">
+                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
+                    <span id="product_price">&#8361;5,000원</span>
+
+                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
+                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
+                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
+                    <div id="discount_mark">
+                      할인율 넣을 곳
+                      <span id="discount_percent">30%</span>
+                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
+                    </div>
+                  </div>
+                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
+                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+          3
+          <div class="item col-6 col-md-3 d-flex flex-column py-3">
+            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
+              <div class="product">
+                <div class="product_imgbox border">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
+                </div>
+                <div id="product_simple_explain">
+                  상품 구분 넣을 곳
+                  <div id="product_division">수면용품</div>
+                  상품이름 넣을 곳
+                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
+                  상품가격 넣을 곳
+                  <div id="product_price" class="d-flex justify-content-between">
+                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
+                    <span id="product_price">&#8361;5,000원</span>
+
+                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
+                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
+                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
+                    <div id="discount_mark">
+                      할인율 넣을 곳
+                      <span id="discount_percent">30%</span>
+                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
+                    </div>
+                  </div>
+                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
+                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+          4
+          <div class="item col-6 col-md-3 d-flex flex-column py-3">
+            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
+              <div class="product">
+                <div class="product_imgbox border">
+                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
+                </div>
+                <div id="product_simple_explain">
+                  상품 구분 넣을 곳
+                  <div id="product_division">수면용품</div>
+                  상품이름 넣을 곳
+                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
+                  상품가격 넣을 곳
+                  <div id="product_price" class="d-flex justify-content-between">
+                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
+                    <span id="product_price">&#8361;5,000원</span>
+
+                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
+                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
+                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
+                    <div id="discount_mark">
+                      할인율 넣을 곳
+                      <span id="discount_percent">30%</span>
+                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
+                    </div>
+                  </div>
+                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
+                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
+                </div>
+              </div>
+            </a>
+          </div> 
+				--%>
+		
 
 
 
@@ -274,7 +383,9 @@
       <%-- productList 끝 --%>
       <%-- 더보기버튼 시작 --%>
       <div id="more_btn">
-        <button id="more_btn" type="button" class="border rounded">더보기</button>
+        <button id="more_btn" type="button" class="border rounded" value="">더보기</button>
+        <input type="hidden" id="totalDiscount" value="${requestScope.totalDiscount}" />
+        <input type="hidden" id="countDiscount" value="" />
       </div>
       <%-- 더보기버튼 끝 --%>
     </div>

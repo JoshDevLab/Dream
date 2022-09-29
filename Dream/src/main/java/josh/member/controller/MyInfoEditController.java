@@ -29,7 +29,7 @@ public class MyInfoEditController extends AbstractController {
 				String username = request.getParameter("username");
 				String mobile = request.getParameter("mobile");
 				String passwd_store_cnt = request.getParameter("passwd_store_cnt");
-				//String userid_store_cnt = request.getParameter("userid_store_cnt");
+				String mobile_store_cnt = request.getParameter("mobile_store_cnt");
 				
 				//HttpSession session = request.getSession();
 				//String sessionUserid = (String) session.getAttribute("userid");
@@ -42,7 +42,7 @@ public class MyInfoEditController extends AbstractController {
 				paraMap.put("username", username);
 				paraMap.put("mobile", mobile);
 				paraMap.put("passwd_store_cnt", passwd_store_cnt);
-				//paraMap.put("userid_store_cnt", userid_store_cnt);
+				paraMap.put("mobile_store_cnt", mobile_store_cnt);
 				
 				InterMemberDAO mdao = new MemberDAO();
 				int n = mdao.updateInfo(paraMap);

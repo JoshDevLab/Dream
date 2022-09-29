@@ -36,14 +36,26 @@ $(document).ready(function(){
 				 // JSON.parse(text); 은 JSON.parse("{"isExists":true}"); 또는 JSON.parse("{"isExists":false}"); 와 같은 것인데
 				 // 그 결과물은 {"isExists":true} 또는 {"isExists":false} 와 같은 문자열을 자바스크립트 객체로 변환해주는 것이다. 
 				 // 조심할 것은 text 는 반드시 JSON 형식으로 되어진 문자열이어야 한다. 
-				 if(json.isExistUser) {
-					 // 입력한 userid 가 이미 사용중이라면 
-					 alert("문자메시지 발송 완료");
-					 location.href="<%=ctxPath%>/login/findPwdResult.dream";
-				 }
-				 else {
+				 
+				 if(!json.isExistUser) {
 					 alert("일치하는 회원정보가 없습니다.");
+					 return;
+					 // 입력한 userid 가 이미 사용중이라면 
 				 }
+				 else{
+					 if(json.success_count == 1){
+						 alert("문자메시지 발송 완료");
+						 location.href="<%=ctxPath%>/login/findPwdResult.dream";
+						 return;
+					 }
+					 else if(json.error_count != 0){
+						alert("문자메시지 발송 실패");
+						/* location.href=history.back(); */
+						return;
+					 }
+				 }
+				 
+				
 			 },
 			 
 			 error: function(request, status, error){
@@ -51,6 +63,7 @@ $(document).ready(function(){
 			 }
 			 
 		});// end of ajax--------------------------------------------------
+		
 		
 		
 	});// end of $("a#btn_findPwd").click(function(e){}--------------

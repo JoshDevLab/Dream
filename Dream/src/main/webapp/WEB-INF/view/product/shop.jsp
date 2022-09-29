@@ -10,18 +10,34 @@
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/shop.css" />
+  
+  <script type="text/javascript">
+  if("${requestScope.currentURL}" != "") {
+	const URL = decodeURI("${requestScope.currentURL}");
+	sessionStorage.setItem("currentURL",URL);
+	sessionStorage.setItem("category",'${requestScope.category}');
+	sessionStorage.setItem("detail_category",'${requestScope.detail_category}');
+	sessionStorage.setItem("bestyn",'${requestScope.bestyn}');
+	sessionStorage.setItem("gender",'${requestScope.gender}');
+	sessionStorage.setItem("start_price",'${requestScope.start_price}');
+	sessionStorage.setItem("end_price",'${requestScope.end_price}');
+	sessionStorage.setItem("sort",'${requestScope.sort}');
+	<%-- 
+	sessionStorage.setItem("display_cnt", '${requestScope.display_cnt}');
+	sessionStorage.setItem("display_page", '${requestScope.display_page}');
+	sessionStorage.setItem("page", '${requestScope.page}');
+	sessionStorage.setItem("total_cnt", '${requestScope.total_cnt}');	
+	sessionStorage.setItem("totalPage", '${requestScope.totalPage}');	
+	sessionStorage.setItem("startPage", '${requestScope.startPage)}';	
+	sessionStorage.setItem("endPage", '${requestScope.endPage}');
+	sessionStorage.setItem("last_display_page",'${requestScope.last_display_page}');
+	--%>
+  }
+  </script>
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/shop.js" ></script>
   
-  <script type="text/javascript">
-     $(document).ready(function(){
-    	 
-    	if("${requestScope.currentURL}" != "") {
-    		sessionStorage.setItem("currentURL":"${requestScope.currentURL}");
-    	}
-    	 
-     });
-  </script>
+  
   
   <%-- container 시작 --%>
   <div id="container">
@@ -31,87 +47,16 @@
 	        <h2 id="menu_title" class="text-center">SHOP</h2>
 	      </div>
 	      <div id="btn_category">
-	        <button id="btn_fillter_all" type="button" class="btn_fillter btn rounded-pill border" onclick="" >전체</button>
-	        <button id="btn_fillter_bedding" type="button" class="btn_fillter btn rounded-pill border" onclick="">침구류</button>
-	        <button id="btn_fillter_light" type="button" class="btn_fillter btn rounded-pill border" onclick="">조명</button>
-	        <button id="btn_fillter_pajamas" type="button" class="btn_fillter btn rounded-pill border" onclick="">파자마</button>
-	        <button id="btn_fillter_sleep_supplies" type="button" class="btn_fillter btn rounded-pill border" onclick="">숙면용품</button>
+	        <button id="btn_fillter_all" type="button" class="btn_fillter btn rounded-pill border">전체</button>
+	        <button id="btn_fillter_bedding" type="button" class="btn_fillter btn rounded-pill border">침구류</button>
+	        <button id="btn_fillter_light" type="button" class="btn_fillter btn rounded-pill border">조명</button>
+	        <button id="btn_fillter_pajamas" type="button" class="btn_fillter btn rounded-pill border">파자마</button>
+	        <button id="btn_fillter_sleep_supplies" type="button" class="btn_fillter btn rounded-pill border">수면용품</button>
 	      </div>
 	    </div>
-	    <div class="details_category my-4 pt-2 d-flex flex-nowrap justify-content-between">
-	      <%-- 1 --%>
-	      <a class="category_link" href="">
-	        <div class="d-flex flex-column">
-	          <div class="category_img">
-	            <img src="<%=ctxPath %>/images/침대카테고리이미지.PNG" class="rounded-circle">
-	          </div>
-	          <p class="details_category_name text-center">
-	            침대
-	          </p>
-	        </div>
-	      </a>
-	
-	      <%-- 2 --%>
-	      <a class="category_link" href="">
-	        <div class="d-flex flex-column">
-	          <div class="category_img">
-	            <img src="<%=ctxPath %>/images/안대.PNG " class="rounded-circle">
-	          </div>
-	          <p class="details_category_name text-center">
-	            안대
-	          </p>
-	        </div>
-	      </a>
-	
-	
-	      <%-- 3 --%>
-	      <a class="category_link" href="">
-	        <div class="d-flex flex-column">
-	          <div class="category_img">
-	            <img src="<%=ctxPath %>/images/안대.PNG" class="rounded-circle">
-	          </div>
-	          <p class="details_category_name text-center">
-	            안대
-	          </p>
-	        </div>
-	      </a>
-	
-	
-	      <%-- 4 --%>
-	      <a class="category_link" href="">
-	        <div class="d-flex flex-column">
-	          <div class="category_img">
-	            <img src="<%=ctxPath %>/images/안대.PNG" class="rounded-circle">
-	          </div>
-	          <p class="details_category_name text-center">
-	            안대
-	          </p>
-	        </div>
-	      </a>
-	
-	      <%-- 5 --%>
-	      <a class="category_link" href="">
-	        <div class="d-flex flex-column">
-	          <div class="category_img">
-	            <img src="<%=ctxPath %>/images/안대.PNG" class="rounded-circle">
-	          </div>
-	          <p class="details_category_name text-center">
-	            안대
-	          </p>
-	        </div>
-	      </a>
-	
-	      <%-- 6 --%>
-	      <a class="category_link" href="">
-	        <div class="d-flex flex-column">
-	          <div class="category_img">
-	            <img src="<%=ctxPath %>/images/안대.PNG" class="rounded-circle">
-	          </div>
-	          <p class="details_category_name text-center">
-	            안대
-	          </p>
-	        </div>
-	      </a>
+	    <div class="details_category my-4 pt-2 d-flex flex-nowrap">
+	    
+	    
 	    </div>
 	    <%-- menu 끝 --%>
 	
@@ -141,8 +86,8 @@
 	        <form class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
-	              <input type="radio" name="category" id="bad">
-	              <label for="bad" class="category_radio">전체</label>
+	              <input type="radio" name="category" id="all">
+	              <label for="all" class="category_radio">전체</label>
 	            </div>
 	            <div>
 	              <input type="radio" name="category" id="bad">
@@ -158,7 +103,7 @@
 	            </div>
 	            <div>
 	              <input type="radio" name="category" id="sleep_product">
-	              <label for="sleep_product" class="category_radio">수면 용품</label>
+	              <label for="sleep_product" class="category_radio">수면용품</label>
 	            </div>
 	          </div>
 	        </form>
@@ -181,8 +126,8 @@
 	        <form class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
-	              <input type="checkbox" name="best_bad" id="best_bad">
-	              <label for="best_bad" class="best_chkbox">베스트상품</label>
+	              <input type="checkbox" name="bestyn" id="bestyn">
+	              <label for="bestyn" class="best_chkbox">베스트상품</label>
 	            </div>
 	          </div>
 	        </form>
@@ -237,15 +182,21 @@
 	        <%-- 가격 토글부분 --%>
 	        <form class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
-	            <p style="font-size:13px;">가격대를 입력해주세요</p>
 	            <div>
-	              <input type="text" name="start_price" id="start_price" placeholder="최저가격" class="border rounded">
+	              <p style="font-size:13px;"><i class="fa-solid fa-circle-info mr-1"></i>  가격대를 입력해주세요</p>
+	            </div>
+	            <div>
+	              <input type="text" name="start_price" id="start_price" placeholder="최저가격(숫자만입력)">
 	              <label for="start_price" class="price_input"></label>
 	            </div>
 	
 	            <div>
-	              <input type="text" name="end_price" id="end_price" placeholder="최고가격" class="border rounded">
+	              <input type="text" name="end_price" id="end_price" placeholder="최고가격(숫자만입력)">
 	              <label for="end_price" class="price_input"></label>
+	            </div>
+	            <div class="d-flex">
+	              <button type="button" id="btn_price_search" class="price btn border rounded">검색</button>
+	              <button type="button" id="btn_price_clear" class="price btn border rounded ml-3">지우기</button>
 	            </div>
 	          </div>
 	        </form>
@@ -279,14 +230,15 @@
 	
 	          <%-- 상품 셀렉트 해와서 반복문 돌릴 곳 --%>
 	
-	
+			  
 	          <%-- 게시물 시작 --%>
+	          
           	  <c:forEach var="product" items="${requestScope.productList}">
 		          <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4">
-		            <a id="${product.product_num}" class="product" href="<%=ctxPath %>/product/productDetail.dream?product_num=${product.product_num}"><%-- id값에 제품번호 넣기!!!!*** --%>
+		            <a id="${product.product_num}" class="product" href="<%=ctxPath %>/product/detail.dream?num=${product.product_num}"><%-- id값에 제품번호 넣기!!!!*** --%>
 		              <div class="product">
 		                <div class="product_imgbox border">
-		                  <img src="<%=ctxPath %>/images/${product.product_image}">
+		                  <%-- <img src="<%=ctxPath %>/images/${product.product_image}"> --%>
 		                </div>
 		                <div id="product_simple_explain">
 		                  <%-- 상품 카테고리 넣을 곳 --%>
@@ -319,6 +271,7 @@
 		            </a>
 		          </div>
 	          </c:forEach>
+	          
               <%-- 게시물 끝 --%>
 	
 	        </div>
@@ -330,7 +283,7 @@
 	    
 	    <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
           <nav aria-label="...">
-		    <ul class="pagination pagination-md justify-content-center">
+		    <ul class="my pagination pagination-md justify-content-center">
 		    	<%-- 첫페이지로 이동버튼 --%>
 		    	<c:if test="${requestScope.page > requestScope.display_page}">
 		    	<li class="page-item">

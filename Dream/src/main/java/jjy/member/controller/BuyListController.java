@@ -17,40 +17,50 @@ public class BuyListController extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		super.setViewPage("/WEB-INF/view/member/purchase_list.jsp");
-		
-//		HttpSession session = request.getSession();
-//		String sessionUserid = (String) session.getAttribute("userid");
-//		if (sessionUserid != null) {
-//
-//			String userid = request.getParameter("userid");
-//
+		HttpSession session = request.getSession();
+		String sessionUserid = (String) session.getAttribute("userid");
+
+		if (sessionUserid != null) {
+
+			String userid = request.getParameter("userid");
+
 //			if (sessionUserid.equals(userid)) {
+
+				InterPurchaseListDAO pdao = new PurchaseListDAO();
+				PurchaseListDTO pdto = new PurchaseListDTO();
+
+				List<PurchaseListDTO> purchaseList = pdao.allPurchaseList(userid);
+				
+				String start_date =  request.getParameter("start_date");
+				String end_date = request.getParameter("end_date");
+				String input_shipping = request.getParameter("input_shipping");
+				String sort = request.getParameter("sort");
+				userid = request.getParameter("userid");
+				
+				System.out.println(start_date);
+				System.out.println(end_date);
+				System.out.println(input_shipping);
+				System.out.println(sort);
+				System.out.println(userid);
+				
+				
+				request.setAttribute("pdto", pdto);
+
+				// super.setRedirect(false);
+				super.setViewPage("/WEB-INF/view/member/purchase_list.jsp");
+
+//			} else {
+//				String message = "비정상적인 경로접근!!";
+//				String loc = "javascript:history.back()";
 //
-//				InterPurchaseListDAO pdao = new PurchaseListDAO();
-//				PurchaseListDTO pdto = new PurchaseListDTO();
-//				
-//				List<PurchaseListDTO> purchaseList = pdao.allPurchaseList(userid);
-//				
-//				
-//				request.setAttribute("pdto", pdto);
+//				request.setAttribute("message", message);
+//				request.setAttribute("loc", loc);
 //
 //				// super.setRedirect(false);
-//				
+//				super.setViewPage("/WEB-INF/view/msg.jsp");
 //			}
-//		}
-//
-//		else {
-//			String message = "비정상적인 경로접근!!";
-//			String loc = "javascript:history.back()";
-//
-//			request.setAttribute("message", message);
-//			request.setAttribute("loc", loc);
-//
-//			// super.setRedirect(false);
-//			super.setViewPage("/WEB-INF/msg.jsp");
-//		}
-//
+		}
+
 	}
 
 }

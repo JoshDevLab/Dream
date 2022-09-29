@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import jjy.member.model.MemberDTO;
 import kim.member.model.InterMemberDAO;
 import util.security.AES256;
 import util.security.SecretMyKey;
@@ -98,9 +99,9 @@ public class MemberDAO implements InterMemberDAO {
 		int n = 0;
 		
 		String userid = paraMap.get("userid");
-		System.out.println("userid"+userid);
+		
 		String productNum = paraMap.get("productNum");
-		System.out.println("productNum"+productNum);
+		
 		try {
 			conn = ds.getConnection();
 			
@@ -125,7 +126,7 @@ public class MemberDAO implements InterMemberDAO {
 				
 				sql = " delete from tbl_like "+
 						" where userid = ?  and product_num = ? ";
-				System.out.println("좋아요있음");
+//				System.out.println("좋아요있음");
 				
 				pstmt = conn.prepareStatement(sql); 
 				pstmt.setString(1, userid); 
@@ -133,13 +134,13 @@ public class MemberDAO implements InterMemberDAO {
 
 				n = pstmt.executeUpdate();
 				if(n==1) {
-					System.out.println("좋아요삭제성공");
+//					System.out.println("좋아요삭제성공");
 					resultType = "remove";
 					resultSuccess = "true";
 					
 				}
 				else {
-					System.out.println("좋아요삭제실패");
+//					System.out.println("좋아요삭제실패");
 					resultType = "remove";
 					resultSuccess = "false";
 				}
@@ -150,7 +151,7 @@ public class MemberDAO implements InterMemberDAO {
 				System.out.println(n);
 			}
 			 else {
-				 System.out.println("좋아요 없음");
+//				 System.out.println("좋아요 없음");
 				 sql = " insert into tbl_like(userid, product_num) "+
 					   " values( ? , ?) ";
  
@@ -161,13 +162,13 @@ public class MemberDAO implements InterMemberDAO {
 					 
 					n = pstmt.executeUpdate();
 					if(n==1) {
-						System.out.println("좋아요등록성공");
+//						System.out.println("좋아요등록성공");
 						resultType = "add";
 						resultSuccess = "true";
 					
 					}
 					else {
-						System.out.println("좋아요등록실패");
+//						System.out.println("좋아요등록실패");
 						resultType = "add";
 						resultSuccess = "false";
 					}
@@ -189,7 +190,7 @@ public class MemberDAO implements InterMemberDAO {
 			pstmt.setString(1, productNum );
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				System.out.println("count" + rs.getString(1));
+//				System.out.println("count" + rs.getString(1));
 				resultMap.put("count", rs.getString(1));
 			}
 			else { //없는경우
@@ -207,5 +208,89 @@ public class MemberDAO implements InterMemberDAO {
 		
 
 	}
+
+	@Override
+	public MemberVO pointCheck(String sessionUserid) throws SQLException {
+
+
+		MemberVO mvo = new MemberVO();
+
+		try {
+			// 여기서부터 포인트전까지 조쉬거 훔쳐옴
+			conn = ds.getConnection();
+			
+			String sql = " select A.userid, mobile, username, membership\n"
+					    + " from\n"
+					    + " (\n"
+						+ " select userid, mobile, username, membership\n"
+						+ " from tbl_member\n"
+						+ " )A\n"
+						+ " join\n"
+						+ " (\n"
+						+ " select userid, passwd\n"
+						+ " from tbl_member_login\n"
+						+ " )B\n"
+						+ " on A.userid = B.userid\n"
+						+ " where A.userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sessionUserid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mvo.setUserid(rs.getString(1));
+				mvo.setMobile(rs.getString(2));
+				mvo.setUsername(rs.getString(3));
+				mvo.setMembership(rs.getInt(4));
+			}
+			
+			// 포인트
+			
+			conn = ds.getConnection();
+			
+			String sql2 = " SELECT SUM(CASE WHEN  status = '적립' THEN point_amount "+
+					"        WHEN  status = '차감' THEN -point_amount "+
+					"        else 0 END) "+
+					" FROM tbl_point "+
+					" where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql2);
+			
+			pstmt.setString(1, sessionUserid); // 세션 아이디값
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				// 내역 없어도 sum 이라 한행이 나옴
+				// 근데 내역이 하나도 없으면 null 나옴
+				
+				if( rs.getString(1) != null) {
+					// 내역이 존재한 경우에는 총합값을 저장
+					mvo.setPoint(rs.getInt(1));
+				}
+				else {
+					// 내역이 없는 경우에는 0 을 저장
+					mvo.setPoint(0);
+				}
+				
+			}
+			
+			
+			
+			
+			
+		} finally {
+			close();
+		}
+		
+		return mvo;
+		
+		
+		
+	}
+
+
 
 }
