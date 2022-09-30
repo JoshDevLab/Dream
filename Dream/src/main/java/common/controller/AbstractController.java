@@ -57,7 +57,7 @@ public abstract class AbstractController implements InterCommand {
 		HttpSession session = request.getSession();
 		String loginuser = (String) session.getAttribute("userid");
 		
-		if(loginuser != null) {
+		if( loginuser != null && loginuser != "") {
 			// 로그인 한 경우
 			return true;
 		}

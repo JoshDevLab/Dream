@@ -76,9 +76,6 @@ ul.header_top_list{
   font-size:small;
 }
 
-div.header > div.header_top > ul > li:nth-child(5){
-  display:none;
-}
 
 /* header > header_main */
 

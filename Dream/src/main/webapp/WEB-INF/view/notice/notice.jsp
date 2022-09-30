@@ -55,7 +55,7 @@
       
       <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
         <nav aria-label="...">
-		    <ul class="pagination pagination-md justify-content-center">
+		    <ul class="my pagination pagination-md justify-content-center">
 		    	<%-- 첫페이지로 이동버튼 --%>
 		    	<c:if test="${requestScope.page > requestScope.display_page}">
 		    	<li class="page-item">

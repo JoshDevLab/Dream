@@ -23,7 +23,6 @@
       /* 사이드바 script 시작 */
       $("div.category-section > ul > li").click(function(e){
          //  클릭할 경우 글자 css 변경
-         alert("클릭됨.");
          $("div.category-section > ul > li > a").css({"font-weight":"","color":""});
          $(e.target).css({"font-weight":"700","color":"black"});
       });
@@ -53,7 +52,7 @@
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/buylist.dream">구매 내역</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream?userid=${sessionScope.userid}">관심 상품</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream">관심 상품</a>
             </li>
          </ul>
       </div>
@@ -62,7 +61,7 @@
          <h5 class="category-title font-weight-bold">내 정보</h5>
          <ul class="nav flex-column">
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream?userid=${sessionScope.userid}">프로필 정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/myInfo.dream">프로필 정보</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>#####">주소록</a>
@@ -80,11 +79,4 @@
       </div>
    </div>
    <!-- 사이드바 끝 -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
 </body>
->>>>>>> refs/remotes/origin/hwanggb
-=======
->>>>>>> refs/remotes/origin/hwanggb

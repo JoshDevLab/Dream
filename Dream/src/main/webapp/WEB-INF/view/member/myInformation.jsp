@@ -239,10 +239,23 @@
                     <div id="login_information_phone" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small;" class="mb-1">휴대폰 번호</p>
-                            <div style="color: gray;">${requestScope.mdto.mobile}</div>
+                            <div style="color: gray;"><span id="mobile">${requestScope.mdto.mobile}</span></div>
                             <input type="hidden" value="${requestScope.mdto.mobile}" name="mobile" />
+                            <input type="hidden" value="" name="mobile_store_cnt"/>
                         </div>
-                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
+                        <div class="mt-4" id="div_modifyMobile" style="position: relative; left: -69px;">
+                            <p id="new_mobile" style="color: black; font-size: small;" class="mb-1">새로운 전화번호</p>
+                            <input type="text" id="modify_mobile" placeholder="고객님의 전화번호" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
+                            <span id="input_mobile_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 전화번호 양식으로 입력하세요</span>
+                            <div id="mobile_certification" style="display: flex;">
+                              <input class="mt-2" type="text" name="certification_mobile" id="certification_mobile"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 />
+                              <button type="button" id="certification_mobile_btn" class="can_modify btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
+                            </div>
+                            <br><br>
+                            <button type="button"  id="mobile_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
+                            <button type="button"  id="mobile_store" class="btn btn-light outline-secondary " style="font-size: 10pt;">인증하기</button>
+                          </div>
+                        <button type="button" id="change_mobile_btn" class="btn btn-light outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">변경</button>
                     </div>
                 </div>
                 <div class="profile_group" style="margin-top: 7%;">
