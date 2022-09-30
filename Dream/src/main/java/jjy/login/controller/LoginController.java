@@ -125,6 +125,22 @@ public class LoginController extends AbstractController {
 						}
 						else {
 							System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
+							
+							// 멤버십 가입 회원일경우 현재 날짜와 비교해서 한달 이상 지난경우 멤버십 해지 처리하기 
+
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							// 멤버십 가입 회원일경우 현재 날짜와 비교해서 한달 이상 지난경우 멤버십 해지 처리하기 
 	
 							// session 영역에 로그인 한 사용자 아이디(userid) 저장
 							HttpSession session = request.getSession();

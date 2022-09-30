@@ -20,25 +20,26 @@ String ctxPath = request.getContextPath();
 
 <%-- 직접만든 javascript 
   <script type="text/javascript" src="<%= ctxPath%>/js/purchase_list.js" ></script>--%>
-
 <script type="text/javascript">
+
 function getContextPath() {
 	let hostIndex = location.href.indexOf(location.host) + location.host.length;
 	let contextPath = location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
 	return contextPath;
 }
 
-let html =" ";
+
 let dataObj;
+let currentShowPageNo;
 
 function callAjax() {
-	console.log("전달될 값 end_date : "+$("input#end_date").val());
-	console.log("전달될 값 start_date : "+$("input#start_date").val());
-	console.log("전달될 값 input_shipping: : "+$("input#input_shipping").val());
-	console.log("전달될 값 sort : "+$("input#sort_date").val());
-	console.log("전달될 값 userid : "+$("input#userid").val());
-	<%--
+		console.log("확인용 전달될 값 end_date : "+$("input#end_date").val());
+		console.log("확인용 전달될 값 start_date : "+$("input#start_date").val());
+		console.log("확인용 전달될 값 input_shipping: : "+$("input#input_shipping").val());
+		console.log("확인용 전달될 값 sort : "+$("input#sort_date").val());
+		console.log("확인용 전달될 값 userid : "+$("input#userid").val());
 	
+	/*
 	dataObj = {
 		"end_date": $("input#start_date").val(),
 		"start_date": $("input#end_date").val(),
@@ -46,12 +47,40 @@ function callAjax() {
 		"sort": $("input#sort").val(),
 		"userid": $("input#userid").val()
 	};
+	*/
+	/* sessionStorage.setItem("end_date",end_date);
+	sessionStorage.setItem("start_date",start_date);
+	sessionStorage.setItem("input_shipping",input_shipping);
+	sessionStorage.setItem("sort",sort);
+	sessionStorage.setItem("userid",userid); */
 	
-	--%>
-	
+	// 페이징 처리를 위해 데이터 전송 
+	/*
 	$.ajax({
-		url: "<%=ctxPath%>/member/buylistView.dream",
-		type: "POST",
+		url: getContextPath()+"/member/buylist.dream",
+		type: "GET",
+		data: {"end_date": $("input#start_date").val(),
+			   "start_date": $("input#end_date").val(),
+			   "input_shipping": $("input#input_shipping").val(),
+			   "sort": $("input#sort_date").val(),
+			   "currentShowPageNo":currentShowPageNo,
+			   "userid": $("input#userid").val()},
+		dataType: "json",
+		success: function(json) {
+			alert("확인용 ajax 페이징 ");
+			
+		}, // end of success
+		error: function(request, status, error) {
+			alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		}
+	});
+	*/
+	// 페이징 처리를 위해 데이터 전송 
+	
+	// 결과 값 찍어주는 ajax
+	$.ajax({
+		url: getContextPath()+"/member/buylistView.dream",
+		type: "GET",
 		data: {"end_date": $("input#start_date").val(),
 			   "start_date": $("input#end_date").val(),
 			   "input_shipping": $("input#input_shipping").val(),
@@ -59,14 +88,17 @@ function callAjax() {
 			   "userid": $("input#userid").val()},
 		dataType: "json",
 		success: function(json) {
-			
+			let html =" ";
+			$("div#show_shipping").append("<p style='border:solid 10px red; '></p>");
 			if(json.length == 0){
+				$("div#show_shipping").empty(); // div 초기화 
+				$("div#show_shipping_completed").empty();	// div 초기화 
 				$("div#no_result").html("거래 내역이 없습니다.");
 			}
-			else if(json.length > 0){
+			else if(json.length != 0){
 				
+				$("div#no_result").html("");
 				 $.each(json, function(index, item){
-				
 					html += "<div class='purchase_item my-3' style=' border-bottom: solid 1px gray; border-top: solid 1px gray;'>"+
 		                     "<div id='purchase_detail'  class='d-flex'>"+
 		                        "<div class='image_box' style='line-height: 110px;'>"+
@@ -82,24 +114,39 @@ function callAjax() {
 		                           "<span id='purchase_date'>"+item.buy_date+"</span><br>"+
 		                        "</div>"+
 		                        "<div>"+
-		                           "<span id='purchase_status'></span>"+
+		                           "<span id='purchase_status'>"+index+"</span>"+
 		                        "</div>"+
 		                     "</div>"+
 		               "</div>";
 				 })// end of $.each(json, function(index, item){}---------------------------
-				$("div#show_shipping").append(html);
+				$("div#show_shipping").empty(); // div 초기화 
+				$("div#show_shipping_completed").empty();		 
+				
+				if($("input#input_shipping").val()==0){
+					$("div#show_shipping").append(html); // div 값 입력
+					
+				}
+				else if($("input#input_shipping").val()==1){
+					$("div#show_shipping_completed").append(html); // div 값 입력
+				}
 			}
 		}, // end of success
 		error: function(request, status, error) {
 			alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 		}
-	});
+	});// end of ajax(){};===========================================================
+				 
+	// 결과 값 찍어주는 ajax
 				 
 }// end of function callAjax() {}-----------------------
 
+
+
+
+
 $(document).ready(function() {
-
-
+	
+//	callAjax();
 
 	// DatePicker 한글, 기타 속성 시작
 	$.datepicker.setDefaults({
@@ -128,8 +175,8 @@ $(document).ready(function() {
 	$("input#end_date").datepicker();
 
 	//From의 초기값을 오늘 날짜로 설정
-	//$('input#start_date').datepicker('setDate', '-2M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-	//$('input#end_date').datepicker('setDate', 'today');
+	$('input#start_date').datepicker('setDate', '-2M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+	$('input#end_date').datepicker('setDate', 'today');
 	// DatePicker 한글, 기타 속성 끝
 
 
@@ -148,8 +195,6 @@ $(document).ready(function() {
 		
 		callAjax();
 	});
-	
-	$("div#shipping_cnt_left").trigger("click"); 
 	
 
 	// 종료 클릭시 테두리, 글자 속성 변경 
@@ -182,20 +227,20 @@ $(document).ready(function() {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-up").addClass("fa-sort-down");
 			$("input#sort_date").val("asc");
 			alert(sort.val());
-		callAjax();
+		
 		}
 		else {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-down").addClass("fa-sort-up");
 			sort.prop('value', "desc");
 			$("input#sort_date").val("desc");
 			alert(sort.val());
-		callAjax();
+		
 		}
 		// sort.val()에 저장된  asc / desc 전달
-
+		callAjax();
 	});
 
-
+	// 상태 버튼삭제됨 ------------------------------------------------------------------------------
 	// 상태 버튼 클릭시 아이콘 변경 
 	/*
 	$("button#btn_purchaseStatus").click(function(e) {
@@ -222,8 +267,10 @@ $(document).ready(function() {
 		frm.submit();
 	});
 	*/
+	// 상태 버튼삭제됨 ------------------------------------------------------------------------------
 
 
+	// 최근 2개월, 4개월 , 6개월 버튼 클릭시 ===========================================================
 	// 최근 2개월 버튼 클릭시 발생하는 이벤트
 	$("button#two_month").click(function(e) {
 		// alert("최근 2개월 버튼 클릭시");
@@ -243,9 +290,6 @@ $(document).ready(function() {
 
 	});
 
-
-
-
 	// 최근 6개월 버튼 클릭시 발생하는 이벤트
 	$("button#six_month").click(function(e) {
 		// alert("최근 6개월 버튼 클릭시");
@@ -255,13 +299,13 @@ $(document).ready(function() {
 		$("button#search_simple").trigger('click'); // 조회버튼 클릭 
 
 	});
+	// 최근 2개월, 4개월 , 6개월 버튼 클릭시 ===========================================================
 
 
 
 
 	// 날짜 입력 후 조회 버튼클릭시
 	$("button#search_simple").click(function(e) {
-
 		callAjax();
 	});
 
@@ -284,7 +328,6 @@ $(document).ready(function() {
 	$("select#select_month").click(function(e) {
 		$("select#select_month").children("option[value='기간선택']").prop("hidden", true);
 	});
-
 
 
 	/* 사이드바 script 시작 */
@@ -310,11 +353,6 @@ $(document).ready(function() {
 
 });// end of $(document).ready(function()----------------------------------
 
-
-
-
-
-
 </script>
 
 
@@ -325,6 +363,8 @@ $(document).ready(function() {
 	<%-------------------- 사이드바 시작 ----------------------%>
 	<script>
    $(document).ready(function(){
+	   $("div#shipping_cnt_left").trigger("click"); 
+	   
       /* 사이드바 script 시작 */
       $("div.category-section > ul > li").click(function(e){
          //  클릭할 경우 글자 css 변경
@@ -479,19 +519,15 @@ $(document).ready(function() {
 
 
 
-
-
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력  --%>
-			<div id="no_result" class="text-center my-5"
-				style="color: #22222280; font-size: 13;"></div>
+			<div id="no_result" class="text-center my-5" style="color: #22222280; font-size: 13;"></div>
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력 끝  --%>
 
 			<%-- 진행중 클릭시 보여줄 div --%>
 			<div id="show_shipping">
 
-
-				<%-- 상품 한개 시작 --%>
-				<%--
+			<%-- 상품 한개 시작 --%>
+			<%--
                <div class="purchase_item my-3" style=" border-bottom: solid 1px gray; border-top: solid 1px gray;">
                      <div id="purchase_detail"  class="d-flex">
                         
@@ -518,12 +554,10 @@ $(document).ready(function() {
 			<%-- 진행중 클릭시 보여줄 div 끝--%>
 
 
-
-
-
 			<%-- 종료 클릭시 보여줄 div --%>
 			<div id="show_shipping_completed">
 				<%-- 상품 한개 시작 --%>
+			<%-- 
 				<div class="purchase_item my-3"
 					style="border-bottom: solid 1px gray; border-top: solid 1px gray;">
 					<div id="purchase_detail" class="d-flex">
@@ -546,10 +580,19 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
+				--%>
 				<%-- 상품 한개 끝 --%>
 			</div>
 			<%-- 종료 클릭시 보여줄 div 끝--%>
-
+			
+			
+        <%-- 페이지바 넣기 시작  --%>
+		<nav class="my-5">
+			<div style="display:flex; width:80%">
+				<ul class="pagination" style="margin:auto;">${requestScope.pageBar}</ul>			
+			</div>
+		</nav>
+		<%-- 페이지바 넣기 끝  --%>
 
 
 		</div>

@@ -100,7 +100,6 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// 한 회원의 정보를 담을 객체 생성
 				PurchaseListDTO pdto = new PurchaseListDTO();
 
 				pdto.setOrder_num(rs.getInt("order_num") );     	  // 일련번호
@@ -127,5 +126,109 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		return purchaseList;
 
 	}
+
+	
+	// 사용자 아이디, 시작일, 종료일, 배송상태를 Map으로 전달받아 출력해야 할 페이지 수를 구해오는 메소드 (select) 
+	@Override
+	public int getTotalPage(Map<String, String> purchaseMap) throws SQLException {
+		
+		int totalPage = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select ceil(count(*)/5) " // 한페이지에 보여줄 구매내역 10개로 고정
+					   + "from tbl_buylist B left join tbl_product P "
+					   + "on B.product_num = P.product_num "
+					   + "where userid = ? and shipping = ?  "
+					   + "and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "
+					   + "order by buy_date " +purchaseMap.get("sort");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, purchaseMap.get("userid"));
+			pstmt.setString(2, purchaseMap.get("input_shipping") );
+			pstmt.setString(3, purchaseMap.get("end_date") );
+			pstmt.setString(4, purchaseMap.get("start_date") );
+			
+			rs = pstmt.executeQuery();
+
+			rs.next();
+			
+			totalPage = rs.getInt(1);
+
+		} finally {
+			close();
+		}
+		
+		return totalPage;
+	}
+
+	
+	
+	// 페이징처리를 위한 구매내역 조회하기 
+	@Override
+	public List<PurchaseListDTO> selectPagingPurchaseList(Map<String, String> purchaseMap) throws SQLException {
+		
+		List<PurchaseListDTO> pagingPurchaseList = new ArrayList<>();
+//		System.out.println("DAO에서 확인 : "+purchaseMap.get("currentShowPageNo"));
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select order_num, userid, product_num, buy_cnt , buy_date , shipping, product_name, product_image, rno "+
+					     " from "+
+					     " ( "+
+					     "    select order_num, userid, B.product_num as product_num, buy_cnt , buy_date , shipping, product_name, product_image, rownum as rno "+
+					     "     from tbl_buylist B left join tbl_product P "+
+					     "     on B.product_num = P.product_num "+
+					     "     where userid = ?  and shipping = ?  "+
+					     "     and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "+
+					     " )v "+
+					     " where rno between ? and ? ";
+			 
+			 // === 페이징처리의 공식 ===
+			 // where RNO between (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수); 
+			
+			 int currentShowPageNo = Integer.parseInt(purchaseMap.get("currentShowPageNo"));
+//			 System.out.println("DAO 확인용 currentShowPageNo =" +currentShowPageNo);
+			 int sizePerPage = 10; // 한 페이지당 화면상에 보여줄 제품의 개수는 10으로 한다.
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 
+			 pstmt.setString(1, purchaseMap.get("userid") );
+			 pstmt.setString(2, purchaseMap.get("input_shipping") );
+			 pstmt.setString(4, purchaseMap.get("start_date") );
+			 pstmt.setString(3, purchaseMap.get("end_date") );
+			 pstmt.setInt(5, (currentShowPageNo * sizePerPage) - (sizePerPage - 1) ); //1
+			 pstmt.setInt(6, (currentShowPageNo * sizePerPage) ); //10
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 while(rs.next()) {
+		
+				 PurchaseListDTO purchasedto = new PurchaseListDTO();
+				 
+				 purchasedto.setOrder_num(rs.getInt("order_num") );     	  // 일련번호
+				 purchasedto.setUserid(rs.getString("userid"));         	  // 주문자 아이디
+				 purchasedto.setProduct_num(rs.getInt("product_num"));  	  // 주문 제품
+				 purchasedto.setBuy_cnt(rs.getInt("buy_cnt"));          	  // 구매 수량
+				 purchasedto.setBuy_date(rs.getString("buy_date"));     	  // 구매날짜
+				 purchasedto.setShipping(rs.getInt("shipping"));              // 배송상태
+				 	
+				 ProductDTO prodDTO = new ProductDTO();				  //ProductDTO에 있는 제품이름, 제품이미지 저장
+				 prodDTO.setProduct_name(rs.getString("product_name")); // 제품이름
+				 prodDTO.setProduct_image(rs.getString("product_image"));// 제품이미지
+				 purchasedto.setProdDTO(prodDTO);
+				 	
+				 pagingPurchaseList.add(purchasedto);
+				 
+			 }
+		} finally {
+			close();
+		}
+		
+		return pagingPurchaseList;
+		
+	} // end of public List<PurchaseListDTO> selectPagingPurchaseList(Map<String, String> purchaseMap) throws SQLException {}--------------
 
 }

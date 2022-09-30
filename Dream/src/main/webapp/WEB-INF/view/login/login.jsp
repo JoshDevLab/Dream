@@ -20,7 +20,7 @@
          <fieldset>
             <div id="div_userid">
                <label for="userid">이메일 주소</label>
-               <input id="input_userid" name="userid" class ="userinfo" type="text" placeholder="예)dream@dream.co.kr" >
+               <input id="input_userid" name="userid" class ="userinfo" type="text" placeholder="예)dream@dream.co.kr" autocomplete="off" >
                <span id="email_warning" class="warning">이메일 주소를 정확히 입력해주세요.</span>
        
             </div>
