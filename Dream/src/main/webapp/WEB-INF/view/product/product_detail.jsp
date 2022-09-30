@@ -118,7 +118,7 @@
                 <div class="dropdown">
 
 				
-				  <a id="selectOption" href="#" class="dropdown-toggle" data-toggle="dropdown">
+				  <a id="selectOption" href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
        				선택해주세요!
                   </a>
 				  <div class="dropdown-menu">
@@ -176,7 +176,7 @@
               </div>
             </div>
             <div class="btn_box">
-              <a href="#" class="btn_buy" onclick="goPurchasePage()">
+              <a href="javascript:void(0)" class="btn_buy" onclick="goPurchasePage()">
                 <strong class="title">구매</strong>
                 <div  class="price">
                   <span  class="amount">
@@ -188,7 +188,7 @@
               </a>
             </div>
 
-            <a  onclick="likeCheck()" href="#" id="column2_btn_wish" class="btn btn_wish" aria-label="관심상품">
+            <a  onclick="likeCheck()" href="javascript:void(0)" id="column2_btn_wish" class="btn btn_wish" aria-label="관심상품">
               <img style="height: 20px; width: 20px;"/>
               <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
               <span class="btn_text" type="button">관심상품</span>
@@ -324,7 +324,7 @@
       </div>
         
       <div class="btn_area">
-        <a  onclick="likeCheck()" href="#" class="btn outlinegrey btn_wish ">
+        <a  onclick="likeCheck()" href="javascript:void(0)" class="btn outlinegrey btn_wish ">
           <img style="height: 20px; width: 20px;"/>
           <span class="wish_count_num">${product.likeCnt}</span>
         </a>

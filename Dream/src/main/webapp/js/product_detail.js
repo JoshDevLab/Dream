@@ -169,7 +169,7 @@ $(document).ready(function() {
 				$("div#optionSelected").append(
 				`<div id='added_option'>
 					<span id="optionAmount" class="optionAmount" name="optionAmount">1</span>
-					<span id="optionName">${ProductOption}</span>
+					<span id="optionName" name="optionName">${ProductOption}</span>
 					<button id="deleteObj${objNo}" class="btn">x</button>
 					<button id="minus${objNo}" class="btn">-</button>
 					<button id="plus${objNo}" class="btn">+</button>
@@ -190,7 +190,7 @@ $(document).ready(function() {
 			$("div#optionSelected").append(
 				`<div id='added_option'>
 					<span name = "optionAmount" id="optionAmount" class="optionAmount">1</span>
-					<span id="optionName">${ProductOption}</span>
+					<span name="optionName" id="optionName">${ProductOption}</span>
 					<button id="deleteObj${objNo}" class="btn">x</button>
 					<button id="minus${objNo}" class="btn">-</button>
 					<button id="plus${objNo}" class="btn">+</button>
@@ -302,12 +302,12 @@ function likeCheck() {
 function goPurchasePage(){
 	
 	// 일단 선택한 옵션의 사이즈 배열과 갯수 배열을 각각 만들어보자자자자자자자자자ㅏ자자자ㅏ자자
-	console.log("cex");
 	
 	let length = $("div#added_option").length;
-	added_optionName = $("div#added_option>#optionName").text();
-	added_optionAmount = $("div#added_option>#optionAmount").text();
+	let added_optionName = document.getElementsByName("optionName");
+	
 	const productNum = $("dd#product_num").text();
+	let added_optionAmount = document.getElementsByName("optionAmount");
 	
 	let sizeArray =[];
 	let cntArray =[];
@@ -318,14 +318,17 @@ function goPurchasePage(){
 	
 	// 선택한 옵션의 수 만큼 반복
 	for(let i = 0; i < length; i++) {
-		 sizeArray.push(added_optionName[i]);
-		 cntArray.push(added_optionAmount[i]);
+		 sizeArray.push(added_optionName[i].textContent);
+		 console.log(sizeArray[i]);
+		 cntArray.push(added_optionAmount[i].textContent);
 		}
 		
 	// 선택한 옵션의 순서대로 옵션의 사이즈, 개수가 같은 인덱스로 들어감
-	// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것이므로 json 쓰자자자자자자ㅏ자자자ㅏㅈ
+	// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것 json 쓰자자자자자자ㅏ자자자ㅏㅈ
 		console.log("sizeArray"+sizeArray);
 		console.log("cntArray"+cntArray);
+		console.log(Array.isArray(sizeArray) ); 
+
 		
 	$.ajax({
 		url:getContextPath()+"/product/cntCheck.dream",
@@ -340,8 +343,8 @@ function goPurchasePage(){
 			console.log(json.cnt);
 			
 			 outer : for(let i = 0; i < length; i++) {
-			 option_size = added_optionName[i];
-			 option_cnt = Number(added_optionAmount[i]);
+			 option_size = added_optionName[i].textContent;
+			 option_cnt = Number(added_optionAmount[i].textContent);
 			  
 			 console.log("option_size"+option_size);
 			 	for(let n=0; n<(json.size).length; n++){
@@ -377,8 +380,8 @@ function goPurchasePage(){
 				let html = "";
 				
 				for(let i=0; i<length; i++){
-					option_size = added_optionName[i];
-			 		option_cnt = Number(added_optionAmount[i]);
+					option_size = added_optionName[i].textContent;
+			 		option_cnt = Number(added_optionAmount[i].textContent);
 			 
 			 		html += 
 					`<input type="hidden" name="size${i}" value="${option_size}"  />
