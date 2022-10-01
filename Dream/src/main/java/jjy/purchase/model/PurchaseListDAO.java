@@ -137,7 +137,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select ceil(count(*)/5) " // 한페이지에 보여줄 구매내역 10개로 고정
+			String sql = "select ceil(count(*)/10) " // 한페이지에 보여줄 구매내역 10개로 고정
 					   + "from tbl_buylist B left join tbl_product P "
 					   + "on B.product_num = P.product_num "
 					   + "where userid = ? and shipping = ?  "
@@ -171,7 +171,6 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 	public List<PurchaseListDTO> selectPagingPurchaseList(Map<String, String> purchaseMap) throws SQLException {
 		
 		List<PurchaseListDTO> pagingPurchaseList = new ArrayList<>();
-//		System.out.println("DAO에서 확인 : "+purchaseMap.get("currentShowPageNo"));
 		try {
 			conn = ds.getConnection();
 			
@@ -189,9 +188,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			 // === 페이징처리의 공식 ===
 			 // where RNO between (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수); 
 			
-			 int currentShowPageNo = Integer.parseInt(purchaseMap.get("currentShowPageNo"));
-//			 System.out.println("DAO 확인용 currentShowPageNo =" +currentShowPageNo);
-			 int sizePerPage = 10; // 한 페이지당 화면상에 보여줄 제품의 개수는 10으로 한다.
+			 int sizePerPage = 5; // 한 페이지당 화면상에 보여줄 제품의 개수는 5로 고정
 			 
 			 pstmt = conn.prepareStatement(sql);
 			 
@@ -199,8 +196,8 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			 pstmt.setString(2, purchaseMap.get("input_shipping") );
 			 pstmt.setString(4, purchaseMap.get("start_date") );
 			 pstmt.setString(3, purchaseMap.get("end_date") );
-			 pstmt.setInt(5, (currentShowPageNo * sizePerPage) - (sizePerPage - 1) ); //1
-			 pstmt.setInt(6, (currentShowPageNo * sizePerPage) ); //10
+			 pstmt.setString(5, purchaseMap.get("start") );
+			 pstmt.setString(6, purchaseMap.get("end") );
 			 
 			 rs = pstmt.executeQuery();
 			 
@@ -230,5 +227,43 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		return pagingPurchaseList;
 		
 	} // end of public List<PurchaseListDTO> selectPagingPurchaseList(Map<String, String> purchaseMap) throws SQLException {}--------------
+
+	
+	// 출력해야 할 구매내역 수 조회하기 
+	@Override
+	public int getTotalListCnt(Map<String, String> purchaseMap) throws SQLException {
+		
+		int listCnt = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select count(*) " // 한페이지에 보여줄 구매내역 10개로 고정
+					   + "from tbl_buylist B left join tbl_product P "
+					   + "on B.product_num = P.product_num "
+					   + "where userid = ? and shipping = ?  "
+					   + "and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "
+					   + "order by buy_date " +purchaseMap.get("sort");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, purchaseMap.get("userid"));
+			pstmt.setString(2, purchaseMap.get("input_shipping") );
+			pstmt.setString(3, purchaseMap.get("end_date") );
+			pstmt.setString(4, purchaseMap.get("start_date") );
+			
+			rs = pstmt.executeQuery();
+
+			rs.next();
+			
+			listCnt = rs.getInt(1);
+
+		} finally {
+			close();
+		}
+		
+		return listCnt;
+		
+	}// public int getTotalListCnt(Map<String, String> purchaseMap) throws SQLException {}----------------------------------
 
 }

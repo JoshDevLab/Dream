@@ -14,6 +14,9 @@ public interface InterPurchaseListDAO {
 	/** 페이징처리를 위한 구매내역 조회하기 */
 	List<PurchaseListDTO> selectPagingPurchaseList(Map<String, String> purchaseMap)throws SQLException ;
 
+	/** 출력해야 할 구매내역 수 조회하기 */
+	int getTotalListCnt(Map<String, String> purchaseMap)throws SQLException ;
+
 
 
 	
