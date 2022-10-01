@@ -128,15 +128,24 @@ public class LoginController extends AbstractController {
 							
 							// 멤버십 가입 회원일경우 현재 날짜와 비교해서 한달 이상 지난경우 멤버십 해지 처리하기 
 
+							InterMemberDAO mdao = new MemberDAO();
+							System.out.println("확인용 userinfoMap: "+userinfoMap);
 							
+							MemberDTO mdto = new MemberDTO();
 							
-							
-							
-							
-							
-							
-							
-							
+							mdto = mdao.selectOneUser(userinfoMap);
+							System.out.println("확인용 mdto: "+mdto);
+							if(mdto.getMembershipregistgap() > 1) {
+								// 멤버십 가입 취소로 변경, 멤버십이 해지되었습니다. alert 출력 
+								int result = mdao.deleteMembership(userinfoMap);
+								// 확인용 
+								if(result == 1) {
+									System.out.println("확인용 멤버십 탈퇴처리됨.");
+								}
+								else {
+									System.out.println("확인용 멤버십 탈퇴처리 오류발생");
+								}
+							}
 							
 							
 							

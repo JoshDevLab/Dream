@@ -45,7 +45,6 @@ $(document).ready(function() {
 			});
 		}
 
-
 	});
 
 
@@ -63,7 +62,8 @@ $(document).ready(function() {
 	// 비밀번호 입력받을때마다 정규표현식을 통한 유효성 검사
 	$("input#input_passwd").keydown(function(e) {
 		const passwd = $("input#input_passwd").val();
-		const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/;
+		const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
+		
 
 		if (!regExp.test(passwd)) {
 			$(e.target).css("border-bottom", "solid 1px red");  //빨간색 밑줄
@@ -86,7 +86,6 @@ $(document).ready(function() {
 		}
 
 	});
-
 
 
 

@@ -90,6 +90,38 @@ public class MemberDAO implements InterMemberDAO {
 		return result; // update 성공시 return 1
 		
 	}// end of public int registMembership(Map<String, String> useridMap) {}--------------------------
+	
+	
+	
+//  로그인된 사용자 아이디를 Map으로 전달받아 tbl_member 테이블에 멤버십 가입 여부, 멤버십 가입 날짜를 업데이트 하는 메소드
+	@Override
+	public int deleteMembership(Map<String, String> useridMap)throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_member set membership = 0, membership_regist_date = null "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, useridMap.get("loginuserid") );
+			
+			result = pstmt.executeUpdate();
+			System.out.println("sql 실행 후 result = "+result);
+			
+		} finally {
+			close();
+		}
+		return result; // update 성공시 return 1
+		
+	}// end of public int registMembership(Map<String, String> useridMap) {}--------------------------
+	
+	
+	
+	
+	
 
 	
 	
@@ -103,14 +135,11 @@ public class MemberDAO implements InterMemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select membership "
+			String sql = " select userid, joindate, membership, username, "
+					   + " membership_regist_date, mobile, "
+					   + " trunc( months_between(sysdate, membership_regist_date) ) AS membershipregistgap "
 					   + " from tbl_member "
 					   + " where userid = ? ";
-			/*
-			String sql = " select membership, membership_regist_date "
-					   + " from tbl_member "
-					   + " where userid = ? ";
-			*/
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, useridMap.get("loginuserid")); 
@@ -121,8 +150,8 @@ public class MemberDAO implements InterMemberDAO {
 				user = new MemberDTO();
 				
 				user.setMembership(rs.getInt("membership")); // 멤버십 가입여부 0: 가입중 1: 미가입
-				// tbl_member 에 membership_regist_date 컬럼 추가 후 코드추가
-				// user.setMembership_regist_date
+				user.setMembershipregistgap(rs.getInt("membershipregistgap"));
+				System.out.println("DAO에서 확인 "+ rs.getInt("membershipregistgap"));
 				}
 			
 		} finally {

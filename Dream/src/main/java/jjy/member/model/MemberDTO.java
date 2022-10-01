@@ -8,8 +8,16 @@ public class MemberDTO {
 	private int point;       // 포인트
 	private String mobile;   // 핸드폰 번호 
 	
+	private int membershipregistgap; // 멤버십 가입 일자 현재날짜와 차이
 	
-	
+	public int getMembershipregistgap() {
+		return membershipregistgap;
+	}
+
+	public void setMembershipregistgap(int membershipregistgap) {
+		this.membershipregistgap = membershipregistgap;
+	}
+
 	// Getter, Setter  ////////////////////////////////////////////////////////////
 	public String getUserid() {
 		return userid;

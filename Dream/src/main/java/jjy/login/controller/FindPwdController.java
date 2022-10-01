@@ -83,12 +83,8 @@ public class FindPwdController extends AbstractController {
 		        
 		        System.out.println("~~~~ 확인용 json => "+json);
 		        
-		        int n = logindao.updatePassword(findPwdMap);
+		        int updtePwdResult = logindao.updatePassword(findPwdMap);
 		        
-		        // 확인용 /////////////////////////////////////////////////
-		        if(n == 1 ) { System.out.println("확인용 비밀번호 변경됨!"); }
-		        else { System.out.println("확인용 비밀번호 변경 오류 발생!"); }
-		        // 확인용 ////////////////////////////////////////////////
 		        
 		        request.setAttribute("json", json);
 		        super.setViewPage("/WEB-INF/view/jjyjsonview.jsp");
