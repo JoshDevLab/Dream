@@ -217,9 +217,10 @@ span.mark {
 	font-size: 12px;
 	letter-spacing: -.06px;
 	border-radius: 10px;
-	background-color: #f4f4f4;
+	background-color: #d3d3d3;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	padding-top:6px;
 }
 
 div.btn_bind {
@@ -242,7 +243,7 @@ a.btn_outlinegrey_small {
 	margin-left: 8px;
 }
 
-div.pagination {
+div.page_bind {
 	padding: 28px 0;
 	text-align: center;
 	display: block;

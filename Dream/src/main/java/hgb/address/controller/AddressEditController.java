@@ -10,14 +10,12 @@ import hgb.address.model.AddressDAO;
 import hgb.address.model.AddressDTO;
 import hgb.address.model.InterAddressDAO;
 
-
-
-public class AddressRegisterController extends AbstractController{
+public class AddressEditController extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String method = request.getMethod();
+        String method = request.getMethod();
 		
 		if("GET".equalsIgnoreCase(method)) {	
 		//  GET 방식이라면
@@ -32,15 +30,16 @@ public class AddressRegisterController extends AbstractController{
 			 String post_code = request.getParameter("post_code"); 
 			 String address = request.getParameter("address"); 	         
 	         String detail_address = request.getParameter("detail_address"); 	         	         	         	         
-	                 	         	         	         
+	         String address_num = request.getParameter("address_num"); 	         	         	         	         
+	                  	         	         
 	         
-             AddressDTO address1 = new AddressDTO(order_name, mobile, post_code, address, detail_address);
+             AddressDTO address3 = new AddressDTO(order_name, mobile, post_code, address, detail_address, address_num);
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         
 			 
 	         try {
-	        	 int n = adao.registerAddress(address1);
+	        	 int n = adao.editAddress(address3);
 	     
      			if(n==1) {
 	     			

@@ -24,19 +24,18 @@ public class AddressDeleteController extends AbstractController {
 		}
 		
 		else {
+						
+			
 			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
-			 String order_name = request.getParameter("order_name"); 				
-			 String mobile = request.getParameter("mobile"); 
-			 String post_code = request.getParameter("post_code"); 
-			 String address = request.getParameter("address"); 	         
-	         String detail_address = request.getParameter("detail_address"); 	 
+			 	 
+	         String address_num = request.getParameter("address_num"); 	 
 	         
-	         AddressDTO address1 = new AddressDTO(order_name, mobile, post_code, address, detail_address);
+	         AddressDTO address2 = new AddressDTO(address_num);
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         
 	         try {
-	        	 int n = adao.registerAddress(address1);
+	        	 int n = adao.deleteAddress(address2);
 	     
      			if(n==1) {
 	     			

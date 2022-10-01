@@ -10,7 +10,7 @@
 
 String ctxPath = request.getContextPath();
 
-   List<AddressDTO> addressList = (List)request.getAttribute("addressList");
+  
 %>
 
 
@@ -113,6 +113,7 @@ String ctxPath = request.getContextPath();
 								
 								<div class="address_info">
 									<div class="name_box">
+									<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
 										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
 										<span class="mark">기본 배송지</span>
 									</div>
@@ -128,7 +129,7 @@ String ctxPath = request.getContextPath();
 							<div  class="btn_bind">
 								<%----%>
 								<a data-toggle="modal" data-target="#add_address" href="#"
-									class="btn_outlinegrey_small"  onclick="Revise_add()"> 수정 </a><a
+									class="btn_outlinegrey_small"  onclick="Revise_add()" id ="edit2"> 수정 </a><a
 								    href="#"  class="btn_outlinegrey_small" id="basic_delete">
 									삭제 </a>
 							</div>
@@ -139,21 +140,31 @@ String ctxPath = request.getContextPath();
 
 
 
-
+          
+          
+             
+          
 					<div class="other">
 						<div class="other_list">
 						
-						
+						 	
+				   	
+				          
+				   <form name="delete_add" method="post" >
 						<c:forEach var="adao" items="${requestScope.addressList}"> 
+					
+						   
+						
 							<%--for문 반복횟수는 태그라이브러리를 써서 하는데 var='리스트안에 들어있는 한개아이템' items='리스트이름' --%>
 							<%-- <c:forEach var="" items="${requestScope.addressList}"> --%>
-							<div class="my_item_is_active" id="active"
-								style="">
+							<div class="my_item_is_active" id="active" style="">
 							
-								<div class="info_bind">
+								<div class="info_bind" >
 						  
 								<div class="address_info">
 									<div class="name_box">
+									<input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>${adao.address_num}
+									    <%-- <span type="" name="address_num" value="${adao.address_num}"></span> --%>
 										<span id="basic_text" class="name">${adao.order_name}</span>
 										
 									</div>
@@ -165,28 +176,32 @@ String ctxPath = request.getContextPath();
 										 <span id="basic_text" class="address">${adao.address} ${adao.detail_address}</span>
 									</div>
 								</div>
-							</div>
+							   </div>
 							 	 
 								<div id="basic_text" class="btn_bind">
-									<a href="/member/basic_address.dream?address_num=" class="btn_outlinegrey_small"> 기본 배송지 </a>
-										<a data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
-										<a href="#"  id="delete" class="btn_outlinegrey_small" onclick="adress_delete()"> 삭제 </a>
+									<a href="#" class="btn_outlinegrey_small" id="go_basic"> 기본 배송지 </a>
+										<a id ="edit" data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
+										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
 								</div>
-						 	  
-							</div>
-							</c:forEach>	
+								
+								
+									
+							</div>		
+								
+						 	   
+							
+							
+							</c:forEach>
+							</form>
+						 	
 							<%--for문 --%>
 							
 							
 							
 							
+					        			
 							
-							
-							
-							
-							
-							
-							
+					
 
 
 
@@ -196,6 +211,18 @@ String ctxPath = request.getContextPath();
               
 </div>
 
+
+
+
+
+				<c:if test="${not empty requestScope.addressList}">
+						
+						     
+						       <div class="page_bind">
+								<a  href="/my/address?page=1"
+									class="btn_page_active" aria-label="1페이지"> 1 </a>
+							</div>
+				</c:if>		
 
 <%-------------------------------------------------------- 페이지번호 시작 ----------------------------------------------------------%>
 
@@ -223,10 +250,7 @@ String ctxPath = request.getContextPath();
 							<%---------------------첫 페이지 버튼 끝  -----------------------%>
 							
 							
-							<div class="page_bind">
-								<a  href="/my/address?page=1"
-									class="btn_page_active" aria-label="1페이지"> 1 </a>
-							</div>
+							
 							
 							
 							
@@ -274,8 +298,8 @@ String ctxPath = request.getContextPath();
  
              
 				<div class="modal modal_box layer lg " id="add_address" >
-				      
-					<div class="layer_container">
+				     
+					<div class="layer_container" >
 					  
 					  <button type="button" class="close passwdFindClose" data-dismiss="modal" >&times;</button>
 						<div class="layer_header">
@@ -291,13 +315,16 @@ String ctxPath = request.getContextPath();
 								  
 								  
 									<div class="input_box has_error">
+					
+									
+									<input type="hidden"  id = "address_num_modal" name="address_num" value=""/>
 										<h4 id="name" class="input_title">이름</h4>
 										<div class="input_item">
 											<input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" >
 										</div>
 										<span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
 									</div>
-									
+								
 									<div class="input_box">
 										<h4 id="mobile" class="input_title">휴대폰 번호</h4>
 										<div class="input_item">
@@ -313,7 +340,7 @@ String ctxPath = request.getContextPath();
 										<h4 class="input_title">우편번호</h4>
 										<div class="input_item">
 										<a href="#"  id="zipcodeSearch" class="btn btn_zipcode outline small;" onclick="openDaumPOST();"> 우편번호 </a>
-										<input type="text" id="postcode" value="우편번호밸류" name="post_code" size="6" maxlength="5" placeholder="우편 번호를 검색하세요" readonly/><br/>
+										<input type="text" id="postcode" value="ㅇㅇ" name="post_code" size="6" maxlength="5" placeholder="우편 번호를 검색하세요" readonly/><br/>
 											<%-- <input type="text" placeholder="우편 번호를 검색하세요"
 												readonly="readonly" autocomplete="off" class="input_txt"> --%>
 												
@@ -325,7 +352,7 @@ String ctxPath = request.getContextPath();
 									<div class="input_box">
 										<h4 class="input_title">주소</h4>
 										<div class="input_item" >
-										<input id="address" name="address" value="주소밸류" type="text" placeholder="우편 번호 검색 후,자동입력 됩니다." readonly>
+										<input id="address" name="address" value="ㅇㅇ" type="text" placeholder="우편 번호 검색 후,자동입력 됩니다." readonly>
 										
 										</div>
 									</div>
@@ -353,7 +380,8 @@ String ctxPath = request.getContextPath();
 							<div class="layer_btn">
 								<a href="#" class="btn btn_delete outlinegrey medium" data-dismiss="modal">
 									취소 </a>
-									<a href="#" class="btn btn_save solid medium" onclick="goRegister()"> 저장하기 </a>
+									<a href="#" class="btn btn_save solid medium" id="add_save" onclick="goRegister()"> 저장하기 </a>
+									<a href="#" class="btn btn_save solid medium" id="add_edit" onclick="goEdit()"> 수정하기 </a>
 							</div>
 							
 							

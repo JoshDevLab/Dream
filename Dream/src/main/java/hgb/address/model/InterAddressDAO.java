@@ -23,8 +23,20 @@ public interface InterAddressDAO {
 	int registerAddress(AddressDTO address) throws SQLException;
 
 
-
+	// 기본배송지가 아닌 주소록 목록을 불러오기
 	List<AddressDTO> selectAddress(String userid) throws SQLException;
+
+
+    // 주소록 삭제하기
+	int deleteAddress(AddressDTO address2) throws SQLException;
+
+
+    // 주소록 수정하기
+	int editAddress(AddressDTO address3) throws SQLException;
+
+
+    // 기본배송지로 변경해주기
+	int gobasicAddress(AddressDTO address4) throws SQLException;
 	
 	
 

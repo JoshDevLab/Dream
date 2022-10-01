@@ -180,13 +180,58 @@ $(document).ready(function(){
 	
 	/* 삭제버튼 클릭시 해당부분 div를 삭제해준다.  */
     $("a#delete").click( (event)=>{ 
+	
+	    let address_num ="";
+	    	
     	
     	const $target = $(event.target);    	
     	
-    	$target.parent().parent().remove(".my_item_is_active");    	
     	
+    	
+    	address_num = $target.parent().parent().find("#address_num").val();
+    	    	  	
+    	console.log(address_num);
+    	
+    	$("input#address_num").val(address_num);
+    	
+    	const frm = document.delete_add;
+		frm.action = "addressdelete.dream"
+		frm.method = "post";
+	    frm.submit();   	
+    	
+    	$target.parent().parent().remove(".my_item_is_active"); 
     });
+    
+    
+    
+    // 기본 배송지 버튼 클릭시 호출되는 함수
+	$("a#go_basic").click( (event)=>{ 
+		
+		
 	
+	    let address_num ="";	    	
+    	
+    	const $target = $(event.target);    	   	   	
+    	
+    	address_num = $target.parent().parent().find("#address_num").val();   	    	  	   	
+    	
+    	$("input#address_num").val(address_num);  	  
+    	
+    	console.log(address_num); 	  	    	
+    	
+    	const frm = document.delete_add;    
+	    frm.action = "addressgobasic.dream";
+	    frm.method = "post";
+	    frm.submit();	
+   
+    
+	
+});
+    
+    
+    
+    
+
 	
     
     $("a#basic_delete").click( (event)=>{ 
@@ -195,6 +240,46 @@ $(document).ready(function(){
     		
     });
     
+    
+    
+     // 기본배송지 아닌 수정버튼 클릭 이벤트
+    $("a#edit").click( (event)=>{ 
+    	
+    	let address_num ="";	
+    		
+    	const $target = $(event.target);    	    	    	
+    	
+    	address_num = $target.parent().parent().find("#address_num").val(); 
+    	
+    	console.log(address_num);
+    		
+		$("input#address_num_modal").val(address_num);	 	
+		
+		 
+		
+    	
+    });
+    
+    
+    // 기본배송지 수정버튼 클릭 이벤트
+    $("a#edit2").click( (event)=>{ 
+    	
+    	let address_num ="";		
+    	const $target = $(event.target);    	
+    	
+    	 address_num = $target.parent().parent().find("#address_num").val(); 
+    	
+    	console.log(address_num);
+    		
+		$("input#address_num_modal").val(address_num);	 
+		
+		
+		$("input#address").val();
+		
+		
+		
+    	
+    });
     
 
 });	// end of $(document).ready(function(){} -------------------------------	
@@ -206,6 +291,9 @@ $(document).ready(function(){
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function new_add() {
+	
+	$("a#add_edit").hide();	
+	$("a#add_save").show();
 	
 	$('#add_address').modal('show');
 
@@ -226,6 +314,10 @@ function new_add() {
 
 /* 수정 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function Revise_add() {
+
+	
+	$("a#add_save").hide();	
+	$("a#add_edit").show();
 	
 	$('#add_address').modal('show');
 
@@ -243,14 +335,19 @@ function Revise_add() {
 	/* 수정버튼 클릭시 이름,전화번호란은 비워주면서 저장되어있는 밸류값을 가져와준다  */
 	 $("div.input_item > input").val("");
 	
-	 $("input#address").val("주소 가져와본다");
-	 $("input#postcode").val("우편번호밸류 가져와본다"); 
-	 $("input#extraAddress").val("참고항목밸류  가져와본다"); 
-	 $("input#detailAddress").val("상세주소밸류 가져와본다"); 
+	 
 	/*              여기까지                                */
 	
 	/* console.log($("span.address").text()); */
 	
+	
+	
+	
+		 $("input#address").val("주소 가져와본다");
+		 $("input#postcode").val("우편번호 가져와본다");	 
+		 $("input#detailAddress").val("상세주소밸류 가져와본다"); 	
+	
+
 
 }// end of function Revise_add() {}------------------------	
 
@@ -314,6 +411,9 @@ function openDaumPOST() {
 
 
 
+
+
+
 //"저장하기" 버튼 클릭시 호출되는 함수  
 function goRegister() {
 	
@@ -371,12 +471,63 @@ function goRegister() {
 
 
 
-function address_delete() {
-	
-	action
-	
-}
 
+
+//"수정하기" 버튼 클릭시 호출되는 함수  
+function goEdit() {
+	
+	const name_length = $("input:text[name='order_name']").val().trim().length;
+	      if(name_length < 2) {
+	    	  alert("이름 형식에 맞지 않습니다!!");
+	    	  $("input:text[name='order_name']").val("").focus();
+	    	  return false; // submit 을 하지 않고 종료한다.
+	}
+	      
+    const mobile_length = $("input:text[name='mobile']").val().trim().length;
+    if(mobile_length < 11) {
+	    alert("전화번호 형식에 맞지않습니다 !!");
+	    $("input:text[name='mobile']").val("").focus();
+	    return false; // submit 을 하지 않고 종료한다.
+    }
+
+	// "우편번호찾기" 을 클릭했는지 여부 알아오기 
+    if(!b_flag_zipcodeSearch_click) { 
+    	// "우편번호찾기" 을 클릭 안 했을 경우 
+    	alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
+    	
+    	return; // 종료
+    }
+    else {
+    	// "우편번호찾기" 을 클릭을 했을 경우 
+    	
+        //	const regExp = /^\d{5}$/g;  
+		//  또는
+		    const regExp = new RegExp(/^\d{5}$/g);  
+            //  숫자 5자리만 들어오도록 검사해주는 정규표현식 객체 생성 
+            
+            const postcode = $("input:text[id='postcode']").val();
+            
+            const bool = regExp.test(postcode);
+            
+            if(!bool) {
+            	alert("우편번호 형식에 맞지 않습니다.");
+            	$("input:text[id='postcode']").val("");
+            	b_flag_zipcodeSearch_click = false;
+            	return; // 종료
+            }                       
+    }
+	
+    const frm = document.registerFrm;    
+    
+    
+    frm.action = "addressedit.dream";
+    frm.method = "post";
+    frm.submit();
+   
+    
+
+	
+}// end of function goRegister()----------------------
 
 
 

@@ -10,9 +10,7 @@ import hgb.address.model.AddressDAO;
 import hgb.address.model.AddressDTO;
 import hgb.address.model.InterAddressDAO;
 
-
-
-public class AddressRegisterController extends AbstractController{
+public class AddressGoBasicController extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -26,21 +24,20 @@ public class AddressRegisterController extends AbstractController{
 		}
 		
 		else {
-			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
-			 String order_name = request.getParameter("order_name"); 				
-			 String mobile = request.getParameter("mobile"); 
-			 String post_code = request.getParameter("post_code"); 
-			 String address = request.getParameter("address"); 	         
-	         String detail_address = request.getParameter("detail_address"); 	         	         	         	         
-	                 	         	         	         
+			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)			  	         	         	         	         
+			
+			
+	         String address_num = request.getParameter("address_num"); 	         	         	         	         
+	                  	         	         
 	         
-             AddressDTO address1 = new AddressDTO(order_name, mobile, post_code, address, detail_address);
+             AddressDTO address4 = new AddressDTO(address_num);
+             
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         
 			 
 	         try {
-	        	 int n = adao.registerAddress(address1);
+	        	 int n = adao.gobasicAddress(address4);
 	     
      			if(n==1) {
 	     			
@@ -60,9 +57,6 @@ public class AddressRegisterController extends AbstractController{
 			
 			
 		}
-		
-		
-
 		
 	}
 

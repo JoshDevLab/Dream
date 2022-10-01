@@ -127,9 +127,11 @@ public class AddressDAO implements InterAddressDAO {
 				  conn = ds.getConnection();
 			  
 			      String sql = " select * from tbl_address " 
-			                 + " where userid = ? and basic_address = 0 ";
+			                 + " where userid = ? and basic_address = 1 ";
 				  
-				  pstmt = conn.prepareStatement(sql); pstmt.setString(1,userid);
+				  pstmt = conn.prepareStatement(sql); 
+				  
+				  pstmt.setString(1,userid);
 				  
 				  rs = pstmt.executeQuery();
 				  
@@ -137,6 +139,7 @@ public class AddressDAO implements InterAddressDAO {
 					  
 				  adto = new AddressDTO();
 				  
+				  adto.setAddress_num(rs.getString("ADDRESS_NUM"));
 				  adto.setAddress(rs.getString("ADDRESS"));
 				  adto.setDetail_address(rs.getString("DETAIL_ADDRESS"));
 				  adto.setMobile(rs.getString("MOBILE"));
@@ -152,7 +155,7 @@ public class AddressDAO implements InterAddressDAO {
 			  
 			  
 			  
-
+            // 기본배송지가 아닌 주소록 목록을 불러오기
 			@Override
 			public List<AddressDTO> selectAddress(String userid) throws SQLException{
 				
@@ -178,11 +181,13 @@ public class AddressDAO implements InterAddressDAO {
 					  
 				  adto = new AddressDTO();
 				  
+				  adto.setAddress_num(rs.getString("ADDRESS_NUM"));
 				  adto.setAddress(rs.getString("ADDRESS"));
 				  adto.setDetail_address(rs.getString("DETAIL_ADDRESS"));
 				  adto.setMobile(rs.getString("MOBILE"));				
 				  adto.setOrder_name(rs.getString("ORDER_NAME"));
 				  adto.setPost_code(rs.getString("POST_CODE")); 
+				   
 
 				  addressList.add(adto);
 				  
@@ -193,68 +198,145 @@ public class AddressDAO implements InterAddressDAO {
 				  
 			} finally {
 				  close(); 
-			  } return addressList;
-			 
+			} 
+				
+				return addressList;								
+			}
 			
 			
-			}	
+			
+			
+            // 주소록 삭제하기
+			@Override
+			public int deleteAddress(AddressDTO address2) throws SQLException {
+				
+				int result = 0;				
+				
+				try {
+					conn = ds.getConnection();
+					
+					String sql = " delete from tbl_address "
+							   + " where address_num = ? ";
+							   
+					
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, address2.getAddress_num()); 										
+								
+					
+					result = pstmt.executeUpdate();
+					
+				} catch(SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+				
+				
+				
+				return result;
+			}
+			
+			
+            // 주소록 수정하기
+			@Override
+			public int editAddress(AddressDTO address3) throws SQLException {
+
+				int result = 0;
+				
+				
+				try {
+					conn = ds.getConnection();
+					
+					String sql = " update tbl_address "
+							   + " set order_name = ?, post_code = ?, detail_address = ?, address = ?, mobile = ? "
+							   + " where address_num = ? ";
+							   
+					
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, address3.getOrder_name());
+					pstmt.setString(2, address3.getPost_code());	
+					pstmt.setString(3, address3.getDetail_address());				
+					pstmt.setString(4, address3.getAddress());										
+					pstmt.setString(5, address3.getMobile());  
+					pstmt.setString(6, address3.getAddress_num()); 
+					
+								
+					
+					result = pstmt.executeUpdate();
+					
+				} catch(SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+				
+				
+				
+				return result;
+			}
+			
+			
 			
 
 			
 			
-			
-			
-			/*
-			 * // 기본배송지가 아닌 주소들을 셀렉트 해오는 메소드
-			 * 
-			 * @Override public List<AddressDTO> no_selectPagingMember(Map<String, String>
-			 * paraMap) throws SQLException{
-			 * 
-			 * List<AddressDTO> adressList = new ArrayList<>();
-			 * 
-			 * AddressDTO adto = null; try { conn = ds.getConnection();
-			 * 
-			 * String sql = " select * from tbl_address " +
-			 * " where userid = ? and basic_address = '0' " + " order by address_num ";
-			 * 
-			 * 
-			 * pstmt = conn.prepareStatement(sql); pstmt.setString(1,);
-			 * 
-			 * // pstmt.setInt(1,); // 공식
-			 * 
-			 * rs = pstmt.executeQuery();
-			 * 
-			 * adressList = new ArrayList<>();
-			 * 
-			 * if(rs.next()) {
-			 * 
-			 * adto = new AddressDTO();
-			 * 
-			 * adto.setAddress(rs.getString("ADDRESS"));
-			 * adto.setDetail_address(rs.getString("DETAIL_ADDRESS"));
-			 * adto.setMobile(rs.getString("MOBILE"));
-			 * adto.setOrder_name(rs.getString("ORDER_NAME"));
-			 * adto.setPost_code(rs.getString("POST_CODE"));
-			 * 
-			 * adressList.add(adto);
-			 * 
-			 * }// end of if
-			 * 
-			 * } finally { close(); }
-			 * 
-			 * 
-			 * return adto; }
-			 */
-			
-			
-			
-			
-			
-			
+			// 기본배송지로 변경해주기
+			@Override
+			public int gobasicAddress(AddressDTO address4) throws SQLException {
+				
+				int result = 0;
+				
+				try {
+					conn = ds.getConnection();
+					
+					String sql = " update tbl_address "
+						       + " set basic_address = '0' "
+							   + " where basic_address = '1' ";
+							   
+							   
+					
+					pstmt = conn.prepareStatement(sql);
+								
+					result = pstmt.executeUpdate();					
+					
+					
+					sql =        " update tbl_address "
+							   + " set basic_address = '1' "
+							   + " where address_num = ? ";
+					
+					
+					pstmt = conn.prepareStatement(sql);
+					
+					
+					pstmt.setString(1, address4.getAddress_num()); 
+									
+								
+					
+					result = pstmt.executeUpdate();
+					
+					
+					
+				} catch(SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+				
+				
+				
+				return result;
+			}	
 			
 			
 			
 			
 			
+			
+			
+			
+			
+
 			
 }

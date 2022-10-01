@@ -32,6 +32,7 @@ public class AddressController extends AbstractController{
 //			String userid = (String)session.getAttribute("userid");
 			String userid = "josh@gmail.com";
 			
+			
 			// 기본배송지 하나 가져오기(한개)
 			InterAddressDAO adao = new AddressDAO();
 			
@@ -40,6 +41,7 @@ public class AddressController extends AbstractController{
 			List<AddressDTO> addressList = adao.selectAddress(userid);
 			
 			AddressDTO basic_adto = adao.select_basic_address(userid);
+			AddressDTO address_num = adao.select_basic_address(userid);
 			String basic_mobile = basic_adto.getMobile();
 			
 			
@@ -56,7 +58,7 @@ public class AddressController extends AbstractController{
 			request.setAttribute("basic_second_mobile", basic_second_mobile);
 			request.setAttribute("basic_third_mobile", basic_third_mobile);
 			request.setAttribute("basic_adto", basic_adto);		
-			
+			request.setAttribute("address_num", address_num);
 			
 			
 			// 기본배송지가 아닌것들 가져오기(여러개) 여러개니까 리스트로 가져오는데, 리스트 안에 들어가는것은 AddressDTO
