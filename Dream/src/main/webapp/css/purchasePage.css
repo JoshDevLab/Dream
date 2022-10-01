@@ -203,7 +203,7 @@ img.way_img, div.way_status_thumb{
 
 .section_input .btn_use_credit.disabled {
   background: rgba(34,34,34,.2);
-  cursor: not-allowed;
+
 }
 
 .section_input .btn_use_credit{

@@ -38,7 +38,7 @@ public class PurchasePageController extends AbstractController {
 			
 			for(int i=0; i<length ;i++) {
 				sizeArr.add((String)request.getParameter("size"+i)); 
-				cntArr.add((String)request.getParameter("cnt"+i)); 
+				cntArr.add((String)request.getParameter	("cnt"+i)); 
 			}
 			
 			System.out.println("sizeArr"+sizeArr);
@@ -59,6 +59,8 @@ public class PurchasePageController extends AbstractController {
 			user = mdao.pointCheck(sessionUserid);
 			
 			request.setAttribute("user", user);
+			System.out.println("fullPrice"+request.getParameter("fullPrice"));
+			request.setAttribute("fullPrice",request.getParameter("fullPrice"));
 			
 			// 선택한 제품의 정보도 가져갈 예정
 			

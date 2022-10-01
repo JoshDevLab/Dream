@@ -216,69 +216,81 @@ public class MemberDAO implements InterMemberDAO {
 		MemberVO mvo = new MemberVO();
 
 		try {
-			// 여기서부터 포인트전까지 조쉬거 훔쳐옴
-			conn = ds.getConnection();
 			
-			String sql = " select A.userid, mobile, username, membership\n"
-					    + " from\n"
-					    + " (\n"
-						+ " select userid, mobile, username, membership\n"
-						+ " from tbl_member\n"
-						+ " )A\n"
-						+ " join\n"
-						+ " (\n"
-						+ " select userid, passwd\n"
-						+ " from tbl_member_login\n"
-						+ " )B\n"
-						+ " on A.userid = B.userid\n"
-						+ " where A.userid = ? ";
+			conn = ds.getConnection();
+			String sql = " update tbl_point set status = '만료' "+
+					"   where point_exp_period <=  sysdate" ;
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, sessionUserid);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				mvo.setUserid(rs.getString(1));
-				mvo.setMobile(rs.getString(2));
-				mvo.setUsername(rs.getString(3));
-				mvo.setMembership(rs.getInt(4));
-			}
-			
-			// 포인트
-			
-			conn = ds.getConnection();
-			
-			String sql2 = " SELECT SUM(CASE WHEN  status = '적립' THEN point_amount "+
-					"        WHEN  status = '차감' THEN -point_amount "+
-					"        else 0 END) "+
-					" FROM tbl_point "+
-					" where userid = ? ";
-			
-			pstmt = conn.prepareStatement(sql2);
-			
-			pstmt.setString(1, sessionUserid); // 세션 아이디값
+				// 포인트 업데이트가 성공하면
+				
+				// 여기서부터 포인트전까지 조쉬거 훔쳐옴
+				conn = ds.getConnection();
+				
+				sql = " select A.userid, mobile, username, membership\n"
+						    + " from\n"
+						    + " (\n"
+							+ " select userid, mobile, username, membership\n"
+							+ " from tbl_member\n"
+							+ " )A\n"
+							+ " join\n"
+							+ " (\n"
+							+ " select userid, passwd\n"
+							+ " from tbl_member_login\n"
+							+ " )B\n"
+							+ " on A.userid = B.userid\n"
+							+ " where A.userid = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, sessionUserid);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					mvo.setUserid(rs.getString(1));
+					mvo.setMobile(rs.getString(2));
+					mvo.setUsername(rs.getString(3));
+					mvo.setMembership(rs.getInt(4));
+				}
+				
+				// 포인트
+				
+				conn = ds.getConnection();
+				
+				String sql2 = " SELECT SUM(CASE WHEN  status = '적립' THEN point_amount "+
+						"        WHEN  status = '차감' THEN -point_amount "+
+						"        else 0 END) "+
+						" FROM tbl_point "+
+						" where userid = ? ";
+				
+				pstmt = conn.prepareStatement(sql2);
+				
+				pstmt.setString(1, sessionUserid); // 세션 아이디값
 
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				// 내역 없어도 sum 이라 한행이 나옴
-				// 근데 내역이 하나도 없으면 null 나옴
+				rs = pstmt.executeQuery();
 				
-				if( rs.getString(1) != null) {
-					// 내역이 존재한 경우에는 총합값을 저장
-					mvo.setPoint(rs.getInt(1));
+				if(rs.next()) {
+					// 내역 없어도 sum 이라 한행이 나옴
+					// 근데 내역이 하나도 없으면 null 나옴
+					
+					if( rs.getString(1) != null) {
+						// 내역이 존재한 경우에는 총합값을 저장
+						mvo.setPoint(rs.getInt(1));
+					}
+					else {
+						// 내역이 없는 경우에는 0 을 저장
+						mvo.setPoint(0);
+					}
+					
 				}
-				else {
-					// 내역이 없는 경우에는 0 을 저장
-					mvo.setPoint(0);
-				}
-				
 			}
-			
-			
-			
+
 			
 			
 		} finally {

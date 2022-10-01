@@ -303,6 +303,7 @@ function goPurchasePage(){
 	
 	// 일단 선택한 옵션의 사이즈 배열과 갯수 배열을 각각 만들어보자자자자자자자자자ㅏ자자자ㅏ자자
 	
+
 	let length = $("div#added_option").length;
 	let added_optionName = document.getElementsByName("optionName");
 	
@@ -392,10 +393,11 @@ function goPurchasePage(){
 				html +=`<input type="hidden" name="length" value="${length}"  />`
 				
 				console.log(html);
-				$("form#temporaryCart").empty();
+				
+				$("div#asd").empty();
 				
 				var frm = document.temporaryCart; 
-				$("form#temporaryCart").append(html);
+				$("form#temporaryCart>div#asd").append(html);
 				frm.method = "post";
 				frm.action = getContextPath()+"/member/purchasePage.dream";
 		

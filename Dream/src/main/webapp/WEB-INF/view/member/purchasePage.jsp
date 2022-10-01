@@ -59,7 +59,7 @@
 			        
 				
 			          	
-			          	 <li>
+			          	 <li id="SeletedOption">
 			          	 		<p class="size_txt">${size}</p>
 			          	 		<p class="size_txt">${product.order_product_cnt[status.index]}</p>
 			  			</li>
@@ -123,8 +123,8 @@
         </div>
         <div class="section_content">
           <div class="section_input">
-            <input placeholder="0" disabled="disabled" class="input_credit">
-            <button class="btn_use_credit disabled"> 모두 사용 </button>
+            <input placeholder="0" id="point" class="input_credit"></input>
+            <button  id="pointAlluse" class="btn_use_credit disabled"> 모두 사용 </button>
           </div>
           <div class="info_point">
             <div>
@@ -161,7 +161,7 @@
               </li>
               <li>
                  <span id="span_point" class="span_title">포인트</span>
-                 <span>-</span>
+                 <span id = "span_point_amount">-</span>
               </li>
               <li>
                  <span id="span_ship_price" class="span_title">배송비</span>
@@ -195,7 +195,7 @@
               <input class = "aaaa" name="li_check" id="checkbox_3" type="checkbox" />
            </li>
            <li>
-              <span class="total_amount">총결제금액</span><span>-</span>
+              <span class="total_amount">총결제금액</span><span>${requestScope.fullPrice}</span>
            </li>
            <li>
               <a id="payment">결제하기</a>
@@ -213,7 +213,35 @@
 
   </div>
 
+<form id= "goPurchase" name="goPurchase">
+    <input type="hidden" id="productName" name="productName" value="${product.product_name}"  />
+	<input type="hidden" id="fullPrice" name="fullPrice" value="${requestScope.fullPrice}"  />
+	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
+					 
+</form>
 
+<form id= "goUpdate" name="goUpdate">
+	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
+    <input type="hidden" id="productNum" name="productNum" value="${product.product_num}"  />
+	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}"  />
+	<input type="hidden" id="PointMinus" name="PointMinus" value="0"/>
+	
+	<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
+	
+		<input type="hidden" id="size" name="size${status.index}" value="${size}"/>
+		<input type="hidden" id="cnt" name="cnt${status.index}" value="${product.order_product_cnt[status.index]}"/>	          				          	
+		
+   	</c:forEach>
+   	
+	
+	
+	<input type="hidden" id="length" name="length" value=""/>
+	<input type="hidden" id=event_type name="event_type" value=""/>
+
+	
+	
+						 
+</form>
 
 
 

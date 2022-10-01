@@ -361,10 +361,10 @@
   
   <jsp:include page="/WEB-INF/view/footer.jsp" />
   
- <form id=temporaryCart name="temporaryCart">
+ <form id="temporaryCart" name="temporaryCart">
     <input type="hidden" id="discountPrice" name="discountPrice" value="${product.discountPrice}"  />
-	<input type="hidden" id="fullPrice" name="fullPrice" value="0"  />
-					 
+	<input type="hidden" id="fullPrice" name="fullPrice" value="" />
+		<div id="asd"></div>			 
 </form>
 
 
