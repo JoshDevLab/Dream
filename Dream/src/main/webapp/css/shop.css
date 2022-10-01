@@ -164,10 +164,16 @@ div.filter_status{
 div.filter_title{
   height:73px;
 }
+
 select#sort_option{
   margin-left:auto;
   height:40px;
   width:90px;
+}
+
+label#sort_option_label{
+  font-size:small;
+  color:darkgray;	
 }
 
 span#main_title{
@@ -236,7 +242,6 @@ div#product_sale_price{
     font-size:16px;
   }
 }
-
 
 button#discount{
   z-index:-1;
@@ -331,6 +336,22 @@ button.price:hover{
   background: black;
   border-color:black;
   color: white;
+}
+
+
+#btn_like{
+  width:35px;
+  height:35px;
+  position:absolute;
+  bottom:10%;
+  left:72%;
+}
+#btn_like:hover{
+  color:pink;
+}
+i.fa-heart{
+  position:relative;
+  top:5px;
 }
 
 

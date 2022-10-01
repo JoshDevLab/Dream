@@ -22,6 +22,7 @@
 	sessionStorage.setItem("sort",'${requestScope.sort}');
 	sessionStorage.setItem("start_price",'${requestScope.start_price}');
 	sessionStorage.setItem("end_price",'${requestScope.end_price}');
+	sessionStorage.setItem("page",'${requestScope.page}');
 	<%-- 
 	sessionStorage.setItem("display_cnt", '${requestScope.display_cnt}');
 	sessionStorage.setItem("display_page", '${requestScope.display_page}');
@@ -77,13 +78,13 @@
 	            <span id="place_holder">카테고리 필터</span>
 	          </div>
 	          <a type="button" class="btn_toggle_filter">
-	            <i class="plus_icon fa-solid fa-plus" style="color:black;"></i>
-	            <i class="minus_icon fa-solid fa-minus" style="color:black;"></i>
+	            <i id="category_icon_plus" class="plus_icon fa-solid fa-plus" style="color:black;"></i>
+	            <i id="category_icon_minus" class="minus_icon fa-solid fa-minus" style="color:black;"></i>
 	          </a>
 	        </div>
 	
 	        <%-- 카테고리 토글부분 --%>
-	        <form class="togglebox" action="">
+	        <form id="category_toggle" class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
 	              <input type="radio" name="category" id="all">
@@ -117,13 +118,13 @@
 	            <span id="place_holder">BEST상품 필터</span>
 	          </div>
 	          <a type="button" class=btn_toggle_filter >
-	            <i class="plus_icon fa-solid fa-plus" style="color:black;"></i>
-	            <i class="minus_icon fa-solid fa-minus" style="color:black;"></i>
+	            <i id="category_bestyn_plus" class="plus_icon fa-solid fa-plus" style="color:black;"></i>
+	            <i id="category_bestyn_minus" class="minus_icon fa-solid fa-minus" style="color:black;"></i>
 	          </a>
 	        </div>
 	
 	        <%-- BEST상품 토글부분 --%>
-	        <form class="togglebox" action="">
+	        <form id="bestyn_toggle" class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
 	              <input type="checkbox" name="bestyn" id="bestyn">
@@ -141,13 +142,13 @@
 	            <span id="place_holder">성별 필터</span>
 	          </div>
 	          <a type="button" class="btn_toggle_filter">
-	            <i class="plus_icon fa-solid fa-plus" style="color:black;"></i>
-	            <i class="minus_icon fa-solid fa-minus" style="color:black;"></i>
+	            <i id="gender_icon_plus" class="plus_icon fa-solid fa-plus" style="color:black;"></i>
+	            <i id="gender_icon_minus" class="minus_icon fa-solid fa-minus" style="color:black;"></i>
 	          </a>
 	        </div>
 	
 	        <%-- 성별 토글부분 --%>
-	        <form class="togglebox" action="">
+	        <form id="gender_toggle" class="togglebox" action="">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
 	              <input type="radio" name="gender" id="man">
@@ -173,17 +174,17 @@
 	            <span id="place_holder">모든 가격</span>
 	          </div>
 	          <a type="button" class="btn_toggle_filter">
-	            <i class="plus_icon fa-solid fa-plus" style="color:black;"></i>
-	            <i class="minus_icon fa-solid fa-minus" style="color:black;"></i>
+	            <i id="price_icon_plus" class="plus_icon fa-solid fa-plus" style="color:black;"></i>
+	            <i id="price_icon_minus" class="minus_icon fa-solid fa-minus" style="color:black;"></i>
 	          </a>
 	        </div>
 	
 	
 	        <%-- 가격 토글부분 --%>
-	        <form class="togglebox" action="">
+	        <form id="price_toggle"class="togglebox">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
-	              <p style="font-size:13px;"><i class="fa-solid fa-circle-info mr-1"></i>  가격대를 입력해주세요</p>
+	              <p id="price_search_info" style="font-size:13px;"><i class="fa-solid fa-circle-info mr-1"></i>  가격대를 입력해주세요<br><span style="font-size:8px; color:darkgray">※ 전체가격대 검색시<br>&nbsp&nbsp&nbsp칸을 비워주세요</span></p>
 	            </div>
 	            <div>
 	              <input type="text" name="start_price" id="start_price" placeholder="최저가격(숫자만입력)">
@@ -212,8 +213,8 @@
 	      <div class="productList pl-md-4">
 	        <%-- 정렬옵션 --%>
 	        <div class="sort_option text-right">
+	          <label id="sort_option_label" class="mr-1">정렬옵션</label>
 	          <select name="sort_option" id="sort_option" class="border rounded">
-	            <option value="정렬옵션">정렬옵션</option>
 	            <option>전체</option>
 	            <option>인기순</option>
 	            <option>업로드순</option>
@@ -239,7 +240,7 @@
 		            <a id="${product.product_num}" class="product" href="<%=ctxPath %>/product/detail.dream?num=${product.product_num}"><%-- id값에 제품번호 넣기!!!!*** --%>
 		              <div class="product">
 		                <div class="product_imgbox border">
-		                  <%-- <img src="<%=ctxPath %>/images/${product.product_image}"> --%>
+		                  <img id="product_img" src="<%=ctxPath %>/images/제품이미지/${product.product_image}">
 		                </div>
 		                <div id="product_simple_explain">
 		                  <%-- 상품 카테고리 넣을 곳 --%>
@@ -270,6 +271,7 @@
 		                </div>
 		              </div>
 		            </a>
+		            <div type="button" id="btn_like" class="border rounded text-center"><i class="fa-solid fa-heart"></i></div>
 		          </div>
 	          </c:forEach>
 	          
@@ -288,7 +290,7 @@
 		    	<%-- 첫페이지로 이동버튼 --%>
 		    	<c:if test="${requestScope.page > requestScope.display_page}">
 		    	<li class="page-item">
-			      <a class="page-link" href="?p=1">
+			      <a type="button" class="page-link" onclick="goPage('1');">
 			      	<i class="fa-solid fa-angles-left"></i>
 			      </a>
 			    </li>
@@ -296,7 +298,7 @@
 			    
 			    <%-- 전페이지로 이동버튼 --%>
 			    <li class="page-item">
-			      <a class="page-link" href="?p=${requestScope.startPage-1}">
+			      <a type="button" class="page-link" onclick="goPage('${requestScope.startPage-1}');">
 			      	<i class="fa-solid fa-angle-left"></i>
 			      </a>
 			    </li>
@@ -306,13 +308,13 @@
 			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
                 <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
                 <li class="page-item active" aria-current="page">
-			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    	<a type="button" class="page-link" onclick="goPage('${requestScope.startPage+i.count-1}')">${requestScope.startPage+i.count-1}</a>
 			    </li>
                 </c:if>
                 
                 <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
                 <li class="page-item">
-			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    	<a type="button" class="page-link" onclick="goPage('${requestScope.startPage+i.count-1}')">${requestScope.startPage+i.count-1}</a>
 			    </li>
                 </c:if>
                 </c:forEach>
@@ -323,11 +325,11 @@
 			    <%-- 다음페이지로 이동버튼 --%>
 			    <c:if test="${!(requestScope.last_display_page)}">
 			    <li class="page-item">
-			      <a class="page-link" href="?p=${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
+			      <a type="button" class="page-link" onclick="goPage('${requestScope.startPage+requestScope.display_page}')"><i class="fa-solid fa-angle-right"></i></a>
 			    </li>
 			    <%-- 맨 끝페이지로 이동버튼 --%>
 			    <li class="page-item">
-			      <a class="page-link" href="?p=${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
+			      <a type="button" class="page-link" onclick="goPage('${requestScope.totalPage}')"><i class="fas fa-solid fa-angles-right"></i></a>
 			    </li>
 			    </c:if>
 		  	</ul>

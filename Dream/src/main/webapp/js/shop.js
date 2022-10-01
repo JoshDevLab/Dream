@@ -19,7 +19,7 @@ if(sessionStorage.getItem("category").trim() != ""){
 //detail_category
 const detail_category_start_idx = URL.indexOf('=',URL.indexOf('detail_category'))+1;
 const detail_category_last_idx = URL.indexOf('&',detail_category_start_idx);
-let detail_category_val = "";
+let detail_category_val = "전체";
 if(sessionStorage.getItem("detail_category").trim() != ""){
 	detail_category_val = sessionStorage.getItem("detail_category").trim();
 }
@@ -63,24 +63,31 @@ if(sessionStorage.getItem("end_price").trim() != ""){
 //sort
 const sort_start_idx = URL.indexOf('=',URL.indexOf('sort'))+1;
 const sort_last_idx = URL.indexOf('&',sort_start_idx);
-let sort_val = "";
+let sort_val = "전체";
 if(sessionStorage.getItem("sort").trim() != ""){
 	sort_val = sessionStorage.getItem("sort").trim();
 }
 
 
 //page
+const page_start_idx = URL.indexOf('p=')+2;
+const page_last_idx = URL.indexOf('&',page_start_idx);
+let page_val = "1";
+if(sessionStorage.getItem("page").trim() != ""){
+	page_val = sessionStorage.getItem("page").trim();
+}
 
 //URL관련 변수선언 끝
 
 $("document").ready(function(){
+	
       // 변수선언
       const btn_toggle_filter = $("a.btn_toggle_filter");
       const plus_icon = $("i.plus_icon");
       const minus_icon = $("i.minus_icon");
       
-      
       $("form.togglebox").hide();
+      
       minus_icon.hide();
       // 사이드필터에서 토글버튼() 클릭시 토글부분을 보여주는 함수
       btn_toggle_filter.click(function(e){
@@ -104,6 +111,32 @@ $("document").ready(function(){
         target.hide();
         target.prev().show();
       });//end of btn_toggle_filter.click(function(e){}--
+      
+      
+      
+      
+      // 필터조건을 주었다면 필터조건 준 부분 토글박스 보이게 만들기
+      if(category_val != '전체'){
+		$("form#category_toggle").show();
+		$("i#category_icon_plus").hide();
+		$("i#category_icon_minus").show();
+      }
+      if(bestyn_val != 'N'){
+		$("form#bestyn_toggle").show();
+		$("i#bestyn_icon_plus").hide();
+		$("i#bestyn_icon_minus").show();
+      }
+      if(gender_val != '없음'){
+		$("form#gender_toggle").show();
+		$("i#gender_icon_plus").hide();
+		$("i#gender_icon_minus").show();
+      }
+      if(start_price_val != "" || end_price_val != ""){
+		$("form#price_toggle").show();
+		$("i#price_icon_plus").hide();
+		$("i#price_icon_minus").show();
+      }
+      
       
       
       // ===== sidefilter 부분 javascript 끝 ===== //
@@ -140,11 +173,6 @@ $("document").ready(function(){
 	  }
 
 
-      // selet 태그에서 첫번째 옵션 값을 숨기는 함수 
-      $("select#sort_option").click(e=>{
-          $("select#sort_option").children("option[value='정렬옵션']").prop("hidden",true);
-      });
-      
       
       //카테고리 라디오버튼 값이 변경시 버튼에 클릭트리거
       $("input:radio[name='category']").change(e=>{
@@ -161,6 +189,20 @@ $("document").ready(function(){
 	  $("input#start_price").val(start_price_val);
 	  $("input#end_price").val(end_price_val);
 	  
+	  switch (sort_val){
+		case '인기순':
+		   $("select#sort_option option:eq(1)").attr("selected", "selected");
+		  break;
+		case '업로드순':
+		   $("select#sort_option option:eq(2)").attr("selected", "selected");
+		  break;
+		case '최저가순':
+		   $("select#sort_option option:eq(3)").attr("selected", "selected");
+		  break;
+		default:
+		   $("select#sort_option option:eq(0)").attr("selected", "selected");
+		  break;
+	  }
 	  
 	  
 	  //카테고리를 무엇을 선택했는지에 따라서 디테일카테고리이미지 넣기
@@ -374,12 +416,40 @@ $("document").ready(function(){
 	  $("button.btn_fillter").click(e=>{
 		const target = $(e.target);
 		const val = target.text();
+	    const detail_category_length = detail_category_val.length;
+	    const page_length = page_val.length;
+	    if(URL.indexOf('detail_category=') != -1){
+	      let first_URL = URL.substring(0,URL.indexOf('detail_category=')-1);
+	      let last_URL = URL.substring(detail_category_start_idx + detail_category_length);
+	      URL = first_URL + last_URL;
+	    }
+	    if(URL.indexOf('?p=') != -1){
+	      let first_URL = URL.substring(0,URL.indexOf('p='));
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
+	    else if (URL.indexOf('&p=') != -1){
+		  let first_URL = URL.substring(0,URL.indexOf('p=')-1);
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
 		btn_filterClick(val);
 		return;
 	  });
 	  
 	  //bestyn 라디오 버튼 값이 변경시 이벤트 잡기
       $("input:checkbox[name='bestyn']").change(e=>{
+	    const page_length = page_val.length;
+	    if(URL.indexOf('?p=') != -1){
+	      let first_URL = URL.substring(0,URL.indexOf('p='));
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
+	    else if (URL.indexOf('&p=') != -1){
+		  let first_URL = URL.substring(0,URL.indexOf('p=')-1);
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
 		if($("input:checkbox[name='bestyn']").is(":checked")){//bestyn을 체크했을 경우
 		  bestynCheck();
 		  return;
@@ -393,6 +463,17 @@ $("document").ready(function(){
 	  
 	  //gender 라디오 버튼 값이 변경시 이벤트 잡기
       $("input:radio[name='gender']").change(e=>{
+	    const page_length = page_val.length;
+	    if(URL.indexOf('?p=') != -1){
+	      let first_URL = URL.substring(0,URL.indexOf('p='));
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
+	    else if (URL.indexOf('&p=') != -1){
+		  let first_URL = URL.substring(0,URL.indexOf('p=')-1);
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
 		const target = $(e.target);
 		const val = target.next().text();
 		genderChange(val);
@@ -406,27 +487,34 @@ $("document").ready(function(){
 	  $("input#end_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
 	  //가격대로 검색 버튼 클릭시 이벤트
 	  $("button#btn_price_search").click(e=>{
+		
 		const input_start_price = $("input#start_price");
 		const input_end_price = $("input#end_price");
-		const start_price = input_start_price.val();
-		const end_price = input_end_price.val();
+		let start_price = input_start_price.val();
+		let end_price = input_end_price.val();
 		if(parseInt(start_price) > parseInt(end_price)){	//시작가격이 끝 가격보다 높다면
 		  alert("최고가격은 최저가격보다 높아야 합니다!");
 		  input_end_price.val("");
 		  input_end_price.focus();
 		  return;
 		}
-		else if(start_price == ""){  //최저가격을 입력하지 않은경우
-		  alert("최저가격을 입력해주세요!");
-		  input_start_price.focus();
-		  return;
-		}
-		else if(end_price == "") {//최고가격을 입력하지 않은경우
+		else if(start_price != "" && end_price == "") {//최고가격을 입력하지 않은경우
 		  alert("최고가격을 입력해주세요!");
 		  input_end_price.focus();
 		  return;
 		}
 		else{	//정상적으로 입력했을 경우
+		  const page_length = page_val.length;
+		  if(URL.indexOf('?p=') != -1){
+	        let first_URL = URL.substring(0,URL.indexOf('p='));
+	        let last_URL = URL.substring(page_start_idx + page_length);
+	        URL = first_URL + last_URL;
+	      }
+	      else if (URL.indexOf('&p=') != -1){
+		    let first_URL = URL.substring(0,URL.indexOf('p=')-1);
+	        let last_URL = URL.substring(page_start_idx + page_length);
+	        URL = first_URL + last_URL;
+	      }
 		  search_price(start_price,end_price);
 		  return;
 		}
@@ -437,6 +525,7 @@ $("document").ready(function(){
 	  $("button#btn_price_clear").click(e=>{
 		$("input#start_price").val("");
 		$("input#end_price").val("");
+		
 	  });
 	  
 	  
@@ -445,7 +534,6 @@ $("document").ready(function(){
 	  $("a.detail_category").click(e=>{
         const target = $(e.currentTarget);	//이벤트버블링방지 currentTarget 사용
         const detail_category = target.children().children("p.details_category_name").text().trim();
-        alert(detail_category);
         detail_categoryClick(detail_category);
 	  });
 	  
@@ -453,9 +541,25 @@ $("document").ready(function(){
 	  $("select#sort_option").change(e=>{
 		const target = $(e.target);
 		const sort = target.val();
-		alert("셀렉트태그 체인지이벤트 잡힘");
-		alert("값은 : "+ sort);
+		const page_length = page_val.length;
+		if(URL.indexOf('?p=') != -1){
+	      let first_URL = URL.substring(0,URL.indexOf('p='));
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
+	    else if (URL.indexOf('&p=') != -1){
+		  let first_URL = URL.substring(0,URL.indexOf('p=')-1);
+	      let last_URL = URL.substring(page_start_idx + page_length);
+	      URL = first_URL + last_URL;
+	    }
 		sortChange(sort);
+	  });
+	  
+	  
+	  //좋아요 버튼 클릭시 이벤트 잡기
+	  $("div#btn_like").click(e=>{
+		const target = $(e.currentTarget);	//이벤트버블링방지 currentTarget 사용
+		target.css("color","pink");
 	  });
 	  
 	  
@@ -487,6 +591,7 @@ $("document").ready(function(){
 	    URL.indexOf('gender=') == -1 &&
 	 	URL.indexOf('start_price=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,category_start_idx)+val;
@@ -502,6 +607,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('gender=') == -1 &&
 	 		  URL.indexOf('start_price=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
@@ -516,6 +622,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('gender=') == -1 &&
 	 		 URL.indexOf('start_price=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,category_start_idx)+val;
@@ -548,6 +655,7 @@ $("document").ready(function(){
 	    URL.indexOf('gender=') == -1 &&
 	 	URL.indexOf('start_price=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,bestyn_start_idx)+'Y';
@@ -563,6 +671,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('gender=') == -1 &&
 	 		  URL.indexOf('start_price=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
@@ -577,6 +686,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('gender=') == -1 &&
 	 		 URL.indexOf('start_price=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'Y';
@@ -604,6 +714,7 @@ $("document").ready(function(){
 	    URL.indexOf('gender=') == -1 &&
 	 	URL.indexOf('start_price=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,bestyn_start_idx)+'N';
@@ -619,6 +730,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('gender=') == -1 &&
 	 		  URL.indexOf('start_price=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
@@ -633,6 +745,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('gender=') == -1 &&
 	 		 URL.indexOf('start_price=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,bestyn_start_idx)+'N';
@@ -661,6 +774,7 @@ $("document").ready(function(){
 	    URL.indexOf('category=') == -1 &&
 	 	URL.indexOf('start_price=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,gender_start_idx)+val;
@@ -676,6 +790,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('category=') == -1 &&
 	 		  URL.indexOf('start_price=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
@@ -690,6 +805,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('category=') == -1 &&
 	 		 URL.indexOf('start_price=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,gender_start_idx)+val;
@@ -719,6 +835,7 @@ $("document").ready(function(){
 	    URL.indexOf('category=') == -1 &&
 	 	URL.indexOf('gender=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 start_price파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,start_price_start_idx)+start_price+'&end_price='+end_price;
@@ -734,6 +851,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('category=') == -1 &&
 	 		  URL.indexOf('gender=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 start_price 파라미터가 없고,다른 파라미터도 없다면
@@ -748,6 +866,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('category=') == -1 &&
 	 		 URL.indexOf('gender=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 start_price 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,start_price_start_idx)+start_price+'&end_price='+end_price;
@@ -775,6 +894,7 @@ $("document").ready(function(){
 	    URL.indexOf('gender=') == -1 &&
 	 	URL.indexOf('start_price=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('sort=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,detail_category_start_idx)+detail_category;
@@ -790,6 +910,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('gender=') == -1 &&
 	 		  URL.indexOf('start_price=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('sort=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
@@ -804,6 +925,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('gender=') == -1 &&
 	 		 URL.indexOf('start_price=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('sort=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,detail_category_start_idx)+detail_category;
@@ -833,6 +955,7 @@ $("document").ready(function(){
 	    URL.indexOf('gender=') == -1 &&
 	 	URL.indexOf('start_price=') == -1 &&
 	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('p=') == -1 &&
 	 	URL.indexOf('detail_category=') == -1) )
 	 {	//URL에 category파라미터가 있고,다른파라미터가 있다면
 	   let start_URL = URL.substring(0,sort_start_idx)+sort;
@@ -848,6 +971,7 @@ $("document").ready(function(){
 	 		  URL.indexOf('gender=') == -1 &&
 	 		  URL.indexOf('start_price=') == -1 &&
 	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('p=') == -1 &&
 	 		  URL.indexOf('detail_category=') == -1
 	          )
 	 {	//URL에 category 파라미터가 없고,다른 파라미터도 없다면
@@ -862,6 +986,7 @@ $("document").ready(function(){
 	 		 URL.indexOf('gender=') == -1 &&
 	 		 URL.indexOf('start_price=') == -1 &&
 	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('p=') == -1 &&
 	 		 URL.indexOf('detail_category=') == -1)
 	 {  //URL에 category 파라미터는 있고, 다른파라미터는 없다면
 	   location.href=getContextPath()+URL.substring(0,sort_start_idx)+sort;
@@ -872,6 +997,66 @@ $("document").ready(function(){
 		
 	 else {	//URL에 category파라미터는 없고,다른파라미터는 있다면,
 		URL += '&sort='+sort;
+		location.href=getContextPath()+URL;
+		return;
+	 }
+  }
+  
+  
+  
+  
+  
+  //페이지번호를 파라미터로 받아와서, 조건에맞게 URL에 페이지번호를 넘겨주는 함수
+  function goPage(page){
+	const page_val_length = page_val.length;
+	 if(URL.indexOf('p=')!=-1 &&
+	  !(URL.indexOf('category=')== -1 &&
+	    URL.indexOf('bestyn=') == -1 &&
+	    URL.indexOf('gender=') == -1 &&
+	 	URL.indexOf('start_price=') == -1 &&
+	 	URL.indexOf('end_price=') == -1 &&
+	 	URL.indexOf('detail_category=') == -1 &&
+	 	URL.indexOf('sort=') == -1) )
+	 {	//URL에 page파라미터가 있고,다른파라미터가 있다면
+	   let start_URL = URL.substring(0,page_start_idx)+page;
+	   let last_URL = URL.substring(page_start_idx+page_val_length);
+	   location.href=getContextPath()+start_URL + last_URL;
+	   return
+	 }
+	 
+	 
+	 else if (URL.indexOf('p=')==-1 &&
+		      URL.indexOf('category=')== -1 &&
+	 		  URL.indexOf('bestyn=') == -1 &&
+	 		  URL.indexOf('gender=') == -1 &&
+	 		  URL.indexOf('start_price=') == -1 &&
+	 		  URL.indexOf('end_price=') == -1 &&
+	 		  URL.indexOf('sort=') == -1 &&
+	 		  URL.indexOf('detail_category=') == -1
+	          )
+	 {	//URL에 page 파라미터가 없고,다른 파라미터도 없다면
+	    location.href=getContextPath()+'/product/shop.dream?p='+page;
+	    return;
+	 }
+	 
+	 
+	 else if(URL.indexOf('p=')!=-1 &&
+	         URL.indexOf('category=')== -1 &&
+	 		 URL.indexOf('bestyn=') == -1 &&
+	 		 URL.indexOf('gender=') == -1 &&
+	 		 URL.indexOf('start_price=') == -1 &&
+	 		 URL.indexOf('end_price=') == -1 &&
+	 		 URL.indexOf('sort=') == -1 &&
+	 		 URL.indexOf('detail_category=') == -1)
+	 {  //URL에 page 파라미터는 있고, 다른파라미터는 없다면
+	   location.href=getContextPath()+URL.substring(0,page_start_idx)+page;
+	   return;
+	 } 
+		
+		
+		
+	 else {	//URL에 page파라미터는 없고,다른파라미터는 있다면,
+		URL += '&p='+page;
 		location.href=getContextPath()+URL;
 		return;
 	 }

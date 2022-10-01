@@ -26,8 +26,8 @@ public class ShopController extends AbstractController{
 				String category = null;			//제품카테고리
 				String detail_category = null;	//제품상세카테고리
 				String bestyn = "N";			//베스트상품여부
-				String gender = null;			//남성용인지 여성용인지
-				String sort = null;				//정렬방식
+				String gender = "없음";			//남성용인지 여성용인지
+				String sort = "전체";				//정렬방식
 				String start_price = null;	//시작가격
 				String end_price = null;	//끝가격
 				int page= 1;					//페이지번호

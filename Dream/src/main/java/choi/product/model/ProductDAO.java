@@ -78,13 +78,13 @@ public class ProductDAO implements InterProductDAO{
 					if(category != null && !category.equals("전체")) {
 						sql += " and category = '"+category +"'";
 					}
-					if(detail_category != null) {
+					if(detail_category != null && !detail_category.equals("전체")) {
 						sql += " and detail_category = '"+ detail_category + "'";
 					}
 					if(bestyn != null && bestyn.equalsIgnoreCase("y")) {
 						sql += " and bestyn = '"+ bestyn + "'";
 					}
-					if(gender != null) {
+					if(gender != null && !gender.equals("없음")){
 						sql += " and gender = '"+gender + "'";
 					}
 					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
@@ -120,72 +120,66 @@ public class ProductDAO implements InterProductDAO{
 				String sort = paraMap.get("sort");
 				try {
 					conn = ds.getConnection();
-					String sql = " select product_num "
-							   + "      , register_date "
-							   + "      , product_name "
-							   + "      , product_image "
-							   + "      , category "
-							   + "      , detail_category "
-							   + "      , price "
-							   + "      , discount_rate "
-							   + "      , gender"
-							   + "      , bestyn"
+					String sql = " select A.* "
+							   + "      , A.price - (A.price * A.discount_rate) real_price "
+							   + "      , nvl(B.like_cnt,0) like_cnt "
 							   + " from  "
 							   + " ( "
 							   + " select rownum R "
-							   + "      , product_num "
-							   + "      , register_date "
-							   + "      , product_name "
-							   + "      , product_image "
-							   + "      , category "
-							   + "      , detail_category "
-							   + "      , price "
-							   + "      , discount_rate "
-							   + "      , gender "
-							   + "      , bestyn "
-							   + " from tbl_product "
-							   + " where 1=1 ";
-							   
-					
+							   + "     , product_num "
+							   + "     , register_date "
+							   + "     , product_name "
+							   + "     , product_image "
+							   + "     , category "
+							   + "     , detail_category ";
 					
 					if(category != null && !category.equals("전체")) {
-						sql += " and category = '"+category +"'";
+						sql += " and category = '"+category +"' ";
 					}
-					if(detail_category != null) {
-						sql += " and detail_category = '"+ detail_category + "'";
+					if(detail_category != null && !detail_category.equals("전체")) {
+						sql += " and detail_category = '"+ detail_category + "' ";
 					}
 					if(bestyn != null && bestyn.equalsIgnoreCase("y")) {
-						sql += " and bestyn = '"+ bestyn + "'";
+						sql += " and bestyn = '"+ bestyn + "' ";
 					}
-					if(gender != null) {
-						sql += " and gender = '"+gender + "'";
+					if(gender != null && !gender.equals("없음")) {
+						sql += " and gender = '"+gender + "' ";
 					}
 					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
 						sql += " and price - (price*discount_rate) between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
 					}
-					if(sort != null && !sort.equals("") ) {
-						switch (sort) {
-						case "전체":
-							break;
-						case "인기순":	//좋아요 갯수 내림차순
-							
-							break;
-						case "업로드순":	//등록일자 내림차순
-							
-							break;
-						case "최저가순":	//가격
-							
-							break;
-						default:
-							break;
-						}
-					}
+					
 					
 					//조건 넣을것 넣고 후에 페이징처리
-					sql += " )A  "
-				         + " where R between (?*?)-(?-1) and (?*?) ";
+					sql +=  " ) A "
+							+ " left join "
+							+ " ( "
+							+ " select product_num, "
+							+ "        count(*) as like_cnt "
+							+ " from tbl_like "
+							+ " group by product_num "
+							+ " ) B "
+							+ " on A.product_num = B.product_num "
+							+ " where R between (?*?)-(?-1) and (?*?) ";
 //					(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
 					
+					
+					if(sort != null){
+						switch (sort) {
+						    case "전체":	//좋아요 갯수 내림차순
+						    	sql += " order by A.product_num desc ";
+						    	break;
+							case "인기순":	//좋아요 갯수 내림차순
+								sql += " order by like_cnt desc ";
+								break;
+							case "업로드순":	//등록일자 내림차순
+								sql += " order by A.register_date desc ";
+								break;
+							case "최저가순":	//가격
+								sql += " order by real_price ";
+								break;
+						}//end of switch-case
+					}
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setInt(1,Integer.parseInt(paraMap.get("page")));
 					pstmt.setInt(2,Integer.parseInt(paraMap.get("display_cnt")));
