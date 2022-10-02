@@ -33,7 +33,7 @@ public class MembershipRegistController extends AbstractController {
 			
 			
 			// 1. 멤버십 가입 여부 알아오기 0: 미가입 1: 가입중 
-			MemberDTO loginUserInfo = mdao.selectOneUser(useridMap);
+			MemberDTO loginUserInfo = mdao.selectOneUser(loginuserid);
 //			System.out.println("확인용 멤버십 가입 여부 : "+ loginUserInfo.getMembership());
 			boolean b_membership;
 			

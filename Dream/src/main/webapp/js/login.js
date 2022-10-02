@@ -1,3 +1,9 @@
+function getContextPath(){
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
+  return contextPath;
+}
+
 $(document).ready(function() {
 
 	// 비밀번호 정규표현식 
@@ -86,22 +92,100 @@ $(document).ready(function() {
 		}
 
 	});
+	
+	
+	 $("input#input_passwd").bind("keyup", (e)=>{
+		   if(e.keyCode == 13) { // 검색어에서 엔터를 치면 검색하러 가도록 한다.
+			   goLogin();
+		   }
+	   });
+	
 
-
-
-	$("button#login").click(function(e) {
+	/*$("button#login").click(function(e) {
 		goLogin();
-	});
+	});*/
 
-});// end of $(document).ready(function(){}
+});// end of $(document).ready(function(){}--------------------------------------------
 
 
 // 로그인 처리 해주는 함수 
 function goLogin() {
 	//	alert("로그인 시도함");
-
+	
 	const input_userid = $("input#input_userid").val().trim();
 	const input_passwd = $("input#input_passwd").val().trim();
+	
+	console.log(input_userid);
+	console.log(input_passwd);
+	
+	
+	// ajax 시작 
+	
+	$.ajax({
+			 url:getContextPath()+"/login/login.dream",
+			 data:{"userid":input_userid,
+			 	   "passwd":input_passwd }, 
+			 type:"POST",    
+			 dataType:"json",
+		//	 async:true,      // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
+			                  // async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.  
+			 success:function(json){ 
+				 // dataType:"json" 을 생략하면 
+				 // text 는 "{"isExists":true}" 또는 "{"isExists":false}" 되어지는 string 타입이다. 
+				 
+				 // dataType:"json" 을 생략하지 않고 넣어주면 
+				 // text 는 {"isExists":true} 또는 {"isExists":false} 되어지는 object 타입이다. 
+				 
+				 // const json = JSON.parse(text);
+				 // JSON.parse(text); 은 JSON.parse("{"isExists":true}"); 또는 JSON.parse("{"isExists":false}"); 와 같은 것인데
+				 // 그 결과물은 {"isExists":true} 또는 {"isExists":false} 와 같은 문자열을 자바스크립트 객체로 변환해주는 것이다. 
+				 // 조심할 것은 text 는 반드시 JSON 형식으로 되어진 문자열이어야 한다. 
+				 
+				 
+				 console.log(json.isSecession);
+				 console.log(json.isRestMember);
+				 console.log(json.isRequirePwdChange);
+				 console.log(json.isUserExists);
+				 
+				 if(!json.isUserExists) {
+					alert("아이디 또는 비밀번호가 틀립니다.");
+					// => login 화면 또는 index 로 이동 
+					location.href=getContextPath()+"/login/login.dream";
+				 }
+				 
+				 if(json.isSecession) {
+					alert("탈퇴한 회원입니다.");
+					// => login 화면 또는 index 로 이동 
+					location.href=getContextPath()+"/login/login.dream";
+				 }
+				 
+				 if(json.isRestMember) {
+					alert("휴면처리된 회원입니다.");
+					// => login 화면 또는 index 로 이동 
+					location.href=getContextPath()+"/login/login.dream";
+				 }
+				 
+				 if(json.isRequirePwdChange){
+					alert("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
+				 	location.href=getContextPath()+"/index.dream";
+				 }
+				 
+				 if(json.isMembershipGap){
+					alert("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
+				}
+				 
+				 if(json.isUserExists){
+					location.href=getContextPath()+"/index.dream";
+				}
+				 
+			 },
+			 
+			 error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			 }
+			 
+		 });
+	
 
 	if (input_userid == "") {
 		alert("아이디를 입력하세요!!");
@@ -127,17 +211,9 @@ function goLogin() {
 		}
 	*/
 
-	const joinFrm = document.joinFrm;
+/*	const joinFrm = document.joinFrm;
 	joinFrm.action = getContextPath() + "/login/login.dream";
 	joinFrm.method = "POST";
-	joinFrm.submit();
+	joinFrm.submit();*/
 
 }// end of function goLogin()-----------------
-
-
-function getContextPath() {
-	let hostIndex = location.href.indexOf(location.host) + location.host.length;
-	let contextPath = location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
-	return contextPath;
-}
-

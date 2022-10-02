@@ -16,7 +16,7 @@
 <body>
    <div id = "container"> 
       <img src="<%=ctxPath %>/images/logo.png" alt="...">
-      <form name="joinFrm">
+      <div class="div_login">
          <fieldset>
             <div id="div_userid">
                <label for="userid">이메일 주소</label>
@@ -31,7 +31,7 @@
                <span id="pwd_warning" class="warning">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</span>
             </div>
 
-            <button id="login" class="button">로그인</button>
+            <button type="button" id="login" class="button" onclick=goLogin()>로그인</button>
             
             <ul class = "login_ul">
                <li><a class="login_a" href="<%= ctxPath%>/member/join.dream">이메일 가입</a></li>
@@ -44,7 +44,7 @@
             <button id="login_apple" class="button social"><i class="fa-brands fa-apple fa-lg"></i>Apple로 로그인</button>
             
          </fieldset>
-      </form>
+      </div>
    </div>
    
 <%--footer 호출 --%>

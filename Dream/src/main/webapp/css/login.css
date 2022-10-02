@@ -23,7 +23,7 @@ div#container img{
    
 }
 
-form label{
+div#div_passwd label{
    margin-top: 30px;
 }
 
@@ -39,14 +39,14 @@ fieldset > ul {
    
 }
 
-form >  fieldset > ul > li{
+fieldset > ul > li{
    float: left;
    font-size: 8pt;
    margin-bottom: 30px;
    
 }
 
-form >  fieldset > ul > li:nth-child(2){
+fieldset > ul > li:nth-child(2){
    border-left: solid 1px #ebebeb;
    border-right: solid 1px #ebebeb;
    margin: 0 20px;

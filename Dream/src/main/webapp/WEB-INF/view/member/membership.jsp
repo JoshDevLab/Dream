@@ -16,7 +16,7 @@
 	<%-------------------- 사이드바 시작 ----------------------%>
   		
         
-     <%-- sidebar 호출 --%>
+     <%-- sidebar 호출 나중에 margin left : 50px --%>
 		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
      
      
