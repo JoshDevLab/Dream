@@ -122,28 +122,31 @@ public class ProductDAO implements InterProductDAO{
 		try {
 			conn = ds.getConnection();
 			String sql = "";
-			if(userid != null) {	//로그인중일 경ㅇ
+			if(userid != null) {	//로그인중일 경우
 				sql += " select C.*, "
 			         + " nvl(D.product_like_cnt,0) product_like_cnt "
 					 + " from ( ";
 			}
 			
-	        sql += " select A.* "
-			     + "      , A.price - (A.price * A.discount_rate) real_price "
+	        sql += " select * "
+	        	 + " from "
+	        	 + " ( "
+	        	 + " select rownum R "
+	        	 + "      , A.* "
 			     + "      , nvl(B.like_cnt,0) like_cnt "
 			     + " from  "
 			     + " ( "
-			     + " select rownum R "
-			     + "     , product_num "
-			     + "     , register_date "
-			     + "     , product_name "
-			     + "     , product_image "
-			     + "     , category "
-			     + "     , detail_category "
-			     + "     , price "
-			     + "     , discount_rate "
-			     + "     , gender "
-			     + "     , bestyn "
+			     + " select product_num "
+			     + "      , register_date "
+			     + "      , product_name "
+			     + "      , product_image "
+			     + "      , category "
+			     + "      , detail_category "
+			     + "      , price "
+			     + "      , (discount_rate*100) discount_rate "
+			     + "      , price - (price * (discount_rate)) real_price "
+			     + "      , gender "
+			     + "      , bestyn "
 			     + " from tbl_product "
 			     + " where 1=1 ";
 			
@@ -160,40 +163,41 @@ public class ProductDAO implements InterProductDAO{
 				sql += " and gender = '"+gender + "' ";
 			}
 			if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
-				sql += " and price - (price*discount_rate) between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
+				sql += " and real_price between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
 			}
 			
+			if(sort != null){
+				switch (sort) {
+				    case "전체":	
+				    	sql += " order by product_num desc ";
+				    	break;
+					case "최신순":	//등록일자 내림차순
+						sql += " order by register_date desc ";
+						break;
+					case "최저가순":	//가격
+						sql += " order by real_price ";
+						break;
+					case "인기순":
+						sql += " order by like_cnt desc ";
+					default:
+						break;
+				}//end of switch-case
+			}
 			
 			//조건 넣을것 넣고 후에 페이징처리
-			sql +=  " ) A "
+			sql +=    " ) A "
 					+ " left join "
 					+ " ( "
 					+ " select product_num, "
 					+ "        count(*) as like_cnt "
 					+ " from tbl_like "
 			        + " group by product_num "
-					+ " ) B "
+			        + " ) B "
 					+ " on A.product_num = B.product_num "
+					+ " ) V "
 					+ " where R between (?*?)-(?-1) and (?*?) ";
 //					(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
 			
-			
-			if(sort != null){
-				switch (sort) {
-				    case "전체":	//좋아요 갯수 내림차순
-				    	sql += " order by A.product_num desc ";
-				    	break;
-					case "인기순":	//좋아요 갯수 내림차순
-						sql += " order by like_cnt desc ";
-						break;
-					case "업로드순":	//등록일자 내림차순
-						sql += " order by A.register_date desc ";
-						break;
-					case "최저가순":	//가격
-						sql += " order by real_price ";
-						break;
-				}//end of switch-case
-			}
 			if(userid != null) {
 				sql += " ) C "
 					 + " left join "
@@ -224,8 +228,9 @@ public class ProductDAO implements InterProductDAO{
 				pdto.setCategory(rs.getString("category") );
 				pdto.setDetail_category(rs.getString("detail_category") );
 				pdto.setPrice(rs.getInt("price") );
-				pdto.setDiscount_rate(rs.getFloat("discount_rate") );
+				pdto.setDiscount_rate(rs.getInt("discount_rate"));
 				pdto.setGender(rs.getString("gender") );
+				pdto.setReal_price(rs.getInt("real_price"));
 				if(userid != null) {
 					pdto.setProduct_like_cnt(rs.getInt("product_like_cnt"));
 				}

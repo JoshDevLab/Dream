@@ -39,7 +39,7 @@ button.btn_fillter:hover{
   color:white;
 }
 div#btn_category{
-  min-width: 400px;
+  min-width: 380px;
   padding:0 40px;
 }
 div#category > button.btn_fillter:nth-child(2),
@@ -75,7 +75,6 @@ div.details_category{
   height:90px;
   padding: 0 40px 0 40px;
   width:50%;
-  min-width:400px;
 }
 
 div.category_img{
@@ -98,13 +97,13 @@ p.details_category_name{
   }
   div.details_category{
     width:70%;
-    min-width:400px;
+    min-width:380px;
   }
 }
 @media screen and (max-width: 480px){
   div.details_category{
     width:70%;
-    min-width:400px;
+    min-width:380px;
   }
 }
 div.details_category > a {
@@ -220,11 +219,6 @@ div#product_name{
 div#product_name{
     font-size:14px;
   }
-span#product_price,
-div#product_sale_price{
-  font-size:15px;
-  font-size:15px;
-}
 @media screen and (max-width: 768px){
   div#product_name{
     font-size:14px;
@@ -243,16 +237,6 @@ div#product_sale_price{
   }
 }
 
-button#discount{
-  z-index:-1;
-  margin-left:auto;
-  background-color: black;
-  color:white;
-  width:60px;
-  height:25px;
-  font-size:x-small;
-  text-decoration:none;
-}
 
 /* a태그 데코레이션 없애기 시작 */
 a.product:link {
@@ -353,6 +337,10 @@ button.price:hover{
 
 
 /* 페이지바 */
+.my.pagination > li > a,
+.my.pagination > li > span{
+  color:black;
+}
 .my.pagination > .active > a, 
 .my.pagination > .active > span, 
 .my.pagination > .active > a:hover, 
@@ -370,8 +358,9 @@ button.price:hover{
   width:35px;
   height:35px;
   position:absolute;
-  bottom:10%;
-  left:72%;
+  top:1%;
+  right:3%;
+  background-color:white;
 }
 #btn_like:hover{
   color:pink;

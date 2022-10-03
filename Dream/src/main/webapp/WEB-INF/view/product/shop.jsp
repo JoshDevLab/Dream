@@ -55,7 +55,7 @@
 	        <button id="btn_fillter_sleep_supplies" type="button" class="btn_fillter btn rounded-pill border">수면용품</button>
 	      </div>
 	    </div>
-	    <div class="details_category my-4 pt-2 d-flex flex-nowrap">
+	    <div class="details_category my-4 pt-2 d-flex">
 	    
 	    
 	    </div>
@@ -217,7 +217,7 @@
 	          <select name="sort_option" id="sort_option" class="border rounded">
 	            <option>전체</option>
 	            <option>인기순</option>
-	            <option>업로드순</option>
+	            <option>최신순</option>
 	            <option>최저가순</option>
 	          </select>
 	          <%-- select 쓰지말고 버튼으로 한다음에 모달로 할지 고민중임!!!!!!!!!!!!! --%>
@@ -251,21 +251,21 @@
 		                  <div id="product_price" class="d-flex justify-content-between">
 		                    <%-- if문!!상품자체할인가격이 없다면 아래태그,상품가격 --%>
 		                    <c:if test="${empty product.discount_rate || product.discount_rate == 0}">
-		                    <span id="product_price">&#8361;${product.price}원</span>
+		                    <span id="product_price" style="font-size:17px;">&#8361;${product.price}원</span>
 							</c:if>
 		                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
 		                    <c:if test="${not empty product.discount_rate && product.discount_rate != 0}">
-			                    <span id="product_price" style="text-decoration: line-through;">&#8361;${product.price}원</span>
+			                    <span id="product_price_discount" style="text-decoration: line-through; font-size:15px; color:darkgray;">&#8361;${product.price}원</span>
 			                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳 --%>
 			                    <div id="discount_mark">
 			                      <%-- 할인율 넣을 곳 --%>
-			                      <span id="discount_percent">${product.discount_rate * 100}%</span>
+			                      <span id="discount_percent">${product.discount_rate}%</span>
 			                    </div> 
 		                    </c:if>
 		                  </div>
 		                  <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
 		                  <c:if test="${not empty product.discount_rate && product.discount_rate != 0}">
-		                  	<div id="product_sale_price">&#8361;${product.price - product.price * product.discount_rate}<span>원</span></div>
+		                  	<div id="product_sale_price">&#8361;${product.real_price}<span>원</span></div>
 		                  </c:if>
 		                </div>
 		              </div>

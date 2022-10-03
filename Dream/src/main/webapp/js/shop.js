@@ -165,8 +165,8 @@ $("document").ready(function(){
       if(gender_val == '남'){
 	    $(`input:radio[id='man']`).attr("checked",true);
       }
-      else if(gender_val =='여'){
-	    $(`input:radio[name='women']`).attr("checked",true);
+      else if(gender_val == '여'){
+	    $(`input:radio[id='women']`).attr("checked",true);
 	  }
 	  else{
 		$("input:radio[id='no_gender']").attr("checked",true);
