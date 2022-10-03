@@ -110,6 +110,42 @@ public class AddressDAO implements InterAddressDAO {
 				
 				return result;
 			}// end of public int registerAddress(AddressDTO address) throws SQLException --------------------------
+			
+			
+			
+			
+			// 기본배송지가 없다면 기본배송지로 배송지 추가를 해주는 메소드
+			@Override
+			public int registerBasicAddress(AddressDTO address1) throws SQLException {
+				int result = 0;
+				
+				try {
+					conn = ds.getConnection();
+					
+					String sql = " insert into tbl_address (address_num,userid,basic_address,address,detail_address,post_code,order_name,mobile) "
+							   + " values (seq_address_num.nextval,'josh@gmail.com','1',?,?,?,?,?) ";
+							   
+					
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, address1.getAddress());
+					pstmt.setString(2, address1.getDetail_address());	
+					pstmt.setString(3, address1.getPost_code());	
+					pstmt.setString(4, address1.getOrder_name());
+					pstmt.setString(5, address1.getMobile());    // 암호를 SHA256 알고리즘으르 단방향 암호화 시킨다.  
+								
+					
+					result = pstmt.executeUpdate();
+					
+				} catch(SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+				
+				return result;
+				
+			}//end of public int registerBasicAddress(AddressDTO address1) throws SQLException-----
 
 			
 						
@@ -157,29 +193,59 @@ public class AddressDAO implements InterAddressDAO {
 			  
             // 기본배송지가 아닌 주소록 목록을 불러오기
 			@Override
-			public List<AddressDTO> selectAddress(String userid) throws SQLException{
-				
-				AddressDTO adto = null; 
+			public List<AddressDTO> selectAddress(Map<String,String> paraMap) throws SQLException{
 				
 				List<AddressDTO> addressList = new ArrayList<>();
+				int page = Integer.parseInt(paraMap.get("page"));
+				int display_cnt =Integer.parseInt(paraMap.get("display_cnt"));
+				String userid = paraMap.get("userid");
 				
 				try { 
 					
 					conn = ds.getConnection();
 				
 				 
-				  String sql = " select * from tbl_address "
-				             + " where userid = ? and basic_address = '0' " + " order by address_num ";
+				  String sql = " select address_num, "
+				  		     + "       userid, "
+				  		     + "       basic_address, "
+				  		     + "       address, "
+				  		     + "       detail_address, "
+				  		     + "       post_code, "
+				  		     + "       order_name, "
+				  		     + "       mobile "
+				  		     + " from "
+				  		     + " ( "
+				  		     + " select rownum R, "
+				  		     + "       address_num, "
+				  		     + "       userid, "
+				  		     + "       basic_address, "
+				  		     + "       address, "
+				  		     + "       detail_address, "
+				  		     + "       post_code, "
+				  		     + "       order_name, "
+				  		     + "       mobile "
+				  		     + " from tbl_address "
+				  		     + " where userid = ? and basic_address = '0' order by address_num "
+				  		     + " ) V"
+				  		     + " where R between (? * ?) - (? - 1) and (? * ?) ";
+//				  (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
+				  
+				  
+				  
 				  
 				  pstmt = conn.prepareStatement(sql); 
 				  pstmt.setString(1,userid);
-				  
+				  pstmt.setInt(2,page);
+				  pstmt.setInt(3,display_cnt);
+				  pstmt.setInt(4,display_cnt);
+				  pstmt.setInt(5,page);
+				  pstmt.setInt(6,display_cnt);
 				  
 				  rs = pstmt.executeQuery();
 				  
 				  while(rs.next()) {
 					  
-				  adto = new AddressDTO();
+				  AddressDTO adto = new AddressDTO();
 				  
 				  adto.setAddress_num(rs.getString("ADDRESS_NUM"));
 				  adto.setAddress(rs.getString("ADDRESS"));
@@ -327,7 +393,72 @@ public class AddressDAO implements InterAddressDAO {
 				
 				
 				return result;
-			}	
+			}
+
+			
+			
+			
+			
+			
+			// 기본배송지를 제외한 총 배송지 갯수를 알아오는 메소드
+			@Override
+			public int cntAllAddress() throws SQLException {
+				int total_cnt = 0;
+				try {
+					conn = ds.getConnection();
+					
+					String sql =  " select count(*) "
+							    + " from tbl_address "
+							    + " where basic_address=0 ";
+					
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						total_cnt = rs.getInt(1);
+					}
+					
+				} finally {
+					close();
+				}
+				return total_cnt;
+				
+			}//end of public int cntAllAddress() throws SQLException---------
+
+			
+			
+			
+			
+			
+			
+			// 기본배송지가 있는지 없는지 여부를 검사해주는 메소드
+			@Override
+			public boolean check_basic(String userid) throws SQLException {
+				boolean check_basic_address = false;
+				
+				try {
+					conn = ds.getConnection();
+					
+					String sql =  " select * from tbl_address"
+							    + " where userid= ? and basic_address=1 ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, userid); 
+					rs = pstmt.executeQuery();
+					
+					check_basic_address = rs.next();	//읽어온 데이터가 있으면 rs.next()는 true, 없으면 false
+					
+				} finally {
+					close();
+				}
+				return check_basic_address;
+				
+			}//end of 
+
+			
+			
+			
+			
 			
 			
 			

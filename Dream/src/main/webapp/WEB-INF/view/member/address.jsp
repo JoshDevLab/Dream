@@ -88,13 +88,14 @@ String ctxPath = request.getContextPath();
 				
 				
 				
-				
-				<div class="empty_area" id="no_add_area">
-					<p class="desc">
-						배송지 정보가 없습니다.<br />새 배송지를 등록해주세요
-					</p>
-					<span href="#" id="add_btn2" class="btn_btn_add2" data-toggle="modal" data-target="#add_address" onclick="new_add()">새 배송지 추가 </span>
-				</div>
+				<c:if test="${empty requestScope.basic_mobile}">
+					<div class="empty_area" id="no_add_area">
+						<p class="desc">
+							배송지 정보가 없습니다.<br />새 배송지를 등록해주세요
+						</p>
+						<span href="#" id="add_btn2" class="btn_btn_add2" data-toggle="modal" data-target="#add_address" onclick="new_add()">새 배송지 추가 </span>
+					</div>
+				</c:if>
 				
 				
 				
@@ -105,7 +106,7 @@ String ctxPath = request.getContextPath();
 
 
                 <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 시작 -------------------------------------------------------------%>
-             
+                <c:if test="${not empty requestScope.basic_mobile}">
                 <div class="my_list" id="yes_add_area">
                      		<div class="basic">
 						<div class="my_item" default-mark="기본 배송지">
@@ -113,7 +114,7 @@ String ctxPath = request.getContextPath();
 								
 								<div class="address_info">
 									<div class="name_box">
-									<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
+										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
 										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
 										<span class="mark">기본 배송지</span>
 									</div>
@@ -122,7 +123,8 @@ String ctxPath = request.getContextPath();
 									</p>
 									<div  class="address_box">
 										(<span id="basic_text"  class="zipcode">${requestScope.basic_adto.post_code }</span>)
-										 <span id="basic_text" class="address">${requestScope.basic_adto.address} ${requestScope.basic_adto.detail_address}</span>
+										 <span id="basic_text" class="address">${requestScope.basic_adto.address} </span>
+										 <span id="basic_text" class="detail_address">${requestScope.basic_adto.detail_address}</span>
 									</div>
 								</div>
 							</div>
@@ -173,7 +175,8 @@ String ctxPath = request.getContextPath();
 									</p>
 									<div  class="address_box">
 										(<span id="basic_text"  class="zipcode">${adao.post_code}</span>)
-										 <span id="basic_text" class="address">${adao.address} ${adao.detail_address}</span>
+										 <span id="basic_text" class="address">${adao.address} </span>
+										 <span id="basic_text" class="detail_address">${adao.detail_address}</span>
 									</div>
 								</div>
 							   </div>
@@ -182,110 +185,94 @@ String ctxPath = request.getContextPath();
 									<a href="#" class="btn_outlinegrey_small" id="go_basic"> 기본 배송지 </a>
 										<a id ="edit" data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
 										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
-								</div>
-								
-								
+								</div>																
 									
 							</div>		
-								
-						 	   
-							
+														 	   							
 							
 							</c:forEach>
 							</form>
 						 	
 							<%--for문 --%>
 							
-							
-							
-							
-					        			
-							
-					
 
 
-
-				</div>
+				</div>             
               
               
-              
-</div>
+      </div>
 
 
 
 
 
-				<c:if test="${not empty requestScope.addressList}">
-						
-						     
-						       <div class="page_bind">
-								<a  href="/my/address?page=1"
-									class="btn_page_active" aria-label="1페이지"> 1 </a>
-							</div>
-				</c:if>		
+         
 
-<%-------------------------------------------------------- 페이지번호 시작 ----------------------------------------------------------%>
-
-
-					<div class="pagination">
-						<div class="pagination_box_first_last">
-						
-						<%---------------------첫 페이지 버튼 시작  -----------------------%>
-							<%-- <div data-v-1f9de2f0="" class="prev_btn_box">
-								<a data-v-1f9de2f0="" href="/my/address?page=1" class="btn_arr"
-									aria-label="첫 페이지"><svg data-v-1f9de2f0=""
-										xmlns="http://www.w3.org/2000/svg"
-										class="arr-page-first icon sprite-icons">
-										<use data-v-1f9de2f0=""
-											href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-first"
-											xlink:href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-first"></use></svg></a><a
-									data-v-1f9de2f0="" href="/my/address?page=0" class="btn_arr"
-									aria-label="이전 페이지"><svg data-v-1f9de2f0=""
-										xmlns="http://www.w3.org/2000/svg"
-										class="arr-page-prev icon sprite-icons">
-										<use data-v-1f9de2f0=""
-											href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-prev"
-											xlink:href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-prev"></use></svg></a>
-							</div> --%>
-							<%---------------------첫 페이지 버튼 끝  -----------------------%>
-							
-							
-							
-							
-							
-							
-							<%---------------------마지막 페이지 버튼 시작  -----------------------%>
-							<%-- <div data-v-1f9de2f0="" class="next_btn_box">
-								<a data-v-1f9de2f0="" href="/my/address?page=2" class="btn_arr"
-									aria-label="다음 페이지"><svg data-v-1f9de2f0=""
-										xmlns="http://www.w3.org/2000/svg"
-										class="arr-page-next icon sprite-icons">
-										<use data-v-1f9de2f0=""
-											href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-next"
-											xlink:href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-next"></use></svg></a><a
-									data-v-1f9de2f0="" href="/my/address?page=1" class="btn_arr"
-									aria-label="마지막 페이지"><svg data-v-1f9de2f0=""
-										xmlns="http://www.w3.org/2000/svg"
-										class="arr-page-last icon sprite-icons">
-										<use data-v-1f9de2f0=""
-											href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-last"
-											xlink:href="/_nuxt/1a4fefc9c245c25be8c820c7d584e4d7.svg#i-arr-page-last"></use></svg></a>
-							</div> --%>
-							<%---------------------마지막 페이지 버튼 끝  -----------------------%>
-							
-						</div>
-					</div>
-
-
-
-					<%-------------------------------------------------------- 페이지번호 끝 ----------------------------------------------------------%>
+               <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
+               
+               <c:if test="${not empty requestScope.addressList}">
+               
+        <nav aria-label="...">
+		    <ul class="my pagination pagination-md justify-content-center mt-5">
+		    	<%-- 첫페이지로 이동버튼 --%>
+		    	<c:if test="${requestScope.page > requestScope.display_page}">
+		    	<li class="page-item">
+			      <a class="page-link" href="?p=1">
+			      	<i class="fa-solid fa-angles-left"></i>
+			      </a>
+			    </li>
+			    
+			    
+			    <%-- 전페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.startPage-1}">
+			      	<i class="fa-solid fa-angle-left"></i>
+			      </a>
+			    </li>
+			    </c:if>
+			    
+			    <%-- 페이지번호 시작--%>
+			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+                <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
+                <li class="page-item active" aria-current="page">
+			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                
+                <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
+                <li class="page-item">
+			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                </c:forEach>
+                <%-- 페이지번호 끝 --%>
+                
+                
+                
+			    <%-- 다음페이지로 이동버튼 --%>
+			    <c:if test="${!(requestScope.last_display_page)}">
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
+			    </li>
+			    <%-- 맨 끝페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" href="?p=${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
+			    </li>
+			    </c:if>
+		  	</ul>
+		</nav>
+		
+		
+		</c:if>	
+		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
 
 
 
 
 
 
-</div>				
+  </div>	
+</c:if>			
 <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 끝 -------------------------------------------------------------%>			
  
  
@@ -341,9 +328,8 @@ String ctxPath = request.getContextPath();
 										<div class="input_item">
 										<a href="#"  id="zipcodeSearch" class="btn btn_zipcode outline small;" onclick="openDaumPOST();"> 우편번호 </a>
 										<input type="text" id="postcode" value="ㅇㅇ" name="post_code" size="6" maxlength="5" placeholder="우편 번호를 검색하세요" readonly/><br/>
-											<%-- <input type="text" placeholder="우편 번호를 검색하세요"
-												readonly="readonly" autocomplete="off" class="input_txt"> --%>
-												
+										  <%-- <input type="text" placeholder="우편 번호를 검색하세요"
+										   readonly="readonly" autocomplete="off" class="input_txt"> --%>												
 												
 												
 										</div>
@@ -362,14 +348,14 @@ String ctxPath = request.getContextPath();
 									<div class="input_box">
 										<h4 class="input_title">상세 주소</h4>
 										<div class="input_item">
-											<input name="detail_address" id="detailAddress" value="상세주소밸류" type="text" placeholder="건물, 아파트, 동/호수 입력"	 autocomplete="off" class="input_txt">
+											<input name="detail_address" id="detailAddress" value="" type="text" placeholder="건물, 아파트, 동/호수 입력"	 autocomplete="off" class="input_txt">
 										</div>
 									</div>
 									
 									
-									<div class="input_box">
-										<input type="checkbox" id="basic_address" name="basic_address"/>
-										<label for="basic_address" class="ml-2">기본배송지로 설정</label>
+									<div class="input_box"> 
+										<input type="checkbox" id="basic_address" name="basic_address" />
+										<label for="basic_address" class="ml-2" id="basic_label">기본배송지로 설정</label>
 									</div>
 									
 								</form>

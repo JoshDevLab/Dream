@@ -24,7 +24,7 @@ public interface InterAddressDAO {
 
 
 	// 기본배송지가 아닌 주소록 목록을 불러오기
-	List<AddressDTO> selectAddress(String userid) throws SQLException;
+	List<AddressDTO> selectAddress(Map<String,String> paraMap) throws SQLException;
 
 
     // 주소록 삭제하기
@@ -37,6 +37,18 @@ public interface InterAddressDAO {
 
     // 기본배송지로 변경해주기
 	int gobasicAddress(AddressDTO address4) throws SQLException;
+
+
+    // 기본배송지를 제외한 총 배송지 갯수를 알아오는 메소드
+	int cntAllAddress() throws SQLException;
+
+
+    // 기본배송지가 있는지 없는지 여부를 검사해주는 메소드
+	boolean check_basic(String userid) throws SQLException;
+
+
+    // 기본배송지가 없다면 기본배송지로 배송지 추가를 해주는 메소드
+	int registerBasicAddress(AddressDTO address1) throws SQLException;
 	
 	
 

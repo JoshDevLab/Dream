@@ -8,6 +8,11 @@ $(document).ready(function(){
 	
 	
 	
+	 $("input#basic_address").hide();
+     $("label#basic_label").hide();
+	
+	
+	
 	/* 모달창이 열리면 이름입력부분에 오토포커스를 주는 기능  */
 	$('div#add_address').on('shown.bs.modal', function() {	
 		
@@ -167,7 +172,7 @@ $(document).ready(function(){
 	        
 	    }
 
-	});// end of $(document).on("keydown","input#modify_name",function(e) {}
+	});// $(document).on("keyup","input#mobile",function(e) {}--------------------------
 
 	
 	
@@ -208,6 +213,8 @@ $(document).ready(function(){
 	$("a#go_basic").click( (event)=>{ 
 		
 		
+		
+		
 	
 	    let address_num ="";	    	
     	
@@ -228,15 +235,13 @@ $(document).ready(function(){
 	
 });
     
-    
-    
-    
+   
 
 	
     
     $("a#basic_delete").click( (event)=>{ 
 
-        alert("다른 주소를 기본 베송지로 변경 후, 삭제할 수 있습니다.");
+        alert("다른 주소를 기본 배송지로 변경 후, 삭제할 수 있습니다.");
     		
     });
     
@@ -244,45 +249,81 @@ $(document).ready(function(){
     
      // 기본배송지 아닌 수정버튼 클릭 이벤트
     $("a#edit").click( (event)=>{ 
+	
+	
+	   $("input#basic_address").show();
+       $("label#basic_label").show();
     	
     	let address_num ="";	
     		
-    	const $target = $(event.target);    	    	    	
+    	const target = $(event.target);    	
     	
-    	address_num = $target.parent().parent().find("#address_num").val(); 
     	
-    	console.log(address_num);
+    	const zipcode = target.parent().prev().children().children("div.address_box").children("span.zipcode").text();
+    	const address = target.parent().prev().children().children("div.address_box").children("span.address").text();
+    	const detail_address = target.parent().prev().children().children("div.address_box").children("span.detail_address").text();
+    	
+    	
+    	
+    	$("input#postcode").val(zipcode);
+    	$("input#address").val(address);
+    	$("input#detailAddress").val(detail_address);    	    	
+    	
+    	address_num = target.parent().parent().find("#address_num").val(); 
+    	
+    	console.log(detail_address);
     		
 		$("input#address_num_modal").val(address_num);	 	
 		
-		 
+		$("input#basic_address").prop('checked', false);
 		
     	
     });
     
     
+    
+  
     // 기본배송지 수정버튼 클릭 이벤트
-    $("a#edit2").click( (event)=>{ 
+    $("a#edit2").click( (event)=>{     
+	
+	  
+       $("input#basic_address").hide();
+       $("label#basic_label").hide();
+
     	
     	let address_num ="";		
-    	const $target = $(event.target);    	
+    	const target = $(event.target);    	
     	
-    	 address_num = $target.parent().parent().find("#address_num").val(); 
+    	const zipcode = target.parent().prev().children().children("div.address_box").children("span.zipcode").text();
+    	const address = target.parent().prev().children().children("div.address_box").children("span.address").text();
+    	const detail_address = target.parent().prev().children().children("div.address_box").children("span.detail_address").text();
     	
-    	console.log(address_num);
+    	
+    	
+    	$("input#postcode").val(zipcode);
+    	$("input#address").val(address);
+    	$("input#detailAddress").val(detail_address);
+    	
+    	 address_num = target.parent().parent().find("#address_num").val(); 
+    	
+    	console.log(detail_address);
     		
 		$("input#address_num_modal").val(address_num);	 
 		
 		
 		$("input#address").val();
 		
+		$("input#basic_address").prop('checked', true);
 		
 		
-    	
-    });
+		
+      
+      
+ });  
+
     
 
-});	// end of $(document).ready(function(){} -------------------------------	
+});	// end of $(document).ready(function(){} -----------------------------------	
 		
 		
 
@@ -291,6 +332,9 @@ $(document).ready(function(){
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function new_add() {
+	
+	$("input#basic_address").show();
+    $("label#basic_label").show();
 	
 	$("a#add_edit").hide();	
 	$("a#add_save").show();
@@ -308,6 +352,8 @@ function new_add() {
 	$("#name").css("color","black");
 	$("#mobile").css("color","black");
 	$("div.input_item > input").css("border-bottom","solid 1px #ebebeb"); 
+	
+	$("input#basic_address").prop('checked', false);
 	
 }// end of function new_add() {}-----------------------
 	
@@ -333,23 +379,19 @@ function Revise_add() {
 	$("div.input_item > input").css("border-bottom","solid 1px #ebebeb"); 
 	
 	/* 수정버튼 클릭시 이름,전화번호란은 비워주면서 저장되어있는 밸류값을 가져와준다  */
-	 $("div.input_item > input").val("");
+	 
 	
 	 
 	/*              여기까지                                */
 	
 	/* console.log($("span.address").text()); */
 	
-	
-	
-	
-		 $("input#address").val("주소 가져와본다");
-		 $("input#postcode").val("우편번호 가져와본다");	 
-		 $("input#detailAddress").val("상세주소밸류 가져와본다"); 	
+	 
 	
 
 
 }// end of function Revise_add() {}------------------------	
+
 
 
 
@@ -414,7 +456,7 @@ function openDaumPOST() {
 
 
 
-//"저장하기" 버튼 클릭시 호출되는 함수  
+// 모달창의 "저장하기" 버튼 클릭시 호출되는 함수  
 function goRegister() {
 	
 	const name_length = $("input:text[name='order_name']").val().trim().length;
@@ -473,7 +515,7 @@ function goRegister() {
 
 
 
-//"수정하기" 버튼 클릭시 호출되는 함수  
+// 모달창의 "수정하기" 버튼 클릭시 호출되는 함수  
 function goEdit() {
 	
 	const name_length = $("input:text[name='order_name']").val().trim().length;
@@ -527,8 +569,7 @@ function goEdit() {
     
 
 	
-}// end of function goRegister()----------------------
-
+}// end of function goEdit()----------------------
 
 
 
