@@ -16,34 +16,30 @@ public class MyInfoController extends AbstractController{
 		
 		if( super.checkLogin(request) ) {
 			
-			String userid = request.getParameter("userid");
-			
 			HttpSession session = request.getSession();
-			String sessionUserid = (String) session.getAttribute("userid");
+			String userid = (String) session.getAttribute("userid");
+				
+			InterMemberDAO mdao = new MemberDAO();
 			
-			if(sessionUserid.equals(userid)) {
-				
-				InterMemberDAO mdao = new MemberDAO();
-				
-				MemberDTO mdto = mdao.selectOne(userid);
-				System.out.println(mdto.getUserid());
-				
-				request.setAttribute("mdto", mdto);
-			}
+			MemberDTO mdto = mdao.selectOne(userid);
+			System.out.println(mdto.getUserid());
 			
-			else {
-				// 로그인한 사용자가 다른 사용자의 정보를 수정하는 경우
-				String message = "다른 사용자의 정보 변경은 불가합니다.!!";
-				String loc = "javascript:history.back()";
-				
-				request.setAttribute("message", message);
-				request.setAttribute("loc", loc);
-				
-			//	super.setRedirect(false);
-				super.setViewPage("/WEB-INF/msg.jsp");
-			}
+			request.setAttribute("mdto", mdto);
+		}	
 			
+		else {
+			// 로그인한 사용자가 다른 사용자의 정보를 수정하는 경우
+			String message = "다른 사용자의 정보 변경은 불가합니다.!!";
+			String loc = "javascript:history.back()";
+			
+			request.setAttribute("message", message);
+			request.setAttribute("loc", loc);
+			
+		//	super.setRedirect(false);
+			super.setViewPage("/WEB-INF/msg.jsp");
 		}
+			
+		
 		
 		super.setViewPage("/WEB-INF/view/member/myInformation.jsp");
 	}

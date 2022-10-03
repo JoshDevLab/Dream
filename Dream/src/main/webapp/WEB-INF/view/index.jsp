@@ -17,15 +17,8 @@
 		
 		$("button#more_btn").click(function() { 
 			
+			displayDiscount($(this).val());
 			
-			if($(this).text() == "처음으로") {
-				$("div#discountDisplay").empty();
-				displayDiscount("1");
-				$(this).text("더보기");
-			}
-			else {
-				displayDiscount($(this).val());
-			}
 		});
 		
 	});// end of $(document).ready(function() {})----------------------------
@@ -45,7 +38,6 @@
 			success: function(json) {
 				
 				let html = ``;
-				
 				
 				if( start == "1" && json.length == 0) {
 					html = "<span>할인중인 상품이 없습니다.</span>";
@@ -78,6 +70,7 @@
 								"</div>"; 
 								
 					}); // end of $.each(json, function(index, item) {}) -----------------
+					
 					
 					$("div#discountDisplay").append(html);
 					

@@ -83,7 +83,15 @@ public class CartDTO {
 		this.product_name = product_name;
 	} 
 	
-	
+	public int getDiscount_price() {
+		
+		int discountPrice = 0;
+		
+		discountPrice = (int) (price - (price / discount_rate*100));
+		
+		return discountPrice;
+		
+	}
 	
 	
 	

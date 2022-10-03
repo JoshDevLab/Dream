@@ -101,7 +101,7 @@ public class ProductDTO {
 		
 		int discountPrice = 0;
 		
-		discountPrice = (int) (price * discount_rate);
+		discountPrice = (int) (price - (price / discount_rate*100));
 		
 		return discountPrice;
 		
