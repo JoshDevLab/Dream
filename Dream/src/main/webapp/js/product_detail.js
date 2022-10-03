@@ -490,7 +490,8 @@ function goPurchasePage(){
 			data:{	"productNum":productNum,
 					"userid":userid,
 					"sizeArray":JSONsizeArray,
-					"cntArray":JSONcntArray},   
+					"cntArray":JSONcntArray,
+					"length":length},   
 					
 			type:"post",
 			dataType:"json",

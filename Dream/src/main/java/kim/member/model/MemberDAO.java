@@ -64,7 +64,7 @@ public class MemberDAO implements InterMemberDAO {
 	public int updateCart(Map<String, String> paraMap) throws SQLException{
 		
 		int result = 0;
-		
+		System.out.println("들어왔다");
 		try {
 			
 			int length = Integer.parseInt(paraMap.get("length"));
@@ -74,18 +74,33 @@ public class MemberDAO implements InterMemberDAO {
 			
 			int count = 0; // 체크용
 			int n =0;
+			System.out.println(length);
+			String sql="";
+			
+			
 			for(int i=0; i<length;i++) {
-				String sql = " insert into tbl_cart (CART_NUM, USERID, PRODUCT_NUM, CART_CNT , PRODUCT_SIZE,  PURCHASE) "+
-						" values(seq_cart_num.nextval , ?,?,?, ?, 0 ) ";
+				sql = " MERGE INTO tbl_cart "+
+						" USING dual "+
+						" ON (userid= ? and PRODUCT_NUM = ? and product_size=?) "+
+						" WHEN MATCHED THEN "+
+						" UPDATE SET cart_cnt = cart_cnt+ ? "+
+						" WHEN NOT MATCHED THEN " +
+						" insert (CART_NUM, USERID, PRODUCT_NUM, CART_CNT , PRODUCT_SIZE) "+
+						" values(seq_cart_num.nextval , ? ,?,?, ?) ";
 				
 				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, paraMap.get("userid")); 
+				System.out.println("Tlqkf");
+				pstmt.setString(1, paraMap.get("userid"));
 				pstmt.setString(2, paraMap.get("productNum"));
 				pstmt.setString(3, paraMap.get("size"+i));
-				pstmt.setString(4, paraMap.get("cnt")+i);
+				pstmt.setString(4, paraMap.get("cnt"+i));
+				pstmt.setString(5, paraMap.get("userid"));
+				pstmt.setString(6, paraMap.get("productNum"));
+				pstmt.setString(7, paraMap.get("cnt"+i));
+				pstmt.setString(8, paraMap.get("size"+i));
 				
 				n = pstmt.executeUpdate();
+				System.out.println("n"+n);
 				count += n;
 			}
 			
@@ -111,7 +126,10 @@ public class MemberDAO implements InterMemberDAO {
 			
 			
 			
-		} finally {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+		}finally {
 			conn.setAutoCommit(true); 
 			close();
 		}

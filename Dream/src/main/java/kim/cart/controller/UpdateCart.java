@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import common.controller.AbstractController;
@@ -32,6 +33,7 @@ public class UpdateCart extends AbstractController {
 				
 				
 				System.out.println(request.getParameter("sizeArray"));
+				System.out.println(request.getParameter("cntArray"));
 				System.out.println("cartupdate 넘어온 값 확인!");
 				
 				Map<String, String> paraMap = new HashMap<>();
@@ -41,13 +43,26 @@ public class UpdateCart extends AbstractController {
 				
 				ArrayList<String>sizeArr = new ArrayList<String>();
 				ArrayList<String>cntArr = new ArrayList<String>();
+				
+//				여기서 부터 따온거
+				JSONArray sizeArray = new JSONArray(request.getParameter("sizeArray"));
+				JSONArray cntArray = new JSONArray(request.getParameter("cntArray"));  
+				
+				System.out.println(sizeArray);
+				
+				for (int i=0; i < sizeArray.length(); i++) {
+					 sizeArr.add(sizeArray.getString(i)); 
+				}
+				for (int i=0; i < cntArray.length(); i++) {
+					cntArr.add(cntArray.getString(i)); 
+				}
+				System.out.println("sizeArr"+sizeArr);
+				System.out.println("cntArr"+cntArr);
+
 				for(int i=0; i<length ;i++) {
+					paraMap.put("size"+i, sizeArr.get(i));
+					paraMap.put("cnt"+i, cntArr.get(i));
 					
-					sizeArr.add((String)request.getParameter("sizeArray")); 
-					cntArr.add((String)request.getParameter("cnt"+i)); 
-					
-					paraMap.put("size"+i, (String)request.getParameter("size"+i));
-					paraMap.put("cnt"+i, (String)request.getParameter("cnt"+i));
 				}
 				paraMap.put("userid",userid);
 				paraMap.put("productNum",productNum);
@@ -67,6 +82,7 @@ public class UpdateCart extends AbstractController {
 				outer:
 				for(int i=0; i<length ;i++) {
 					String sizeOption = sizeArr.get(i);
+					System.out.println(sizeOption+"sizeOption");
 					int cntOption = Integer.parseInt(cntArr.get(i));
 					for(int n=0; n<stockSizeArr.size();n++) {
 						// 사이즈 옵션과 같은 사이즈가 나올때의 인덱스를 구할거임
@@ -86,9 +102,9 @@ public class UpdateCart extends AbstractController {
 					// 재고가 확인 되었다면 카트에 추가해주자
 					
 					InterMemberDAO mdao = new MemberDAO();
-					
+					System.out.println("들어간다");
 					int n = mdao.updateCart(paraMap);
-					
+					System.out.println("나온다");
 					if(n == -1) {
 						// 실패했다면
 						isItOk = false;
