@@ -14,6 +14,9 @@ public class ProductDTO {
 	private int product_num;        //상품번호
 	private int price;          	//가격
 	
+	// select용
+	private int product_like_cnt;	//로그인한 사람이 좋아요를 눌렀는지 알아내기위한 컬럼(0 아니면 1)
+	
 	//method
 	public String getRegister_date() {
 		return register_date;
@@ -68,6 +71,16 @@ public class ProductDTO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	
+	
+	//select용 method
+	public int getProduct_like_cnt() {
+		return product_like_cnt;
+	}
+	public void setProduct_like_cnt(int product_like_cnt) {
+		this.product_like_cnt = product_like_cnt;
 	}
 	
 }

@@ -254,6 +254,33 @@ button#discount{
   text-decoration:none;
 }
 
+/* a태그 데코레이션 없애기 시작 */
+a.product:link {
+  color : black;
+  text-decoration: none;
+}
+a.product:visited {
+  color : black;
+  text-decoration: none;
+}
+a.product:hover {
+  color : black;
+  text-decoration: none;
+}
+a.product:active {
+  color : black;
+  text-decoration: none;
+}
+/* a태그 데코레이션 없애기 끝 */
+
+
+div.item:hover{
+  border-radius:20px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+}
+
+
+
 @media screen and (max-width: 1100px){
   button#discount{
     display:none;

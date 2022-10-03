@@ -47,6 +47,10 @@ p.login_error{
   display:none;
 }
 
+p#mobile_ok{
+ color:blue;
+}
+
 
 button#btn_join{
   width:100%;
@@ -77,14 +81,20 @@ input::placeholder{
 
 label[for='userid'],
 label[for='passwd'],
-label[for='passwd_check']{
+label[for='passwd_check'],
+label[for='mobile'],
+label[for='mobileConfirm']{
   margin-top: 4%;
   margin-bottom:0;
   font-weight: bold;
   font-size:small;
-  /* position:relative;
-  top:10px; */
 }
+div#mobileConfirm{
+	display:flex;
+	flex-direction:column;
+}
+
+
 
 
 /* checkbox */
@@ -126,6 +136,16 @@ button#btn_send_email:hover{
 	background-color:black;
 	color:white;
 }
+
+div#mobile > button#btn_mobile_check,
+button#btn_mobile_check_complete{
+	width:80px;
+	height:40px;
+	font-size:small;
+}
+
+
+
 
 
 

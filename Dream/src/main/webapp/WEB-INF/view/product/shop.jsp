@@ -242,9 +242,9 @@
 		                <div class="product_imgbox border">
 		                  <img id="product_img" src="<%=ctxPath %>/images/제품이미지/${product.product_image}">
 		                </div>
-		                <div id="product_simple_explain">
+		                <div id="product_simple_explain" class="pl-2">
 		                  <%-- 상품 카테고리 넣을 곳 --%>
-		                  <div id="product_division">${product.category}</div>
+		                  <div id="product_division" class="mt-2">${product.category}</div>
 		                  <%-- 상품이름 넣을 곳 --%>
 		                  <div id="product_name" class="my-2">${product.product_name }</div>
 		                  <%-- 상품가격 넣을 곳 --%>
@@ -260,7 +260,6 @@
 			                    <div id="discount_mark">
 			                      <%-- 할인율 넣을 곳 --%>
 			                      <span id="discount_percent">${product.discount_rate * 100}%</span>
-			                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
 			                    </div> 
 		                    </c:if>
 		                  </div>
@@ -271,7 +270,12 @@
 		                </div>
 		              </div>
 		            </a>
-		            <div type="button" id="btn_like" class="border rounded text-center"><i class="fa-solid fa-heart"></i></div>
+		            <c:if test="${empty sessionScope.userid || product.product_like_cnt == 0}">
+		              <div type="button" id="btn_like" class="border rounded text-center"><i class="fa-solid fa-heart"></i></div>
+		            </c:if>
+		            <c:if test="${not empty sessionScope.userid && product.product_like_cnt != 0}">
+		              <div type="button" id="btn_like" class="border rounded text-center" style="color:pink;"><i class="fa-solid fa-heart"></i></div>
+		            </c:if>
 		          </div>
 	          </c:forEach>
 	          

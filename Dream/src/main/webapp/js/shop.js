@@ -559,8 +559,68 @@ $("document").ready(function(){
 	  //좋아요 버튼 클릭시 이벤트 잡기
 	  $("div#btn_like").click(e=>{
 		const target = $(e.currentTarget);	//이벤트버블링방지 currentTarget 사용
-		target.css("color","pink");
-	  });
+		const productNum = target.prev().attr('id');
+		$.ajax({ 
+			url:getContextPath()+"/product/likeCheck.dream", 
+			type:"GET",
+			data:{"productNum": productNum},
+			dataType:"json",
+			success:function(json){	//좋아요 테이블에 insert가 성공시
+			  if(json.login && json.like_exist){	//좋아요가 존재한다면
+			    $.ajax({ 
+					url:getContextPath()+"/product/likeDelete.dream", 
+					type:"GET",
+					data:{"productNum": productNum},
+					dataType:"json",
+					success:function(json){	
+						if(json.deleteLikeSuccess){ //좋아요 테이블에 delete가 성공시
+							target.css("color","black");
+						}
+						else{ //좋아요 테이블에 delete가 실패시
+						  alert("좋아요 버튼클릭 실패! 다시 시도해주세요");
+						}
+					},//end of success
+					
+					//success 대신 error가 발생하면 실행될 코드 
+					error: function(request,status,error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+					}
+				});//end of $.ajax({})---
+			  }//end of if---
+			  else if(!json.login){
+				location.href=getContextPath()+'/login/login.dream';
+			  }
+			  
+			  
+			  else{	//좋아요가 존재하지 않는다면
+			    $.ajax({ 
+					url:getContextPath()+"/product/likeInsert.dream", 
+					type:"GET",
+					data:{"productNum": productNum},
+					dataType:"json",
+					success:function(json){	
+					  if(json.insertLikeSuccess){	//좋아요 테이블에 insert가 성공시
+						target.css("color","pink");
+					  }
+					  else{	//좋아요 테이블에 insert가 실패시
+						alert("좋아요 버튼클릭 실패! 다시 시도해주세요");
+					  }
+					},//end of success
+					//success 대신 error가 발생하면 실행될 코드 
+					error: function(request,status,error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+					}
+				});//end of $.ajax({})---
+			  }//end of else--
+			  
+			  
+			},//end of success
+			//success 대신 error가 발생하면 실행될 코드 
+			error: function(request,status,error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		  });//end of $.ajax({})---
+	  });//end of $("div#btn_like").click
 	  
 	  
 	  

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import choi.product.model.InterProductDAO;
 import choi.product.model.ProductDAO;
@@ -19,10 +20,11 @@ public class ShopController extends AbstractController{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod();
 		
-		
 		if("GET".equalsIgnoreCase(method)) { //요청방식이 "GET"일 때 
 			try {
+				HttpSession session = request.getSession();
 				//변수 선언
+				String userid = (String) session.getAttribute("userid");
 				String category = null;			//제품카테고리
 				String detail_category = null;	//제품상세카테고리
 				String bestyn = "N";			//베스트상품여부
@@ -111,6 +113,8 @@ public class ShopController extends AbstractController{
 			    
 			    paraMap.put("page", String.valueOf(page));
 			    paraMap.put("display_cnt",String.valueOf(display_cnt));
+			    paraMap.put("userid",userid);
+			    
 			    
 				List<ProductDTO> productList = pdao.selectAllProduct(paraMap);	//페이지 번호에 알맞는 게시물을 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 				
