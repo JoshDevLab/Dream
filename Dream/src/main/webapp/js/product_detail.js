@@ -11,6 +11,7 @@ isLargerThan960 = false;
 
 // Function Declaration
 
+
 function checkVisible( elm, eval ) {
     eval = eval || "object visible";
     var viewportHeight = $(window).height(), // Viewport Height
@@ -389,7 +390,6 @@ function goPurchasePage(){
 					 <input type="hidden" name="cnt${i}" value="${option_cnt}"  /> `
 					} // end of for
 				
-				html +=`<input type="hidden" name="productNum" value="${productNum}"  />`
 				html +=`<input type="hidden" name="length" value="${length}"  />`
 				
 				console.log(html);
@@ -443,3 +443,80 @@ function goPurchasePage(){
 		$("em.num").text(price);
 		
 	};
+	
+	// 장바구니에 추가해주는 버튼
+	function updateCart(){
+		// 일단 선택한 옵션의 사이즈 배열과 갯수 배열을 각각 만들어보자자자자자자자자자ㅏ자자자ㅏ자자
+	const userid = $("input#userid").val();
+
+	if(userid!= ""){
+
+		let length = $("div#added_option").length;
+		let added_optionName = document.getElementsByName("optionName");
+		
+		const productNum = $("input#productNum").val();
+		
+		let added_optionAmount = document.getElementsByName("optionAmount");
+
+		let sizeArray =[];
+		let cntArray =[];
+
+
+		// 선택한 옵션의 수 만큼 반복
+		for(let i = 0; i < length; i++) {
+			
+			
+			 sizeArray.push(added_optionName[i].textContent);
+			 cntArray.push(added_optionAmount[i].textContent);
+			}
+
+		// 선택한 옵션의 순서대로 옵션의 사이즈, 개수가 같은 인덱스로 들어감
+		// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것 json 쓰자자자자자자ㅏ자자자ㅏㅈ
+			console.log("sizeArray"+sizeArray);
+			console.log("cntArray"+cntArray);
+			console.log("productNum"+productNum);
+			console.log("userid"+userid);
+	
+	
+	   
+			let JSONsizeArray= JSON.stringify(sizeArray);
+			console.log("JSONsizeArray"+JSONsizeArray);
+			let JSONcntArray= JSON.stringify(cntArray);
+
+			
+		$.ajax({
+			url:getContextPath()+"/cart/updateCart.dream",
+			traditional: true,
+			data:{	"productNum":productNum,
+					"userid":userid,
+					"sizeArray":JSONsizeArray,
+					"cntArray":JSONcntArray},   
+					
+			type:"post",
+			dataType:"json",
+			// 카트에 담을만큼 재고가 있는지 먼저 체크
+	        success:function(json){
+				
+				if(json.isItOk){
+					
+					alert("선택하신 제품이 장바구니에 추가되었습니다!");
+				}
+				else{
+					alert("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.")
+				}
+	        }// end of succes
+	        ,error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		});
+		
+	}// end of if(userid != null)
+	else{ // 로그인 안한 사람
+		alert("로그인을 해주세요!");
+	}
+ 
+	
+		
+		
+		
+	}

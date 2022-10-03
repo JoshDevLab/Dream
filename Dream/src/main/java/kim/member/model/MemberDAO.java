@@ -66,23 +66,53 @@ public class MemberDAO implements InterMemberDAO {
 		int result = 0;
 		
 		try {
+			
+			int length = Integer.parseInt(paraMap.get("length"));
 			conn = ds.getConnection();
+			conn.setAutoCommit(false);
 			
-			String sql = " update tbl_member set pwd = ?, lastpwdchangedate = sysdate "
-					   + " where userid = ? ";
 			
-			pstmt = conn.prepareStatement(sql);
+			int count = 0; // 체크용
+			int n =0;
+			for(int i=0; i<length;i++) {
+				String sql = " insert into tbl_cart (CART_NUM, USERID, PRODUCT_NUM, CART_CNT , PRODUCT_SIZE,  PURCHASE) "+
+						" values(seq_cart_num.nextval , ?,?,?, ?, 0 ) ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, paraMap.get("userid")); 
+				pstmt.setString(2, paraMap.get("productNum"));
+				pstmt.setString(3, paraMap.get("size"+i));
+				pstmt.setString(4, paraMap.get("cnt")+i);
+				
+				n = pstmt.executeUpdate();
+				count += n;
+			}
 			
-			pstmt.setString(1, Sha256.encrypt(paraMap.get("pwd")) ); // 암호를 SHA256 알고리즘으로 단방향 암호화 시켜서 갱신해준다.
-			pstmt.setString(2, paraMap.get("userid") );
+			if(count == length) {
+				// 추가하려는 만큼 다 insert 성공했다면
+				conn.commit(); 
+				result = count;
+				System.out.println(result+"개 행 insert 성공!");
+				
+			}
+			else {
+				// 추가하려값만큼 insert 되지 않았다면
+				conn.rollback();
+				System.out.println("망했습니다");
+				result = -1;
+				
+			}
+			
+			
 			
 		
-			
-			result = pstmt.executeUpdate();
+	
 			
 			
 			
 		} finally {
+			conn.setAutoCommit(true); 
 			close();
 		}
 		

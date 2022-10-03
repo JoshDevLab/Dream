@@ -615,6 +615,10 @@ input#checkbox_3{
     opacity: 1;
   }
 }
+
+#zipcodeSearch{
+	color:#222;
+}
     
 @keyframes star-four {
   0%, 100% {
@@ -644,7 +648,203 @@ input#checkbox_3{
 
 
 
+/* 모달 css 시작  */
+div.layer_container {
+   overflow: hidden;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   -webkit-transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+   background-color: #fff;
+   width: 448px;
+   border-radius: 16px;
+   -webkit-box-shadow: 0 4px 10px 0 rgb(0 0 0/ 10%);
+   box-shadow: 0 4px 10px 0rgba(0, 0, 0, .1);
+   margin: 0;
+}
 
+div.modal_box.layer.lg {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(34, 34, 34, .5);
+   margin: 0;
+}
+
+div.modal_box.layer.lg>div>div.layer_header>h2
+   {
+   line-height: 22px;
+   padding: 18px 50px 20px;
+   min-height: 60px;
+   font-size: 18px;
+   letter-spacing: -.27px;
+   font-weight: 700;
+   letter-spacing: -.15px;
+   color: #000;
+   text-align: center;
+   background-color: #fff;
+}
+
+div.modal_box.layer.lg>div>div.layer_content>div.delivery_bind>form.delivery_input>div>h4
+   {
+   font-size: 13px;
+   letter-spacing: -.07px;
+   line-height: 18px;
+   display: block;
+   margin-block-start: 1.33em;
+   margin-block-end: 1.33em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+   font-weight: bold;
+   margin: 0;
+}
+
+div.modal_box.layer.lg>div>div.layer_content>div.delivery_bind>form.delivery_input>div>div>input
+   {
+   outline: 0;
+   border: 0;
+   resize: none;
+   border-radius: 0;
+   -webkit-appearance: none;
+   background-color: rgba(0, 0, 0, 0);
+   width: 100%;
+   width: 100%;
+   font-size: 15px;
+   letter-spacing: -.15px;
+   line-height: 22px;
+   border-bottom: 1px solid #ebebeb;
+   padding: 8px 0;
+}
+
+div.modal_box.layer.lg>div>div.layer_content>div.delivery_bind
+   {
+   padding: 0 32px;
+}
+
+div.modal_box.layer.lg>div>div.layer_content>div.delivery_bind>form.delivery_input>div:nth-child(3)>div>a
+   {
+   position: absolute;
+   right: 0;
+   border: 1px solid #d3d3d3;
+   font-size: 12px;
+   letter-spacing: -.06px;
+   padding: 0 14px;
+   height: 34px;
+   line-height: 32px;
+   border-radius: 10px;
+}
+
+div.modal_box.layer.lg>div>div.layer_content>div.delivery_bind>form.delivery_input>div
+   {
+   padding-top: 16px;
+   position: relative;
+   padding: 10px 0 14px;
+   margin: 0;
+}
+
+div > a > i.material-icons { 
+   position: absolute;
+   top: 18px;
+   right: 20px;
+   color: black;
+}
+
+div.layer_btn{
+   padding-top: 32px;
+   padding: 24px 32px 32px;
+   display: flex;
+   justify-content: center;
+   
+}
+
+/* 모달 취소 버튼 시작  */
+#add_address > div > div.layer_btn > a.btn.btn_delete.outlinegrey.medium
+{
+   width: 120px;
+   border: 1px solid #d3d3d3;
+   color: rgba(34, 34, 34, .8);
+   padding: 0 18px;
+   height: 42px;
+   line-height: 40px;
+   border-radius: 12px;
+   font-size: 14px;
+   letter-spacing: -.14px; 
+}
+/* 모달 취소 버튼 끝  */
+
+/* 모달 저장 버튼 시작  */
+#add_address > div > div.layer_btn > a.btn.btn_save.solid.medium.disabled
+   {
+   width: 120px;
+   border: 1px solid #d3d3d3;
+   color: rgba(34, 34, 34, .8);
+   padding: 0 18px;
+   height: 42px;
+   line-height: 40px;
+   border-radius: 12px;
+   font-size: 14px;
+   letter-spacing: -.14px;
+   margin-left: 8px;
+   background-color: #ebebeb;
+   color: #fff;
+   font-weight: bold;
+}
+
+#add_address > div > div.layer_btn > a.btn.btn_save.solid.medium
+   {
+   width: 120px;
+   border: 1px solid #d3d3d3;
+   color: rgba(34, 34, 34, .8);
+   padding: 0 18px;
+   height: 42px;
+   line-height: 40px;
+   border-radius: 12px;
+   font-size: 14px;
+   letter-spacing: -.14px;
+   margin-left: 8px;
+   background-color: #222;
+   color: #fff;
+   font-weight: bold;
+}
+
+
+
+/* 모달 저장 버튼 끝  */
+div.delivery_check>div>label>svg
+   {
+   width: 0.1px;
+   height: 24px;
+}
+
+div.delivery_check>div>label>span
+   {
+   padding-left: 8px;
+   display: inline-block;
+   line-height: 24px;
+   font-size: 13px;
+   letter-spacing: -.07px;
+   vertical-align: top;
+   overflow: hidden;
+}
+
+input[type="checkbox"] {
+   width: 25px; /*Desired width*/
+   height: 25px; /*Desired height*/
+   position: relative;
+   top: 7px;
+}
+
+#add_address > div > button {
+   padding-right: 20px;                 /* 모달 x버튼  */
+   padding-top: 15px;
+}
+
+
+/* 모달 css 끝  */
 
 
 

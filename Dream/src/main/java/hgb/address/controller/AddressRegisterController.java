@@ -25,6 +25,7 @@ public class AddressRegisterController extends AbstractController{
 			super.setViewPage("/WEB-INF/view/member/address.jsp");
 		}
 		
+		
 		else {
 			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
 			 String order_name = request.getParameter("order_name"); 	

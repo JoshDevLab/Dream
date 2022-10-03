@@ -92,7 +92,7 @@ public class ProductDAO implements InterProductDAO {
 				 // tbl_product_stock 테이블에서 사이즈, 재고 알아오기
 				 String sql2 = " select product_num, product_size, size_cnt"+
 						 " from tbl_product_stock "+
-						" where product_num = ? ";
+						" where product_num = ?  ";
 				 pstmt = conn.prepareStatement(sql2);
 				 pstmt.setString(1 , product_num);
 				 
@@ -184,6 +184,16 @@ public class ProductDAO implements InterProductDAO {
 	   	int n = 0;
 
 		      try {
+	    	  
+	    		conn = ds.getConnection();
+				String sql = " update tbl_point set status = '만료' "+
+						"   where point_exp_period <=  sysdate" ;
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				
+				rs = pstmt.executeQuery();
+				
 		         
 		         conn = ds.getConnection();
 		         conn.setAutoCommit(false);
@@ -192,7 +202,7 @@ public class ProductDAO implements InterProductDAO {
 		         // 반복문 돌려야한다람쥐
 		         int length = Integer.parseInt(paraMap.get("length"));
 		         
-		         String sql = "";
+		         sql = "";
 		         int sum = 0;
 		         for(int i=0; i<length; i++) {
 		        	 sql = "   update tbl_product_stock set size_cnt = size_cnt- ? "+
@@ -231,7 +241,7 @@ public class ProductDAO implements InterProductDAO {
  		        	 OK = false;
  		         }
 		         // 포인트 사용
-		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,point_exp_period) "+
+		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,event_date) "+
 		        	   " values(seq_point_num.nextval , ?,?,?, '차감',?,sysdate) ";
 		         pstmt = conn.prepareStatement(sql);
 
@@ -248,7 +258,7 @@ public class ProductDAO implements InterProductDAO {
  		         }
 
 		         // 포인트 적립
-		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,point_exp_period) "+
+		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,event_date) "+
 		        		 " values(seq_point_num.nextval , ?,?,?, '적립',?,sysdate) ";
 		         pstmt = conn.prepareStatement(sql);
 

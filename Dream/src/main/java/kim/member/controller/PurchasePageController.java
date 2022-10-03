@@ -71,11 +71,27 @@ public class PurchasePageController extends AbstractController {
 			
 			System.out.println(product.getOrder_product_cnt());
 			System.out.println(product.getOrder_product_size());
-			
-			
-			
+
 			request.setAttribute("product", product);
 			
+			// 주소지 가져오기
+			
+			// 전부불러오기
+			//  List<AddressDTO> addressList = adao.selectAddress(userid);
+			
+			// 기본배송지 하나 불러오기
+			// AddressDTO basic_adto = adao.select_basic_address(userid);
+			
+			// 모바일 별추가
+			// String basic_mobile = basic_adto.getMobile();
+			
+		//	 request.setAttribute("addressList", addressList);
+            
+	    //     request.setAttribute("basic_first_mobile", basic_first_mobile);
+	    //     request.setAttribute("basic_second_mobile", basic_second_mobile);
+	    //     request.setAttribute("basic_third_mobile", basic_third_mobile);
+	    //     request.setAttribute("basic_adto", basic_adto);      
+	    //     request.setAttribute("address_num", address_num);
 			
 			
 			
