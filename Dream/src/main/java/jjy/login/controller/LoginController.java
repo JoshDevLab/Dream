@@ -50,28 +50,30 @@ public class LoginController extends AbstractController {
 			if("admin".equals(userid)) { // 입력받은 아이디가 admin(관리자)인 경우 
 				boolean isAdmin = logindao.selectAdmin(userinfoMap);
 				
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("userid", "admin");
-				
 				JSONObject jsonObj = new JSONObject();
+				
+				System.out.println("isAdmin : " + isAdmin);
 				
 				// 제이슨에 값 담기
 				jsonObj.put("userid", userid);
-				jsonObj.put("isSecession", false); // json으로 전달할 탈퇴 회원 여부
-				jsonObj.put("isMembership", false); // json으로 전달할 멤버십 가입 여부
-				jsonObj.put("isMembershipGap", false); // json으로 전달할 멤버십 기간 1달 초과 여부
+				jsonObj.put("isSecession", false);        // json으로 전달할 탈퇴 회원 여부
+				jsonObj.put("isMembership", false);       // json으로 전달할 멤버십 가입 여부
+				jsonObj.put("isMembershipGap", false);    // json으로 전달할 멤버십 기간 1달 초과 여부
 				jsonObj.put("isRequirePwdChange", false); // json으로 전달할 멤버십 기간 1달 초과 여부
-				jsonObj.put("isRestMember", false); // json으로 전달할 휴면사용자 여부
-				jsonObj.put("isUserExists", isAdmin); // 아이디 비밀번호 일치하는 경우 
+				jsonObj.put("isRestMember", false);       // json으로 전달할 휴면사용자 여부
+				jsonObj.put("isUserExists", isAdmin);     // 아이디 비밀번호 일치하는 경우 
 				
 				String json = jsonObj.toString();
 				request.setAttribute("json", json);
+				
+				if(isAdmin) {
+					HttpSession session = request.getSession();
+					session.setAttribute("userid", "admin");
+					System.out.println("확인용 관리자 로그인 session에 저장된 값 : "+ session.getAttribute("userid"));
+				}
 
 				// super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/jsonview.jsp");
-				
-				System.out.println("확인용 관리자 로그인 session에 저장된 값 : "+ session.getAttribute("userid"));
 				
 			}
 			else {	 // 입력받은 아이디가 일반 사용자인 경우 
