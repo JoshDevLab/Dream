@@ -17,7 +17,16 @@
 		
 		$("button#more_btn").click(function() { 
 			
-			displayDiscount($(this).val());
+			if($(this).text() == "처음으로") {
+				$("div#discountDisplay").empty();
+				displayDiscount("1");
+				$(this).text("더보기");
+			}
+			else {
+				displayDiscount($(this).val());
+			}
+			
+			
 			
 		});
 		
@@ -48,10 +57,10 @@
 					$.each(json, function(index, item) {
 						
 					    html += "<div class='item col-6 col-md-3 d-flex flex-column py-3'>"+
-									"<a id='"+item.product_num+"' class='product' href='#'>"+
+									"<a id='"+item.product_num+"' class='product' href='<%= ctxPath %>/product/detail.dream?num="+item.product_num+"'>"+
 										"<div class='product'>"+	
 											"<div class='product_imgbox border'>"+
-												"<img src='Dream/images/제품이미지/"+item.product_image+"'>"+
+												"<img src='<%= ctxPath %>/images/제품이미지/"+item.product_image+"'>"+
 											"</div>"+
 											"<div id='product_simple_explain'>"+	
 												"<div id='product_division'>"+item.product_category+"</div>"+

@@ -243,23 +243,11 @@ public class MemberDAO implements InterMemberDAO{
 		MemberDTO mvo = new MemberDTO();
 
       try {
-         
-         conn = ds.getConnection();
-         String sql = " update tbl_point set status = '만료' "+
-               "   where point_exp_period <=  sysdate" ;
-         
-         pstmt = conn.prepareStatement(sql);
-         
-         
-         rs = pstmt.executeQuery();
-         
-         if(rs.next()) {
-            // 포인트 업데이트가 성공하면
             
             // 여기서부터 포인트전까지 조쉬거 훔쳐옴
             conn = ds.getConnection();
             
-            sql = " select A.userid, mobile, username, membership\n"
+            String sql = " select A.userid, mobile, username, membership\n"
                       + " from\n"
                       + " (\n"
                      + " select userid, mobile, username, membership\n"
@@ -316,7 +304,7 @@ public class MemberDAO implements InterMemberDAO{
                }
                
             }
-         }
+         
 
          
          

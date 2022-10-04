@@ -110,8 +110,8 @@ public class ProductDAO implements InterProductDAO {
 			pstmt.setString(1, paraMap.get("start"));
 			pstmt.setString(2, paraMap.get("end"));
 			
-			System.out.println("확인용 start =>" + paraMap.get("start"));
-			System.out.println("확인용 end =>" + paraMap.get("end"));
+			//System.out.println("확인용 start =>" + paraMap.get("start"));
+			//System.out.println("확인용 end =>" + paraMap.get("end"));
 			
 			rs = pstmt.executeQuery();
 			
