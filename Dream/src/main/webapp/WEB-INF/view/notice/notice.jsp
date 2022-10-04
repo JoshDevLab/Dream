@@ -5,7 +5,12 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%-- header 호출 --%>
-  <jsp:include page="/WEB-INF/view/header.jsp" />
+  <c:if test="${sessionScope.userid != 'admin'}">
+	<jsp:include page="/WEB-INF/view/header.jsp" />
+  </c:if>
+  <c:if test="${sessionScope.userid == 'admin'}">
+	<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
+  </c:if>
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/notice.css" />
   <%-- 직접만든 javascript --%>

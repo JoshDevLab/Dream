@@ -5,8 +5,14 @@
 	String ctxPath = request.getContextPath();
 	//
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${sessionScope.userid != 'admin'}">
 <jsp:include page="/WEB-INF/view/header.jsp" />
+</c:if>
+<c:if test="${sessionScope.userid == 'admin'}">
+<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
+</c:if>
 
 
 <script type="text/javascript">

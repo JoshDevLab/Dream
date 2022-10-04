@@ -17,7 +17,12 @@ String ctxPath = request.getContextPath();
 
 
 <%-- header 호출 --%>
-<jsp:include page="/WEB-INF/view/header.jsp" />
+<c:if test="${sessionScope.userid != 'admin'}">
+   <jsp:include page="/WEB-INF/view/header.jsp" />
+  </c:if>
+  <c:if test="${sessionScope.userid == 'admin'}">
+   <jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
+  </c:if>
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css"
 	href="<%=ctxPath%>/css/product_detail.css" />
@@ -126,23 +131,20 @@ String ctxPath = request.getContextPath();
 								<a id="selectOption" href="javascript:void(0)"
 									class="dropdown-toggle" data-toggle="dropdown"> 선택해주세요! </a>
 								<div class="dropdown-menu">
-									<%-- 				    <a class="dropdown-item" >Link 1</a>
-				    <a class="dropdown-item" >Link 2</a>
-				    <a class="dropdown-item" >Link 3</a>
-				     -->
-				    <%-- 사이즈(옵션이) 존재한다면 --%>
+				
+				   					 
 
 									<c:set value="${product.product_size}" var="size" />
 
-									<c:if test="${fn:length(size) == 0 or size == null}">
+									<c:if test="${size == null}">
 										<a class="dropdown-item">잘못된 제품입니다.</a>
 									</c:if>
 
-									<c:if test="${fn:length(size) == 1}">
-										<a class="dropdown-item">one-size</a>
+									<c:if test="${fn:length(size) == 0}">
+										<a class="dropdown-item">freeSize</a>
 									</c:if>
 
-
+									<%-- 사이즈(옵션이) 존재한다면 --%>
 									<c:if test="${fn:length(size) > 1}">
 										<c:forEach items="${size}" var="option">
 											<a class="dropdown-item">${option}</a>
