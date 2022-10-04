@@ -110,35 +110,28 @@ public class ProductDAO implements InterProductDAO{
 		try {
 			conn = ds.getConnection();
 			String sql = "";
-<<<<<<< HEAD
-=======
 			sql += " select * "
 				 + " from "
 				 + " ( "
 				 + " select V.*, rownum R "
 				 + " from "
 				 + " ( ";
->>>>>>> refs/remotes/origin/choihw
 			if(userid != null) {	//로그인중일 경우
 				sql += " select C.*, "
 			         + " nvl(D.product_like_cnt,0) product_like_cnt "
 					 + " from ( ";
 			}
 			
-<<<<<<< HEAD
 	        sql += " select * "
 	        	 + " from "
 	        	 + " ( "
 	        	 + " select rownum R "
 	        	 + "      , A.* "
-=======
 	        sql += " select A.* "
->>>>>>> refs/remotes/origin/choihw
 			     + "      , nvl(B.like_cnt,0) like_cnt "
 			     + " from  "
 			     + " ( "
 			     + " select product_num "
-<<<<<<< HEAD
 			     + "      , register_date "
 			     + "      , product_name "
 			     + "      , product_image "
@@ -149,7 +142,6 @@ public class ProductDAO implements InterProductDAO{
 			     + "      , price - (price * (discount_rate)) real_price "
 			     + "      , gender "
 			     + "      , bestyn "
-=======
 			     + "     , register_date "
 			     + "     , product_name "
 			     + "     , product_image "
