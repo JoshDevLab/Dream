@@ -30,16 +30,27 @@ public class AddressEditController extends AbstractController {
 			 String post_code = request.getParameter("post_code"); 
 			 String address = request.getParameter("address"); 	         
 	         String detail_address = request.getParameter("detail_address"); 	         	         	         	         
-	         String address_num = request.getParameter("address_num"); 	         	         	         	         
+	         String address_num = request.getParameter("address_num"); 	
+	         
+	         
+	         String basic_address = "";
+	         if( request.getParameter("basic_address") != null ) {
+	        	 basic_address = request.getParameter("basic_address");
+	         }
+	         else {// null 이면 off
+	        	 basic_address = "off";
+	         }
 	                  	         	         
 	         
-             AddressDTO address3 = new AddressDTO(order_name, mobile, post_code, address, detail_address, address_num);
+	         AddressDTO address3 = new AddressDTO(order_name, mobile, post_code, address, detail_address, basic_address, address_num);
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         
 			 
 	         try {
 	        	 int n = adao.editAddress(address3);
+	        	 
+	        	 
 	     
      			if(n==1) {
 	     			

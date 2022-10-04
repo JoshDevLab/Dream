@@ -122,7 +122,18 @@ public class AddressDAO implements InterAddressDAO {
 				try {
 					conn = ds.getConnection();
 					
-					String sql = " insert into tbl_address (address_num,userid,basic_address,address,detail_address,post_code,order_name,mobile) "
+					String sql = " update tbl_address " 
+					           + " set basic_address = '0' "
+					           + " where basic_address = '1' ";
+					
+					
+
+					pstmt = conn.prepareStatement(sql);
+								
+					result = pstmt.executeUpdate();	
+															
+					
+					       sql = " insert into tbl_address (address_num,userid,basic_address,address,detail_address,post_code,order_name,mobile) "
 							   + " values (seq_address_num.nextval,'josh@gmail.com','1',?,?,?,?,?) ";
 							   
 					
@@ -132,8 +143,8 @@ public class AddressDAO implements InterAddressDAO {
 					pstmt.setString(2, address1.getDetail_address());	
 					pstmt.setString(3, address1.getPost_code());	
 					pstmt.setString(4, address1.getOrder_name());
-					pstmt.setString(5, address1.getMobile());    // 암호를 SHA256 알고리즘으르 단방향 암호화 시킨다.  
-								
+					pstmt.setString(5, address1.getMobile());    
+					
 					
 					result = pstmt.executeUpdate();
 					
@@ -310,8 +321,45 @@ public class AddressDAO implements InterAddressDAO {
 
 				int result = 0;
 				
-				
 				try {
+					
+				if(address3.getBasic_address().equalsIgnoreCase("on")) {
+					
+					
+					conn = ds.getConnection();
+					
+					String sql = " update tbl_address "
+							   + " set basic_address = '0' "
+							   + " where basic_address = '1' ";
+							   
+							   
+							   
+							    pstmt = conn.prepareStatement(sql);
+								
+								result = pstmt.executeUpdate();	
+							   
+								
+							sql = " update tbl_address "
+							    + "	set order_name = ?, post_code = ?, detail_address = ?, address = ?, mobile = ?, basic_address = '1' "
+							    + "	where address_num = ? ";
+					
+							
+							pstmt = conn.prepareStatement(sql);
+					
+							pstmt.setString(1, address3.getOrder_name());
+							pstmt.setString(2, address3.getPost_code());	
+							pstmt.setString(3, address3.getDetail_address());				
+							pstmt.setString(4, address3.getAddress());										
+							pstmt.setString(5, address3.getMobile());  
+							pstmt.setString(6, address3.getAddress_num()); 
+					
+							result = pstmt.executeUpdate();
+					
+					
+				}
+				else { 
+				
+				
 					conn = ds.getConnection();
 					
 					String sql = " update tbl_address "
@@ -331,12 +379,19 @@ public class AddressDAO implements InterAddressDAO {
 								
 					
 					result = pstmt.executeUpdate();
+				
+					
+				}	
+					
 					
 				} catch(SQLException e) {
 					e.printStackTrace();
 				} finally {
 					close();
 				}
+				
+				
+				
 				
 				
 				
@@ -359,9 +414,7 @@ public class AddressDAO implements InterAddressDAO {
 					
 					String sql = " update tbl_address "
 						       + " set basic_address = '0' "
-							   + " where basic_address = '1' ";
-							   
-							   
+							   + " where basic_address = '1' ";							   							   
 					
 					pstmt = conn.prepareStatement(sql);
 								
@@ -453,7 +506,7 @@ public class AddressDAO implements InterAddressDAO {
 				}
 				return check_basic_address;
 				
-			}//end of 
+			}//end of public boolean check_basic(String userid) throws SQLException --------------------
 
 			
 			
