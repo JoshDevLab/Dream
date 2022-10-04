@@ -68,6 +68,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 
 	}
 
+	// 전체 구매내역 구해오는 메소드 
 	@Override
 	public List<PurchaseListDTO> allPurchaseList(Map<String, String> purchaseMap)throws SQLException {
 
@@ -83,12 +84,12 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 //			System.out.println("확인용 : "+purchaseMap.get("sort"));
 			
 			
-			String sql = " select order_num, userid, B.product_num, buy_cnt , buy_date , shipping, product_name, product_image "+
+			String sql = " select order_num, userid, B.product_num, buy_cnt , buy_date , shipping, product_name, product_image, rownum as rno "+
 					     " from tbl_buylist B left join tbl_product P "+
 					     " on B.product_num = P.product_num "+
 					     " where userid = ? and shipping = ? "+
 					     " and buy_date between TO_DATE( ?  , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "+
-					     " order by buy_date "+purchaseMap.get("sort");
+					     " order by order_num "+purchaseMap.get("sort");
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -134,6 +135,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		
 		int totalPage = 0;
 		
+		
 		try {
 			conn = ds.getConnection();
 			
@@ -173,17 +175,29 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		List<PurchaseListDTO> pagingPurchaseList = new ArrayList<>();
 		try {
 			conn = ds.getConnection();
-			
+			// 내일 여기 수정 (desc asc 변수처리 ) ==> 수정 완료 
 			String sql = " select order_num, userid, product_num, buy_cnt , buy_date , shipping, product_name, product_image, rno "+
 					     " from "+
 					     " ( "+
-					     "    select order_num, userid, B.product_num as product_num, buy_cnt , buy_date , shipping, product_name, product_image, rownum as rno "+
+					     "     select order_num, userid, B.product_num as product_num, buy_cnt , buy_date , shipping, product_name, product_image,"+
+					     " row_number() over(order by order_num "+ purchaseMap.get("sort") +") as rno "+
 					     "     from tbl_buylist B left join tbl_product P "+
 					     "     on B.product_num = P.product_num "+
-					     "     where userid = ?  and shipping = ?  "+
-					     "     and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "+
+					     "     where userid = ? ";
+					     
+						 if( Integer.parseInt(purchaseMap.get("input_shipping")) == 0) {
+							   sql += " and shipping between 0 and 1 ";
+						 }	
+						 else {
+							   sql += " and shipping = 2 ";
+						 }
+					     
+					     sql +="     and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "+
 					     " )v "+
 					     " where rno between ? and ? ";
+					     /* + " order by order_num "+purchaseMap.get("sort");*/
+					     
+					    //   System.out.println("dao 에서 확인 확인용 sql = "+sql);
 			 
 			 // === 페이징처리의 공식 ===
 			 // where RNO between (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수); 
@@ -193,11 +207,11 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			 pstmt = conn.prepareStatement(sql);
 			 
 			 pstmt.setString(1, purchaseMap.get("userid") );
-			 pstmt.setString(2, purchaseMap.get("input_shipping") );
-			 pstmt.setString(4, purchaseMap.get("start_date") );
-			 pstmt.setString(3, purchaseMap.get("end_date") );
-			 pstmt.setString(5, purchaseMap.get("start") );
-			 pstmt.setString(6, purchaseMap.get("end") );
+//			 pstmt.setString(2, purchaseMap.get("input_shipping") );
+			 pstmt.setString(2, purchaseMap.get("end_date") );
+			 pstmt.setString(3, purchaseMap.get("start_date") );
+			 pstmt.setString(4, purchaseMap.get("start") );
+			 pstmt.setString(5, purchaseMap.get("end") );
 			 
 			 rs = pstmt.executeQuery();
 			 
@@ -238,19 +252,27 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select count(*) " // 한페이지에 보여줄 구매내역 10개로 고정
-					   + "from tbl_buylist B left join tbl_product P "
-					   + "on B.product_num = P.product_num "
-					   + "where userid = ? and shipping = ?  "
-					   + "and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "
-					   + "order by buy_date " +purchaseMap.get("sort");
+			String sql = " select count(*) " // 한페이지에 보여줄 구매내역 10개로 고정
+					   + " from tbl_buylist B left join tbl_product P "
+					   + " on B.product_num = P.product_num "
+					   + " where userid = ? ";
+					   
+					   if( Integer.parseInt(purchaseMap.get("input_shipping")) == 0) {
+						   sql += " and shipping between 0 and 1 ";
+					   }	
+					   else {
+						   sql += " and shipping = 2 ";
+					   }
+			
+				   sql += " and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "
+					   +  " order by buy_date " +purchaseMap.get("sort");
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, purchaseMap.get("userid"));
-			pstmt.setString(2, purchaseMap.get("input_shipping") );
-			pstmt.setString(3, purchaseMap.get("end_date") );
-			pstmt.setString(4, purchaseMap.get("start_date") );
+//			pstmt.setString(2, purchaseMap.get("input_shipping") );
+			pstmt.setString(2, purchaseMap.get("end_date") );
+			pstmt.setString(3, purchaseMap.get("start_date") );
 			
 			rs = pstmt.executeQuery();
 
@@ -265,5 +287,48 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		return listCnt;
 		
 	}// public int getTotalListCnt(Map<String, String> purchaseMap) throws SQLException {}----------------------------------
+
+	
+	/** 사용자 아이디를 입력받아 배송상태가 "진행중" , "종료" 의 개수 알아오는 메소드 */
+	@Override
+	public Map<String, String> getOrderCnt(String loginedUserid)throws SQLException {
+		
+		Map<String,String> orderCntMap = new HashMap<>();
+		
+		
+		try {
+			conn = ds.getConnection();
+			
+			// "배송준비중", "진행중"인 주문의 개수를 알아오는 sql 
+			String sql = " select count(*) "
+					   + " from tbl_buylist "
+					   + " where userid = ? and shipping between 0 and 1 ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginedUserid);
+			rs = pstmt.executeQuery();
+			rs.next();
+			orderCntMap.put("shipping", rs.getString(1));
+			
+			// 배송상태가 "종료"인 주문의 개수를 알아오는 sql 
+			sql = " select count(*) "
+				+ " from tbl_buylist "
+				+ " where userid = ? and shipping = 2 ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginedUserid);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			orderCntMap.put("shipping_end", rs.getString(1));
+			
+
+		} finally {
+			close();
+		}
+		
+		return orderCntMap;
+		
+	}// end of public Map<String, String> getOrderCnt(String loginedUserid) {}-------------------------------------------------------------
 
 }

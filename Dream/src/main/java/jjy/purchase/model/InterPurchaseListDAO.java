@@ -15,7 +15,10 @@ public interface InterPurchaseListDAO {
 	List<PurchaseListDTO> selectPagingPurchaseList(Map<String, String> purchaseMap)throws SQLException ;
 
 	/** 출력해야 할 구매내역 수 조회하기 */
-	int getTotalListCnt(Map<String, String> purchaseMap)throws SQLException ;
+	int getTotalListCnt(Map<String, String> purchaseMap) throws SQLException ;
+
+	/** 사용자 아이디를 입력받아 배송상태가 "진행중" , "종료" 의 개수 알아오는 메소드 */
+	Map<String, String> getOrderCnt(String loginedUserid) throws SQLException ;
 
 
 

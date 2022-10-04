@@ -169,6 +169,7 @@ img.product_img{
 }
 /* 조회결과 문구 css */
 li.result_notice{
+   margin-left : 15px;
    font-size: 12px;
    letter-spacing: -0.06px;
    color: #22222280;
@@ -186,6 +187,19 @@ select#select_month{
 }
 
 
+/* 구매내역 조회 더보기 버튼  */
+button#btnMoreHIT{
+	width: 200px;
+	height:50px;
+	border-radius: 10px;
+	color: white;
+	background-color: #c2c2c2;
+	font-weight: 600;
+	font-size: 15px;
+	border: none;
+	margin: 20px auto 0px auto;
+	display:block;
+}
 
 @media screen and (max-width: 958px){
 

@@ -6,13 +6,6 @@ function getContextPath(){
 
 $(document).ready(function() {
 
-	// 비밀번호 정규표현식 
-	// const regExp = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g);
-
-	// 아이디 정규표현식 
-	// const regExp= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-
 	$("span.warning").css("display","none");
 	// 이메일 주소 클릭시 
 	/*$("input#input_userid").focus((e) => {
@@ -31,21 +24,25 @@ $(document).ready(function() {
 		const regExp = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 
 		if (!regExp.test(userid)) {
+			
 			$("input#input_userid").css("border-bottom", "solid 1px red");  //빨간색 밑줄
 			$("span#email_warning").css("display","block");  //에러문구
 			$("div#div_userid>label").css("color", "red");  //이메일주소 문구 빨간색
 		}
 		else {
+			
 			$("span#email_warning").css("display","none");   //에러문구
 			$("div#div_userid>label").css("color", "");      //이메일주소 문구 빨간색
 			$(e.target).css({ "border": "", "border-bottom": "" });
 	
 			$("input#input_userid").focus((e) => {
+				
 				$(e.target).css("outline", "none");
 				$(e.target).attr("placeholder", " ");
 			});
 			// 이메일 주소 커서 상실시 
 			$("input#input_userid").blur((e) => {
+				
 				$(e.target).css({ "border": "", "border-bottom": "" });
 				$(e.target).attr("placeholder", "예)dream@dream.co.kr");
 			});
@@ -69,7 +66,6 @@ $(document).ready(function() {
 	$("input#input_passwd").keydown(function(e) {
 		const passwd = $("input#input_passwd").val();
 		const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
-		
 
 		if (!regExp.test(passwd)) {
 			$(e.target).css("border-bottom", "solid 1px red");  //빨간색 밑줄
@@ -85,6 +81,7 @@ $(document).ready(function() {
 				$(e.target).css("outline", "none");
 				$(e.target).attr("placeholder", " ");
 			});
+			
 			// 비밀번호 커서 상실시 
 			$("input#input_passwd").blur((e) => {
 				$(e.target).css({ "border": "", "border-bottom": "" });
@@ -104,6 +101,22 @@ $(document).ready(function() {
 	/*$("button#login").click(function(e) {
 		goLogin();
 	});*/
+	
+	
+	// 비밀번호 보이기 버튼 클릭시 //
+	$("i#show_pwd").click(function(){
+		
+		$("i#show_pwd").toggleClass('fa-eye');
+		$("i#show_pwd").toggleClass('fa-eye-slash');
+		
+		if($("i#show_pwd").hasClass('fa-eye')){
+			$("input#input_passwd").attr('type','password');
+		}
+		else{
+			$("input#input_passwd").attr('type','text');
+		}
+	});
+	
 
 });// end of $(document).ready(function(){}--------------------------------------------
 
@@ -200,6 +213,7 @@ function goLogin() {
 		$("input#input_passwd").focus();
 		return; // goLogin() 함수 종료
 	}
+	
 
 	/*
 		// 아이디 저장시 localStroage 에 저장

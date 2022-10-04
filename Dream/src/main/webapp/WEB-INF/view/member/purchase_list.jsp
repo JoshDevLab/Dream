@@ -6,7 +6,7 @@
 <%@ page import="jjy.purchase.model.*"%>
 
 <%
-String ctxPath = request.getContextPath();
+	String ctxPath = request.getContextPath();
 %>
 
 <%--header 호출 --%>
@@ -20,7 +20,13 @@ String ctxPath = request.getContextPath();
 
 <%-- 직접만든 javascript 
   <script type="text/javascript" src="<%= ctxPath%>/js/purchase_list.js" ></script>--%>
+
+
+
+
+
 <script type="text/javascript">
+
 
 function getContextPath() {
 	let hostIndex = location.href.indexOf(location.host) + location.host.length;
@@ -28,7 +34,7 @@ function getContextPath() {
 	return contextPath;
 }
 
-
+let totalPage;
 let lenHIT = 5;
 // HIT 상품 "스크롤" 할때 보여줄 상품의 개수(단위)크기 
 let start = 1;
@@ -39,41 +45,21 @@ $(document).ready(function() {
 //	$("span#totalHITCount").hide();
 //	$("span#countHIT").hide();
 	
-	callAjax(start); // 맨 처음 8개를 출력
+	// callAjax(start); // 맨 처음 8개를 출력
 	
-	$(window).scroll(function(){ //$(window) 는 화면에 띄워진 창을 말한다.
-        if( ( $(window).scrollTop() + 1  ) >= ( $(document).height() - $(window).height() ) ){
-        	// alert("스크롤바 이벤트 확인용");
-        	
-        	const totalHITCount =  $("span#totalHITCount").text(); // 36
-        	const countHIT = Number( $("span#countHIT").text() );  // 8
-        	
-        	if( totalHITCount !=  countHIT ){ // 만약 더 보여줄 데이터가 있다면 
-        		// alert("totalHITCount !=  countHIT");
-        		// console.log(start);
-        		// console.log(lenHIT);
-        		
- 				start += lenHIT;   // start = 1 + 8
- 				callAjax(start); // 9~ 17 까지 보여준다.
-        	}
-        }
-        
-        if( $(window).scrollTop() == 0 ){
-        	// 스크롤바가 맨위에 위치한다면 다시 처음부터 시작하도록 한다
-        	$("div#show_shipping").empty(); // append 된 상품들 삭제 
-        	$("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
-        	$("span#end").empty();    // 처음으로 문구 삭제
-        	$("span#countHIT").text("0"); // 지금까지 본 상품 수 초기화
-        	
-        	start = 1;
-        	callAjax(start);
-        	
-        }
-	    
+	// HIT 상품 게시물을 더보기 위하여 "더보기..." 버튼 클릭액션 이벤트 등록하기 
+	$("button#btnMoreHIT").click(function(){ 
+		   if( $(this).text() == "처음으로" ) {
+			   $("div#show_shipping").empty();           // append 된 상품들 삭제 
+	           $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
+	           $("span#end").empty();
+			   callAjax("1");
+			   $(this).text("더보기");
+		   }
+		   else {
+			   callAjax($(this).val());
+		   }
 	});
-	
-	// ===== 스크롤 이벤트 발생시키기 끝 ===== // 
-	
 	
 	// DatePicker 한글, 기타 속성 시작
 	$.datepicker.setDefaults({
@@ -109,6 +95,11 @@ $(document).ready(function() {
 
 	// 진행중 클릭시 테두리, 글자 속성 변경 
 	$("div#shipping_cnt_left").click(function(e) {
+		
+		$("div#show_shipping").empty();           // append 된 상품들 삭제 
+        $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
+        $("span#countHIT").text("0");
+		
 		$("div#shipping_cnt_right").css("border", "");
 		$("div.shipping_status").css({ "font-weight": "", "color": "" });
 		$("div#shipping_cnt_right > div.purchase_count").css("color", "black");
@@ -126,6 +117,11 @@ $(document).ready(function() {
 
 	// 종료 클릭시 테두리, 글자 속성 변경 
 	$("div#shipping_cnt_right").click(function(e) {
+		
+		$("div#show_shipping").empty();           // append 된 상품들 삭제 
+        $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
+        $("span#countHIT").text("0");
+		
 		$("div#shipping_cnt_left").css("border", "");
 		$("div.shipping_status").css({ "font-weight": "", "color": "" });
 		$("div#shipping_cnt_left > div.purchase_count").css("color", "black");
@@ -145,6 +141,11 @@ $(document).ready(function() {
 	//구매일 버튼 클릭시 아이콘 변경 
 	$("button#btn_purchaseDate").click(function(e) {
 
+		
+		 $("div#show_shipping").empty();           // append 된 상품들 삭제 
+         $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
+		
+		
 		let sort = $("input#sort_date");
 
 		$("button.result_detail").css("font-weight", "");
@@ -152,14 +153,14 @@ $(document).ready(function() {
 
 		if ($("button#btn_purchaseDate > i").hasClass("fa-sort-up")) {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-up").addClass("fa-sort-down");
-			$("input#sort_date").val("asc");
+			$("input#sort_date").val("desc");
 			alert(sort.val());
 		
 		}
 		else {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-down").addClass("fa-sort-up");
 			sort.prop('value', "desc");
-			$("input#sort_date").val("desc");
+			$("input#sort_date").val("asc");
 			alert(sort.val());
 		
 		}
@@ -199,26 +200,46 @@ $(document).ready(function() {
 	// 최근 2개월, 4개월 , 6개월 버튼 클릭시 ===========================================================
 
 
-
-
 	// 날짜 입력 후 조회 버튼클릭시
 	$("button#search_simple").click(function(e) {
-	//	callAjax();
+		$("div#show_shipping").empty(); // div 초기화 
+			$("div#show_shipping_completed").empty();	// div 초기화 
+			$("span#countHIT").text("0");
+		
+		callAjax(start);
 	});
 
 	// 태블릿, 모바일에서 기간 조회 버튼 클릭시 
 	$("button#search_date").click(function(e) {
 		// 선택된 option 태그 value 갖고오기
-		const date_selected = $("select#select_month option:selected").val();
+		let date_selected = $("select#select_month option:selected").val();
 
 		// 올바른 기간이 선택된 경우에만 기간조회 진행 
 		if (date_selected != '기간선택') {
-			const year = date_selected.substring(0, 4);
-			const month = date_selected.substring(6, 8);
 
-			alert(year + "," + month);
+			let year = date_selected.substring(0, 4);
+			
+			let month = date_selected.substring(6, date_selected.indexOf("월"));
+			if(month < 10){
+				month = "0"+month;
+			}
+			
+			// 해당 월의 마지막일 구하기 
+			var date = new Date(year, month, 0);
+			date.getDate(); //마지막 날짜
+			
+			// console.log("확인용"+month+"월의 마지막 날짜 : "+date.getDate());
+			
+			start_date = year+"/"+month+"/01";
+			end_date = year+"/"+month+"/"+date.getDate();
+			
+			$("input#start_date").val(start_date);
+			$("input#end_date").val(end_date);
+			
+			// alert("모바일에서 start_date => "+start_date);
+			// alert("모바일에서 end_date => "+end_date);
 		}
-		//callAjax();
+		$("button#search_simple").trigger("click");
 	});
 
 	// select 태그 클릭 클릭시 기간선택 option hidden 처리하기
@@ -254,6 +275,11 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
 <div id="purchase_list" class="mt-4">
 	<%-- 내용물 시작 --%>
 
@@ -273,29 +299,9 @@ $(document).ready(function() {
 
    });// end of $(document).ready(function()----------------------------------
 
-		   
-		   
 
    function callAjax(start) {
-	   /*
-   		console.log("확인용 전달될 값 end_date : "+$("input#end_date").val());
-   		console.log("확인용 전달될 값 start_date : "+$("input#start_date").val());
-   		console.log("확인용 전달될 값 input_shipping: : "+$("input#input_shipping").val());
-   		console.log("확인용 전달될 값 sort : "+$("input#sort_date").val());
-   		console.log("확인용 전달될 값 userid : "+$("input#userid").val());
-   		console.log("확인용 전달될 값 start : "+start);
-   		*/
-   	
-   	/*
-   	dataObj = {
-   		"end_date": $("input#start_date").val(),
-   		"start_date": $("input#end_date").val(),
-   		"input_shipping": $("input_shipping#userid").val(),
-   		"sort": $("input#sort").val(),
-   		"userid": $("input#userid").val()
-   	};
-   	*/
-   	
+	  
    	// 결과 값 찍어주는 ajax
    	$.ajax({
    		url: getContextPath()+"/member/buylistView.dream",
@@ -310,6 +316,8 @@ $(document).ready(function() {
    		dataType: "json",
    		success: function(json) {
    			
+   			
+   			
    			let html =" ";
    			
    			// 조회결과가 업는 경우 
@@ -317,14 +325,18 @@ $(document).ready(function() {
    				$("div#show_shipping").empty(); // div 초기화 
    				$("div#show_shipping_completed").empty();	// div 초기화 
    				$("div#no_result").html("거래 내역이 없습니다.");
+   				$("button#btnMoreHIT").hide();
    			}
    			// 조회결과가 있는 경우 
    			else if(json.length > 0){
    				
+   				$("button#btnMoreHIT").show();
+   				
    				$("div#no_result").html("");
    				
    				 $.each(json, function(index, item){
-   					html += "<div class='purchase_item my-3' style=' border-bottom: solid 1px gray; border-top: solid 1px gray;'>"+
+   					$("span#totalHITCount").text(item.totalListCnt);
+   					html += "<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
    		                     "<div id='purchase_detail'  class='d-flex'>"+
    		                        "<div class='image_box' style='line-height: 110px;'>"+
    		                           "<img id ='' class='product_img' src='' alt='...'>"+
@@ -336,20 +348,18 @@ $(document).ready(function() {
    		                     "</div>"+
    		                     "<div id='date_status'>"+
    		                        "<div>"+
-   		                           "<span id='purchase_date'>"+item.buy_date+"</span><br>"+
+   		                           "<span id='purchase_status'>"+item.shipping+"</span>"+ 
    		                        "</div>"+
-   		                        "<div>"+
-   		                           "<span id='purchase_status'>"+index+"</span>"+
-   		                        "</div>"+
+	   		                     "<div>"+
+		                           "<span id='purchase_date'>"+item.buy_date+"</span><br>"+
+		                         "</div>"+
    		                     "</div>"+
    		               "</div>";
+   		               
    				 })// end of $.each(json, function(index, item){}---------------------------
    			
    				//$("div#show_shipping").empty(); // div 초기화 
    				//$("div#show_shipping_completed").empty();		
-   				
-   				// span#countHIT 에 지금까지 출력된 상품의 개수를 누적해서 기록한다.
-				$("span#countHIT").text( Number($("span#countHIT").text()) + json.length );
    				
    				// 배송상태에 따라 다른 div에 append ///
    				if($("input#input_shipping").val()==0){
@@ -362,11 +372,18 @@ $(document).ready(function() {
    					$("div#show_shipping_completed").append(html); // div 값 입력
    				}
    					
-   				// 스크롤을 계속하여 countHIT 값과 totalHITCount 값이 일치하는 경우 
-   				if( $("span#countHIT").text() == $("span#totalHITCount").text() ) {
-   					//alert("조회 끝!");
-   					$("span#countHIT").text("0");
-   				}
+   			 // HIT 상품 결과를 출력하기
+		    	// >>> !!! 중요 !!! 더보기... 버튼의 value 속성에 값을 지정하기 <<< //
+				$("button#btnMoreHIT").val( Number(start) + lenHIT);
+				
+				// span#countHIT 에 지금까지 출력된 상품의 개수를 누적해서 기록한다.
+				$("span#countHIT").text( Number($("span#countHIT").text()) + json.length );
+				
+				// 더보기... 버튼을 계속해서 클릭하여 countHIT 값과 totalHITCount 값이 일치하는 경우 
+				if( $("span#countHIT").text() == $("span#totalHITCount").text() ) {
+					$("button#btnMoreHIT").text("처음으로");
+					$("span#countHIT").text("0");
+				}
    				
    				
    			}
@@ -449,12 +466,12 @@ $(document).ready(function() {
 					<input type="hidden" id="userid" name="userid" value="${sessionScope.userid}" readonly />
 
 					<div id="shipping_cnt_left" class="shipping_cnt">
-						<div class="purchase_count">0</div>
+						<div id="sipping_count" class="purchase_count">${requestScope.orderCntMap.shipping}</div>
 						<div id="shipping" class="shipping_status">진행중</div>
 					</div>
 
 					<div id="shipping_cnt_right" class="shipping_cnt">
-						<div class="purchase_count">0</div>
+						<div id="shipping_end_count" class="purchase_count">${requestScope.orderCntMap.shipping_end}</div>
 						<div id="shipping_completed" class="shipping_status">종료</div>
 					</div>
 
@@ -486,8 +503,7 @@ $(document).ready(function() {
 
 
 				<%-- 모바일 화면에서 기간 선택 시작 --%>
-				<select name="month" id="select_month" class="container"
-					disabled="true">
+				<select name="month" id="select_month" class="container" >
 					<option value="기간선택">기간선택</option>
 					<option></option>
 					<option></option>
@@ -515,8 +531,7 @@ $(document).ready(function() {
 						<div id="sort">
 							<%-- 여기 input 태그 name 은 테이블의 컬럼? 오름차순, 내림차순 여부 , 진행중, 상태 --%>
 							<button type="button" id="btn_purchaseDate" class="result_detail">
-								<input id="sort_date" name="sort" type="hidden" value="" />
-								구매일<i class="fas fa-duotone fa-sort-up"></i>
+								<input id="sort_date" name="sort" type="hidden" value="" />구매일<i class="fas fa-duotone fa-sort-up"></i>
 							</button>
 							<%-- <button type="button" id="btn_purchaseStatus" class="result_detail"><input id="sort_status" name="status" type="hidden" value="진행중"/> 상태<i class="fas fa-duotone fa-sort-up"></i></button>--%>
 						</div>
@@ -544,13 +559,11 @@ $(document).ready(function() {
 			</div>
 			<%-- 종료 클릭시 보여줄 div 끝--%>
 			
-			
-			
 		<%-- 페이지바 넣기 시작  --%>
-			<span id="totalHITCount">${requestScope.totalListCnt}</span>
+			<button type="button" id="btnMoreHIT" value="">더보기</button>
+			<span id="totalHITCount"></span>
             <span id="countHIT">0</span>
 		<%-- 페이지바 넣기 끝  --%>
-
 
 		</div>
 		<%-- 구매내역 끝  --%>

@@ -1,9 +1,7 @@
 package jjy.purchaseList.controller;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +21,7 @@ public class PurchaseListView extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		HttpSession session = request.getSession();
-		String sessionUserid = (String) session.getAttribute("userid");
+		String loginedUserid = (String) session.getAttribute("userid");
 
 		// 현재 날짜와 시간 구하기
 		Calendar currentDate = Calendar.getInstance();
@@ -32,7 +30,7 @@ public class PurchaseListView extends AbstractController {
 		int currentDay = currentDate.get(Calendar.DATE);
 //		System.out.println("확인용 년/월/일" +currentYear+" "+currentMonth+" "+currentDay);
 
-		if (sessionUserid != null) {
+		if (loginedUserid != null) {
 
 			String userid = (String) session.getAttribute("userid");
 
@@ -49,7 +47,7 @@ public class PurchaseListView extends AbstractController {
 			String sort = request.getParameter("sort");
 			String currentShowPageNo = request.getParameter("currentShowPageNo");
 
-			// 맨처음 기본값 지정 //=================================================
+			// 기본값 지정 //=================================================
 			if (start_date == null || start_date == "") {
 				// 2022/09/27
 				start_date = currentYear + "/" + currentMonth + "/" + currentDay;
@@ -66,8 +64,7 @@ public class PurchaseListView extends AbstractController {
 			if (sort == null || sort == "") {
 				sort = "asc";
 			}
-
-			// 맨처음 기본값 지정 끝 //===============================================
+			// 기본값 지정 끝 //===============================================
 
 			purchaseMap.put("userid", userid);
 			purchaseMap.put("start_date", start_date);
@@ -90,6 +87,10 @@ public class PurchaseListView extends AbstractController {
 			// 페이징처리 시작
 			// ###############################################################################
 
+			// 진행중 개수, 종료 개수 알아오기 
+			Map<String,String> orderCntMap = pdao.getOrderCnt(loginedUserid);
+			request.setAttribute("orderCntMap", orderCntMap);
+			
 			// 총 페이지 수 알아오기
 			int totalPage = pdao.getTotalPage(purchaseMap);
 			System.out.println("확인용 조회해온 totalPage => " + totalPage);
@@ -101,8 +102,7 @@ public class PurchaseListView extends AbstractController {
 
 			// System.out.println("~~~~~~~~~~~~~~~~~~확인용 totalPage => "+totalPage);
 			// ~~~~~~~~~~~~~~~~~~확인용 totalPage => 21
-//					   System.out.println("pageBar : "+ pageBar);
-//					   request.setAttribute("pageBar", pageBar);
+			
 			request.setAttribute("totalPage", totalPage);
 			request.setAttribute("totalListCnt", totalListCnt);
 			

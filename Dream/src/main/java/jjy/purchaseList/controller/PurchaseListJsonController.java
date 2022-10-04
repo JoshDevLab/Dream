@@ -104,6 +104,10 @@ public class PurchaseListJsonController extends AbstractController {
 				// 페이징처리를 위한 구매내역 페이지 구해오기 
 				List<PurchaseListDTO> pagingPurchaseList = pdao.selectPagingPurchaseList(purchaseMap);
 				
+				// 총 구매내역 수 알아오기 
+				int totalListCnt = pdao.getTotalListCnt(purchaseMap);
+				
+				System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
 				System.out.println("확인용 => "+ pagingPurchaseList);
 				
 				JSONArray jsonArray = new JSONArray(); // 배열로 선언 
@@ -116,7 +120,15 @@ public class PurchaseListJsonController extends AbstractController {
 						jsonObj.put("product_num", pdto.getProduct_num() ); //제품번호
 						jsonObj.put("buy_cnt", pdto.getBuy_cnt() );         //구매수량
 						jsonObj.put("buy_date", pdto.getBuy_date() );       //구매일자
-						jsonObj.put("shipping", pdto.getShipping() );       //배송상태
+						jsonObj.put("totalListCnt",totalListCnt); // 출력해야 할 총 페이지 수 
+						String shipping ="";
+						
+						if(pdto.getShipping() == 0) { shipping="배송준비중"; }
+						else if(pdto.getShipping() == 1 ) { shipping="배송중"; }
+						else { shipping="배송완료"; }
+						
+						jsonObj.put("shipping", shipping );       //배송상태
+						
 						jsonObj.put("product_name", pdto.getProdDTO().getProduct_name() ); //제품명
 						jsonObj.put("product_image", pdto.getProdDTO().getProduct_image() ); //제품이미지
 						
