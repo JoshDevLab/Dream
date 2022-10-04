@@ -118,7 +118,7 @@ public class ProductDAO implements InterProductDAO{
 				 + " ( ";
 			if(userid != null) {	//로그인중일 경우
 				sql += " select C.*, "
-			         + " nvl(D.product_like_cnt,0) product_like_cnt, "
+			         + " nvl(D.product_like_cnt,0) product_like_cnt "
 					 + " from ( ";
 			}
 			

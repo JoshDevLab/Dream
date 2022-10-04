@@ -40,16 +40,16 @@
       <div id="slide_menu">
         <div id="menu_close"><i type="button" id="btn_menu_close" class="fas fa-light fa-x"></i></div>
         <ul id="menu_list">
-          <li class="border-bottom"><a href="<%=ctxPath %>/admin/ad_product/shop.dream">SHOP</a></li>
-          <li class="border-bottom"><a href="<%=ctxPath %>/admin/ad_notice/qna.dream">자주묻는질문</a></li>
-          <li class="border-bottom"><a href="<%=ctxPath %>/admin/ad_notice/notice.dream">공지사항</a></li>
+          <li class="border-bottom"><a href="<%=ctxPath %>/product/shop.dream">SHOP</a></li>
+          <li class="border-bottom"><a href="<%=ctxPath %>/notice/qna.dream">자주묻는질문</a></li>
+          <li class="border-bottom"><a href="<%=ctxPath %>/notice/notice.dream">공지사항</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/login/logout.dream">로그아웃</a></li>
         </ul>
       </div>
   
       <div class="header_top border-bottom">
         <ul class="header_top_list list-unstyled d-flex justify-content-between">
-          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/admin/ad_notice/notice.dream'">고객센터</li>
+          <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/notice/notice.dream'">고객센터</li>
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/admin/ad_member/memberManage.dream'">회원관리</li>
           <li class="header_top_item" type="button" onclick="location.href='<%=ctxPath %>/login/logout.dream'">로그아웃</li>
         </ul>
@@ -59,7 +59,7 @@
           <a href="<%= ctxPath%>/index.dream"><img src="<%= ctxPath%>/images/logo.png"/></a>
         </div>
         <ul class="header_main_list list-unstyled">
-          <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/admin/ad_product/shop.dream'">SHOP</li>
+          <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/product/shop.dream'">SHOP</li>
           <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/about.dream'">ABOUT</li>
           <li class="header_main_list bg-white" type="button" onclick=""><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
         </ul>
