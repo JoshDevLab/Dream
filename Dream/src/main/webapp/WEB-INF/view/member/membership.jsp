@@ -15,10 +15,10 @@
 <div id="Main" class="d-flex">
 	<%-------------------- 사이드바 시작 ----------------------%>
   		
-        
+        <div class="div_sidebar">
      <%-- sidebar 호출 나중에 margin left : 50px --%>
 		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
-     
+     	</div>
      
     <%-------------------- 사이드바 끝 ----------------------%>
 
@@ -33,29 +33,29 @@
          <div id = "membership_info" class="row">
             
                <a href="#" id ="benefit_1" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_1">
-                        <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
+                        <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
                         <div class="benefit_info" style="text-align: left;">무료배송</div>
-                  <i class="fa-solid fa-angle-right" ></i>
+                  <i class="fa-solid fa-angle-right icon_membership" ></i>
                </a>
 
                <a href="#" id ="benefit_2" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_2">
-                  <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>      
+                  <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>      
                   <div class="benefit_info" style="text-align: left;">포인트 추가적립</div>
-                  <i class="fa-solid fa-angle-right" ></i>
+                  <i class="fa-solid fa-angle-right icon_membership" ></i>
                </a>
 
             <div class="w-100"></div>
 
             <a href="#" id ="benefit_3" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_3">
-                     <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
+                     <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
                      <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
-               <i class="fa-solid fa-angle-right" ></i>
+               <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <a href="#" id ="benefit_4" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_4">
-                     <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
+                     <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
                      <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
-               <i class="fa-solid fa-angle-right" ></i>
+               <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <div class="w-100"></div>
@@ -63,28 +63,28 @@
             <a href="#" id ="benefit_5" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_5">
                      <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
                      <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
-               <i class="fa-solid fa-angle-right" ></i>
+               <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <a href="#" id ="benefit_6" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_6">
-                     <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
+                     <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
                      <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
-               <i class="fa-solid fa-angle-right" ></i>
+               <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
 
             <div class="w-100"></div>
 
             <a href="#" id ="benefit_7" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_7">
-                     <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
+                     <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
                      <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
-               <i class="fa-solid fa-angle-right" ></i>
+               <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <a href="#" id ="benefit_8" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_8">
-                     <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
+                     <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
                      <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
-               <i class="fa-solid fa-angle-right" ></i>
+               <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
          </div>
@@ -111,7 +111,7 @@
                <br>
                <h5>제１조 (목적)</h5>
                <p>
-                  본 약관은 쿠팡 주식회사(이하 “회사”)가 운영하는 웹사이트, 모바일 웹 및 앱 등에서 제공하는 로켓와우 서비스를 이용하고자 하는 자와 회사 간의 권리·의무, 서비스 이용절차 및 기타 제반사항을 정함에 그 목적이 있다.
+                  본 약관은 드림 주식회사(이하 “회사”)가 운영하는 웹사이트, 모바일 웹 및 앱 등에서 제공하는 로켓와우 서비스를 이용하고자 하는 자와 회사 간의 권리·의무, 서비스 이용절차 및 기타 제반사항을 정함에 그 목적이 있다.
                </p>
                <h5>제２조 (용어의 정의)</h5>
                <p>
@@ -179,7 +179,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -209,7 +209,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -239,7 +239,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -269,7 +269,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -299,7 +299,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -329,7 +329,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -359,7 +359,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -389,7 +389,7 @@
             
              <%-- Modal header --%>
             <div class="modal-header">
-            <h5 class="modal-title">혜택 상세설명</h5>
+            <h5 class="modal-title membership_title">혜택 상세설명</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
