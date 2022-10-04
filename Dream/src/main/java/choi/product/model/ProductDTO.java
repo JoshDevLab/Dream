@@ -10,10 +10,7 @@ public class ProductDTO {
 	private String category;    	//카테고리
 	private String detail_category;	//상세카테고리
 	private String gender;      	//성별
-<<<<<<< HEAD
-=======
 	private String bestyn;      	//베스트상품인지
->>>>>>> refs/remotes/origin/choihw
 	private int discount_rate;	//할인율
 	private int product_num;        //상품번호
 	private int price;          	//가격
@@ -21,7 +18,6 @@ public class ProductDTO {
 	
 	// select용
 	private int product_like_cnt;	//로그인한 사람이 좋아요를 눌렀는지 알아내기위한 컬럼(0 아니면 1)
-	private int real_price;			//할인율 산정해서 계산된 값
 	
 	//method
 	public String getRegister_date() {
@@ -99,13 +95,6 @@ public class ProductDTO {
 	}
 	public void setProduct_like_cnt(int product_like_cnt) {
 		this.product_like_cnt = product_like_cnt;
-	}
-	
-	public int getReal_price() {
-		return real_price;
-	}
-	public void setReal_price(int real_price) {
-		this.real_price = real_price;
 	}
 	
 }
