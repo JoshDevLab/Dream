@@ -294,6 +294,10 @@ span#discount_percent{
   color:red;
   font-size:12px;
 }
+span#product_price_discount{
+	color:darkgray;
+	font-size:14px;
+}
 
 input#start_price,
 input#end_price{
@@ -357,13 +361,30 @@ button.price:hover{
 #btn_like{
   width:35px;
   height:35px;
+  background-color:white;
   position:absolute;
+<<<<<<< HEAD
   top:1%;
   right:3%;
   background-color:white;
+=======
+  top:2%;
+  left:78%;
+>>>>>>> refs/remotes/origin/choihw
 }
 #btn_like:hover{
   color:pink;
+}
+#sale_mark{
+	width:50px;
+	height:28px;
+	background-color:red;
+	color:white;
+	position:absolute;
+	top:2%;
+	right:73%;
+	font-weight:bold;
+	border:none;
 }
 i.fa-heart{
   position:relative;
