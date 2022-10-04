@@ -51,7 +51,7 @@
 									"<a id='"+item.product_num+"' class='product' href='#'>"+
 										"<div class='product'>"+	
 											"<div class='product_imgbox border'>"+
-												"<img src='Dream/images/"+item.product_image+"'>"+
+												"<img src='Dream/images/제품이미지/"+item.product_image+"'>"+
 											"</div>"+
 											"<div id='product_simple_explain'>"+	
 												"<div id='product_division'>"+item.product_category+"</div>"+
