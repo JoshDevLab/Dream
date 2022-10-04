@@ -227,7 +227,6 @@ function goCoinPurchaseEnd() {
                         </tr>
                     </thead>
 	                    <c:forEach var="cartList" items="${requestScope.cartList}" varStatus="status">
-	                    
 	                    		<tbody class="cart_list_${status.index}">
 	                    			<tr>
 	                                <th scope="row" style ='vertical-align : middle; text-align: center;'>${status.count}
@@ -246,10 +245,10 @@ function goCoinPurchaseEnd() {
 	                                <td style ='vertical-align : middle; text-align: center;'>
 	                                    <div class="product_name" style="display: flex;">
 	                                        <div class="image_box" style="width: 30%;">
-	                                                <img class="product_img" src="/${cartList.product_image}"/>
+	                                                <img class="product_img" src="<%= ctxPath %>/images/제품이미지/${cartList.product_image}"/>
 	                                        </div>
 	                                        <div class="prd_info" style="margin-left: auto; width: 70%;">
-	                                            <p class="prd_name font-weight-bold mb-0">${cartList.product_name}</p>
+	                                            <a class="prd_name font-weight-bold mb-0" href="<%= ctxPath %>/product/detail.dream?num=${cartList.product_num}">${cartList.product_name}</a>
 	                                            <p class="prd_content mb-0">${cartList.product_content}</p>
 	                                            <p class="text-muted mb-0" class="size_jaego">옵션: <span id="product_size">${cartList.product_size}</span> / 재고: <span id="size_cnt">${cartList.size_cnt}</span>개</p>
 	                                        </div>
@@ -272,7 +271,7 @@ function goCoinPurchaseEnd() {
 					                                		할인없음
 					                                </c:when>
 					                                	<c:otherwise>
-					                                		${cartList.discount_rate * 100}%<br>할인상품
+					                                		 <fmt:formatNumber type="number" maxFractionDigits="0" value="${cartList.discount_rate * 100}" />% <br>할인상품
 					                                	</c:otherwise>
 					                         </c:choose>
 				                         </div>
@@ -336,7 +335,7 @@ function goCoinPurchaseEnd() {
 	                        <div class="align-top mr-3">
 	                            <input type="checkbox" class="check_${status.index}" name="prd_check"/>
 	                        </div>
-	                        <img src="../${cartList.product_image}" class="card-img-top mr-3" alt="코알라" style="width: 30%; height: 140px;"/>
+	                        <img class="product_img" src="<%= ctxPath %>/images/제품이미지/${cartList.product_image}" style="width: 30%; height: 140px;" />
 	                        <div class="card-img-top-font" style="width: 70%; flex-direction: column;">
 	                            <p class="prd_name font-weight-bold">${cartList.product_name}</p>
 	                            <p class="prd_content">${cartList.product_content}</p>
@@ -398,7 +397,7 @@ function goCoinPurchaseEnd() {
 	                <i class="fa-regular fa-circle-question"></i>
 	              </button>
 	              <div class="value_current">
-	                <span class="point">${user.point}</span>
+	                <span class="user_point">${user.point}</span>
 	                <span class="unit">P</span>
 	              </div>
 	            </div>

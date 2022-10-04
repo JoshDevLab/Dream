@@ -121,22 +121,26 @@ $(document).ready(function () {
     // 포인트입력칸 숫자만 가능하도록
       $("input#point").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
     
+    /*
       // blur 입력숫자가 보유숫자보다 크면
          $("input#point").blur(function(){
          if(Number($(this).val()) >  Number($("span.point").text())){
             alert("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
-            $(this).val('');
-            return;
-         }         
+            $(this).val('0');
+            $("span.sale_point").text('0');
+            return false;
+         }        
          
-         /*if(Number($(this).val() != null && Number($(this).val()) != 0){
+         if(Number($(this).val() != null && Number($(this).val()) != 0){
             $("#span_point_amount").text($(this).val());
          }
          else{
             $("#span_point_amount").text('-');
-         }*/
+         }
          
       });
+      */
+      
       // 전부사용 버튼
       $("button#pointAlluse").click(function(){
          $("input#point").val($("span.point").text());
@@ -144,24 +148,43 @@ $(document).ready(function () {
          $("span#sale_point").text( $("span.point").text() );
       });
       
-      $("input#point").change(function() {
+      
+      $("input#point").bind("blur",function() {
 	
-		const length = $("input:checkbox[name='prd_check']:checked").length
+		const length = $("input:checkbox[name='prd_check']:checked").length;
 		
 		if(length == 0) {
 			alert("제품을 먼저 선택하시고 포인트를 입력하세요");
-			return;
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
 		}
 		
-		if(Number($("span#prd_price").text().split(",").join("") < $("input#point").val())) {
-			alert("구매가격보다 높은 포인트는 사용할 수 없습니다.");
-			return;
+		if( Number($(".user_point").text()) < $("input#point").val() ) {
+			alert("보유포인트가 적습니다.");
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
 		}
+		
+		if(Number($("span#prd_price").text().split(",").join("")) < $("input#point").val()) {
+			alert("구매가격보다 높은 포인트는 사용할 수 없습니다.");
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
+		}
+		
+		
 	
 		$("span.sale_point").text( $("input#point").val() );
 		$(".payment_price").text( (Number($("span#prd_price").text().split(",").join("")) - Number($("input#point").val())).toLocaleString('en') )
 	
 	  });
+	  
+	  
+	  
+	  
+	 
     
 
 });// end of $(document).ready(function () {} -----------------------------------------------------------------------------------------------------------------------------

@@ -87,7 +87,7 @@ public class CartDTO {
 		
 		int discountPrice = 0;
 		
-		discountPrice = (int) (price - (price / discount_rate*100));
+		discountPrice = (int) (price - (price * discount_rate));
 		
 		return discountPrice;
 		
