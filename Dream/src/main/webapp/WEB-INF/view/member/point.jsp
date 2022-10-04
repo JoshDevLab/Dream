@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <%
    String ctxPath = request.getContextPath();
 %>
@@ -123,7 +127,7 @@
           <div class="point_info">
             <p class="title">사용 가능한 포인트</p>
             <p  class="point">
-              <b >0P</b>
+              <b >${totalPoint}P</b>
             </p>
           </div>
           <div class="divider">
@@ -131,12 +135,7 @@
 
             </div>
           </div>
-          <div class="point_info">
-            <p class="title">이번달 소멸예정 포인트</p>
-            <p class="point">
-              <b >0P</b>
-            </p>
-          </div>
+         
         </div>
 
         <div class="register">
@@ -192,8 +191,8 @@
 
           <div class="point_info">
             <p class="available_point_title">사용 가능한 포인트</p>
-            <p class="available_point"><b>0</b>P </p>
-            <p class="expired_point"> 이번 달 소멸예정 포인트 <b>0</b>P </p>
+            <p class="available_point"><b>${totalPoint}</b>P </p>
+          
             </div>
         </div>
 
@@ -209,65 +208,81 @@
           <tbody>
             <tr>
               <td colspan="2">
+              <c:set value="${pointList}" var="pointList" />
+              
+              <c:if test="${fn:length(pointList) == 0}">
                 <div class="point_empty">
-                  <p class="text">적립 또는 사용한 내역이 없습니다.</p>
+                  <p class="text">적립 또는 사용한 내역이 없습니다. </p>
                 </div>
-                <div class="point_exist">
-                  <div class="point_obj plus">
+              </c:if>
+              
+              <c:forEach items="${pointList}" var="pointObj">
+              
+              	<c:if test="${ pointObj.status == '적립'}">
+              		<div class="point_obj plus">
                     <div class="point_circle">
                       <!-- 나중에 포인트 사용내역을 불러와서 적립이면 plus class 추가 사용이면 minus 클래스 추가해서 화이팅 -->
                       <div>적립</div>
                     </div>
                     <div class="point_text">
                       <div class="point_date">
-                        2022/01/07
+                        ${pointObj.event_date}
                       </div>
                       <div class="point_change_explain">
-                        <!-- 얘는 위의  point_circle 의 클래스가 plus 면 포인트적립 minus면 구매 시 사용-->
-                        이벤트 적립<br>
-                        <!-- 나중에 포인트 내역 테이블 제작지 포인트 적립방법, 어떤 이벤트인지 기록해야될듯 -->
-                        스타일챌린지
+                        ${pointObj.event_type} 적립
+                        
                       </div>
                       <div class="point_date">
-                        유효기간: 2022/01/07
+                        .
                       </div>
 
                     </div>
                     <div class="point_amount">
                       <!-- plus 면 + 아니면 - 가 span 의 값이 되도록 -->
                       <span class="plus-minus">+</span>
-                      3000
+                      ${pointObj.point_amount}
                     </div>
                   </div>
-                  <div class="point_obj minus">
+              	</c:if>
+              	
+              	
+              
+                <c:if test="${ pointObj.status != '적립'}">
+              		<div class="point_obj minus">
                     <div class="point_circle">
                       <!--minus 면 사용 나오도록 -->
                       <div>사용</div>
                     </div>
                     <div class="point_text">
                       <div class="point_date">
-                        2022/01/07
+                        ${pointObj.event_date}
                       </div>
                       <div class="point_change_explain">
                         <!-- 얘는 위의  point_circle 의 클래스가 plus 면 포인트적립 minus면 구매 시 사용-->
-                        구매 시 사용<br> 주문번호:
+                        ${pointObj.event_type} 시 사용<br> 주문번호:
                         <!-- 나중에 포인트 내역 테이블 제작지 포인트 적립방법, 어떤 이벤트인지 기록해야될듯 -->
                         <!--  point_circle 의 클래스가 minus 이므로 주문번호가 들어가야함-->
                         9494994945
                       </div>
                       <div class="point_date">
-                        유효기간: 2022/01/07
+                        .
                       </div>
 
                     </div>
                     <div class="point_amount">
                       <!-- plus 면 + 아니면 - 가 span 의 값이 되도록 -->
                       <span class="plus-minus">-</span>
-                      3000
+                      ${pointObj.point_amount}
                     </div>
                   </div>
-                  
-                </div>
+              	</c:if>
+              
+              
+              
+              
+              
+              </c:forEach>
+       
               </td>
             </tr>
           </tbody>

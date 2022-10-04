@@ -64,7 +64,7 @@ public class MemberDAO implements InterMemberDAO {
 	public int updateCart(Map<String, String> paraMap) throws SQLException{
 		
 		int result = 0;
-		System.out.println("들어왔다");
+		
 		try {
 			
 			int length = Integer.parseInt(paraMap.get("length"));
@@ -74,7 +74,6 @@ public class MemberDAO implements InterMemberDAO {
 			
 			int count = 0; // 체크용
 			int n =0;
-			System.out.println(length);
 			String sql="";
 			
 			
@@ -89,7 +88,7 @@ public class MemberDAO implements InterMemberDAO {
 						" values(seq_cart_num.nextval , ? ,?,?, ?) ";
 				
 				pstmt = conn.prepareStatement(sql);
-				System.out.println("Tlqkf");
+				
 				pstmt.setString(1, paraMap.get("userid"));
 				pstmt.setString(2, paraMap.get("productNum"));
 				pstmt.setString(3, paraMap.get("size"+i));
@@ -100,7 +99,7 @@ public class MemberDAO implements InterMemberDAO {
 				pstmt.setString(8, paraMap.get("size"+i));
 				
 				n = pstmt.executeUpdate();
-				System.out.println("n"+n);
+			
 				count += n;
 			}
 			
@@ -114,7 +113,7 @@ public class MemberDAO implements InterMemberDAO {
 			else {
 				// 추가하려값만큼 insert 되지 않았다면
 				conn.rollback();
-				System.out.println("망했습니다");
+			
 				result = -1;
 				
 			}
@@ -126,9 +125,6 @@ public class MemberDAO implements InterMemberDAO {
 			
 			
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		
 		}finally {
 			conn.setAutoCommit(true); 
 			close();
@@ -159,7 +155,8 @@ public class MemberDAO implements InterMemberDAO {
 			
 			
 			pstmt = conn.prepareStatement(sql);
-			System.out.println(userid+"/"+productNum);
+			
+			
 			
 			pstmt.setString(1, userid); 
 			pstmt.setString(2,productNum );
@@ -193,10 +190,7 @@ public class MemberDAO implements InterMemberDAO {
 					resultSuccess = "false";
 				}
 				
-				System.out.println(n);
-				
-			
-				System.out.println(n);
+		
 			}
 			 else {
 //				 System.out.println("좋아요 없음");
@@ -264,34 +258,24 @@ public class MemberDAO implements InterMemberDAO {
 		MemberVO mvo = new MemberVO();
 
 		try {
+		
 			
-			conn = ds.getConnection();
-			String sql = " update tbl_point set status = '만료' "+
-					"   where point_exp_period <=  sysdate" ;
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				// 포인트 업데이트가 성공하면
-				
+	
 				// 여기서부터 포인트전까지 조쉬거 훔쳐옴
 				conn = ds.getConnection();
 				
-				sql = " select A.userid, mobile, username, membership\n"
+				String sql = " select A.userid, mobile, username, membership "
 						    + " from\n"
 						    + " (\n"
-							+ " select userid, mobile, username, membership\n"
-							+ " from tbl_member\n"
-							+ " )A\n"
-							+ " join\n"
-							+ " (\n"
-							+ " select userid, passwd\n"
-							+ " from tbl_member_login\n"
-							+ " )B\n"
-							+ " on A.userid = B.userid\n"
+							+ " select userid, mobile, username, membership "
+							+ " from tbl_member "
+							+ " )A "
+							+ " join "
+							+ " ( "
+							+ " select userid, passwd "
+							+ " from tbl_member_login "
+							+ " )B "
+							+ " on A.userid = B.userid "
 							+ " where A.userid = ? ";
 				
 				pstmt = conn.prepareStatement(sql);
@@ -337,7 +321,7 @@ public class MemberDAO implements InterMemberDAO {
 					}
 					
 				}
-			}
+			
 
 			
 			
@@ -349,6 +333,85 @@ public class MemberDAO implements InterMemberDAO {
 		
 		
 		
+	}
+
+	@Override
+	public List<PointVO> allPointList(String userid) throws SQLException{
+
+		List<PointVO> pointList= new ArrayList<>();
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select point_num, userid,point_amount,event_date, status, event_type "+
+					" from tbl_point "+
+					" where userid = ? ";
+
+		
+				pstmt = conn.prepareStatement(sql);
+	
+				pstmt.setString(1, userid);
+				rs = pstmt.executeQuery();
+				
+				
+				while(rs.next()) {
+					PointVO pvo = new PointVO();
+					
+					pvo.setPoint_num(rs.getInt(1));
+					pvo.setUserid(rs.getString(2));
+					pvo.setPoint_amount(rs.getInt(3));
+					pvo.setEvent_date(rs.getString(4));
+					pvo.setStatus(rs.getString(5));
+					pvo.setEvent_type(rs.getString(6));
+					
+					pointList.add(pvo);
+
+				}
+				
+		}finally {
+		
+			close();
+		}
+		
+		return pointList;
+	}
+
+	@Override
+	public int getTotalPoint(String userid) throws SQLException {
+		
+		conn = ds.getConnection();
+		int n = -1;
+		try {
+			String sql2 = " SELECT SUM(CASE WHEN  status = '적립' THEN point_amount "+
+					"        WHEN  status = '차감' THEN -point_amount "+
+					"        else 0 END) "+
+					" FROM tbl_point "+
+					" where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql2);
+			
+			pstmt.setString(1, userid); // 세션 아이디값
+	
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				// 내역 없어도 sum 이라 한행이 나옴
+				// 근데 내역이 하나도 없으면 null 나옴
+				
+				if( rs.getString(1) != null) {
+					// 내역이 존재한 경우에는 총합값을 저장
+					n = rs.getInt(1);
+				}
+				else {
+					// 내역이 없는 경우에는 0 을 저장
+					n = 0;
+				}
+				
+			}
+			return n;
+		}finally{
+			close();
+			
+		}
 	}
 
 

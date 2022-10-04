@@ -5,10 +5,10 @@
         
   
         // pointExistChexk(); pointExist 정해주는 함수
-        var pointExist = true;
+        var pointExist = false;
         // 나중에 로그인 정보 받아와서 그사람의 포인트가 0인지 체크해서 부여해줄 것
         // 지금은 테스트를 위해서 위 값을 true/ false 로 바꿔서 나오는지 체크할 예정
-  
+  /*
         if(pointExist){
           $('div.point_empty').hide();
           $('div.point_exist').show();
@@ -17,7 +17,7 @@
           $('div.point_empty').show();
           $('div.point_exist').hide();
         }
-  
+  */
       // 작은 화면에서 ? 버튼을 눌렀을 때 나오는 레이어에서 닫기 버튼, 검은화면을 눌렀을 때
   
       $('.btn_layer_close').click(function (e) {  
