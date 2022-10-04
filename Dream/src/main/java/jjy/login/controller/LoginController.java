@@ -29,149 +29,179 @@ public class LoginController extends AbstractController {
 			String passwd = request.getParameter("passwd"); // form 태그에서 입력받은 passwd
 			String client_ip = request.getRemoteAddr(); // 접속한 사용자의 ip 주소
 			
-			System.out.println("확인용 전달받은 userid => " + userid);
-			System.out.println("확인용 전달받은 userid => " + passwd);
+			// System.out.println("확인용 전달받은 userid => " + userid);
+			// System.out.println("확인용 전달받은 userid => " + passwd);
 
 			InterLoginDAO logindao = new LoginDAO();
-
+			
 			Map<String, String> userinfoMap = new HashMap<>(); // userid, passwd 를 각각의 키값으로 저장
 			userinfoMap.put("userid", userid);
 			userinfoMap.put("passwd", passwd);
 			userinfoMap.put("client_ip", client_ip);
-
-			boolean isSecession = false; // 탈퇴 회원 여부
-			boolean isRestMember = false; // 휴면 회원 여부
-			boolean isMembership = false; // 멤버십 가입 여부
-			boolean isRequirePwdChange = false; // 비밀번호 가입 여부
-			boolean isMembershipGap = false; // 멤버십 가입 기간 체크
-			boolean isUserExists = false; // 올바른 아이디, 비밀번호 체크 여부 
 			
-
-			// 사용자 정보를 저장하는 객체( userid , passwd , secession , rest_member ,update_passwd_date)
-			LoginDTO loginuser = logindao.selectOneUser(userinfoMap);
-
-			if (loginuser != null) { // 로그인 사용자 정보가 있는 경우
-				isUserExists = true;
-
-				InterMemberDAO mdao = new MemberDAO();
-				MemberDTO mdto = new MemberDTO();
-				System.out.println("확인용 userinfoMap: " + userinfoMap);
-
-				mdto = mdao.selectOneUser(userid);
-
-				System.out.println("확인용 mdto getMembershipregistgap " + mdto.getMembershipregistgap());
-//				System.out.println("확인용 mdto mobile " + mdto.getMobile());
-//				System.out.println("확인용 mdto userid " + mdto.getUserid());
-
-				if (mdto.getMembership() == 1) { // 멤버십 가입 회원일 경우 날짜 비교 시작 
-					isMembership = true;
-					if (mdto.getMembershipregistgap() > 1) {
-						// 멤버십 가입 취소로 변경, 멤버십이 해지되었습니다. alert 출력
-						int result = mdao.deleteMembership(userid);
-						// 확인용
-						if (result == 1) {
-							System.out.println("확인용 멤버십 탈퇴처리됨.");
-							isMembership = false;
-							isMembershipGap = true;
-						} else {
-							System.out.println("확인용 멤버십 탈퇴처리 오류발생");
-						}
-					}
-				}
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// 만약 마지막 로그인 날짜가 현재로부터 1년이 지난경우 휴면유저 처리 시작
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String lastLoginDate = logindao.checkLastLoginDate(userid); // 로그인에 기록된 마지막 로그인날짜
-				String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())); // 현재날짜
-
-				if (lastLoginDate == null) { // 만약 로그인 기록이 없는 경우
-					lastLoginDate = logindao.checkRegistDate(userid);
-				} else {
-					lastLoginDate = lastLoginDate.substring(0, 11);
-				}
-
-				Date format1 = new SimpleDateFormat("yyyy-MM-dd").parse(lastLoginDate);
-				Date format2 = new SimpleDateFormat("yyyy-MM-dd").parse(today);
-
-				long diffSec = (format2.getTime() - format1.getTime()) / 1000; // 초 차이
-				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
-
-				if (diffDays >= 365) {
-					logindao.updateRestMember(userid);
-					isRestMember = true;
-				}
-				// 만약 마지막 로그인 날짜가 현재로부터 1년이 지난경우 휴면유저 처리 끝
-				//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				else {
-					int secession = Integer.parseInt(loginuser.getSecession()); // 탈퇴 유무
-					int restMember = Integer.parseInt(loginuser.getRest_member()); // 휴면 유무
-
-					System.out.println("확인용secession = " + secession);
-					System.out.println("확인용 restMember = " + restMember);
-
-					if (secession == 1) { // 탈퇴 회원인 경우
-						isSecession = true; // json으로 전달할 탈퇴 회원
-					} 
-					
-					else { // 탈퇴 회원이 아닌경우
-						if (restMember == 1) { // 휴면 사용자인경우
-//						System.out.println("##확인용## 로그인 실패 휴면 회원.");
-							isRestMember = true; // json으로 전달할 휴면 회원 여부
-
-						} else { // 휴면사용자가 아닌경우
-
-							if (loginuser.isRequirePwdChange()) {
-								isRequirePwdChange = true;
-
-								// session 영역에 로그인 한 사용자 아이디(userid) 저장
-								HttpSession session = request.getSession();
-								session.setAttribute("userid", userid);
-
-								System.out.println("확인용 로그인된 아이디 : " + loginuser.getUserid());
-								System.out.println("확인용 session에 저장된 아이디 : " + session.getAttribute("userid"));
-							} else {
-								System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
-
-								// session 영역에 로그인 한 사용자 아이디(userid) 저장
-								HttpSession session = request.getSession();
-								session.setAttribute("userid", userid);
-								
-								logindao.updateLoginDate(userinfoMap);// 로그인 기록
-
-							}
-						}
-					}
-				} // 탈퇴한 회원이 아닌경우 끝
-				// ---------------------------------------------------------------------------------
-
-				} // if (loginuser != null) {}-------------------------------------------------------
+			boolean isSecession = false;        // 탈퇴 회원 여부
+			boolean isRestMember = false;       // 휴면 회원 여부
+			boolean isMembership = false;       // 멤버십 가입 여부
+			boolean isRequirePwdChange = false; // 비밀번호 가입 여부
+			boolean isMembershipGap = false;    // 멤버십 가입 기간 체크
+			boolean isUserExists = false;       // 올바른 아이디, 비밀번호 체크 여부 
+			
+			
+			if("admin".equals(userid)) { // 입력받은 아이디가 admin(관리자)인 경우 
+				boolean isAdmin = logindao.selectAdmin(userinfoMap);
 				
-
-				System.out.println("확인용 userid : " + userid);
-				System.out.println("확인용 isSecession: " + isSecession);
-				System.out.println("확인용 : isMembership " + isMembership);
-				System.out.println("확인용 : isMembershipGap " + isMembershipGap);
-				System.out.println("확인용 : isRequirePwdChange" + isRequirePwdChange);
-				System.out.println("확인용 : isRestMember" + isRestMember);
-				System.out.println("확인용 : isUserExists" + isUserExists);
-
-				// 제이슨 객체생성
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("userid", "admin");
+				
 				JSONObject jsonObj = new JSONObject();
 				
 				// 제이슨에 값 담기
 				jsonObj.put("userid", userid);
-				jsonObj.put("isSecession", isSecession); // json으로 전달할 탈퇴 회원 여부
-				jsonObj.put("isMembership", isMembership); // json으로 전달할 멤버십 가입 여부
-				jsonObj.put("isMembershipGap", isMembershipGap); // json으로 전달할 멤버십 기간 1달 초과 여부
-				jsonObj.put("isRequirePwdChange", isRequirePwdChange); // json으로 전달할 멤버십 기간 1달 초과 여부
-				jsonObj.put("isRestMember", isRestMember); // json으로 전달할 휴면사용자 여부
-				jsonObj.put("isUserExists", isUserExists); // 아이디 비밀번호 일치하는 경우 
+				jsonObj.put("isSecession", false); // json으로 전달할 탈퇴 회원 여부
+				jsonObj.put("isMembership", false); // json으로 전달할 멤버십 가입 여부
+				jsonObj.put("isMembershipGap", false); // json으로 전달할 멤버십 기간 1달 초과 여부
+				jsonObj.put("isRequirePwdChange", false); // json으로 전달할 멤버십 기간 1달 초과 여부
+				jsonObj.put("isRestMember", false); // json으로 전달할 휴면사용자 여부
+				jsonObj.put("isUserExists", isAdmin); // 아이디 비밀번호 일치하는 경우 
 				
 				String json = jsonObj.toString();
 				request.setAttribute("json", json);
 
 				// super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/jsonview.jsp");
+				
+				System.out.println("확인용 관리자 로그인 session에 저장된 값 : "+ session.getAttribute("userid"));
+				
+			}
+			else {	 // 입력받은 아이디가 일반 사용자인 경우 
+				// 사용자 정보를 저장하는 객체( userid , passwd , secession , rest_member ,update_passwd_date)
+				LoginDTO loginuser = logindao.selectOneUser(userinfoMap);
+				
+	
+				if (loginuser != null) { // 로그인 사용자 정보가 있는 경우
+					isUserExists = true;
+	
+					InterMemberDAO mdao = new MemberDAO();
+					MemberDTO mdto = new MemberDTO();
+					System.out.println("확인용 userinfoMap: " + userinfoMap);
+	
+					mdto = mdao.selectOneUser(userid);
+	
+					System.out.println("확인용 mdto getMembershipregistgap " + mdto.getMembershipregistgap());
+	//				System.out.println("확인용 mdto mobile " + mdto.getMobile());
+	//				System.out.println("확인용 mdto userid " + mdto.getUserid());
+	
+					if (mdto.getMembership() == 1) { // 멤버십 가입 회원일 경우 날짜 비교 시작 
+						isMembership = true;
+						if (mdto.getMembershipregistgap() > 1) {
+							// 멤버십 가입 취소로 변경, 멤버십이 해지되었습니다. alert 출력
+							int result = mdao.deleteMembership(userid);
+							// 확인용
+							if (result == 1) {
+								System.out.println("확인용 멤버십 탈퇴처리됨.");
+								isMembership = false;
+								isMembershipGap = true;
+							} else {
+								System.out.println("확인용 멤버십 탈퇴처리 오류발생");
+							}
+						}
+					}
+					////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					// 만약 마지막 로그인 날짜가 현재로부터 1년이 지난경우 휴면유저 처리 시작
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					String lastLoginDate = logindao.checkLastLoginDate(userid); // 로그인에 기록된 마지막 로그인날짜
+					String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())); // 현재날짜
+	
+					if (lastLoginDate == null) { // 만약 로그인 기록이 없는 경우
+						lastLoginDate = logindao.checkRegistDate(userid);
+					} else {
+						lastLoginDate = lastLoginDate.substring(0, 11);
+					}
+	
+					Date format1 = new SimpleDateFormat("yyyy-MM-dd").parse(lastLoginDate);
+					Date format2 = new SimpleDateFormat("yyyy-MM-dd").parse(today);
+	
+					long diffSec = (format2.getTime() - format1.getTime()) / 1000; // 초 차이
+					long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+	
+					if (diffDays >= 365) {
+						logindao.updateRestMember(userid);
+						isRestMember = true;
+					}
+					// 만약 마지막 로그인 날짜가 현재로부터 1년이 지난경우 휴면유저 처리 끝
+					//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					else {
+						int secession = Integer.parseInt(loginuser.getSecession()); // 탈퇴 유무
+						int restMember = Integer.parseInt(loginuser.getRest_member()); // 휴면 유무
+	
+						System.out.println("확인용secession = " + secession);
+						System.out.println("확인용 restMember = " + restMember);
+	
+						if (secession == 1) { // 탈퇴 회원인 경우
+							isSecession = true; // json으로 전달할 탈퇴 회원
+						} 
+						
+						else { // 탈퇴 회원이 아닌경우
+							if (restMember == 1) { // 휴면 사용자인경우
+	//						System.out.println("##확인용## 로그인 실패 휴면 회원.");
+								isRestMember = true; // json으로 전달할 휴면 회원 여부
+	
+							} else { // 휴면사용자가 아닌경우
+	
+								if (loginuser.isRequirePwdChange()) {
+									isRequirePwdChange = true;
+	
+									// session 영역에 로그인 한 사용자 아이디(userid) 저장
+									HttpSession session = request.getSession();
+									session.setAttribute("userid", userid);
+	
+									System.out.println("확인용 로그인된 아이디 : " + loginuser.getUserid());
+									System.out.println("확인용 session에 저장된 아이디 : " + session.getAttribute("userid"));
+								} else {
+									System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
+	
+									// session 영역에 로그인 한 사용자 아이디(userid) 저장
+									HttpSession session = request.getSession();
+									session.setAttribute("userid", userid);
+									
+									logindao.updateLoginDate(userinfoMap);// 로그인 기록
+	
+								}
+							}
+						}
+					} // 탈퇴한 회원이 아닌경우 끝
+					// ---------------------------------------------------------------------------------
+	
+					} // if (loginuser != null) {}-------------------------------------------------------
+					
+					/*
+					System.out.println("확인용 userid : " + userid);
+					System.out.println("확인용 isSecession: " + isSecession);
+					System.out.println("확인용 : isMembership " + isMembership);
+					System.out.println("확인용 : isMembershipGap " + isMembershipGap);
+					System.out.println("확인용 : isRequirePwdChange" + isRequirePwdChange);
+					System.out.println("확인용 : isRestMember" + isRestMember);
+					System.out.println("확인용 : isUserExists" + isUserExists);
+					 */
+					// 제이슨 객체생성
+					JSONObject jsonObj = new JSONObject();
+					
+					// 제이슨에 값 담기
+					jsonObj.put("userid", userid);
+					jsonObj.put("isSecession", isSecession); // json으로 전달할 탈퇴 회원 여부
+					jsonObj.put("isMembership", isMembership); // json으로 전달할 멤버십 가입 여부
+					jsonObj.put("isMembershipGap", isMembershipGap); // json으로 전달할 멤버십 기간 1달 초과 여부
+					jsonObj.put("isRequirePwdChange", isRequirePwdChange); // json으로 전달할 멤버십 기간 1달 초과 여부
+					jsonObj.put("isRestMember", isRestMember); // json으로 전달할 휴면사용자 여부
+					jsonObj.put("isUserExists", isUserExists); // 아이디 비밀번호 일치하는 경우 
+					
+					String json = jsonObj.toString();
+					request.setAttribute("json", json);
+	
+					// super.setRedirect(false);
+					super.setViewPage("/WEB-INF/view/jsonview.jsp");
+				} // 괄호 닫기 아래로 이동 필요
 
 			
 		} // post else { // "POST" 방식일때 끝  ----------------------------------------------------------------

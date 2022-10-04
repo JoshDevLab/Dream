@@ -62,8 +62,6 @@
 
 </head>
 <body>
-
-<i class="fa-solid fa-k"></i>
    <div id = "container"> 
       <img src="<%=ctxPath %>/images/logo.png" alt="...">
       <div class="div_login">
@@ -81,7 +79,7 @@
                <span id="pwd_warning" class="warning">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</span>
             </div>
 
-            <button type="button" id="login" class="button" onclick=goLogin()>로그인</button>
+            <button type="button" id="login" class="button" onclick="goLogin()">로그인</button>
             
             <ul class = "login_ul">
                <li><a class="login_a" href="<%= ctxPath%>/member/join.dream">이메일 가입</a></li>
