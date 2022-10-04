@@ -110,6 +110,7 @@ p.details_category_name{
 div.details_category > a {
   color : black;
   text-decoration: none;
+  z-index:1;
 }
 /* a태그 데코레이션 없애기 시작 */
 div.details_category > a:link {
@@ -128,6 +129,7 @@ div.details_category > a:active {
   color : black;
   text-decoration: none;
 }
+
 /* a태그 데코레이션 없애기 끝 */
 /* 디테일카테고리이미지들 css  끝*/
 /* menu 끝 */
@@ -162,10 +164,16 @@ div.filter_status{
 div.filter_title{
   height:73px;
 }
+
 select#sort_option{
   margin-left:auto;
   height:40px;
   width:90px;
+}
+
+label#sort_option_label{
+  font-size:small;
+  color:darkgray;	
 }
 
 span#main_title{
@@ -235,7 +243,6 @@ div#product_sale_price{
   }
 }
 
-
 button#discount{
   z-index:-1;
   margin-left:auto;
@@ -246,6 +253,33 @@ button#discount{
   font-size:x-small;
   text-decoration:none;
 }
+
+/* a태그 데코레이션 없애기 시작 */
+a.product:link {
+  color : black;
+  text-decoration: none;
+}
+a.product:visited {
+  color : black;
+  text-decoration: none;
+}
+a.product:hover {
+  color : black;
+  text-decoration: none;
+}
+a.product:active {
+  color : black;
+  text-decoration: none;
+}
+/* a태그 데코레이션 없애기 끝 */
+
+
+div.item:hover{
+  border-radius:20px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+}
+
+
 
 @media screen and (max-width: 1100px){
   button#discount{
@@ -276,6 +310,10 @@ span#discount_percent{
   color:red;
   font-size:12px;
 }
+span#product_price_discount{
+	color:darkgray;
+	font-size:14px;
+}
 
 input#start_price,
 input#end_price{
@@ -291,6 +329,11 @@ input#end_price:focus {
 } 
 
 input#start_price::placeholder{
+  color:darkgray;
+  font-size: 10px;
+  position:relative;
+}
+input#end_price::placeholder{
   color:darkgray;
   font-size: 10px;
   position:relative;
@@ -324,6 +367,34 @@ button.price:hover{
   background: black;
   border-color:black;
   color: white;
+}
+
+
+#btn_like{
+  width:35px;
+  height:35px;
+  background-color:white;
+  position:absolute;
+  top:2%;
+  left:78%;
+}
+#btn_like:hover{
+  color:pink;
+}
+#sale_mark{
+	width:50px;
+	height:28px;
+	background-color:red;
+	color:white;
+	position:absolute;
+	top:2%;
+	right:73%;
+	font-weight:bold;
+	border:none;
+}
+i.fa-heart{
+  position:relative;
+  top:5px;
 }
 
 

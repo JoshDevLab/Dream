@@ -38,6 +38,27 @@
                 <input type="password" name="passwd_check" placeholder="비밀번호 확인">
                 <p id="passwd_check_error" class="login_error">비밀번호가 일치하지 않습니다.</p>
               </div>
+              
+              
+              
+              <%-- mobile --%>
+              <div id="mobile" class="login_input d-flex flex-column">
+                <label for="mobile">핸드폰번호<span id="login_label_ettential">필수입력</span></label>
+                <input type="text" name="mobile" placeholder="-를 제외한 핸드폰번호 11자리" id="mobile" maxlength="11">
+                <p id="mobile_error" class="login_error">-를 제외한 숫자 11자리를 입력해주세요</p>
+                <p id="mobile_ok" class="login_error">핸드폰인증은 필수사항입니다.</p>
+                <button type="button" id="btn_mobile_check" class="btn btn-white border rounded mt-1">인증하기</button>
+              </div>
+              
+              <%-- mobileConfirm --%>
+              <div id="mobileConfirm" class="login_input">
+                <label for="mobileConfirm">인증번호</label>
+                <input type="text" name="mobileConfirm" placeholder="인증번호 8자리를 입력해주세요" id="mobileConfirm" maxlength="8">
+                <div id="mobile_complete" class="d-flex">
+                  <button type="button" id="btn_mobile_check_complete" class="btn btn-white border rounded mt-2">인증완료</button>
+                  <div id="div_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;"></div>
+                </div>
+              </div>
 
               
               <%-- agreement --%>
