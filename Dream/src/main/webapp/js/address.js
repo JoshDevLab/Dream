@@ -275,7 +275,7 @@ $(document).ready(function(){
     		
 		$("input#address_num_modal").val(address_num);	 	
 		
-		$("input#basic_address").prop('checked', false);
+		
 		
     	
     });
@@ -313,7 +313,7 @@ $(document).ready(function(){
 		
 		$("input#address").val();
 		
-		$("input#basic_address").prop('checked', true);
+		
 		
 		
 		
