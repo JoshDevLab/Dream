@@ -38,7 +38,7 @@ div.info > div{
    height: 50px;
 }
 
-i{
+i.icon_membership{
    position: relative;
    top: 16px;
 }
@@ -75,6 +75,16 @@ a.info:active {
    color : black;
    text-decoration: none;
 }
+/* 모달창 연결된 a 태그 css */
+
+h5.membership_title{
+	margin-right:0px;	
+}
+
+div.div_sidebar{
+    margin-left: 40px;
+}
+
 
 
 
