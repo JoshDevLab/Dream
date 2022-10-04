@@ -68,11 +68,11 @@
 											"<div id='product_price' class='d-flex justify-content-between'>"+
 												"<span id='product_price' style='text-decoration: line-through;''>&#8361;"+item.price+"</span>"+
 												"<div id='discount_mark'>"+
-													"<span id='discount_percent'>"+item.discount_rate+"%</span>"+
+													"<span id='discount_percent'>"+item.discount_rate*100+"%</span>"+
 													"<button id='discount' class='rounded'><span id='discount'>discount</span></button>"+
 												"</div>"+
 											"</div>"+
-											"<div id='product_sale_price'>&#8361;"+item.discount_price+"<span>원</span></div>"+
+											"<div id='product_sale_price'>&#8361;"+item.discount_price.toLocaleString('en')+"<span>원</span></div>"+
 											"</div>"+
 										"</div>"+
 									"</a>"+

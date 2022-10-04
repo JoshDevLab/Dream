@@ -16,7 +16,6 @@ import josh.member.model.MemberDTO;
 public class CartController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		super.setViewPage("/WEB-INF/view/cart/cart.jsp");
 		
 		if(super.checkLogin(request)) { // 로그인이 된 상태라면
 			
@@ -37,7 +36,14 @@ public class CartController extends AbstractController{
 			
 			request.setAttribute("cartList", cartList);
 			request.setAttribute("user", user);
+			
+			super.setRedirect(false);
+			super.setViewPage("/WEB-INF/view/cart/cart.jsp");
 				
+		}
+		else {
+			super.setRedirect(true);
+			super.setViewPage(request.getContextPath()+"/login/login.dream");
 		}
 		
 	}

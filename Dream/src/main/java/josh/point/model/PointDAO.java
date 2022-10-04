@@ -68,9 +68,9 @@ public class PointDAO implements InterPointDAO {
 			
 			conn.setAutoCommit(false);
 			
-			System.out.println("포인트 dao에 진입함");
-			System.out.println(Integer.parseInt(paraMap.get("minusPoint")));
-			System.out.println(Integer.parseInt(paraMap.get("plusPoint")));
+			//System.out.println("포인트 dao에 진입함");
+			//System.out.println(Integer.parseInt(paraMap.get("minusPoint")));
+			//System.out.println(Integer.parseInt(paraMap.get("plusPoint")));
 			
 			if(Integer.parseInt(paraMap.get("minusPoint")) > 0) {
 				
