@@ -186,6 +186,15 @@ float: right;
   height: 60px;
 }
 
+a.btn_cart{
+	margin-top: 15px;
+	display: center;
+	justify-content: center;
+	background-color: lightskyblue;
+}
+
+
+
 .btn_buy {
   position: relative;
   display: inline-flex;
