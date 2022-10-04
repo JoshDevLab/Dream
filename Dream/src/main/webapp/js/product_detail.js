@@ -11,6 +11,7 @@ isLargerThan960 = false;
 
 // Function Declaration
 
+
 function checkVisible( elm, eval ) {
     eval = eval || "object visible";
     var viewportHeight = $(window).height(), // Viewport Height
@@ -168,8 +169,8 @@ $(document).ready(function() {
 				
 				$("div#optionSelected").append(
 				`<div id='added_option'>
-					<span id="optionAmount">1</span>
-					<span id="optionName">${ProductOption}</span>
+					<span id="optionAmount" class="optionAmount" name="optionAmount">1</span>
+					<span id="optionName" name="optionName">${ProductOption}</span>
 					<button id="deleteObj${objNo}" class="btn">x</button>
 					<button id="minus${objNo}" class="btn">-</button>
 					<button id="plus${objNo}" class="btn">+</button>
@@ -189,8 +190,8 @@ $(document).ready(function() {
 			
 			$("div#optionSelected").append(
 				`<div id='added_option'>
-					<span id="optionAmount">1</span>
-					<span id="optionName">${ProductOption}</span>
+					<span name = "optionAmount" id="optionAmount" class="optionAmount">1</span>
+					<span name="optionName" id="optionName">${ProductOption}</span>
 					<button id="deleteObj${objNo}" class="btn">x</button>
 					<button id="minus${objNo}" class="btn">-</button>
 					<button id="plus${objNo}" class="btn">+</button>
@@ -202,6 +203,7 @@ $(document).ready(function() {
 			optionArray.push(ProductOption);
 		}
 		calcbutton(objNo);
+		HowMuchIsit();
 		
 	});	
 	
@@ -214,11 +216,14 @@ function calcbutton(objNo){
 	
 	let count = objNo;
 	console.log("objNo"+objNo);
+	// 플러스 버튼 누르면
 	$(`button#plus${count}`).click(function(){
 		Selected = $(`button#plus${count}`).parent().children("#optionAmount");
 		
 		SelectedAmount = parseInt(Selected.text())+1;
-		Selected.text(SelectedAmount);			
+		Selected.text(SelectedAmount);		
+		// 금액 변경 반영	
+		HowMuchIsit();
 	});
 	$(`button#minus${objNo}`).click(function(){
 		Selected = $(`button#minus${objNo}`).parent().children("#optionAmount");
@@ -230,6 +235,8 @@ function calcbutton(objNo){
 		else{
 			Selected.text(SelectedAmount);	
 		}
+		// 금액 변경 반영	
+		HowMuchIsit();
 	});
 	
 	$(`button#deleteObj${objNo}`).click(function(){
@@ -243,7 +250,8 @@ function calcbutton(objNo){
 		    i--;
 	  		}
 		}
-		console.log(optionArray);
+		// 금액 변경 반영	
+		HowMuchIsit();
 	
 	});
 	
@@ -296,11 +304,12 @@ function goPurchasePage(){
 	
 	// 일단 선택한 옵션의 사이즈 배열과 갯수 배열을 각각 만들어보자자자자자자자자자ㅏ자자자ㅏ자자
 	
-	
+
 	let length = $("div#added_option").length;
-	added_optionName = $("div#added_option>#optionName").text();
-	added_optionAmount = $("div#added_option>#optionAmount").text();
+	let added_optionName = document.getElementsByName("optionName");
+	
 	const productNum = $("dd#product_num").text();
+	let added_optionAmount = document.getElementsByName("optionAmount");
 	
 	let sizeArray =[];
 	let cntArray =[];
@@ -311,14 +320,17 @@ function goPurchasePage(){
 	
 	// 선택한 옵션의 수 만큼 반복
 	for(let i = 0; i < length; i++) {
-		 sizeArray.push(added_optionName[i]);
-		 cntArray.push(added_optionAmount[i]);
+		 sizeArray.push(added_optionName[i].textContent);
+		 console.log(sizeArray[i]);
+		 cntArray.push(added_optionAmount[i].textContent);
 		}
 		
 	// 선택한 옵션의 순서대로 옵션의 사이즈, 개수가 같은 인덱스로 들어감
-	// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것이므로 json 쓰자자자자자자ㅏ자자자ㅏㅈ
+	// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것 json 쓰자자자자자자ㅏ자자자ㅏㅈ
 		console.log("sizeArray"+sizeArray);
 		console.log("cntArray"+cntArray);
+		console.log(Array.isArray(sizeArray) ); 
+
 		
 	$.ajax({
 		url:getContextPath()+"/product/cntCheck.dream",
@@ -333,8 +345,8 @@ function goPurchasePage(){
 			console.log(json.cnt);
 			
 			 outer : for(let i = 0; i < length; i++) {
-			 option_size = added_optionName[i];
-			 option_cnt = Number(added_optionAmount[i]);
+			 option_size = added_optionName[i].textContent;
+			 option_cnt = Number(added_optionAmount[i].textContent);
 			  
 			 console.log("option_size"+option_size);
 			 	for(let n=0; n<(json.size).length; n++){
@@ -370,22 +382,22 @@ function goPurchasePage(){
 				let html = "";
 				
 				for(let i=0; i<length; i++){
-					option_size = added_optionName[i];
-			 		option_cnt = Number(added_optionAmount[i]);
+					option_size = added_optionName[i].textContent;
+			 		option_cnt = Number(added_optionAmount[i].textContent);
 			 
 			 		html += 
 					`<input type="hidden" name="size${i}" value="${option_size}"  />
 					 <input type="hidden" name="cnt${i}" value="${option_cnt}"  /> `
 					} // end of for
 				
-				html +=`<input type="hidden" name="productNum" value="${productNum}"  />`
 				html +=`<input type="hidden" name="length" value="${length}"  />`
 				
 				console.log(html);
-				$("form#temporaryCart").empty();
+				
+				$("div#asd").empty();
 				
 				var frm = document.temporaryCart; 
-				$("form#temporaryCart").append(html);
+				$("form#temporaryCart>div#asd").append(html);
 				frm.method = "post";
 				frm.action = getContextPath()+"/member/purchasePage.dream";
 		
@@ -399,24 +411,113 @@ function goPurchasePage(){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		}
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 		
 	}// end of function goPurchasePage()-----------------
+	
+		// 선택갯수 * 할인적용금액 된 가격을 구해서 넣어주는 함수
+	function HowMuchIsit() {
+		
+		let added_optionAmount = document.getElementsByName("optionAmount");
+		/*let addArr = Array.from(added_optionAmount);
+		console.log(typeof(addArr));
+		console.log("확인용 배열"+addArr);
+		console.log("확인용 배열 길이"+addArr.length);
+		*/
+		let sum=0;
+	
+		for(let i=0; i< added_optionAmount.length; i++){
+			Selected = Number(added_optionAmount[i].textContent);
+			sum+=Selected;
+		}
+		
+		//	Selected = added_optionAmount[1].textContent;
+		//	console.log("씨발값"+Selected);
+		//	sum += Number(Selected);
+		let discount_price = Number($("input#discountPrice").val());
+		console.log(discount_price);
+			
+		let price = sum * discount_price;
+		$("input#fullPrice").val(price);
+		
+		$("em.num").text(price);
+		
+	};
+	
+	// 장바구니에 추가해주는 버튼
+	function updateCart(){
+		// 일단 선택한 옵션의 사이즈 배열과 갯수 배열을 각각 만들어보자자자자자자자자자ㅏ자자자ㅏ자자
+	const userid = $("input#userid").val();
+
+	if(userid!= ""){
+
+		let length = $("div#added_option").length;
+		let added_optionName = document.getElementsByName("optionName");
+		
+		const productNum = $("input#productNum").val();
+		
+		let added_optionAmount = document.getElementsByName("optionAmount");
+
+		let sizeArray =[];
+		let cntArray =[];
+
+
+		// 선택한 옵션의 수 만큼 반복
+		for(let i = 0; i < length; i++) {
+			
+			
+			 sizeArray.push(added_optionName[i].textContent);
+			 cntArray.push(added_optionAmount[i].textContent);
+			}
+
+		// 선택한 옵션의 순서대로 옵션의 사이즈, 개수가 같은 인덱스로 들어감
+		// 이 값을 구매버튼 누르는 순간의 재고와 비교할 것 json 쓰자자자자자자ㅏ자자자ㅏㅈ
+			console.log("sizeArray"+sizeArray);
+			console.log("cntArray"+cntArray);
+			console.log("productNum"+productNum);
+			console.log("userid"+userid);
+	
+	
+	   
+			let JSONsizeArray= JSON.stringify(sizeArray);
+			console.log("JSONsizeArray"+JSONsizeArray);
+			let JSONcntArray= JSON.stringify(cntArray);
+
+			
+		$.ajax({
+			url:getContextPath()+"/cart/updateCart.dream",
+			traditional: true,
+			data:{	"productNum":productNum,
+					"userid":userid,
+					"sizeArray":JSONsizeArray,
+					"cntArray":JSONcntArray,
+					"length":length},   
+					
+			type:"post",
+			dataType:"json",
+			// 카트에 담을만큼 재고가 있는지 먼저 체크
+	        success:function(json){
+				
+				if(json.isItOk){
+					
+					alert("선택하신 제품이 장바구니에 추가되었습니다!");
+				}
+				else{
+					alert("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.")
+				}
+	        }// end of succes
+	        ,error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		});
+		
+	}// end of if(userid != null)
+	else{ // 로그인 안한 사람
+		alert("로그인을 해주세요!");
+	}
+ 
+	
+		
+		
+		
+	}

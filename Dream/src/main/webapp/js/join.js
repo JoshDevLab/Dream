@@ -4,9 +4,10 @@ function getContextPath(){
   let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
   return contextPath;
 }
-
+let time=180;
 
 $(document).ready(function(){
+      
 	  
       $("button#btn_join").attr("disabled",true);
       $("button#btn_join").css("background","#EBEBEB");
@@ -20,10 +21,17 @@ $(document).ready(function(){
       let id_ok = false;
       let passwd_ok = false;
       let passwd_check_ok = false;
+      let mobile_ok = false;
+      let mobileConfirmCode = 0;
+      
+      
       
 	  
-      input_userid.focus();
-
+      input_userid.focus();	//userid 칸에 자동 focus
+	  $("input#mobile").val("010");	//mobile 칸에 010채워두기
+	  $("button#btn_mobile_check").attr("disabled",true);	//핸드폰인증버튼 비활성화
+	  
+	  $("div#mobileConfirm").css("display","none");
 
 	  // 숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내의 암호 정규 표현식
       // const regExp = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g);
@@ -114,12 +122,33 @@ $(document).ready(function(){
 	  $("button#btn_join").click(function(){
 		$("span#send_guide").html("");
 	  });
-      
+	  
+	  
+	  
       
 
 
 
       // Function Declaration
+      
+      //타이머 함수 만들기
+      const timer = function timer(){
+		if(time<0){ // 타임이 0보다 작게된다면
+          clearInterval(setTimer);
+          alert("입력시간이 초과하였습니다. 핸드폰인증을 다시 진행해주세요");
+          mobile_ok = false;
+        }
+        else{
+          let minute = parseInt(time/60);
+          minute = (minute+"").length<2? "0"+minute : minute; //삼항연산자로 분 자리맞춰주기
+          let second = time%60;
+          second = (second+"").length<2? "0"+second : second; //삼항연산자로 초 자리맞춰주기
+          let text = `${minute} : ${second}`;
+          $("div#div_timer").text(text);
+          time--;
+        }
+      }// end of timer-----
+
       
       //사용자가 입력한 아이디를 입력받아서 아이디 형식,체크여부를 검사해주는 함수
       function check_userid(userid){
@@ -216,7 +245,7 @@ $(document).ready(function(){
 	  
 	  //체크박스 체크했는지 알아내기
 	  function agree_check(){
-	  	if(id_ok  && passwd_ok && passwd_check_ok){	//회원가입 입력 조건이 갖춰지면
+	  	if(id_ok  && passwd_ok && passwd_check_ok && mobile_ok){	//회원가입 입력 조건이 갖춰지면
 		  const chkbox_agree_age = $("input:checkbox[name='agree_age']:checked").length
 		  	if(chkbox_agree_age == 0){	//이용약관 여부를 검사하고.
 				$("button#join").attr("disabled",true);
@@ -240,6 +269,76 @@ $(document).ready(function(){
 	  
 	  
 	  
+	  //mobile에 숫자만 입력 가능하게 만들기
+	  $("input#mobile").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
+      
+      //mobile에 숫자 11자가 채워지지 않으면 
+      $("input#mobile").keyup(function(){
+		if($("input#mobile").val().length != 11){	//11자리 이하일 시
+		  $("p#mobile_ok").css("display","none");
+		  $("p#mobile_error").css("display","block");
+		}
+		else{	//11자리를 다 채웠을 시
+		  $("p#mobile_error").css("display","none");
+		  $("p#mobile_ok").css("display","block");
+		  $("button#btn_mobile_check").attr("disabled",false);
+		}
+      });
+      
+      
+      
+      
+      //핸드폰인증하기 버튼 클릭시 인증번호를 전송해주기
+      $("button#btn_mobile_check").click(function(){
+	    $("div#mobileConfirm").css("display","");
+		const mobile = $("input#mobile").val();
+		  $.ajax({ 
+			url:getContextPath()+"/member/smsSend.dream", 
+			data:{"mobile": mobile},
+			type:"post",
+			dataType:"json",
+			success:function(json){
+			  if(json.success_count == 1) { // 문자 전송에 성공하였다면
+			    const input_mobile = $("input#mobile").val();
+			    alert("입력하신번호 "+input_mobile+"번호로 인증번호를 전송하였습니다. 인증번호를 입력해주세요");
+			    mobileConfirmCode = json.certificationCode;
+			    setInterval(timer,1000);
+			    mobile_ok = false;
+			  }
+			  else{	//문자 전송에 실패했다면
+				alert("문자전송에 실패했습니다. 입력하신 전화번호를 확인해주세요");
+				mobile_ok = false;
+			  }
+			},//end of success
+			
+			//success 대신 error가 발생하면 실행될 코드 
+			error: function(request,status,error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		  });//end of $.ajax({})---	
+	  });
+	  
+	  
+	  
+	  
+	  // 핸드폰인증완료 버튼 클릭시 이벤트
+	  $("button#btn_mobile_check_complete").click(function(){
+		const input_mobileConfirmCode = $("input#mobileConfirm").val();
+		if(mobileConfirmCode!=input_mobileConfirmCode){	//사용자가 입력한 값과 인증번호가 다르다면
+			alert("인증실패");
+			mobile_ok = false;
+			agree_check();
+		}
+		else{	//핸드폰인증번호를 같게 입력하였다면
+			alert("인증성공");
+			mobile_ok = true;
+			agree_check();
+		}
+	  });
+	  
+      
+	  
+	  
 	  // });// end of $("button#btnFind").click(function(e)------------------------
 	  
 	  
@@ -248,3 +347,6 @@ $(document).ready(function(){
 		
 	
     });//end of  $(document).ready(function(){}-----
+    
+    
+    

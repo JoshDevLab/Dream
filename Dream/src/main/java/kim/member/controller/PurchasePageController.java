@@ -38,7 +38,7 @@ public class PurchasePageController extends AbstractController {
 			
 			for(int i=0; i<length ;i++) {
 				sizeArr.add((String)request.getParameter("size"+i)); 
-				cntArr.add((String)request.getParameter("cnt"+i)); 
+				cntArr.add((String)request.getParameter	("cnt"+i)); 
 			}
 			
 			System.out.println("sizeArr"+sizeArr);
@@ -49,7 +49,7 @@ public class PurchasePageController extends AbstractController {
 			
 			HttpSession session = request.getSession();
 			String sessionUserid = (String) session.getAttribute("userid");
-			
+			System.out.println(sessionUserid);
 			// memberVO 객체 하나로 드갈 예정
 			InterMemberDAO mdao = new MemberDAO();
 			MemberVO user = new MemberVO();
@@ -59,6 +59,8 @@ public class PurchasePageController extends AbstractController {
 			user = mdao.pointCheck(sessionUserid);
 			
 			request.setAttribute("user", user);
+			System.out.println("fullPrice"+request.getParameter("fullPrice"));
+			request.setAttribute("fullPrice",request.getParameter("fullPrice"));
 			
 			// 선택한 제품의 정보도 가져갈 예정
 			
@@ -69,11 +71,27 @@ public class PurchasePageController extends AbstractController {
 			
 			System.out.println(product.getOrder_product_cnt());
 			System.out.println(product.getOrder_product_size());
-			
-			
-			
+
 			request.setAttribute("product", product);
 			
+			// 주소지 가져오기
+			
+			// 전부불러오기
+			//  List<AddressDTO> addressList = adao.selectAddress(userid);
+			
+			// 기본배송지 하나 불러오기
+			// AddressDTO basic_adto = adao.select_basic_address(userid);
+			
+			// 모바일 별추가
+			// String basic_mobile = basic_adto.getMobile();
+			
+		//	 request.setAttribute("addressList", addressList);
+            
+	    //     request.setAttribute("basic_first_mobile", basic_first_mobile);
+	    //     request.setAttribute("basic_second_mobile", basic_second_mobile);
+	    //     request.setAttribute("basic_third_mobile", basic_third_mobile);
+	    //     request.setAttribute("basic_adto", basic_adto);      
+	    //     request.setAttribute("address_num", address_num);
 			
 			
 			
