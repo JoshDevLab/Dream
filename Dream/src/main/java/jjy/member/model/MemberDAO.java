@@ -90,39 +90,71 @@ public class MemberDAO implements InterMemberDAO {
 		return result; // update 성공시 return 1
 		
 	}// end of public int registMembership(Map<String, String> useridMap) {}--------------------------
-
 	
 	
 	
-	//(select)로그인된 userid 를 Map 으로 전달받아 tbl_member 테이블에서 
-	// 가입일자,멤버십 가입여부,포인트,핸드폰번호,멤버십 가입일자를 가져오는 메소드  
+//  로그인된 사용자 아이디를 Map으로 전달받아 tbl_member 테이블에 멤버십 가입 여부, 멤버십 가입 날짜를 업데이트 하는 메소드
 	@Override
-	public MemberDTO selectOneUser(Map<String, String> useridMap) throws SQLException {
-		MemberDTO user = null;
+	public int deleteMembership(String userid)throws SQLException {
+		
+		int result = 0;
 		
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select membership "
-					   + " from tbl_member "
+			String sql = " update tbl_member set membership = 0, membership_regist_date = null "
 					   + " where userid = ? ";
-			/*
-			String sql = " select membership, membership_regist_date "
-					   + " from tbl_member "
-					   + " where userid = ? ";
-			*/
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, useridMap.get("loginuserid")); 
+			pstmt.setString(1, userid);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("sql 실행 후 result = "+result);
+			
+		} finally {
+			close();
+		}
+		return result; // update 성공시 return 1
+		
+	}// end of public int registMembership(Map<String, String> useridMap) {}--------------------------
+	
+	
+	
+	
+	
+
+	
+	
+	
+	//(select)로그인된 String 타입 userid 를 전달받아 tbl_member 테이블에서 
+	// 가입일자,멤버십 가입여부,포인트,핸드폰번호,멤버십 가입일자를 가져오는 메소드  
+	@Override
+	public MemberDTO selectOneUser(String userid) throws SQLException {
+		MemberDTO user = new MemberDTO();
+//		System.out.println("MemberDAO selectOneUser 호출됨");
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid, joindate, membership, username, "
+					   + " membership_regist_date, mobile, "
+					   + " trunc( months_between(sysdate, membership_regist_date),3 ) AS membershipregistgap "
+					   + " from tbl_member "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid); 
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				user = new MemberDTO();
 				
+				user.setUserid(rs.getString("userid"));
+				user.setJoindate(rs.getString("joindate"));
+				user.setUsername(rs.getString("username"));
 				user.setMembership(rs.getInt("membership")); // 멤버십 가입여부 0: 가입중 1: 미가입
-				// tbl_member 에 membership_regist_date 컬럼 추가 후 코드추가
-				// user.setMembership_regist_date
+				user.setMembershipregistgap(rs.getFloat("membershipregistgap"));
+				
+//				System.out.println("DAO에서 확인 "+ rs.getInt("membershipregistgap"));
 				}
 			
 		} finally {

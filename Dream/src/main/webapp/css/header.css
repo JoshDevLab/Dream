@@ -203,6 +203,23 @@ div#menu_close {
   left:6px;
 }
 
+@media screen and (max-width: 480px){
+    div#menu_close { 
+    width: 25px; 
+    height: 25px; 
+    position: absolute; 
+    top: 15px; 
+    right: 15px;
+    cursor: pointer;
+    font-size: x-large;
+    color:gray;
+  }
+  #btn_menu_close{
+    position:relative;
+    left:6px;
+  }
+}
+
 
 
 
@@ -211,14 +228,14 @@ a#btn_scroll_top{
 	width:44px;
 	height:48px;
 	position:fixed;
-	top:75%;
-	left:92%;
+	top:90%;
+	left:94%;
 	z-index:20;
 }
 @media screen and (max-width: 768px){
 	a#btn_scroll_top{
-		top:75%;
-		left:87%;
+		top:90%;
+		left:90%;
 		z-index:20;
     }
 }

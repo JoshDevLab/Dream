@@ -75,7 +75,7 @@ public class LoginDAO implements InterLoginDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = " select userid , passwd , secession , rest_member , update_passwd_date, "
+			String sql = " select userid , passwd , secession , rest_member , update_passwd_date,  "
 					   + " trunc( months_between(sysdate, update_passwd_date) ) AS update_passwd_gap "
 			           + " from tbl_member_login "
 					   + " where userid =  ?  and passwd =  ? ";
@@ -282,7 +282,7 @@ public class LoginDAO implements InterLoginDAO {
 	//아이디, 핸드폰 번호, 임시 비밀번호를 Map 을 전달받아 비밀번호를 변경하는 메소드 (update)
 	@Override
 	public int updatePassword(HashMap<String, String> findPwdMap) throws SQLException {
-		int result = 0;
+		int updtePwdResult = 0;
 		
 		try {
 			conn = ds.getConnection();
@@ -296,9 +296,10 @@ public class LoginDAO implements InterLoginDAO {
 			pstmt.setString(2, findPwdMap.get("userid"));
 			pstmt.executeUpdate();
 			
+			
 		} finally {
 			close();
 		}
-		return result;
+		return updtePwdResult;
 	}
 }

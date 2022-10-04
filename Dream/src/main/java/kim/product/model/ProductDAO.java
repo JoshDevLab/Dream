@@ -92,7 +92,7 @@ public class ProductDAO implements InterProductDAO {
 				 // tbl_product_stock 테이블에서 사이즈, 재고 알아오기
 				 String sql2 = " select product_num, product_size, size_cnt"+
 						 " from tbl_product_stock "+
-						" where product_num = ? ";
+						" where product_num = ?  ";
 				 pstmt = conn.prepareStatement(sql2);
 				 pstmt.setString(1 , product_num);
 				 
@@ -177,6 +177,128 @@ public class ProductDAO implements InterProductDAO {
 			close();
 		}
 		 
+	}
+
+	@Override
+	public int nocartPurchaseUpdate(Map<String, String> paraMap) throws SQLException {
+	   	int n = 0;
+
+		      try {
+	    	  
+	    		conn = ds.getConnection();
+				String sql = " update tbl_point set status = '만료' "+
+						"   where point_exp_period <=  sysdate" ;
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				
+				rs = pstmt.executeQuery();
+				
+		         
+		         conn = ds.getConnection();
+		         conn.setAutoCommit(false);
+		         boolean OK = true;
+		         // 재고테이블에서 (update) 수량삭제 ==> 필요한 것(product_num+size 복합키)
+		         // 반복문 돌려야한다람쥐
+		         int length = Integer.parseInt(paraMap.get("length"));
+		         
+		         sql = "";
+		         int sum = 0;
+		         for(int i=0; i<length; i++) {
+		        	 sql = "   update tbl_product_stock set size_cnt = size_cnt- ? "+
+		        		   "   where product_num = ? and PRODUCT_SIZE = ? ";
+		 		         pstmt = conn.prepareStatement(sql);
+		 		         
+		 		         pstmt.setString(1, paraMap.get("cnt"+i));
+		 		         pstmt.setString(2, paraMap.get("productNum"));
+		 		         pstmt.setString(3, paraMap.get("size"+i));
+		 		         sum += Integer.parseInt(paraMap.get("cnt"+i));
+		 		         n = pstmt.executeUpdate(); 
+		 		         if(n!=1) {// 0개행 업데이트
+		 		        	 System.out.println("조져따리");
+		 		        	 OK = false;
+		 		         }
+		         }
+		         
+		         
+		         
+		         
+		         
+		         
+		         // 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
+		        sql = "insert into tbl_buylist "+
+		        		 "(order_num, userid, product_num, buy_cnt, shipping) \n"+
+		        		 "values(seq_buylist.nextval,?,?,?,0) ";
+		         pstmt = conn.prepareStatement(sql);
+
+		         pstmt.setString(1, paraMap.get("userid"));
+		         pstmt.setString(2, paraMap.get("productNum"));
+		         pstmt.setInt(3, sum);
+		         
+		         n = pstmt.executeUpdate();
+		         if(n!=1) {// 실패
+ 		        	 System.out.println("조져따리");
+ 		        	 OK = false;
+ 		         }
+		         // 포인트 사용
+		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,event_date) "+
+		        	   " values(seq_point_num.nextval , ?,?,?, '차감',?,sysdate) ";
+		         pstmt = conn.prepareStatement(sql);
+
+		         pstmt.setString(1, paraMap.get("userid"));
+		         System.out.println( paraMap.get("productNum"));
+		         pstmt.setString(2, paraMap.get("productNum"));
+		         pstmt.setString(3, paraMap.get("PointMinus"));
+		         pstmt.setString(4, paraMap.get("event_type"));
+		         
+		         n = pstmt.executeUpdate();
+		         if(n!=1) {// 실패
+ 		        	 System.out.println("조져따리");
+ 		        	 OK = false;
+ 		         }
+
+		         // 포인트 적립
+		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,event_date) "+
+		        		 " values(seq_point_num.nextval , ?,?,?, '적립',?,sysdate) ";
+		         pstmt = conn.prepareStatement(sql);
+
+		         pstmt.setString(1, paraMap.get("userid"));
+		         pstmt.setString(2, paraMap.get("productNum"));
+		         pstmt.setString(3, paraMap.get("PointPlus"));
+		         pstmt.setString(4, paraMap.get("event_type"));
+		         
+		         n = pstmt.executeUpdate();
+		         if(n!=1) {// 실패
+ 		        	 System.out.println("조져따리");
+ 		        	 OK = false;
+ 		         }
+		         
+		         // 여기까지 왔는데도 OK 가  true 면 전부 1행씩 잘 진행된 것 
+		         if(OK) {
+		        	 conn.commit(); // 커밋함
+		        	 n = 1; // n=1 맞춰줌 사실 안맞춰도 1인데 대충
+		    	 }
+		         else {
+		        	 conn.rollback();
+		         }
+
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		         conn.rollback();
+		      } finally {
+		    	 
+		    	 conn.setAutoCommit(true); 
+		         close();
+		      }
+		      
+		      
+		      return n;
+
+		
+		
+		
+		
+		
 	}
 
 }
