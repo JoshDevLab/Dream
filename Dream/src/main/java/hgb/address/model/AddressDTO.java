@@ -9,10 +9,12 @@ public class AddressDTO {
     private String address;                // 주소 
     private String address_num;            // 주소번호
 	private String detail_address;         // 상세주소 
+	private String basic_address;         
 	
-    
-    
-    // 불러오기용 전화번호 나누기
+		
+
+
+	// 불러오기용 전화번호 나누기
     String first_mobile;
 	String second_mobile; 
 	String third_mobile;
@@ -29,27 +31,41 @@ public class AddressDTO {
 		this.order_name = order_name;
 		this.mobile = mobile;
 		this.post_code = post_code;
-		this.address = address;
-		this.mobile = mobile;
+		this.address = address;		
 		this.detail_address = detail_address;						
 		
     }
     
     
     
-    public AddressDTO(String order_name, String mobile, String post_code, String address, String detail_address) {
+    public AddressDTO(String order_name, String mobile, String post_code, String address, String detail_address,String basic_address, String address_num) {
     	
     	super();   			
 		this.order_name = order_name;
-		this.mobile = mobile;
 		this.post_code = post_code;
 		this.address = address;
 		this.mobile = mobile;
-		this.detail_address = detail_address;						
-		
+		this.detail_address = detail_address;		
+		this.basic_address = basic_address;
+		this.address_num = address_num;
     }
     
-    public AddressDTO(String address_num) {
+    
+    
+  
+   
+
+	public String getBasic_address() {
+		return basic_address;
+	}
+
+
+	public void setBasic_address(String basic_address) {
+		this.basic_address = basic_address;
+	}
+
+
+	public AddressDTO(String address_num) {
     	
     	super();   			
 		this.address_num = address_num;
@@ -132,6 +148,8 @@ public class AddressDTO {
 	private void setThird_mobile(String third_mobile) {
 		this.third_mobile = third_mobile;
 	}
+	
+
 	
 	
 	
