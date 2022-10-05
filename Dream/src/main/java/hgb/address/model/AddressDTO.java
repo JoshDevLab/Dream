@@ -8,8 +8,12 @@ public class AddressDTO {
     private String post_code;              // 우편번호
     private String address;                // 주소 
     private String address_num;            // 주소번호
+	
+
+
 	private String detail_address;         // 상세주소 
-	private String basic_address;         
+	private String basic_address;  
+	private String userid;
 	
 		
 
@@ -24,7 +28,7 @@ public class AddressDTO {
     public AddressDTO() {}
     
     
-    public AddressDTO(String order_name, String mobile, String post_code, String address, String detail_address, String address_num) {
+    public AddressDTO(String order_name, String mobile, String post_code, String address, String detail_address, String address_num, String userid) {
     	
     	super();   	
 		this.address_num = address_num;
@@ -33,12 +37,12 @@ public class AddressDTO {
 		this.post_code = post_code;
 		this.address = address;		
 		this.detail_address = detail_address;						
-		
+		this.userid = userid;
     }
     
     
     
-    public AddressDTO(String order_name, String mobile, String post_code, String address, String detail_address,String basic_address, String address_num) {
+    public AddressDTO(String order_name, String mobile, String post_code, String address, String detail_address,String basic_address, String address_num, String userid) {
     	
     	super();   			
 		this.order_name = order_name;
@@ -48,6 +52,7 @@ public class AddressDTO {
 		this.detail_address = detail_address;		
 		this.basic_address = basic_address;
 		this.address_num = address_num;
+		this.userid = userid;
     }
     
     
@@ -150,6 +155,14 @@ public class AddressDTO {
 	}
 	
 
+	public String getUserid() {
+		return userid;
+	}
+
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	
 	
 	

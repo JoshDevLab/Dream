@@ -1,6 +1,7 @@
 package hgb.address.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,9 @@ public class AddressController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod();
+		
+		
+           
 		
 		if("POST".equalsIgnoreCase(method)) {	//method가 "POST" 일 때
 						
@@ -76,8 +80,8 @@ public class AddressController extends AbstractController{
 			    HttpSession session = request.getSession();	//로그인중인 userid값 가져오기위한 session 객체생성
 				
 				//로그인 중인 사람의 userid 값 가져오기
-	//			String userid = (String)session.getAttribute("userid");
-				String userid = "josh@gmail.com";	//세션 코드 합치면 위의코드로 변경하기 이건 가라로  해놓은거임
+				String userid = (String)session.getAttribute("userid");
+	//			String userid = "josh@gmail.com";	//세션 코드 합치면 위의코드로 변경하기 이건 가라로  해놓은거임
 				
 			    
 			    Map<String,String> paraMap = new HashMap<>();

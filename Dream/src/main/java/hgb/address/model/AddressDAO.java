@@ -86,16 +86,17 @@ public class AddressDAO implements InterAddressDAO {
 					conn = ds.getConnection();
 					
 					String sql = " insert into tbl_address (address_num,userid,basic_address,address,detail_address,post_code,order_name,mobile) "
-							   + " values (seq_address_num.nextval,'josh@gmail.com','0',?,?,?,?,?) ";
+							   + " values (seq_address_num.nextval, ? ,'0',?,?,?,?,?) ";
 							   
 					
 					pstmt = conn.prepareStatement(sql);
 					
-					pstmt.setString(1, address1.getAddress());
-					pstmt.setString(2, address1.getDetail_address());	
-					pstmt.setString(3, address1.getPost_code());	
-					pstmt.setString(4, address1.getOrder_name());
-					pstmt.setString(5, address1.getMobile());    // 암호를 SHA256 알고리즘으르 단방향 암호화 시킨다.  
+					pstmt.setString(1, address1.getUserid());
+					pstmt.setString(2, address1.getAddress());
+					pstmt.setString(3, address1.getDetail_address());	
+					pstmt.setString(4, address1.getPost_code());	
+					pstmt.setString(5, address1.getOrder_name());
+					pstmt.setString(6, address1.getMobile());    // 암호를 SHA256 알고리즘으르 단방향 암호화 시킨다.  
 								
 					
 					result = pstmt.executeUpdate();
@@ -124,26 +125,28 @@ public class AddressDAO implements InterAddressDAO {
 					
 					String sql = " update tbl_address " 
 					           + " set basic_address = '0' "
-					           + " where basic_address = '1' ";
-					
-					
+					           + " where basic_address = '1' and userid = ? ";
+										
 
 					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, address1.getUserid());
 								
 					result = pstmt.executeUpdate();	
 															
 					
 					       sql = " insert into tbl_address (address_num,userid,basic_address,address,detail_address,post_code,order_name,mobile) "
-							   + " values (seq_address_num.nextval,'josh@gmail.com','1',?,?,?,?,?) ";
+							   + " values (seq_address_num.nextval, ? ,'1',?,?,?,?,?) ";
 							   
 					
 					pstmt = conn.prepareStatement(sql);
 					
-					pstmt.setString(1, address1.getAddress());
-					pstmt.setString(2, address1.getDetail_address());	
-					pstmt.setString(3, address1.getPost_code());	
-					pstmt.setString(4, address1.getOrder_name());
-					pstmt.setString(5, address1.getMobile());    
+					pstmt.setString(1, address1.getUserid());
+					pstmt.setString(2, address1.getAddress());
+					pstmt.setString(3, address1.getDetail_address());	
+					pstmt.setString(4, address1.getPost_code());	
+					pstmt.setString(5, address1.getOrder_name());
+					pstmt.setString(6, address1.getMobile());    
 					
 					
 					result = pstmt.executeUpdate();
@@ -330,11 +333,11 @@ public class AddressDAO implements InterAddressDAO {
 					
 					String sql = " update tbl_address "
 							   + " set basic_address = '0' "
-							   + " where basic_address = '1' ";
+							   + " where basic_address = '1' and userid = ? ";							 					           
 							   
-							   
-							   
-							    pstmt = conn.prepareStatement(sql);
+							    pstmt = conn.prepareStatement(sql);							    
+							    
+							    pstmt.setString(1, address3.getUserid());
 								
 								result = pstmt.executeUpdate();	
 							   
@@ -414,11 +417,16 @@ public class AddressDAO implements InterAddressDAO {
 					
 					String sql = " update tbl_address "
 						       + " set basic_address = '0' "
-							   + " where basic_address = '1' ";							   							   
+							   + " where basic_address = '1' and userid = ? ";							   							   
 					
 					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, address4.getUserid());
 								
-					result = pstmt.executeUpdate();					
+					result = pstmt.executeUpdate();		
+					
+					
+					
 					
 					
 					sql =        " update tbl_address "
@@ -462,9 +470,12 @@ public class AddressDAO implements InterAddressDAO {
 					
 					String sql =  " select count(*) "
 							    + " from tbl_address "
-							    + " where basic_address=0 ";
+							    + " where basic_address = 0 ";
 					
 					pstmt = conn.prepareStatement(sql);
+					
+					
+					
 					rs = pstmt.executeQuery();
 					
 					if(rs.next()) {
