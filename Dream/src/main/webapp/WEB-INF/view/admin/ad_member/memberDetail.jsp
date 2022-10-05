@@ -4,7 +4,7 @@
 	String ctxPath = request.getContextPath();
 	//
 %>
-    
+<%-- 관리자 전용 header 호출 --%>
 <jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
 <%-- 직접 만든 CSS --%>
@@ -16,11 +16,13 @@
 <%-- 회원관리상세보기페이지 코드 시작 --%>
 <div class="container d-flex flex-column">
   <%---------------------------------------- 회원 상세보기 시작 -----------------------------------------%>
-    <%-- 회원 DTO 한줄 뽑아오기 --%>
+  
+  
+    <%-- 회원 DTO 한줄 뽑아와서 찍어주기 --%>
     <table class="table table-hover mt-4" id="member">
      <thead>
        <tr>
-         <th colspan="7"><h4 style="font-weight:bold;">karina@gmail.com님 정보</h4></th>
+         <th colspan="7"><h4 style="font-weight:bold;">karina@gmail.com님의 정보</h4></th>
        </tr>
        <tr class="bg-dark">
           <td class="text-center">아이디</td>
@@ -164,12 +166,61 @@
   </table>
   <%-- 회원아이디를 가지고 포인트 가져오기 끝 --%>
   
-  <div class="d-flex m-auto">
-    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom">수정</button>
-    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom">삭제</button>
-    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom">목록보기</button>
-  </div>
   
+  <%-- 회원아이디를 가지고 기본배송지 가져오기 시작 --%>
+  <table class="table table-hover mt-4" id="address">
+     <thead>
+       <tr>
+         <th colspan="3"><h6 style="font-weight:bold;">기본배송지</h6></th>
+       </tr>
+       <tr class="bg-dark">
+          <td class="text-center">배송주소</td>
+          <td class="text-center">등록이름</td>
+          <td class="text-center">핸드폰번호</td>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td class="text-center">서울시 강북구 한천로 132길 77 세나빌라 305호</td>
+         <td class="text-center">최현우</td>
+         <td class="text-center">010-7423-9713</td>
+       </tr>
+     </tbody>
+  </table>
+  <%-- 회원아이디를 가지고 기본배송지 가져오기 끝 --%>
+  
+  
+  
+   <%-- 회원아이디를 가지고 기본배송지가 아닌 등록된 배송지 가져오기 시작 --%>
+  <table class="table table-hover mt-4" id="address">
+     <thead>
+       <tr>
+         <th colspan="3"><h6 style="font-weight:bold;">등록된 배송지</h6></th>
+       </tr>
+       <tr class="bg-dark">
+          <td class="text-center">배송주소</td>
+          <td class="text-center">등록이름</td>
+          <td class="text-center">핸드폰번호</td>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td class="text-center">경기도 부천시 소사구 심곡본동 76-3 심곡빌라 303호</td>
+         <td class="text-center">홍길동</td>
+         <td class="text-center">010-1234-5678</td>
+       </tr>
+     </tbody>
+  </table>
+  <%-- 회원아이디를 가지고 기본배송지가 아닌 등록된 배송지 가져오기 끝 --%>
+  
+  
+  <%-- 수정,삭제,목록보기 버튼 시작 클릭이벤트 잡아서 처리하기 --%>
+  <div class="d-flex m-auto">
+    <button type="button" class="btn btn-white border rounded mx-2 my-4 btn_bottom">수정</button>
+    <button type="button" class="btn btn-white border rounded mx-2 my-4 btn_bottom">삭제</button>
+    <button type="button" class="btn btn-white border rounded mx-2 my-4 btn_bottom">목록보기</button>
+  </div>
+  <%-- 수정,삭제,목록보기 버튼 끝 클릭이벤트 잡아서 처리하기 --%>
   
   
   

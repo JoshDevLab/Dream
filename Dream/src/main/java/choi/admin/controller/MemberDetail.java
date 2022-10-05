@@ -20,7 +20,7 @@ public class MemberDetail extends AbstractController{
 				super.setRedirect(true);
 				super.setViewPage(request.getContextPath()+"/index.dream");
 			}
-			else {	//관리자로 get요청을 하였다면
+			else {	//관리자로 get요청을 하였다면 페이지 보여주기
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/admin/ad_member/memberDetail.jsp");
 			}
