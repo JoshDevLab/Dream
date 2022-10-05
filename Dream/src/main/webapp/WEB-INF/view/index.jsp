@@ -5,8 +5,14 @@
 	String ctxPath = request.getContextPath();
 	//
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${sessionScope.userid != 'admin'}">
 <jsp:include page="/WEB-INF/view/header.jsp" />
+</c:if>
+<c:if test="${sessionScope.userid == 'admin'}">
+<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
+</c:if>
 
 
 <script type="text/javascript">
@@ -17,7 +23,6 @@
 		
 		$("button#more_btn").click(function() { 
 			
-			
 			if($(this).text() == "처음으로") {
 				$("div#discountDisplay").empty();
 				displayDiscount("1");
@@ -26,6 +31,9 @@
 			else {
 				displayDiscount($(this).val());
 			}
+			
+			
+			
 		});
 		
 	});// end of $(document).ready(function() {})----------------------------
@@ -46,7 +54,6 @@
 				
 				let html = ``;
 				
-				
 				if( start == "1" && json.length == 0) {
 					html = "<span>할인중인 상품이 없습니다.</span>";
 				}
@@ -56,10 +63,10 @@
 					$.each(json, function(index, item) {
 						
 					    html += "<div class='item col-6 col-md-3 d-flex flex-column py-3'>"+
-									"<a id='"+item.product_num+"' class='product' href='#'>"+
+									"<a id='"+item.product_num+"' class='product' href='<%= ctxPath %>/product/detail.dream?num="+item.product_num+"'>"+
 										"<div class='product'>"+	
 											"<div class='product_imgbox border'>"+
-												"<img src='Dream/images/"+item.product_image+"'>"+
+												"<img src='<%= ctxPath %>/images/제품이미지/"+item.product_image+"'>"+
 											"</div>"+
 											"<div id='product_simple_explain'>"+	
 												"<div id='product_division'>"+item.product_category+"</div>"+
@@ -67,17 +74,18 @@
 											"<div id='product_price' class='d-flex justify-content-between'>"+
 												"<span id='product_price' style='text-decoration: line-through;''>&#8361;"+item.price+"</span>"+
 												"<div id='discount_mark'>"+
-													"<span id='discount_percent'>"+item.discount_rate+"%</span>"+
+													"<span id='discount_percent'>"+item.discount_rate*100+"%</span>"+
 													"<button id='discount' class='rounded'><span id='discount'>discount</span></button>"+
 												"</div>"+
 											"</div>"+
-											"<div id='product_sale_price'>&#8361;"+item.discount_price+"<span>원</span></div>"+
+											"<div id='product_sale_price'>&#8361;"+item.discount_price.toLocaleString('en')+"<span>원</span></div>"+
 											"</div>"+
 										"</div>"+
 									"</a>"+
 								"</div>"; 
 								
 					}); // end of $.each(json, function(index, item) {}) -----------------
+					
 					
 					$("div#discountDisplay").append(html);
 					

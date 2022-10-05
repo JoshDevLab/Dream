@@ -63,21 +63,21 @@ public class CartDAO implements InterCartDAO{
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select A.product_num, product_name, product_content, product_image, price, discount_rate, A.product_size, size_cnt, cart_cnt "
+			String sql = " select A.product_num, product_name, product_content, product_image, price, discount_rate, A.product_size, nvl(size_cnt,0) as size_cnt, cart_cnt, cart_num "
 					+ " from "
 					+ " ( "
-					+ " select c.product_num as product_num, product_name, product_content, product_image, price, discount_rate , product_size, cart_cnt "
+					+ " select c.product_num as product_num, product_name, product_content, product_image, price, discount_rate , product_size, cart_cnt, cart_num "
+					+ "      , c.product_num || product_size AS product_stock "
 					+ " from tbl_product p join tbl_cart c "
 					+ " on p.product_num = c.product_num "
 					+ " where userid = ? "
 					+ " )A "
-					+ " join "
+					+ " left join "
 					+ " ( "
-					+ " select product_num, product_size, size_cnt "
-					+ " from tbl_product_stock "
+					+ " select product_num, product_size, size_cnt, product_num || product_size AS product_stock "
+					+ " from tbl_product_stock  "
 					+ " )B "
-					+ " on A.product_size = B.product_size "; 
-			System.out.println("확인용 =>" + userid);
+					+ " on A.product_stock = B.product_stock "; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			
@@ -97,6 +97,7 @@ public class CartDAO implements InterCartDAO{
 				cdto.setProduct_size(rs.getString(7));
 				cdto.setSize_cnt(rs.getInt(8));
 				cdto.setCart_cnt(rs.getInt(9));
+				cdto.setCart_num(rs.getInt(10));
 				
 				cartList.add(cdto);
 				
@@ -108,6 +109,45 @@ public class CartDAO implements InterCartDAO{
 		
 		return cartList;
 	}
+
+    // 체크 선택한 상품들만 장바구니에서 삭제하는 메소드
+	@Override
+	public int cartSelectDelete(String cart_num) throws SQLException {
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " delete from tbl_cart where cart_num = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cart_num);
+			
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

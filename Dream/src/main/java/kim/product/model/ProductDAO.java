@@ -185,15 +185,7 @@ public class ProductDAO implements InterProductDAO {
 
 		      try {
 	    	  
-	    		conn = ds.getConnection();
-				String sql = " update tbl_point set status = '만료' "+
-						"   where point_exp_period <=  sysdate" ;
-				
-				pstmt = conn.prepareStatement(sql);
-				
-				
-				rs = pstmt.executeQuery();
-				
+	    		
 		         
 		         conn = ds.getConnection();
 		         conn.setAutoCommit(false);
@@ -202,7 +194,7 @@ public class ProductDAO implements InterProductDAO {
 		         // 반복문 돌려야한다람쥐
 		         int length = Integer.parseInt(paraMap.get("length"));
 		         
-		         sql = "";
+		         String sql = "";
 		         int sum = 0;
 		         for(int i=0; i<length; i++) {
 		        	 sql = "   update tbl_product_stock set size_cnt = size_cnt- ? "+

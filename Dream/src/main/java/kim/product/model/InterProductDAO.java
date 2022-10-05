@@ -12,7 +12,8 @@ public interface InterProductDAO {
 	
 	/** 제품 번호 넢으면 재고수량 배열로 가져옴 */ 
 	Map<String, ArrayList<String>> cnt_check(String productNum) throws SQLException;
-
+	
+	/** 카트 거치지 않고 바로구매시 가는 페이지에서 하는 결제 */
 	int nocartPurchaseUpdate(Map<String, String> paraMap) throws SQLException;
 
 }
