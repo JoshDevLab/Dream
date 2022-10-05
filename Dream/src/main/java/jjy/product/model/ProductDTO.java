@@ -16,7 +16,14 @@ public class ProductDTO {
 	private int price;          	//가격
 	private int sale;  				//판매여부
 	private int product_cnt;		//수량
+	private String product_content; //제품상세설명 
 	
+	public String getProduct_content() {
+		return product_content;
+	}
+	public void setProduct_content(String product_content) {
+		this.product_content = product_content;
+	}
 	//method
 	public String getRegister_date() {
 		return register_date;

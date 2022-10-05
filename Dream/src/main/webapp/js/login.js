@@ -94,7 +94,7 @@ $(document).ready(function() {
 	});
 	
 	
-	 $("input#input_passwd").bind("keyup", (e)=>{
+	 $("input#input_passwd").bind("keydown", (e)=>{
 		   if(e.keyCode == 13) { // 검색어에서 엔터를 치면 검색하러 가도록 한다.
 			   goLogin();
 		   }

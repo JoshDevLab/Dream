@@ -107,8 +107,8 @@ public class PurchaseListJsonController extends AbstractController {
 				// 총 구매내역 수 알아오기 
 				int totalListCnt = pdao.getTotalListCnt(purchaseMap);
 				
-				System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
-				System.out.println("확인용 => "+ pagingPurchaseList);
+				//System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
+				// System.out.println("확인용 => "+ pagingPurchaseList);
 				
 				JSONArray jsonArray = new JSONArray(); // 배열로 선언 
 				
