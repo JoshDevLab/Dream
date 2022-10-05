@@ -25,5 +25,11 @@ public interface InterMemberDAO {
 	// Point 및 이메일 등등 가져오는 메소드
 	MemberDTO pointCheck(String userid) throws SQLException;
 
+	// 회원목록 관리자페이지에서 총 회원수 
+	int getTotalPage(Map<String, String> paraMap) throws SQLException;
+
+	// 회원목록 관리자 페이지에서 회원들의 리스트
+	List<MemberDTO> selectAllMember(Map<String, String> paraMap) throws SQLException;
+
 
 }

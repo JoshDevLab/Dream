@@ -12,6 +12,8 @@ public class MemberDTO {
 	// == select 용 == //
 	private String passwd;
 	private int Shipping;
+	private int secession;
+	private int rest_member;
 	
 	
 	public String getUserid() {
@@ -61,6 +63,18 @@ public class MemberDTO {
 	}
 	public void setShipping(int shipping) {
 		Shipping = shipping;
+	}
+	public int getSecession() {
+		return secession;
+	}
+	public void setSecession(int secession) {
+		this.secession = secession;
+	}
+	public int getRest_member() {
+		return rest_member;
+	}
+	public void setRest_member(int rest_member) {
+		this.rest_member = rest_member;
 	}
 	
 }
