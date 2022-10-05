@@ -68,15 +68,15 @@ public class PurchaseListJsonController extends AbstractController {
 				}
 				
 				// 확인용 ///////////////////////////////////////////////////
-				System.out.println("================================");
-				System.out.println("확인용"+start_date);
-				System.out.println("확인용"+end_date);
-				System.out.println("확인용"+input_shipping);
-				System.out.println("확인용"+userid);
-				System.out.println("확인용"+sort);
-				System.out.println("확인용start "+start);
-				System.out.println("확인용 len"+len);
-				System.out.println("=================================");
+//				System.out.println("================================");
+//				System.out.println("확인용"+start_date);
+//				System.out.println("확인용"+end_date);
+//				System.out.println("확인용"+input_shipping);
+//				System.out.println("확인용"+userid);
+//				System.out.println("확인용"+sort);
+//				System.out.println("확인용start "+start);
+//				System.out.println("확인용 len"+len);
+//				System.out.println("=================================");
 			// 확인용 ///////////////////////////////////////////////////
 				
 				// 맨처음 기본값 지정 끝 //===============================================

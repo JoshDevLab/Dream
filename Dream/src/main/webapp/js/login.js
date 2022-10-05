@@ -131,8 +131,8 @@ function goLogin() {
 	const input_userid = $("input#input_userid").val().trim();
 	const input_passwd = $("input#input_passwd").val().trim();
 	
-	console.log(input_userid);
-	console.log(input_passwd);
+//	console.log(input_userid);
+//	console.log(input_passwd);
 	
 	
 	// ajax 시작 
