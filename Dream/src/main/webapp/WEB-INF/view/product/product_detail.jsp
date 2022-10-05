@@ -187,10 +187,15 @@ String ctxPath = request.getContextPath();
 									<span class="won">원</span>
 								</span> <span class="desc">즉시 구매가</span>
 							</div>
-						</a> <a href="javascript:void(0)" class="btn_buy btn_cart"
+						</a> 
+						<a href="javascript:void(0)" class="btn_buy btn_cart"
 							onclick="updateCart()"> <i
 							class="fa-solid fa-cart-plus fa-2x"></i>
-
+						</a>
+						
+						<a href="javascript:void(0)" class="btn_buy btn_edit"
+						   data-toggle="modal" data-target="#editProduct"> 
+							<i class="fa-solid fa-screwdriver-wrench fa-2x"></i>
 						</a>
 
 					</div>
@@ -201,6 +206,8 @@ String ctxPath = request.getContextPath();
 						<span class="btn_text" type="button">관심상품</span> <span
 						class="wish_count_num">${product.likeCnt}</span> <%-- 여기 숫자는 제품 관심상품 등록된 횟수 카운트해줘야하니 나중에 제품자체에 관심등록 칼럼 추가해줘서 관리하는게 편할듯 --%>
 					</a>
+					
+					
 
 				</div>
 
@@ -387,4 +394,59 @@ String ctxPath = request.getContextPath();
 	</div>
 
 </body>
+
+
+
+
+ <div id="editProduct" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">제품 정보 변경</h4>
+      </div>
+      <div class="modal-body">
+        <form name="editProductFrm" class="delivery_input">
+        	<h4 id="product_name" class="input_title">제품명</h4>
+              <div class="input_item">
+                 <input name="product_name" class="input_txt" id="product_name" type="text" placeholder= "${product.product_name}" autocomplete="off" >
+              </div>
+              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+        
+        	<h4 id="name" class="input_title">가격</h4>
+              <div class="input_item">
+                 <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="${product.price}" autocomplete="off" >
+              </div>
+              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+        
+        
+	        <h4 id="name" class="input_title">할인율</h4>
+	              <div class="input_item">
+	                 <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="${product.discount_rate}" autocomplete="off" >
+	              </div>
+	              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+        
+        	<h4 id="name" class="input_title">제품설명</h4>
+              <div class="input_item">
+                 <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" >
+              </div>
+              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+        
+        
+        </form>
+                        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+       
+  </div>
+</div>
+               
+
+
+
 <jsp:include page="/WEB-INF/view/footer.jsp" />

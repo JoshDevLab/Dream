@@ -193,6 +193,14 @@ a.btn_cart{
 	background-color: lightskyblue;
 }
 
+a.btn_edit{
+	margin-top: 15px;
+	display: center;
+	justify-content: center;
+	background-color: lightslategray;
+}
+
+
 
 
 .btn_buy {
