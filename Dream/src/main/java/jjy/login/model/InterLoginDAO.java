@@ -29,7 +29,10 @@ public interface InterLoginDAO {
 	String checkRegistDate(String userid)throws SQLException;
 
 	/** 아이디, 핸드폰 번호, 임시 비밀번호를 Map 을 전달받아 비밀번호를 변경하는 메소드 (update) */
-	int updatePassword(HashMap<String, String> findPwdMap)throws SQLException;
+	int updatePassword(HashMap<String, String> findPwdMap) throws SQLException;
+
+	/** 관리자 아이디, 비밀번호를 map 으로 전달받아 일치하는 관리자가 있는지 조회하는 메소드  */
+	boolean selectAdmin(Map<String, String> userinfoMap) throws SQLException;
 
 
 }

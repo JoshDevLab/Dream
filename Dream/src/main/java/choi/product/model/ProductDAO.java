@@ -61,7 +61,8 @@ public class ProductDAO implements InterProductDAO{
 		try {
 			conn = ds.getConnection();
 			
-			String sql =  " select count(*) from tbl_product "
+			String sql =  " select count(*) "
+					    + " from tbl_product "
 					    + " where 1=1 ";
 			if(category != null && !category.equals("전체")) {
 				sql += " and category = '"+category +"'";
@@ -76,7 +77,7 @@ public class ProductDAO implements InterProductDAO{
 				sql += " and gender = '"+gender + "'";
 			}
 			if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
-				sql += " and price between '"+Integer.parseInt(start_price)+"' and '"+Integer.parseInt(end_price)+"'";
+				sql += " and price - (price * discount_rate) between '"+Integer.parseInt(start_price)+"' and '"+Integer.parseInt(end_price)+"'";
 			}
 								
 			pstmt = conn.prepareStatement(sql);
@@ -152,7 +153,7 @@ public class ProductDAO implements InterProductDAO{
 						sql += " and gender = '"+gender + "' ";
 					}
 					if(start_price != null && !start_price.equals("") && end_price != null && !end_price.equals("")) {
-						sql += " and real_price between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
+						sql += " and price - (price * discount_rate) between "+Integer.parseInt(start_price)+" and "+Integer.parseInt(end_price);
 					}
 		    sql += " ) A "
 				 + " left join "
@@ -170,7 +171,7 @@ public class ProductDAO implements InterProductDAO{
 					 + " left join "
 					 + " ("
 					 + " select product_num, "
-					 + "        count(*) as product_like_cnt "
+					 + "        count(*) as product_like_cnt "	//product_like_cnt는 내가 좋아요를 눌렀는지 확인용?
 					 + " from tbl_like"
 					 + " where userid = '" + userid + "'"
 					 + " group by product_num "

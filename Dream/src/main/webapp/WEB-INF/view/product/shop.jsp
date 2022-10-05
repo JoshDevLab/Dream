@@ -238,8 +238,15 @@
 	          <%-- 상품 셀렉트 해와서 반복문 돌릴 곳 --%>
 	
 			  
-	          <%-- 게시물 시작 --%>
+	          <%-- 관리자로 로그인한 경우 상품등록버튼 --%>
+	          <c:if test="${sessionScope.userid == 'admin'}">
+	            <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4" onclick="location.href='<%=ctxPath %>/admin/productRegister.dream'" style="cursor:pointer;">
+	          	  상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정
+	            </div>
+	          </c:if>
 	          
+	          
+	          <%-- 게시물 시작 --%>
           	  <c:forEach var="product" items="${requestScope.productList}">
 		          <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4">
 		            <a id="${product.product_num}" class="product" href="<%=ctxPath %>/product/detail.dream?num=${product.product_num}"><%-- id값에 제품번호 넣기!!!!*** --%>
@@ -347,6 +354,8 @@
 		  	</ul>
 		</nav>
 		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
+		
+		
     </div>
     <%-- container 끝 --%>
   

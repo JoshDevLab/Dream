@@ -72,11 +72,11 @@
         <ul class="header_main_list list-unstyled">
           <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/product/shop.dream'">SHOP</li>
           <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/about.dream'">ABOUT</li>
-          <li class="header_main_list bg-white" type="button" onclick=""><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
+          <li class="header_main_list bg-white" type="button" onclick="location.href='<%=ctxPath %>/product/searchProduct.dream'"><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
         </ul>
         <%-- 768px 이하일때 나타날 아이콘 --%>
         <ul class="hidden_main_list list-unstyled">
-          <li class="hidden_main_list bg-white" type="button"><i class="fas fa-lg fa-thin fa-magnifying-glass"></i></li>
+          <li class="hidden_main_list bg-white" type="button" onclick="location.href='<%=ctxPath %>/product/searchProduct.dream'"><i class="fas fa-lg fa-thin fa-magnifying-glass"></i></li>
           <li id="menu_open" class="hidden_main_list bg-white" type="button"><i class="fas fa-lg fa-bars"></i></li>
         </ul>
       </div>
