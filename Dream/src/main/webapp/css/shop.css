@@ -363,14 +363,11 @@ button.price:hover{
   height:35px;
   background-color:white;
   position:absolute;
-<<<<<<< HEAD
   top:1%;
   right:3%;
   background-color:white;
-=======
   top:2%;
   left:78%;
->>>>>>> refs/remotes/origin/choihw
 }
 #btn_like:hover{
   color:pink;

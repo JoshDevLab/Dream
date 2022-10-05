@@ -60,7 +60,7 @@
 	        <button id="btn_fillter_sleep_supplies" type="button" class="btn_fillter btn rounded-pill border">수면용품</button>
 	      </div>
 	    </div>
-	    <div class="details_category my-4 pt-2 d-flex">
+	    <div class="details_category my-4 pt-2 d-flex flex-nowrap">
 	    
 	    
 	    </div>
@@ -238,8 +238,15 @@
 	          <%-- 상품 셀렉트 해와서 반복문 돌릴 곳 --%>
 	
 			  
-	          <%-- 게시물 시작 --%>
+	          <%-- 관리자로 로그인한 경우 상품등록버튼 --%>
+	          <c:if test="${sessionScope.userid == 'admin'}">
+	            <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4" onclick="location.href='<%=ctxPath %>/admin/productRegister.dream'" style="cursor:pointer;">
+	          	  상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정
+	            </div>
+	          </c:if>
 	          
+	          
+	          <%-- 게시물 시작 --%>
           	  <c:forEach var="product" items="${requestScope.productList}">
 		          <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4">
 		            <a id="${product.product_num}" class="product" href="<%=ctxPath %>/product/detail.dream?num=${product.product_num}"><%-- id값에 제품번호 넣기!!!!*** --%>
@@ -256,12 +263,10 @@
 		                  <div id="product_price" class="d-flex justify-content-between">
 		                    <%-- if문!!상품자체할인가격이 없다면 아래태그,상품가격 --%>
 		                    <c:if test="${empty product.discount_rate || product.discount_rate == 0}">
-		                    <span id="product_price" style="font-size:17px;">&#8361;${product.price}원</span>
 		                    <span id="product_price_no_discount">&#8361;${product.real_price}원</span>
 							</c:if>
 		                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
 		                    <c:if test="${not empty product.discount_rate && product.discount_rate != 0}">
-			                    <span id="product_price_discount" style="text-decoration: line-through; font-size:15px; color:darkgray;">&#8361;${product.price}원</span>
 			                    <span id="product_price_discount" style="text-decoration: line-through;">&#8361;${product.price}원</span>
 			                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳 --%>
 			                    <div id="discount_mark">
@@ -349,6 +354,8 @@
 		  	</ul>
 		</nav>
 		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
+		
+		
     </div>
     <%-- container 끝 --%>
   

@@ -6,8 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 
-public class MemberDetail extends AbstractController{
-
+public class ProductRegister extends AbstractController{
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod(); 
@@ -22,17 +22,13 @@ public class MemberDetail extends AbstractController{
 			}
 			else {	//관리자로 get요청을 하였다면
 				super.setRedirect(false);
-				super.setViewPage("/WEB-INF/view/admin/ad_member/memberDetail.jsp");
+				super.setViewPage("/WEB-INF/view/admin/ad_product/productRegister.jsp");
 			}
 			
 		}
-		
-		
-		
-		else {	// method가 "POST"일 때 아마 
+		else {	// method가 "POST"일 때 
 			
 		}
 		
 	}
-
 }
