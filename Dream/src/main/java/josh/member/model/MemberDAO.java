@@ -326,32 +326,35 @@ public class MemberDAO implements InterMemberDAO{
 			conn = ds.getConnection();
 			
 			String sql = " select ceil(count(*)/3) "
-					   + " from tbl_member "
-					   + " where userid != 'admin' ";
+					   + " from tbl_member M JOIN tbl_member_login L "
+					   + " on M.userid = L.userid "
+					   + " where M.userid != 'admin' ";
 			
 			String colname = paraMap.get("searchType");
 			String searchWord = paraMap.get("searchWord");
 			
 			if( searchWord != null && !searchWord.trim().isEmpty() ) { // 검색어가 있는 경우
 				 
-				 if("secession".equals(colname) || "rest_member".equals(colname) || "membership".equals(colname)) { // 검색어가 있을 경우 회원탈퇴인 회원중에 검색어가 들어가는 회원만 조회
-					 sql += " and M.userid like '%'|| ? ||'%' and "+colname+" = 1";
+				 if("secession".equals(colname) || "rest_member".equals(colname) ) { // 검색어가 있을 경우 회원탈퇴인 회원중에 검색어가 들어가는 회원만 조회
+					 sql += " and M.userid like '%'|| ? ||'%' and L."+colname+" = 1";
+				 }
+				 else if("membership".equals(colname)) {
+					 sql += " and M.userid like '%'|| ? ||'%' and M."+colname+" = 1";
 				 }
 				 else {
-					 if("userid".equals(colname)) {
-						 sql += " and M."+colname+" like '%'|| ? ||'%' ";
-					 }
-					 else {
-						 sql += " and "+colname+" like '%'|| ? ||'%' ";
-					 }
-					 	
+					 sql += " and M"+colname+" like '%'|| ? ||'%' ";
 				 }
+					 	
+				 
 			 }
 			 
 			 else { // 검색어가 없는 경우
-				 if("secession".equals(colname) || "rest_member".equals(colname) || "membership".equals(colname)) {
-					 sql += " and "+colname+"= 1 ";
-				}
+				 if("secession".equals(colname) || "rest_member".equals(colname) ) { // 검색어가 있을 경우 회원탈퇴인 회원중에 검색어가 들어가는 회원만 조회
+					 sql += " and L."+colname+" = 1";
+				 }
+				 else if("membership".equals(colname)) {
+					 sql += " and M."+colname+" = 1";
+				 }
 			 }
 			
 			pstmt = conn.prepareStatement(sql);
