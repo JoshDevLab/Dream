@@ -22,7 +22,7 @@ button#delete:hover{
   color:white;
 }
 
-input#userid{
+input#searchWord{
   width:200px;
   height:40px;
   border:none;
@@ -39,20 +39,18 @@ input#userid::placeholder{
   font-size: small;
   position:relative;
 }
-select#filter{
+select#searchType{
   width:120px;
 }
 
 
-
-.my.pagination > .active > a, 
-.my.pagination > .active > span, 
-.my.pagination > .active > a:hover, 
-.my.pagination > .active > span:hover, 
-.my.pagination > .active > a:focus, 
-.my.pagination > .active > span:focus {
-  z-index:0;
-  background: black;
-  border-color:black;
-  color: white;
+li.active > a, 
+li.active:hover , 
+li.active > a:hover, 
+li.active:focus , 
+li.active > a:focus, 
+li.active:focus   {
+  background: black !important;
+  border-color:black !important;
+  color: white !important;
 }

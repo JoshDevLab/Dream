@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <%
 	String ctxPath = request.getContextPath();
 	//
@@ -12,6 +15,32 @@
 
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/admin/memberManage.js" ></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		if("${requestScope.searchWord}" != "" ){
+	         $("select#searchType").val("${requestScope.searchType}");
+	         $("input#searchWord").val("${requestScope.searchWord}"); 
+	    }
+		
+		if("${requestScope.searchType}" == "secession" || "${requestScope.searchType}" == "rest_member" 
+		  || "${requestScope.searchType}" == "membership" ) {
+			$("input#searchWord").css({'placeholder':'찾으시는 회원ID 입력'});
+		}
+		
+	});
+	
+	function goSearch() {
+		
+		const frm = document.memberFrm;
+		frm.action = "memberManage.dream";
+		frm.method = "GET";
+		frm.submit();
+	}
+
+</script>
 
 
 
@@ -33,106 +62,87 @@
        </tr>
      </thead>
      <tbody>
-       <%-- 1 --%>
-       <tr onclick="location.href='<%= ctxPath%>/admin/memberDetail.dream?userid='" style="cursor:pointer">
-         <td class="text-center">karina@gmail.com</td>
-         <td class="text-center">장진영</td>
-         <td class="text-center">01088665389</td>
-         <td class="text-center">22/09/28</td>
-         <td class="text-center">O</td>
-         <td class="text-center">X</td>
-         <td class="text-center">X</td>
-       </tr>
-       
-       
-       <%-- 2 --%>
-       <tr onclick="location.href='<%= ctxPath%>/admin/memberDetail.dream?userid='" style="cursor:pointer">
-         <td class="text-center">karina@gmail.com</td>
-         <td class="text-center">장진영</td>
-         <td class="text-center">01088665389</td>
-         <td class="text-center">22/09/28</td>
-         <td class="text-center">O</td>
-         <td class="text-center">X</td>
-         <td class="text-center">X</td>
-       </tr>
-       
-       <%-- 3 --%>
-       <tr onclick="location.href='<%= ctxPath%>/admin/memberDetail.dream?userid='" style="cursor:pointer">
-         <td class="text-center">karina@gmail.com</td>
-         <td class="text-center">장진영</td>
-         <td class="text-center">01088665389</td>
-         <td class="text-center">22/09/28</td>
-         <td class="text-center">O</td>
-         <td class="text-center">X</td>
-         <td class="text-center">X</td>
-       </tr>
+     <c:if test="${not empty requestScope.memberList}">
+	     <c:forEach var="mdto" items="${requestScope.memberList}" >
+		     <tr onclick="location.href='<%= ctxPath%>/admin/memberDetail.dream?userid='" style="cursor:pointer">
+		         <td class="text-center">${mdto.userid}</td>
+		         <td class="text-center">${mdto.username}</td>
+		         <td class="text-center">${mdto.mobile}</td>
+		         <td class="text-center">${mdto.joindate}</td>
+		         <c:choose>
+		         	<c:when test="${mdto.secession == 0}">
+						<td class="text-center">X</td>
+					</c:when>
+		         	<c:otherwise>
+		         		<td class="text-center">O</td>
+		         	</c:otherwise>
+		         </c:choose>
+		         <c:choose>
+		         	<c:when test="${mdto.rest_member == 0}">
+						<td class="text-center">X</td>
+					</c:when>
+		         	<c:otherwise>
+		         		<td class="text-center">O</td>
+		         	</c:otherwise>
+		         </c:choose>
+		         <c:choose>
+		         	<c:when test="${mdto.membership == 0}">
+						<td class="text-center">X</td>
+					</c:when>
+		         	<c:otherwise>
+		         		<td class="text-center">O</td>
+		         	</c:otherwise>
+		         </c:choose>
+		      </tr>
+	     </c:forEach>
+	 </c:if>
+	 <c:if test="${empty requestScope.memberList}">
+	 	<tr> <td colspan="7" style="text-align: center; font-weight: bold">조건에 맞는 회원이 없습니다.</td> </tr>
+	 </c:if>
      </tbody>
   </table>
   
   
-  <nav aria-label="..." class="m-auto pt-2">
-  <ul class="my pagination">
-    <%-- 첫페이지로 이동버튼 --%>
-    <li class="page-item">
-      <a class="page-link" href="#">
-      	<i class="fa-solid fa-angles-left"></i>
-      </a>
-    </li>
-    
-    <%-- 전페이지로 이동버튼 --%>
-    <li class="page-item">
-      <a class="page-link" href="#">
-      	<i class="fa-solid fa-angle-left"></i>
-      </a>
-    </li>
-    
-    <%-- 페이지번호 시작--%>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active" aria-current="page">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <%-- 페이지번호 끝 --%>
-    
-    
-    
-    <%-- 다음페이지로 이동버튼 --%>
-    <li class="page-item">
-      <a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a>
-    </li>
-    
-    
-    
-    <%-- 맨 끝페이지로 이동버튼 --%>
-    <li class="page-item">
-      <a class="page-link" href="#"><i class="fas fa-solid fa-angles-right"></i></a>
-    </li>
-  </ul>
-</nav>
+  
+<%------------------------ 페이지바 시작 ------------------------%>
+  <nav aria-label="..." class="m-auto pt-2" id="section_page_bar">
+	  <div style="display: flex; width: 80%">
+		 <ul class="pagination" style="margin: auto">${requestScope.pageBar}</ul>
+	  </div>
+  </nav>
+<%------------------------ 페이지바 끝 ------------------------%>
 
 
  <%-- 검색부분 시작 --%>
+ <form name="memberFrm">
    <div id="search_area" class="d-flex m-auto pt-2">
-     <select id="filter">
-       <option>아이디</option>
-       <option>회원명</option>
-       <option>핸드폰번호</option>
-       <option>가입일자</option>
-       <option>탈퇴유무</option>
-       <option>멤버쉽여부</option>
+     <select id="searchType" name="searchType">
+       <option value="userid">아이디</option>
+       <option value="username">회원명</option>
+       <option value="mobile">핸드폰번호</option>
+       <option value="joindate">가입일자</option>
+       <option value="secession">탈퇴유무</option>
+       <option value="membership">멤버쉽여부</option>
+       <option value="rest_member">휴면여부</option>
      </select>
     <div id="memberIdSearch" class="d-flex ml-3">
       <div id="input_id">
-        <input type="text" placeholder="회원아이디" id="userid" name="userid" class="rounded">
+        <input type="text" placeholder="검색어" id="searchWord" name="searchWord" class="rounded">
       </div>
       <div id="search_btn">
-        <button type="button" class="btn btn-white" id="btn_search"><i class="fas fa-xl fa-thin fa-magnifying-glass" style=""></i></button>
+        <button type="button" class="btn btn-white" id="btn_search" onclick="goSearch();">
+        		<i class="fas fa-xl fa-thin fa-magnifying-glass" style="" ></i>
+        </button>
       </div>
     </div>
    </div>
- 
+ </form>
   
   
   <%-- 검색부분 끝 --%>
 </div>
 <%-- 회원관리페이지 코드 끝 --%>
+
+
+<%--footer 호출 --%>
+<jsp:include page="/WEB-INF/view/footer.jsp" />
