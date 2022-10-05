@@ -1,0 +1,58 @@
+
+div.container > table > thead > tr > th{
+  border-top:0;
+}
+
+div.container > table > thead > tr:nth-child(2){
+  color:white;
+  font-weight:bold;
+}
+
+
+button#search{
+  width:70px;
+  height:35px;
+}
+button#btn_delete{
+  width:100px;
+  height:35px;
+}
+button#delete:hover{
+  background-color:black;
+  color:white;
+}
+
+input#userid{
+  width:200px;
+  height:40px;
+  border:none;
+}
+div#memberIdSearch{
+  border:solid 2px black;
+}
+div#search_btn{
+  height:100%;
+  border-left: solid 2px black;
+}
+input#userid::placeholder{
+  color:darkgray;
+  font-size: small;
+  position:relative;
+}
+select#filter{
+  width:120px;
+}
+
+
+
+.my.pagination > .active > a, 
+.my.pagination > .active > span, 
+.my.pagination > .active > a:hover, 
+.my.pagination > .active > span:hover, 
+.my.pagination > .active > a:focus, 
+.my.pagination > .active > span:focus {
+  z-index:0;
+  background: black;
+  border-color:black;
+  color: white;
+}
