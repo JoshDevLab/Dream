@@ -342,7 +342,7 @@ public class MemberDAO implements InterMemberDAO{
 					 sql += " and M.userid like '%'|| ? ||'%' and M."+colname+" = 1";
 				 }
 				 else {
-					 sql += " and M"+colname+" like '%'|| ? ||'%' ";
+					 sql += " and M."+colname+" like '%'|| ? ||'%' ";
 				 }
 					 	
 				 
