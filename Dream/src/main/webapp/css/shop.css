@@ -15,16 +15,16 @@ div#container{
   margin:auto;
 }
 @media screen and (max-width: 768px){
-	div#container{
-	  width:90%;
-	  margin:auto;
-	}
+   div#container{
+     width:90%;
+     margin:auto;
+   }
 }
 @media screen and (max-width: 480px){
-	div#container{
-	  width:100%;
-	  margin:auto;
-	}
+   div#container{
+     width:100%;
+     margin:auto;
+   }
 }
 button.btn_fillter{
   background-color: #F4F4F4;
@@ -172,7 +172,7 @@ select#sort_option{
 
 label#sort_option_label{
   font-size:small;
-  color:darkgray;	
+  color:darkgray;   
 }
 
 span#main_title{
@@ -295,16 +295,16 @@ span#discount_percent{
   font-size:12px;
 }
 span#product_price_discount{
-	color:darkgray;
-	font-size:14px;
+   color:darkgray;
+   font-size:14px;
 }
 
 input#start_price,
 input#end_price{
-	width:100%;
-	height:40px;
-	border:none;
-	border-bottom:solid 1px darkgrey;
+   width:100%;
+   height:40px;
+   border:none;
+   border-bottom:solid 1px darkgrey;
 }
 input#start_price:focus,
 input#end_price:focus {
@@ -324,13 +324,13 @@ input#end_price::placeholder{
 }
 
 button.price{
-	width:80px;
-	height:40px;
-	font-size:15px;
+   width:80px;
+   height:40px;
+   font-size:15px;
 }
 button.price:hover{
-	background-color:black;
-	color:white;
+   background-color:black;
+   color:white;
 }
 
 
@@ -373,15 +373,15 @@ button.price:hover{
   color:pink;
 }
 #sale_mark{
-	width:50px;
-	height:28px;
-	background-color:red;
-	color:white;
-	position:absolute;
-	top:2%;
-	right:73%;
-	font-weight:bold;
-	border:none;
+   width:50px;
+   height:28px;
+   background-color:red;
+   color:white;
+   position:absolute;
+   top:2%;
+   right:73%;
+   font-weight:bold;
+   border:none;
 }
 i.fa-heart{
   position:relative;
@@ -392,5 +392,4 @@ i.fa-heart{
 
 
 /* Main 끝 */
-
 

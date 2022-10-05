@@ -480,7 +480,7 @@ $(document).on("click","button.can_modify",function() {
 		
 		
 		
-		$(document).on("click","button#mobile_store",function(){ // 이메일 변경 인증하기 버튼 클릭이벤트 
+		$(document).on("click","button#mobile_store",function(){ // 전화번호 변경 인증하기 버튼 클릭이벤트 
 				  
 			      $.ajax({
 			        url:getContextPath()+"/member/mobileDuplicateCheck.dream",

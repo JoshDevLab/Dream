@@ -56,7 +56,7 @@
             </div>
             <div id="my-home-title" style="display: flex;">
                 <p class="font-weight-bold" style="font-size: 14pt;">구매내역</p>
-                <a style="margin-left: auto;  text-decoration:none; color: gray; " href="#" >더보기 > </a>
+                <a style="margin-left: auto;  text-decoration:none; color: gray; " href="<%= ctxPath %>/member/buylist.dream" >더보기 > </a>
             </div>
             <div id="recent_purchase">
                 <div id="purchase_list_tab" class="row rounded bg-light">

@@ -22,5 +22,8 @@ public interface InterMemberDAO {
 	// 마이페이지 진입할때 로그인한 회원의 정보
 	HashMap<String, Integer> shippingCnt(String userid) throws SQLException;
 
+	// Point 및 이메일 등등 가져오는 메소드
+	MemberDTO pointCheck(String userid) throws SQLException;
+
 
 }
