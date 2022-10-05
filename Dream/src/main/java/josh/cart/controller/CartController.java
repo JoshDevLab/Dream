@@ -9,11 +9,13 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import josh.cart.model.*;
+import josh.member.model.InterMemberDAO;
+import josh.member.model.MemberDAO;
+import josh.member.model.MemberDTO;
 
 public class CartController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		super.setViewPage("/WEB-INF/view/cart/cart.jsp");
 		
 		if(super.checkLogin(request)) { // 로그인이 된 상태라면
 			
@@ -26,8 +28,22 @@ public class CartController extends AbstractController{
 			
 			cartList = mdao.selectCart(userid);
 			
+			MemberDTO user = new MemberDTO();
+            // 일단 포인트 얼마 남았나 체크
+            
+            InterMemberDAO memdao = new MemberDAO();
+            user = memdao.pointCheck(userid);
+			
 			request.setAttribute("cartList", cartList);
+			request.setAttribute("user", user);
+			
+			super.setRedirect(false);
+			super.setViewPage("/WEB-INF/view/cart/cart.jsp");
 				
+		}
+		else {
+			super.setRedirect(true);
+			super.setViewPage(request.getContextPath()+"/login/login.dream");
 		}
 		
 	}

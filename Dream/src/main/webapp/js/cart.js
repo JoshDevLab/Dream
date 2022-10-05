@@ -18,7 +18,7 @@ $(document).ready(function () {
         // console.log(total_price);
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
-        $("span.payment_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
 
     });// end of $("input:checkbox[name='chk_all']").click(function (e) ----------------
 
@@ -36,7 +36,7 @@ $(document).ready(function () {
         // console.log(total_price);
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
-        $("span.payment_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
 
 
     });// end of $("input:checkbox[name='chk_all']").click(function (e) ----------------*/
@@ -82,37 +82,6 @@ $(document).ready(function () {
     });// end of $("input:checkbox[name='prd_check']").click(function (e) ------------
 
 
-
-    $("button.remove_cart_list").click(function(e) { // 삭제하기 버튼
-
-        const target = $(e.target);
-
-        const remove_div = target.parent().parent().parent().attr("class");
-
-        console.log(remove_div);
-        $("."+remove_div).remove();
-        prd_check_length = $("table input:checkbox[name='prd_check']").length
-        $(".total_cnt").html(prd_check_length);
-
-    });// end of $("button.remove_cart_list").click(function() ------------------
-
-
-
-    $("button#remove_check").click(function (e) { // 선택삭제 버튼 이벤트 처리
-        $("input:checkbox[name='prd_check']:checked").parent().parent().parent().remove();
-        if($("input:checkbox[name='prd_check']").length == 0) {
-            $("input#chk_all").prop("checked",false);
-            $("button#remove_check").hide();
-        }
-        else {
-            $("button#remove_check").show();
-        }
-        prd_check_length = $("table input:checkbox[name='prd_check']").length
-        $(".total_cnt").html(prd_check_length);
-    });// end of $("button#remove_check").click(function (e)
-
-
-
     $("input:checkbox[name='prd_check']").change(function (e) {
         // 체크된 상품들의 total price들을 가져와서 합계를 구한것을 아래 html에 넣어주기
         let total_price = 0;
@@ -123,7 +92,8 @@ $(document).ready(function () {
         // console.log(total_price);
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
-        $("span.payment_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
+        
         
     });// end of $(document).on("change","table#tbl_cart", function (e)
 
@@ -140,20 +110,98 @@ $(document).ready(function () {
         // console.log(total_price);
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
-        $("span.payment_price").text(total_price.toLocaleString('en'));
+        $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
         
     });// end of $(document).on("DOMSubtreeModified","table#tbl_cart", function (e)
-
-
+    
+    
+    
+    // 포인트 js
+    
+    // 포인트입력칸 숫자만 가능하도록
+      $("input#point").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
+    
+    /*
+      // blur 입력숫자가 보유숫자보다 크면
+         $("input#point").blur(function(){
+         if(Number($(this).val()) >  Number($("span.point").text())){
+            alert("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
+            $(this).val('0');
+            $("span.sale_point").text('0');
+            return false;
+         }        
+         
+         if(Number($(this).val() != null && Number($(this).val()) != 0){
+            $("#span_point_amount").text($(this).val());
+         }
+         else{
+            $("#span_point_amount").text('-');
+         }
+         
+      });
+      */
+      
+      // 전부사용 버튼
+      $("button#pointAlluse").click(function(){
+         $("input#point").val($("span.point").text());
+         $("#span_point_amount").text($("input#point").val());
+         $("span#sale_point").text( $("span.point").text() );
+      });
+      
+      
+      $("input#point").bind("blur",function() {
+	
+		const length = $("input:checkbox[name='prd_check']:checked").length;
+		
+		if(length == 0) {
+			alert("제품을 먼저 선택하시고 포인트를 입력하세요");
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
+		}
+		
+		if( Number($(".user_point").text()) < $("input#point").val() ) {
+			alert("보유포인트가 적습니다.");
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
+		}
+		
+		if(Number($("span#prd_price").text().split(",").join("")) < $("input#point").val()) {
+			alert("구매가격보다 높은 포인트는 사용할 수 없습니다.");
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
+		}
+		
+		
+	
+		$("span.sale_point").text( $("input#point").val() );
+		$(".payment_price").text( (Number($("span#prd_price").text().split(",").join("")) - Number($("input#point").val())).toLocaleString('en') )
+	
+	  });
+	  
+	  
+	  
+	  
+	 
+    
 
 });// end of $(document).ready(function () {} -----------------------------------------------------------------------------------------------------------------------------
 
 
 function plus(classname) { // 플러스 버튼 눌렀을 시 함수
 
-    console.log(classname)
+    //console.log(classname)
     
+    let total_cnt = $("."+classname).parent().parent().parent().find("span#size_cnt").text();
     let cart_qty = parseInt($("."+classname).parent().find("input").val());
+    
+    if(total_cnt == cart_qty) {
+		alert("재고량보다 더 주문할 수 없습니다.");
+		return;
+	}
+    
     alert("수량이 변경되었습니다.")
     cart_qty = cart_qty+1
     $("."+classname).prev().val(cart_qty);
@@ -161,18 +209,22 @@ function plus(classname) { // 플러스 버튼 눌렀을 시 함수
     let price = $("."+classname).parent().parent().prev().find('span').text();
     price = parseInt( price.split(",").join("") );
 
-    const total_price = cart_qty*price;
+    let total_price = cart_qty*price;
 
     $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
+    
+    const discount_rate = $("."+classname).find('span.discount_rate').text();
+    const discount_price = total_price * Number(discount_rate);
+    
+    $("."+classname).parent().parent().siblings().find(".plus_point").text(discount_price.toLocaleString('en'));
 
-    /* if($("."+classname).parent()) */
-
+	
 
 }
 
 function minus(classname) { // 마이너스 버튼 눌렀을시 함수
 
-    console.log(classname)
+    //console.log(classname)
 
     let cart_qty = parseInt($("."+classname).parent().find("input").val());
 
@@ -194,3 +246,5 @@ function minus(classname) { // 마이너스 버튼 눌렀을시 함수
     }
     
 }
+
+  

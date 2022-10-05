@@ -288,7 +288,7 @@ function likeCheck() {
         	}
         	
         	else {
-        		alert("조져따리");
+        		
         	}
         	
         },
@@ -307,7 +307,7 @@ function goPurchasePage(){
 
 	let length = $("div#added_option").length;
 	let added_optionName = document.getElementsByName("optionName");
-	
+	console.log("length"+length);
 	const productNum = $("dd#product_num").text();
 	let added_optionAmount = document.getElementsByName("optionAmount");
 	
@@ -366,7 +366,7 @@ function goPurchasePage(){
 			 
 			 }// end of outer
 			 
-			 if(count != length){
+			 if(count != length && sizeArray[0] != "freeSize"){
 				// 옵션의 갯수만큼 체크하지 않았다면 확인
 				console.log("!!!");
 				isitOkay = false;

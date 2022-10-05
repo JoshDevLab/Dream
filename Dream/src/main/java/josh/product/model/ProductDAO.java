@@ -97,18 +97,21 @@ public class ProductDAO implements InterProductDAO {
 			conn = ds.getConnection();
 			
 			String sql = " select product_num, product_name, product_content, product_image, price, discount_rate, category "
-					   + " from "
-					   + " ( "
-				       + " select row_number() over(order by discount_rate desc) AS rno, product_num, product_name, product_content, product_image, price, discount_rate, category "
-					   + " from tbl_product "
-					   + " where discount_rate > 0 "
-					   + " ) "
-					   + " where rno between ? and ? ";
+					+ "from "
+					+ "( "
+					+ "select row_number() over(order by product_num desc) AS rno, discount_rate, product_num, product_name, product_content, product_image, price, category  "
+					+ "from tbl_product "
+					+ "where discount_rate > 0 "
+					+ ") "
+					+ "where rno between ? and ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, paraMap.get("start"));
 			pstmt.setString(2, paraMap.get("end"));
+			
+			//System.out.println("확인용 start =>" + paraMap.get("start"));
+			//System.out.println("확인용 end =>" + paraMap.get("end"));
 			
 			rs = pstmt.executeQuery();
 			
@@ -131,6 +134,62 @@ public class ProductDAO implements InterProductDAO {
 		}
 		
 		return discountList;
+	}
+	
+	// cart 리스트에 상품 구매후 테이블 update 및 insert
+	@Override
+	public int cartPurchaseUpdate(Map<String, String> paraMap) throws SQLException{
+		int n = 0;
+		String cart_cnt = paraMap.get("cart_cnt");
+		
+		try {
+			
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			
+			// 장바구니 테이블에서 구매한 상품을 delete
+			String sql = " delete from tbl_cart "
+					   + " where cart_num = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("cart_num"));
+			n += pstmt.executeUpdate();
+			
+			// 재고테이블에서 (update) 수량삭제 ==> 필요한 것(product_num+size 복합키)
+			sql = " update tbl_product_stock set size_cnt = size_cnt-" +cart_cnt+ " " 
+				+ " where product_num = ? and product_size = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("product_num"));
+			pstmt.setString(2, paraMap.get("product_size"));
+			
+			n += pstmt.executeUpdate();
+			
+			// 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
+			sql = " insert into tbl_buylist(order_num, userid, product_num, buy_cnt, shipping) values(seq_buylist.nextval,?,?,?,0) ";
+			
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, paraMap.get("userid"));
+			pstmt.setString(2, paraMap.get("product_num"));
+			pstmt.setString(3, paraMap.get("cart_cnt"));
+			
+			n += pstmt.executeUpdate();
+			
+			conn.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+		} finally {
+			conn.setAutoCommit(true);
+			close();
+		}
+		
+		
+		return n;
 	}
 	
 	

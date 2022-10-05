@@ -21,7 +21,7 @@ public class MyPageController extends AbstractController {
 			String userid = (String) session.getAttribute("userid");
 			
 			InterMemberDAO mdao = new MemberDAO();
-			MemberDTO mdto = mdao.selectOne(userid);
+			MemberDTO mdto = mdao.pointCheck(userid);
 			
 			request.setAttribute("mdto", mdto);
 			
@@ -29,18 +29,12 @@ public class MyPageController extends AbstractController {
 			
 			request.setAttribute("map", map);
 			
-			// super.setRedirect(false);
+			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/member/mypage.jsp");
 			}
 		else {
-			String message = "비정상적인 경로접근!!";
-			String loc = "javascript:history.back()";
-			
-			request.setAttribute("message", message);
-			request.setAttribute("loc", loc);
-			
-		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/joshmsg.jsp");
+			super.setRedirect(true);
+			super.setViewPage(request.getContextPath()+"/login/login.dream");
 		}
 	}
 
