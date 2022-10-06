@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <%
 	String ctxPath = request.getContextPath();
 	//
@@ -17,10 +20,11 @@
 <div class="container d-flex flex-column">
   <%---------------------------------------- 회원 상세보기 시작 -----------------------------------------%>
     <%-- 회원 DTO 한줄 뽑아오기 --%>
+ <c:if test="${not empty requestScope.mdto}">   
     <table class="table table-hover mt-4" id="member">
      <thead>
        <tr>
-         <th colspan="7"><h4 style="font-weight:bold;">karina@gmail.com님 정보</h4></th>
+         <th colspan="7"><h4 style="font-weight:bold;">${requestScope.mdto.username}님 정보</h4></th>
        </tr>
        <tr class="bg-dark">
           <td class="text-center">아이디</td>
@@ -33,19 +37,20 @@
        </tr>
      </thead>
      <tbody>
-       <tr>
-         <td class="text-center">karina@gmail.com</td>
-         <td class="text-center">장진영</td>
+       <tr>       
+         <td class="text-center">${requestScope.mdto.userid}</td>
+         <td class="text-center">${requestScope.mdto.username}</td>
          <td class="text-center">01088665389</td>
          <td class="text-center">22/09/28</td>
          <td class="text-center">O</td>
          <td class="text-center">X</td>
          <td class="text-center">X</td>
-       </tr>
+       </tr>     
      </tbody>
   </table>
+</c:if> 
   <%-- 회원 DTO 한줄 뽑아오기 끝 --%>
-  
+
   
   <%-- 회원아이디를 가지고 구매내역 가져오기 시작 --%>
   <table class="table table-hover mt-4" id="buyList">
@@ -164,9 +169,17 @@
   </table>
   <%-- 회원아이디를 가지고 포인트 가져오기 끝 --%>
   
+  
+  
+  
+  
+  
   <div class="d-flex m-auto">
-    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom">수정</button>
-    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom">삭제</button>
+    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" 
+     data-toggle="modal" data-target="#info_edit" data-dismiss="modal" onclick="goEdit()">수정
+    </button>
+    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" onclick="delete_confirm()">삭제</button>
+    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" onclick="delete_confirm()">탈퇴</button>
     <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom">목록보기</button>
   </div>
   
@@ -187,6 +200,94 @@
 
 
 
+
+
+<%-------------------------------------------------------------- 모달 시작 -----------------------------------------------------------%>
+        
+        
+        
+        
+             
+      <div class="modal modal_box layer lg" id="info_edit" >				     
+	     <div class="layer_container">					  
+		    <button type="button" class="close" data-dismiss="modal" >&times;</button>
+			<div class="layer_header">
+			   <h2 class="title1">ㅇㅇㅇ님 상세정보 수정</h2> 						    											
+			</div>
+			
+			<div class="layer_content">
+			   <div class="delivery_bind">
+			      <form name="registerFrm" class="delivery_input">	
+			      														
+				     <div class="input_box">														
+					    <input type="hidden" id = "address_num_modal" name="address_num" value=""/>
+						<h4 id="id" class="input_title">아이디</h4>
+						<div class="input_item">
+						   <input name="userid" class="input_txt" id="userid" type="text" autocomplete="off" readonly value="dddkdlel">
+						</div>										
+					 </div>	
+					 
+									
+					<div class="input_box">																						   
+					   <h4 id="passwd" class="input_title">비밀번호</h4>
+					   <div class="input_item">
+					      <input name="passwd" class="input_txt" id="passwd" type="text" autocomplete="off" value="">
+					   </div>										
+					</div>															  
+								  
+								  
+					<div class="input_box">																			   
+					   <h4 id="name" class="input_title">이름</h4>
+					      <div class="input_item">
+						     <input name="username" class="input_txt" id="username" type="text"  autocomplete="off" value="카리나">
+						  </div>
+						  <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+				    </div>
+					 			
+					 			
+					<div class="input_box">
+				       <h4 id="mobile" class="input_title">휴대폰 번호</h4>
+					   <div class="input_item">
+					      <input id="mobile" name="mobile" type="text" autocomplete="off" class="input_txt" readonly value="01090209305">								
+					   </div>						
+				    </div>																		
+					
+									
+					<div class="input_box">
+					   <h4 class="input_title">가입일자</h4>
+					   <div class="input_item" >
+					      <input id="join_date" name="join_date" value="22/09/28" type="text" readonly>						
+					   </div>
+					</div>
+									
+																		
+					<div class="input_box">
+					   <h4 class="input_title" >탈퇴여부</h4>
+					   <input type="radio" id="male" name="out" value="1" /><label for="male" style="margin-left: 2%;">O</label>
+                       <input type="radio" id="female" name="out" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
+					   <h4 class="input_title" style="margin-top:10px;">휴면여부</h4>
+					   <input type="radio" id="male" name="rest" value="1" /><label for="male" style="margin-left: 2%;">O</label>
+  					   <input type="radio" id="female" name="rest" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
+					   <h4 class="input_title" style="margin-top:10px;">멤버쉽여부</h4>
+					   <input type="radio" id="male" name="membership" value="1" /><label for="male" style="margin-left: 2%;">O</label>
+                       <input type="radio" id="female" name="membership" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
+					</div>	
+												
+				 </form>								
+		      </div>				
+		   </div>
+		   
+		   
+		   
+			<div class="layer_btn">															
+			    <a href="#" class="btn btn_save solid medium" id="add_edit" onclick="goEdit()"> 수정하기 </a>
+			    <a href="#" class="btn btn_delete outlinegrey medium" id="cansleEdit" data-dismiss="modal">취소 </a>		
+			</div>														
+	     </div>					
+      </div>
+			     								  
+								
+<%------------------------------------------------------------------ 모달 끝  --------------------------------------------------------------------%>
 
 
 
