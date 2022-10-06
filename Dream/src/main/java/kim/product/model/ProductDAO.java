@@ -88,7 +88,7 @@ public class ProductDAO implements InterProductDAO {
 				 pvo.setPrice(rs.getInt(7));
 				 pvo.setDiscount_rate(rs.getInt(8));
 				 pvo.setGender(rs.getString(9));
-
+				 pvo.setProduct_content(rs.getString(10));
 				 // tbl_product_stock 테이블에서 사이즈, 재고 알아오기
 				 String sql2 = " select product_num, product_size, size_cnt"+
 						 " from tbl_product_stock "+
@@ -291,6 +291,56 @@ public class ProductDAO implements InterProductDAO {
 		
 		
 		
+	}
+
+	@Override
+	public int UpdateProduct(Map<String, String> paraMap) throws SQLException {
+		int n = 0;
+
+	      try {
+  	
+	         conn = ds.getConnection();
+	        
+	         String sql = " update tbl_product "
+	         		+ " set PRODUCT_NAME = ? , "
+	         		+ " PRODUCT_IMAGE = ? , "
+	         		+ " PRICE = ? , DISCOUNT_RATE = ? , "
+	         		+ " PRODUCT_CONTENT = ? "
+	         		+ " where product_num = ? ";       
+	         pstmt = conn.prepareStatement(sql);
+	 		         
+	         pstmt.setString(1, paraMap.get("product_name"));
+	         pstmt.setString(2, paraMap.get("img_list"));
+	         pstmt.setString(3, paraMap.get("price"));
+	         pstmt.setString(4, paraMap.get("discount_rate"));
+	         pstmt.setString(5, paraMap.get("product_content"));
+	         System.out.println(paraMap.get("product_num"));
+	         pstmt.setString(6, paraMap.get("product_num"));
+	         n = pstmt.executeUpdate(); 
+	         
+	         if(n!=1) {// 0개행 업데이트
+	        	 System.out.println("조져따리");
+	        	
+	         }
+	         
+	         
+	         
+	         
+	     
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         
+	      } finally {
+	    	 
+	    
+	         close();
+	      }
+	      
+	      
+	      return n;
+
+
 	}
 
 }

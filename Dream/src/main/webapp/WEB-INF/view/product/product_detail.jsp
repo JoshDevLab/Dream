@@ -112,7 +112,7 @@ String ctxPath = request.getContextPath();
 			<div id="column_2">
 				<div class="main_title">
 					<a href="#" class="brand"></a>
-					<p class="title">${product.product_name}</p>
+					<p id = "product_name" class="title">${product.product_name}</p>
 					<p class="sub_title"><%=request.getAttribute("pdName")%></p>
 				</div>
 				<div class="product_figure">
@@ -169,7 +169,7 @@ String ctxPath = request.getContextPath();
 						</div>
 						<div class="price">
 							<div class="amount">
-								<span class="num"> ${product.price} </span>
+								<span id= "price"class="num"> ${product.price} </span>
 								<%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
 								<span class="won">원</span>
 							</div>
@@ -407,7 +407,10 @@ String ctxPath = request.getContextPath();
          <h4 class="modal-title">제품 정보 변경</h4>
       </div>
       <div class="modal-body">
-        <form name="editProductFrm" class="delivery_input">
+        <form name="editProductFrm" class="delivery_input" enctype="multipart/form-data">
+         <div class = delete_image>
+         	<input id="delete_length" type="hidden" name="delete_length" value=""  />
+         </div>
         	<h4 id="product_name" class="input_title">제품명</h4>
               <div class="input_item">
                  <input name="product_name" class="input_txt" id="product_name" type="text" placeholder= "${product.product_name}" autocomplete="off" >
@@ -416,20 +419,46 @@ String ctxPath = request.getContextPath();
         
         	<h4 id="name" class="input_title">가격</h4>
               <div class="input_item">
-                 <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="${product.price}" autocomplete="off" >
+                 <input name="price" class="input_txt" id="price" type="text" placeholder="${product.price}" autocomplete="off" >
               </div>
               <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
         
         
 	        <h4 id="name" class="input_title">할인율</h4>
 	              <div class="input_item">
-	                 <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="${product.discount_rate}" autocomplete="off" >
+	                 <input name="discount_rate" class="input_txt" id="discount_rate" type="text" placeholder="${product.discount_rate}" autocomplete="off" >
+	                 <input id="discount_rate_origin" type="hidden" value="${product.discount_rate}"  />
 	              </div>
 	              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
-        
+        	
+        	<h4 id="name" class="input_title">제품이미지</h4>
+        		
+        		<c:forEach var="imgvo" items="${product.product_image_array}" varStatus="status">	
+					<c:if test="${status.index==0}">
+						<div id = "modalImage">
+							<img src="<%= ctxPath%>/images/제품이미지/${imgvo}"
+							 alt="제품이미지를<br>등록해주세요">
+							 <button id ="ximage"type="button" class="close ximage" >&times;</button>
+						</div>
+						<div class= "modalImageFileSelect">
+						
+						 	<label for="spinnerImgQty">파일갯수 : </label>
+                      		<input id="spinnerImgQty" value="0" style="width: 30px; height: 20px;">
+							<div id="divfileattach"></div>
+							<input type="hidden" name="attachCount" id="attachCount" value="0"/>
+							<a id= "pdimg${status.index}"name = "src" href="#" class="btn modalimage" value="${imgvo}">${imgvo}</a>	
+					</c:if>	
+					<c:if test="${status.index!=0}">
+							<a id= "pdimg${status.index}"name = "src" href="#" class="btn modalimage" value="${imgvo}">${imgvo}</a>	
+					</c:if>
+				</c:forEach>
+				</div>
         	<h4 id="name" class="input_title">제품설명</h4>
               <div class="input_item">
-                 <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" >
+                 <input name="product_content" class="input_txt" id="product_content" type="text" placeholder="${product.product_content}" autocomplete="off" >
+                 <input id="product_content_origin" type="hidden" value="${product.product_content}"  />
+	             <input id="product_num" type="hidden" name = "product_num" value="${product.product_num}"  />
+	              
               </div>
               <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
         
@@ -438,7 +467,9 @@ String ctxPath = request.getContextPath();
                         
       </div>
       <div class="modal-footer">
+        <button id="x" type="button" class="close" data-dismiss="modal">&times;</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a href="#" class="btn btn_save solid medium" onclick="goUpdateProduct()"> 저장하기 </a>
       </div>
     </div>
 <button type="button" class="close" data-dismiss="modal">&times;</button>
