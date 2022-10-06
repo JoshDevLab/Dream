@@ -197,7 +197,7 @@ String ctxPath = request.getContextPath();
 						   data-toggle="modal" data-target="#editProduct"> 
 							<i class="fa-solid fa-screwdriver-wrench fa-2x"></i>
 						</a>
-
+					<div class="border_rounded">ddd</div>
 					</div>
 
 					<a onclick="likeCheck()" href="javascript:void(0)"
@@ -336,7 +336,7 @@ String ctxPath = request.getContextPath();
 					<img alt="상품 이미지" src="images/Koala.jpg" class="image">
 				</div>
 				<div class="product_info">
-					<p class="name">S${product.product_name}</p>
+					<p class="name">${product.product_name}</p>
 					<p class="translated_name">${product.product_name}</p>
 				</div>
 			</div>
@@ -415,13 +415,13 @@ String ctxPath = request.getContextPath();
               <div class="input_item">
                  <input name="product_name" class="input_txt" id="product_name" type="text" placeholder= "${product.product_name}" autocomplete="off" >
               </div>
-              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+              <span class="product_name_error modal_error" style="color:red">올바른 이름을 입력해주세요. (1 - 30자)</span>
         
         	<h4 id="name" class="input_title">가격</h4>
               <div class="input_item">
                  <input name="price" class="input_txt" id="price" type="text" placeholder="${product.price}" autocomplete="off" >
               </div>
-              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+              <span class="price_error modal_error" style="color:red">올바른 가격을 입력해주세요. (0 - 20자)</span>
         
         
 	        <h4 id="name" class="input_title">할인율</h4>
@@ -429,7 +429,7 @@ String ctxPath = request.getContextPath();
 	                 <input name="discount_rate" class="input_txt" id="discount_rate" type="text" placeholder="${product.discount_rate}" autocomplete="off" >
 	                 <input id="discount_rate_origin" type="hidden" value="${product.discount_rate}"  />
 	              </div>
-	              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+	              <span class="discount_rate_error modal_error" style="color:red">올바른 할인율을 입력해주세요. (0이상 1미만의 수를 소수 두자리 이하로 작성해주세요)</span>
         	
         	<h4 id="name" class="input_title">제품이미지</h4>
         		
@@ -460,7 +460,7 @@ String ctxPath = request.getContextPath();
 	             <input id="product_num" type="hidden" name = "product_num" value="${product.product_num}"  />
 	              
               </div>
-              <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+<!--               <span class="product_content_error modal_error" style="color:red">올바른 제품설명을 적어주세요. (공백 제외 내용이 존재하여야 합니다)</span> -->
         
         
         </form>
@@ -469,7 +469,7 @@ String ctxPath = request.getContextPath();
       <div class="modal-footer">
         <button id="x" type="button" class="close" data-dismiss="modal">&times;</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <a href="#" class="btn btn_save solid medium" onclick="goUpdateProduct()"> 저장하기 </a>
+        <a id="goUpdateProduct" href="#" class="btn btn_save solid medium" onclick="goUpdateProduct()"> 저장하기 </a>
       </div>
     </div>
 <button type="button" class="close" data-dismiss="modal">&times;</button>

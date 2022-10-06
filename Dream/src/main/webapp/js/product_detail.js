@@ -319,33 +319,85 @@ $(document).ready(function() {
          $("input#attachCount").val(cnt);
       });
       
-      
-      $("input#btnRegister").click(function(){
-         
-         let flag = false;
-         
-         $(".infoData").each(function(){
-            const val = $(this).val().trim();
-            if(val == ""){
-               $(this).next().show();
-               flag = true;
-               return false;
-            }
-         });
-         if(!flag) {
-            const frm = document.prodInputFrm;
-            frm.submit();
-         }
-         
-      });
-      
-      $("input[type=reset]").click(function(){
-         $("span.error").hide();
-         $("div#divfileattach").empty();
-      });
-
+      // 수정 버튼 클릭시
+      $("a.btn_edit").click(function(e){
+	  	// 입력가능한 모든칸을 다 비워주기
+	 	 $("input#product_name").val("");
+	 	 $("input#price").val("");
+	 	 $("input#discount_rate").val("");
+	 	 $("input#product_content").val("");
+		 $("input#spinnerImgQty").val("0");
+		 $("input#attachCount").val("0");
+		 $("div#divfileattach").empty();
+		 		 
+		 // error 전부 지워주기
+		 $("span.modal_error").hide();
+	  
+	  })// end of    $("button.btn_edit").click(function(e){} -----
+  	
+	// 유효성 검사 (정규식)
 	
+	$(document).on("keyup","input#product_name",function(e) { // 성명 2글자 이상 50글자 이하 유효성 검사 처리
 
+	    const regExp =  /^.{0,30}$/;    
+	    const bool = regExp.test( $(e.target).val() );       
+
+	    if(!bool) {
+		
+	        $(e.target).css("border-bottom","solid 1px red");  //빨간색 밑줄
+	        $("span.product_name_error").show();  //에러문구
+	        $("input#product_name").css("color","red");  //라벨 빨간색 	        	        
+	    }
+	    else {
+	        $(e.target).css("border-bottom","solid 1px #ebebeb");
+	        $("span.product_name_error").hide();
+	        $("input#product_name").css("color","black");  
+ 
+	    }
+
+	});// end of $(document).on("keyup","input#product_name",function(e) {
+	
+	$(document).on("keyup","input#price",function(e) { // 성명 2글자 이상 50글자 이하 유효성 검사 처리
+
+	    const regExp = /^[0-9]{0,20}$/;   
+	    const bool = regExp.test( $(e.target).val() );       
+
+	    if(!bool) {
+		
+	        $(e.target).css("border-bottom","solid 1px red");  //빨간색 밑줄
+	        $("span.price_error").show();  //에러문구
+	        $("input#price").css("color","red");  //라벨 빨간색 	        	        
+	    }
+	    else {
+	        $(e.target).css("border-bottom","solid 1px #ebebeb");
+	        $("span.price_error").hide();
+	        $("input#price").css("color","black");  
+ 
+	    }
+
+	});// end of $(document).on("keyup","input#product_name",function(e) {
+	
+	$(document).on("keyup","input#discount_rate",function(e) { // 성명 2글자 이상 50글자 이하 유효성 검사 처리
+
+	    const regExp = /^(0|0[.][0-9]{1,2})$/;   
+	    
+	    const bool = regExp.test( $(e.target).val() );       
+
+	    if(!bool) {
+		
+	        $(e.target).css("border-bottom","solid 1px red");  //빨간색 밑줄
+	        $("span.discount_rate_error").show();  //에러문구
+	        $("input#discount_rate").css("color","red");  //라벨 빨간색 	        	        
+	    }
+	    else {
+	        $(e.target).css("border-bottom","solid 1px #ebebeb");
+	        $("span.discount_rate_error").hide();
+	        $("input#discount_rate").css("color","black");  
+ 
+	    }
+
+	});// end of $(document).on("keyup","input#product_name",function(e) {
+	
 	
 		
 }); // end of doc어쩌구
@@ -657,67 +709,82 @@ function goPurchasePage(){
 }
 
 function goUpdateProduct(){
-	let length = $("a.modalimage").not('a.hide').length;
-	let real_length = $("a.modalimage").length;
 	
-	if($("input#product_name").val() == "" && $("input#price").val() == "" && $("input#discount_rate").val() == "" && $("input#product_content").val()==""
-		&& length == real_length && $("input#attachCount").val() ==0)
-	{// 변경점 없고 추가이미지도 없으며 기존 이미지를 삭제하지도 않는다면
-		alert("변경 사항이 존재하지 않습니다");
+	  const regExp1 =  /^.{0,30}$/;    
+	  const bool1 = regExp1.test( $("input#product_name").val() );    
+	
+	  const regExp2 =  /^[0-9]{0,20}$/;    
+	  const bool2 = regExp2.test( $("input#price").val() );    
+	
+	  const regExp3 =  /^(0|0[.][0-9]{1,2})$/;    
+	  const bool3 = regExp3.test( $("input#discount_rate").val() );    
+	if(bool1 && bool2 && bool3){// 정규식 다 만족하면
+		let length = $("a.modalimage").not('a.hide').length;
+		let real_length = $("a.modalimage").length;
+		
+		if($("input#product_name").val() == "" && $("input#price").val() == "" && $("input#discount_rate").val() == "" && $("input#product_content").val()==""
+			&& length == real_length && $("input#attachCount").val() ==0)
+		{// 변경점 없고 추가이미지도 없으며 기존 이미지를 삭제하지도 않는다면
+			alert("변경 사항이 존재하지 않습니다");
+		}
+		else{
+			let html="";
+		
+	
+			let live_image = $("a.modalimage").not('a.hide');
+			console.log(live_image);
+			let length =$("a.modalimage").not('a.hide').length;
+		
+					
+			let val = "";
+			let count =0;
+			for(let i = 0; i < length; i++) {
+				val = live_image[i].getAttribute("value");
+				console.log(live_image[i].getAttribute("value"));
+				html +=`<input type="hidden" name="image${i}" value="${val}"/>`;
+				count++;
+			}// end of for
+			html +=`<input type="hidden" name="length" value="${count}"/>`;
+				
+			console.log(html);
+			$("div.delete_image").append(html);
+			
+			var frm = document.editProductFrm; 
+			// 보내기전 빈값이면 원래값 넣어주기
+			if($("input#product_name").val() == ""){
+				$("input#product_name").val( $("div.main_title>p#product_name").text());	
+			}
+			console.log("product_name"+$("input#product_name").val());
+			
+			if($("input#price").val() == ""){
+				$("input#price").val( $("div.amount>span#price").text());	
+			}
+			console.log("price"+$("input#price").val());
+			
+			if($("input#discount_rate").val() == ""){
+				$("input#discount_rate").val( $("input#discount_rate_origin").val());	
+			}
+			console.log("discount_rate"+$("input#discount_rate").val());
+			
+			if($("input#product_content").val() == ""){
+				$("input#product_content").val( $("input#product_content_origin").val());	
+			}
+			console.log("product_content"+$("input#product_content").val());
+			
+			
+			
+			frm.method = "post";
+			frm.action = getContextPath()+"/product/updateProduct.dream";
+			
+		    
+		    frm.submit();
+	
+		}
 	}
 	else{
-		let html="";
-	
-
-		let live_image = $("a.modalimage").not('a.hide');
-		console.log(live_image);
-		let length =$("a.modalimage").not('a.hide').length;
-	
-				
-		let val = "";
-		let count =0;
-		for(let i = 0; i < length; i++) {
-			val = live_image[i].getAttribute("value");
-			console.log(live_image[i].getAttribute("value"));
-			html +=`<input type="hidden" name="image${i}" value="${val}"/>`;
-			count++;
-		}// end of for
-		html +=`<input type="hidden" name="length" value="${count}"/>`;
-			
-		console.log(html);
-		$("div.delete_image").append(html);
-		
-		var frm = document.editProductFrm; 
-		// 보내기전 빈값이면 원래값 넣어주기
-		if($("input#product_name").val() == ""){
-			$("input#product_name").val( $("div.main_title>p#product_name").text());	
-		}
-		console.log("product_name"+$("input#product_name").val());
-		
-		if($("input#price").val() == ""){
-			$("input#price").val( $("div.amount>span#price").text());	
-		}
-		console.log("price"+$("input#price").val());
-		
-		if($("input#discount_rate").val() == ""){
-			$("input#discount_rate").val( $("input#discount_rate_origin").val());	
-		}
-		console.log("discount_rate"+$("input#discount_rate").val());
-		
-		if($("input#product_content").val() == ""){
-			$("input#product_content").val( $("input#product_content_origin").val());	
-		}
-		console.log("product_content"+$("input#product_content").val());
-		
-		
-		
-		frm.method = "post";
-		frm.action = getContextPath()+"/product/updateProduct.dream";
-		
-	    
-	    frm.submit();
-
+		alert("조건에 맞는 값을 입력해주세요!");
 	}
+	
 	
 	
 

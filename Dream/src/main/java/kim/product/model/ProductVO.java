@@ -15,10 +15,8 @@ public class ProductVO {
 
 	private String detail_category; // 소카테고리  , 로 구분      
 	private int price;           	// 가격
-
 	private int discount_rate;
 	private String gender;          // "없음" "남" "여"    
-
 	private String product_content;
 	
 	
