@@ -10,18 +10,9 @@ h4.my-auto{
 	margin:0 0 8px 0;
 }
 
-div.sidebar{
-  width: 300px;
-}
 
 iframe{
   border-right:solid 1px #CED4DA;
   width:100%;
 }
 
-/* 0px ~ 768px 미디어 쿼리*/
-@media (max-width: 768px) {
-  div.sidebar {
-    display: none;
-  }
-}

@@ -33,6 +33,10 @@ public interface InterServiceCenterDAO {
 
 	//공지사항 Delete 해주는 메소드
 	int notice_delete(int notice_num) throws SQLException;
+	
+	
+	//자주묻는 질문 Insert 해주는 메소드
+	int faq_insert(Map<String, String> paraMap) throws SQLException;
 
 
 }

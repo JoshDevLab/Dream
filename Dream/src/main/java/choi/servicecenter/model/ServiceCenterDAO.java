@@ -265,9 +265,9 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			conn = ds.getConnection();
 			
 			String sql = " update tbl_notice "
-					   + " set notice_title = ? and notice_content = ? "
+					   + " set notice_title = ? , notice_content = ? "
 					   + " where notice_num = ?";
-			
+			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,paraMap.get("notice_title"));
 			pstmt.setString(2,paraMap.get("notice_content"));
@@ -292,6 +292,34 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,notice_num);
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	
+	
+	
+	
+	//자주묻는 질문 Insert 해주는 메소드
+	@Override
+	public int faq_insert(Map<String, String> paraMap) throws SQLException{
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " insert into tbl_faq(faq_num,faq_title,faq_subject,faq_content,admin_id) "
+					   + " values(seq_faq_num.nextval, ?, ?, ?, ?) ";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,paraMap.get("faq_title"));
+			pstmt.setString(2,paraMap.get("faq_subject"));
+			pstmt.setString(3,paraMap.get("faq_content"));
+			pstmt.setString(4,paraMap.get("userid"));
 			n = pstmt.executeUpdate();
 			
 		} finally {

@@ -116,7 +116,14 @@ div#content{
   border-color:black;
   color: white;
 }
+button.btn-white{
+	background-color:white;
+}
 
+button.btn-white:hover{
+	background-color: black;
+	color:white;
+}
 
 
 

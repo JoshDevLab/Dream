@@ -12,6 +12,7 @@ public class SearchProduct extends AbstractController{
 		String method = request.getMethod(); 
 		
 		if("GET".equalsIgnoreCase(method)) { // method가 "GET"일 때 
+			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/product/searchProduct.jsp");
 		}

@@ -28,6 +28,9 @@ public class KeywordGoShop extends AbstractController{
 				int page= 1;					//페이지번호
 				String keyword="";				//검색어
 				
+				//사용자 아이피주소 알아내기
+				String ipAddress=request.getRemoteAddr();
+				System.out.println("클라이언트 IP 주소: "+ipAddress);
 				
 				if(request.getParameter("keyword")!=null && request.getParameter("keyword").trim() != "") {
 					keyword = request.getParameter("keyword").trim();
