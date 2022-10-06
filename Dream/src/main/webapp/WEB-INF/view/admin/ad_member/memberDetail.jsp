@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 <%
 	String ctxPath = request.getContextPath();
@@ -40,11 +41,32 @@
        <tr>       
          <td class="text-center">${requestScope.mdto.userid}</td>
          <td class="text-center">${requestScope.mdto.username}</td>
-         <td class="text-center">01088665389</td>
-         <td class="text-center">22/09/28</td>
-         <td class="text-center">O</td>
-         <td class="text-center">X</td>
-         <td class="text-center">X</td>
+         <td class="text-center">${requestScope.mdto.mobile}</td>
+         <td class="text-center">${requestScope.mdto.joindate}</td>
+         <c:choose>
+		         	<c:when test="${mdto.secession == 0}">
+						<td class="text-center">X</td>
+					</c:when>
+		         	<c:otherwise>
+		         		<td class="text-center">O</td>
+		         	</c:otherwise>
+		         </c:choose>
+		         <c:choose>
+		         	<c:when test="${mdto.rest_member == 0}">
+						<td class="text-center">X</td>
+					</c:when>
+		         	<c:otherwise>
+		         		<td class="text-center">O</td>
+		         	</c:otherwise>
+		         </c:choose>
+		         <c:choose>
+		         	<c:when test="${mdto.membership == 0}">
+						<td class="text-center">X</td>
+					</c:when>
+		         	<c:otherwise>
+		         		<td class="text-center">O</td>
+		         	</c:otherwise>
+		         </c:choose>
        </tr>     
      </tbody>
   </table>

@@ -77,7 +77,7 @@ public class MemberDAO implements InterMemberDAO{
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select userid, joindate, membership, username, mobile, secession, rest_member "
+			String sql = " select userid, to_char(joindate,'yyyy-mm-dd') as joindate, membership, username, mobile, secession, rest_member "
 					   + " from "
 					   + " ( "
 					   + " select rownum AS RNO, userid, joindate, membership, username, mobile, secession, rest_member "
@@ -90,6 +90,7 @@ public class MemberDAO implements InterMemberDAO{
 					   + " order by joindate desc "
 					   + " ) A "
 					   + " ) B  ";
+				   
 					  
 						
 			

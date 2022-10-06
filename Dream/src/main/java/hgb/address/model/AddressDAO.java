@@ -463,18 +463,18 @@ public class AddressDAO implements InterAddressDAO {
 			
 			// 기본배송지를 제외한 총 배송지 갯수를 알아오는 메소드
 			@Override
-			public int cntAllAddress() throws SQLException {
+			public int cntAllAddress(String userid) throws SQLException {
 				int total_cnt = 0;
 				try {
 					conn = ds.getConnection();
 					
 					String sql =  " select count(*) "
 							    + " from tbl_address "
-							    + " where basic_address = 0 ";
+							    + " where basic_address = 0 and userid = ? ";
 					
 					pstmt = conn.prepareStatement(sql);
 					
-					
+					pstmt.setString(1, userid); 
 					
 					rs = pstmt.executeQuery();
 					

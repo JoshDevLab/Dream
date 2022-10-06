@@ -40,7 +40,7 @@ public interface InterAddressDAO {
 
 
     // 기본배송지를 제외한 총 배송지 갯수를 알아오는 메소드
-	int cntAllAddress() throws SQLException;
+	int cntAllAddress(String userid) throws SQLException;
 
 
     // 기본배송지가 있는지 없는지 여부를 검사해주는 메소드
