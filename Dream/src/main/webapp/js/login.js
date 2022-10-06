@@ -158,32 +158,47 @@ function goLogin() {
 				 // 조심할 것은 text 는 반드시 JSON 형식으로 되어진 문자열이어야 한다. 
 				 
 				 
-				 console.log(json.isSecession);
+				/* console.log(json.isSecession);
 				 console.log(json.isRestMember);
 				 console.log(json.isRequirePwdChange);
-				 console.log(json.isUserExists);
+				 console.log(json.isUserExists);*/
 				 
 				 if(!json.isUserExists) {
 					alert("아이디 또는 비밀번호가 틀립니다.");
+					
+					
+					$("span#email_warning").css("display","none");   //에러문구
+					$("div#div_userid>label").css("color", "");      //이메일주소 문구 빨간색
+					$("input#input_passwd").css({ "border": "", "border-bottom": "" });
+					
+					$("input#input_userid").css({ "border": "", "border-bottom": "" });
+					$("span#pwd_warning").css("display","none"); 
+					$("div#div_passwd>label").css("color", "");  
+					
+					
+					
+					$("input#input_userid").val("");
+					$("input#input_passwd").val("");
+					$("input#input_userid").focus();
 					// => login 화면 또는 index 로 이동 
-					location.href=getContextPath()+"/login/login.dream";
+					// location.href=getContextPath()+"/login/login.dream";
 				 }
 				 
 				 if(json.isSecession) {
 					alert("탈퇴한 회원입니다.");
 					// => login 화면 또는 index 로 이동 
-					location.href=getContextPath()+"/login/login.dream";
+					// location.href=getContextPath()+"/login/login.dream";
 				 }
 				 
 				 if(json.isRestMember) {
 					alert("휴면처리된 회원입니다.");
 					// => login 화면 또는 index 로 이동 
-					location.href=getContextPath()+"/login/login.dream";
+					// location.href=getContextPath()+"/login/login.dream";
 				 }
 				 
 				 if(json.isRequirePwdChange){
 					alert("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
-				 	location.href=getContextPath()+"/index.dream";
+				 	// location.href=getContextPath()+"/index.dream";
 				 }
 				 
 				 if(json.isMembershipGap){
