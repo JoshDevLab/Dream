@@ -481,7 +481,7 @@ $(document).ready(function() {
 
 
 				<%-- 기간조회 시작 --%>
-				<div id="date_button">
+				<div id="date_button" style="display: flex">
 					<button type="button" id="two_month" class="btn_month">최근 2개월</button>
 					<button type="button" id="four_month" class="btn_month">4개월</button>
 					<button type="button" id="six_month" class="btn_month">6개월</button>

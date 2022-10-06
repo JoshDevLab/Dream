@@ -118,29 +118,9 @@ $(document).ready(function () {
     
     // 포인트 js
     
-    // 포인트입력칸 숫자만 가능하도록
+      // 포인트입력칸 숫자만 가능하도록
       $("input#point").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
     
-    /*
-      // blur 입력숫자가 보유숫자보다 크면
-         $("input#point").blur(function(){
-         if(Number($(this).val()) >  Number($("span.point").text())){
-            alert("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
-            $(this).val('0');
-            $("span.sale_point").text('0');
-            return false;
-         }        
-         
-         if(Number($(this).val() != null && Number($(this).val()) != 0){
-            $("#span_point_amount").text($(this).val());
-         }
-         else{
-            $("#span_point_amount").text('-');
-         }
-         
-      });
-      */
-      
       // 전부사용 버튼
       $("button#pointAlluse").click(function(){
          $("input#point").val($("span.point").text());
@@ -181,10 +161,10 @@ $(document).ready(function () {
 	
 	  });
 	  
-	  
-	  
-	  
-	 
+	 //가격대 검색창 입력시 숫자만 입력 가능하게 만들기
+     $("input.cart_qty").keyup(function(){ 
+		$(this).val($(this).val().replace(/[^0-9]/gi,"") );  
+	 });
     
 
 });// end of $(document).ready(function () {} -----------------------------------------------------------------------------------------------------------------------------

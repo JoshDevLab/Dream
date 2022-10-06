@@ -29,14 +29,19 @@ public class MemberManage extends AbstractController{
 				
 				String searchType = request.getParameter("searchType");
 				String searchWord = request.getParameter("searchWord");
+				String start_date = request.getParameter("start_date");
+				String end_date = request.getParameter("end_date");
 				
-				System.out.println("searchType =>" + searchType);
+				// System.out.println("searchType =>" + searchType);
 				
 				InterMemberDAO mdao = new MemberDAO();
 	            
 	            Map<String, String> paraMap = new HashMap<>();
 	            paraMap.put("searchType", searchType);
 	            paraMap.put("searchWord", searchWord);
+	            paraMap.put("start_date", start_date);
+	            paraMap.put("end_date", end_date);
+	            
 	            
 	            
 	            String currentShowPageNo = request.getParameter("currentShowPageNo");
@@ -72,7 +77,7 @@ public class MemberManage extends AbstractController{
 	            
 	            String pageBar = "";
 	            
-	            int blockSize = 10;
+	            int blockSize = 5;
 	            // blockSize 는 블럭(토막)당 보여지는 페이지번호의 개수이다.
 	            
 	            int loop = 1;
@@ -90,13 +95,23 @@ public class MemberManage extends AbstractController{
 	            		searchWord = "";
 	            }
 	            
+	            if(start_date == null) {
+	            		start_date = "";
+	            }
+            
+	            if(end_date == null) {
+	            		end_date = "";
+	            }
+	            
 	            request.setAttribute("searchType", searchType);
 	            request.setAttribute("searchWord", searchWord);
+	            request.setAttribute("start_date", start_date);
+	            request.setAttribute("end_date", end_date);
 	            
 	            // ****[맨처음][이전] 만들기 **** //
 	            if(pageNo != 1) {
-		     	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?&currentShowPageNo=1&searchType="+searchType+"&searchWord="+searchWord+"'> << </a> </li>";
-		     	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?&currentShowPageNo="+(pageNo-1)+"&searchType="+searchType+"&searchWord="+searchWord+"'> < </a> </li>";
+		     	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?&currentShowPageNo=1&searchType="+searchType+"&searchWord="+searchWord+"&start_date="+start_date+"&end_date="+end_date+"'> <i class='fa-solid fa-angles-left'></i> </a> </li>";
+		     	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?&currentShowPageNo="+(pageNo-1)+"&searchType="+searchType+"&searchWord="+searchWord+"&start_date="+start_date+"&end_date="+end_date+"'> <i class='fa-solid fa-angle-left'></i></a> </li>";
 	            }
 	         	   
 	         	while( !(loop > blockSize || pageNo > totalPage) ) {
@@ -105,7 +120,7 @@ public class MemberManage extends AbstractController{
 	            			pageBar += "<li class='page-item active'> <a class='page-link' href='#'>"+pageNo+"</a> </li>";
 	            		}
 	            		else {
-	            			pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?sizePerPage=&currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"'>"+pageNo+"</a> </li>";
+	            			pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?sizePerPage=&currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"&start_date="+start_date+"&end_date="+end_date+"'>"+pageNo+"</a> </li>";
 	            		}
 	            		
 	            		loop++;		// 1 2 3 4 5 6 7 8 9 10
@@ -123,8 +138,8 @@ public class MemberManage extends AbstractController{
 	            // 세번째 블럭(21)인 경우 pageNo 22 가 된다.
 	            
 	            if(pageNo <= totalPage) {
-	            	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?sizePerPage=&currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"'>></a> </li>";
-	            	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?sizePerPage=&currentShowPageNo="+totalPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>>></a> </li>";
+	            	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?sizePerPage=&currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"&start_date="+start_date+"&end_date="+end_date+"'> <i class='fa-solid fa-angle-right'></i> </a> </li>";
+	            	   pageBar += "<li class='page-item'> <a class='page-link' href='memberManage.dream?sizePerPage=&currentShowPageNo="+totalPage+"&searchType="+searchType+"&searchWord="+searchWord+"&start_date="+start_date+"&end_date="+end_date+"'> <i class='fas fa-solid fa-angles-right'></i> </a> </li>";
 	            }
 	            
 	            
