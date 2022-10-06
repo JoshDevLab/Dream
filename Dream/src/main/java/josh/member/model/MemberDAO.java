@@ -325,13 +325,15 @@ public class MemberDAO implements InterMemberDAO{
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select ceil(count(*)/3) "
+			String sql = " select ceil(count(*)/10) "
 					   + " from tbl_member M JOIN tbl_member_login L "
 					   + " on M.userid = L.userid "
 					   + " where M.userid != 'admin' ";
 			
 			String colname = paraMap.get("searchType");
 			String searchWord = paraMap.get("searchWord");
+			String start_date = paraMap.get("start_date");
+			String end_date = paraMap.get("end_date");
 			
 			if( searchWord != null && !searchWord.trim().isEmpty() ) { // 검색어가 있는 경우
 				 
@@ -340,6 +342,9 @@ public class MemberDAO implements InterMemberDAO{
 				 }
 				 else if("membership".equals(colname)) {
 					 sql += " and M.userid like '%'|| ? ||'%' and M."+colname+" = 1";
+				 }
+				 else if("joindate".equals(colname)) {
+					 sql += " and M.userid like '%'|| ? ||'%' and M."+colname+" between to_date('"+start_date+"','YYYY-MM-DD') and to_date('"+end_date+"','YYYY-MM-DD')";
 				 }
 				 else {
 					 sql += " and M."+colname+" like '%'|| ? ||'%' ";
@@ -354,6 +359,9 @@ public class MemberDAO implements InterMemberDAO{
 				 }
 				 else if("membership".equals(colname)) {
 					 sql += " and M."+colname+" = 1";
+				 }
+				 else if("joindate".equals(colname)) {
+					 sql += "and M."+colname+" between to_date('"+start_date+"','YYYY-MM-DD') and to_date('"+end_date+"','YYYY-MM-DD')";
 				 }
 			 }
 			
@@ -388,7 +396,7 @@ public class MemberDAO implements InterMemberDAO{
 		try {
 			 conn = ds.getConnection();
 			
-			 String sql = " select userid, joindate, membership, username, mobile, secession, rest_member "+
+			 String sql = " select userid, to_char(joindate,'yyyy-mm-dd') AS joindate, membership, username, mobile, secession, rest_member "+
 						  " from "+
 						  "  ( "+
 						  "      select rownum AS RNO, userid, joindate, membership, username, mobile, secession, rest_member "+
@@ -401,6 +409,8 @@ public class MemberDAO implements InterMemberDAO{
 						 
 			 String colname = paraMap.get("searchType");
 			 String searchWord = paraMap.get("searchWord");
+			 String start_date = paraMap.get("start_date");
+		     String end_date = paraMap.get("end_date");
 			 
 			 if( searchWord != null && !searchWord.trim().isEmpty() ) { // 검색어가 있는 경우
 			 
@@ -410,6 +420,9 @@ public class MemberDAO implements InterMemberDAO{
 				 else {
 					 if("userid".equals(colname)) {
 						 sql += " and M."+colname+" like '%'|| ? ||'%' ";
+					 }
+					 else if("joindate".equals(colname)) {
+						 sql += " and M.userid like '%'|| ? ||'%' and M."+colname+" between to_date('"+start_date+"','YYYY-MM-DD') and to_date('"+end_date+"','YYYY-MM-DD')";
 					 }
 					 else {
 						 sql += " and "+colname+" like '%'|| ? ||'%' ";
@@ -422,6 +435,9 @@ public class MemberDAO implements InterMemberDAO{
 				 if("secession".equals(colname) || "rest_member".equals(colname) || "membership".equals(colname)) {
 					 sql += " and "+colname+"= 1 ";
 				 }
+				 else if("joindate".equals(colname)) {
+					 sql += " and M."+colname+" between to_date('"+start_date+"','YYYY-MM-DD') and to_date('"+end_date+"','YYYY-MM-DD')";
+				 }
 				 
 			 }
 						 
@@ -433,7 +449,7 @@ public class MemberDAO implements InterMemberDAO{
 			 // where RNO between (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수); 
 			
 			 int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
-			 int sizePerPage = 3;
+			 int sizePerPage = 10;
 			 
 			 pstmt = conn.prepareStatement(sql);
 			 

@@ -135,6 +135,22 @@ function goCoinPurchaseEnd() {
 		if ( rsp.success ) { // PC 데스크탑용
 		//	alert("진입성공");
 			
+			$.ajax({
+		        url:getContextPath()+"/member/smsSend.dream",
+		        data:{"mobile":$("input#modify_mobile").val()},
+		        type:"post",
+		        dataType:"json",
+		        async:true,   
+		        success:function(json){ 
+		        	
+			        	if(json.success_count == 1) {
+			        		
+			        }
+			        	
+		        }
+		        
+			});
+		
 			let param = []; 
 			
 			$("input:checkbox[id='purchase_check']:checked").each(function(index,item) {
@@ -280,7 +296,7 @@ function goCoinPurchaseEnd() {
 	                                    <div class="prd_count" style="display: flex;">
 	                                    <c:if test="${cartList.size_cnt > 0}">
 	                                        <button class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button> <%-- 클래스뒤에 index --%>
-	                                        <input name="cart_qty" class="text" size="1" value="${cartList.cart_cnt}"/> <%-- value 로 DB에 있는 수량들어가기 --%> 
+	                                        <input name="cart_qty" class="text cart_qty" size="1" value="${cartList.cart_cnt}"/> <%-- value 로 DB에 있는 수량들어가기 --%> 
 	                                        <button class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button> <%-- 클래스뒤에 index --%>
 	                                    </c:if>
 	                                    <c:if test="${cartList.size_cnt <= 0}">
@@ -344,12 +360,12 @@ function goCoinPurchaseEnd() {
 	                            <c:choose>
 	                            <c:when test="${cartList.cart_cnt>cartList.size_cnt}">
 	                                <button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
-	                                		<input type="text" size="1" value="${cartList.size_cnt}"/> 
+	                                		<input type="text" size="1" value="${cartList.size_cnt}" class="cart_qty"/> 
 	                                <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
 	                            </c:when>
 	                            <c:otherwise>
 	                            		<button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
-	                                		<input type="text" size="1" value="${cartList.cart_cnt}"/> 
+	                                		<input type="text" size="1" value="${cartList.cart_cnt}" class="cart_qty"/> 
 	                                <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
 	                            </c:otherwise>
 	                            </c:choose>
