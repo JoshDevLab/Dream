@@ -33,6 +33,7 @@ public class ShopController extends AbstractController{
 				String start_price = null;	//시작가격
 				String end_price = null;	//끝가격
 				int page= 1;					//페이지번호
+				String keyword="";				//검색어
 				
 				
 				//getParameter로 값 다 받아오기
@@ -59,6 +60,9 @@ public class ShopController extends AbstractController{
 				}
 				if(request.getParameter("end_price")!=null && request.getParameter("end_price").trim() != "") {
 					end_price = request.getParameter("end_price").trim();
+				}
+				if(request.getParameter("keyword")!=null && request.getParameter("keyword").trim() != "") {
+					keyword = request.getParameter("keyword").trim();
 				}
 				
 				InterProductDAO pdao = new ProductDAO();

@@ -11,18 +11,16 @@ $(document).ready(function(){
     const headline = $("tr.headline");
     const upIcon = $("td.upIcon");
     const downIcon = $("td.downIcon");
-    upIcon.hide();
-    $("tr.content").hide();
     
     
     // 헤드라인 클릭시 자주묻는질문 내용물 보여주기
     headline.click(function(e){
-      const target = $(e.target);
-      // .closest( [selector] )
-      content = target.parent().next();
-      target.parent().next().toggle();
-      target.parent().children("td.upIcon").toggle();
-      target.parent().children("td.downIcon").toggle();
+      const target = $(e.currentTarget);
+      console.log(target);
+      console.log(content);
+      target.next().toggle();
+      target.children("td.upIcon").toggle();
+      target.children("td.downIcon").toggle();
     });
 	
 	

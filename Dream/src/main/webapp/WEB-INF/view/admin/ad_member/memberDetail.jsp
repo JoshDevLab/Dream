@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <%
-	String ctxPath = request.getContextPath();
-	//
+   String ctxPath = request.getContextPath();
+   //
 %>
     
 <jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
@@ -40,11 +40,32 @@
        <tr>       
          <td class="text-center">${requestScope.mdto.userid}</td>
          <td class="text-center">${requestScope.mdto.username}</td>
-         <td class="text-center">01088665389</td>
-         <td class="text-center">22/09/28</td>
-         <td class="text-center">O</td>
-         <td class="text-center">X</td>
-         <td class="text-center">X</td>
+         <td class="text-center">${requestScope.mdto.mobile}</td>
+         <td class="text-center">${requestScope.mdto.joindate}</td>
+         <c:choose>
+                  <c:when test="${mdto.secession == 0}">
+                  <td class="text-center">X</td>
+               </c:when>
+                  <c:otherwise>
+                     <td class="text-center">O</td>
+                  </c:otherwise>
+               </c:choose>
+               <c:choose>
+                  <c:when test="${mdto.rest_member == 0}">
+                  <td class="text-center">X</td>
+               </c:when>
+                  <c:otherwise>
+                     <td class="text-center">O</td>
+                  </c:otherwise>
+               </c:choose>
+               <c:choose>
+                  <c:when test="${mdto.membership == 0}">
+                  <td class="text-center">X</td>
+               </c:when>
+                  <c:otherwise>
+                     <td class="text-center">O</td>
+                  </c:otherwise>
+               </c:choose>
        </tr>     
      </tbody>
   </table>
@@ -208,85 +229,85 @@
         
         
              
-      <div class="modal modal_box layer lg" id="info_edit" >				     
-	     <div class="layer_container">					  
-		    <button type="button" class="close" data-dismiss="modal" >&times;</button>
-			<div class="layer_header">
-			   <h2 class="title1">ㅇㅇㅇ님 상세정보 수정</h2> 						    											
-			</div>
-			
-			<div class="layer_content">
-			   <div class="delivery_bind">
-			      <form name="registerFrm" class="delivery_input">	
-			      														
-				     <div class="input_box">														
-					    <input type="hidden" id = "address_num_modal" name="address_num" value=""/>
-						<h4 id="id" class="input_title">아이디</h4>
-						<div class="input_item">
-						   <input name="userid" class="input_txt" id="userid" type="text" autocomplete="off" readonly value="dddkdlel">
-						</div>										
-					 </div>	
-					 
-									
-					<div class="input_box">																						   
-					   <h4 id="passwd" class="input_title">비밀번호</h4>
-					   <div class="input_item">
-					      <input name="passwd" class="input_txt" id="passwd" type="text" autocomplete="off" value="">
-					   </div>										
-					</div>															  
-								  
-								  
-					<div class="input_box">																			   
-					   <h4 id="name" class="input_title">이름</h4>
-					      <div class="input_item">
-						     <input name="username" class="input_txt" id="username" type="text"  autocomplete="off" value="카리나">
-						  </div>
-						  <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
-				    </div>
-					 			
-					 			
-					<div class="input_box">
-				       <h4 id="mobile" class="input_title">휴대폰 번호</h4>
-					   <div class="input_item">
-					      <input id="mobile" name="mobile" type="text" autocomplete="off" class="input_txt" readonly value="01090209305">								
-					   </div>						
-				    </div>																		
-					
-									
-					<div class="input_box">
-					   <h4 class="input_title">가입일자</h4>
-					   <div class="input_item" >
-					      <input id="join_date" name="join_date" value="22/09/28" type="text" readonly>						
-					   </div>
-					</div>
-									
-																		
-					<div class="input_box">
-					   <h4 class="input_title" >탈퇴여부</h4>
-					   <input type="radio" id="male" name="out" value="1" /><label for="male" style="margin-left: 2%;">O</label>
+      <div class="modal modal_box layer lg" id="info_edit" >                 
+        <div class="layer_container">                 
+          <button type="button" class="close" data-dismiss="modal" >&times;</button>
+         <div class="layer_header">
+            <h2 class="title1">ㅇㅇㅇ님 상세정보 수정</h2>                                                        
+         </div>
+         
+         <div class="layer_content">
+            <div class="delivery_bind">
+               <form name="registerFrm" class="delivery_input">   
+                                                         
+                 <div class="input_box">                                          
+                   <input type="hidden" id = "address_num_modal" name="address_num" value=""/>
+                  <h4 id="id" class="input_title">아이디</h4>
+                  <div class="input_item">
+                     <input name="userid" class="input_txt" id="userid" type="text" autocomplete="off" readonly value="dddkdlel">
+                  </div>                              
+                </div>   
+                
+                           
+               <div class="input_box">                                                                     
+                  <h4 id="passwd" class="input_title">비밀번호</h4>
+                  <div class="input_item">
+                     <input name="passwd" class="input_txt" id="passwd" type="text" autocomplete="off" value="">
+                  </div>                              
+               </div>                                               
+                          
+                          
+               <div class="input_box">                                                            
+                  <h4 id="name" class="input_title">이름</h4>
+                     <div class="input_item">
+                       <input name="username" class="input_txt" id="username" type="text"  autocomplete="off" value="카리나">
+                    </div>
+                    <span class="name_error" style="color:red">올바른 이름을 입력해주세요. (2 - 50자)</span>
+                </div>
+                         
+                         
+               <div class="input_box">
+                   <h4 id="mobile" class="input_title">휴대폰 번호</h4>
+                  <div class="input_item">
+                     <input id="mobile" name="mobile" type="text" autocomplete="off" class="input_txt" readonly value="01090209305">                        
+                  </div>                  
+                </div>                                                      
+               
+                           
+               <div class="input_box">
+                  <h4 class="input_title">가입일자</h4>
+                  <div class="input_item" >
+                     <input id="join_date" name="join_date" value="22/09/28" type="text" readonly>                  
+                  </div>
+               </div>
+                           
+                                                      
+               <div class="input_box">
+                  <h4 class="input_title" >탈퇴여부</h4>
+                  <input type="radio" id="male" name="out" value="1" /><label for="male" style="margin-left: 2%;">O</label>
                        <input type="radio" id="female" name="out" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
-					   <h4 class="input_title" style="margin-top:10px;">휴면여부</h4>
-					   <input type="radio" id="male" name="rest" value="1" /><label for="male" style="margin-left: 2%;">O</label>
-  					   <input type="radio" id="female" name="rest" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
-					   <h4 class="input_title" style="margin-top:10px;">멤버쉽여부</h4>
-					   <input type="radio" id="male" name="membership" value="1" /><label for="male" style="margin-left: 2%;">O</label>
+                  <h4 class="input_title" style="margin-top:10px;">휴면여부</h4>
+                  <input type="radio" id="male" name="rest" value="1" /><label for="male" style="margin-left: 2%;">O</label>
+                    <input type="radio" id="female" name="rest" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
+                  <h4 class="input_title" style="margin-top:10px;">멤버쉽여부</h4>
+                  <input type="radio" id="male" name="membership" value="1" /><label for="male" style="margin-left: 2%;">O</label>
                        <input type="radio" id="female" name="membership" value="2" style="margin-left: 10%;" /><label for="female" style="margin-left: 2%;">X</label>
-					</div>	
-												
-				 </form>								
-		      </div>				
-		   </div>
-		   
-		   
-		   
-			<div class="layer_btn">															
-			    <a href="#" class="btn btn_save solid medium" id="add_edit" onclick="goEdit()"> 수정하기 </a>
-			    <a href="#" class="btn btn_delete outlinegrey medium" id="cansleEdit" data-dismiss="modal">취소 </a>		
-			</div>														
-	     </div>					
+               </div>   
+                                    
+             </form>                        
+            </div>            
+         </div>
+         
+         
+         
+         <div class="layer_btn">                                             
+             <a href="#" class="btn btn_save solid medium" id="add_edit" onclick="goEdit()"> 수정하기 </a>
+             <a href="#" class="btn btn_delete outlinegrey medium" id="cansleEdit" data-dismiss="modal">취소 </a>      
+         </div>                                          
+        </div>               
       </div>
-			     								  
-								
+                                        
+                        
 <%------------------------------------------------------------------ 모달 끝  --------------------------------------------------------------------%>
 
 

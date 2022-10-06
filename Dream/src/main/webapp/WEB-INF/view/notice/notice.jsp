@@ -109,6 +109,11 @@
 		  	</ul>
 		</nav>
 		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
+		<c:if test="${sessionScope.userid == 'admin'}">
+		<div class="d-flex justify-content-end">
+	      <button type="button" id="btn_notice_write" class="btn btn-white border rounded" onclick="location.href='<%=ctxPath %>/admin/notice_write.dream'">공지사항 작성</button>
+	    </div>
+	    </c:if>
     </div>
     <%--공지사항 끝  --%>
   </div>

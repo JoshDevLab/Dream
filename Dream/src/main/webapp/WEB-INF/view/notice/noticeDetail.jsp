@@ -4,6 +4,7 @@
 <%
    String ctxPath = request.getContextPath();
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   <%--header 호출 --%>
   <c:if test="${sessionScope.userid != 'admin'}">
@@ -24,7 +25,7 @@
   
   
     <%---------------------------------------- 사이드 바 시작 -----------------------------------------%>
-    <div class="sidebar ml-5 mt-4">
+    <div class="sidebar ml-5 mt-3">
       <div>
           <h4 class="mb-4" style="font-weight:bold;">고객센터</h4>
       </div>    
@@ -51,7 +52,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th><h5 style="font-weight:bold;">공지사항</h5></th>
+            <th><h4 style="font-weight:bold;">공지사항</h4></th>
           </tr>
         </thead>
         <tbody>
@@ -69,7 +70,11 @@
         </tbody>
         <tfoot>
           <td class="d-flex justify-content-center">
-            <button id="btn_close" class="btn btn-white border" onclick="location.href='<%= ctxPath%>/notice/notice.dream'" style="cursor:pointer">목록보기</button>
+            <c:if test="${sessionScope.userid == 'admin'}">
+            <button type="button" id="btn_update" class="btn btn-white border mx-1" onclick="location.href='<%= ctxPath%>/admin/noticeUpdate.dream?num=${requestScope.notice_num }'" style="cursor:pointer">수정</button>
+            <button type="button" id="btn_delete" class="btn btn-white border mx-1" onclick="location.href='<%= ctxPath%>/admin/noticeDelete.dream?num=${requestScope.notice_num }'" style="cursor:pointer">삭제</button>
+            </c:if>
+            <button type="button" id="btn_close" class="btn btn-white border mx-1" onclick="location.href='<%= ctxPath%>/notice/notice.dream'" style="cursor:pointer">목록보기</button>
           </td>
         </tfoot>
       </table>

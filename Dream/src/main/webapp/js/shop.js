@@ -76,7 +76,6 @@ let page_val = "1";
 if(sessionStorage.getItem("page").trim() != ""){
 	page_val = sessionStorage.getItem("page").trim();
 }
-
 //URL관련 변수선언 끝
 
 $("document").ready(function(){
@@ -146,6 +145,8 @@ $("document").ready(function(){
       
       
       //============================= >> 문서가 로딩되고 해야할 일 시작 << =============================
+      //검색창에 키워드 값 입력해주기
+      $("input#keyword").val(sessionStorage.getItem("keyword"));
       
       
       //URL에서 카테고리값에 맞는것 버튼 클릭한효과랑 필터부분 카테고리라디오 체크하기
@@ -209,7 +210,6 @@ $("document").ready(function(){
 	  let html="";
 	  switch (category_val) {
 	    case '전체':
-          $("div.details_category").css("height","0");
           $("div.details_category").css("display","none");
 	      break;
 	    case '침구류':
@@ -410,6 +410,28 @@ $("document").ready(function(){
 	  
 	  
 	  //======================= >> 이벤트처리부분 시작 << =================================
+	  //== 검색창부분 이벤트 시작 ==//
+	  $("input#keyword").keydown(e=>{
+	    if(e.keyCode == 13) { // 검색어에서 엔터를 치면 검색하러 가도록 한다.
+	      $("button#btn_search").trigger("click");
+	    }
+	  });//end of $("input#keyword").keydown
+	  
+	  
+	  //필터 클리어 버튼 클릭시 ajax로 필터 전부 지워주기
+	  $("button#btn_clear_filter").click(()=>{
+		location.href=getContextPath()+'/product/shop.dream';
+	  });
+	  
+	  
+	  
+	  //검색버튼 클릭시 keywordGoShop 클래스로 이동하도록 한다.
+	  $("button#btn_search").click(()=>{
+		keyword = $("input#keyword").val();
+		location.href=getContextPath()+'/product/keywordGoShop.dream?keyword='+keyword;
+	  });//end of $("button#btn_search").click--
+	  //== 검색창부분 이벤트 끝 ==//
+	  
 	  
 	  
 	  //필터버튼 클릭시 이벤트 잡기
@@ -437,8 +459,11 @@ $("document").ready(function(){
 		return;
 	  });
 	  
+	  
+	  
+	  
 	  //bestyn 라디오 버튼 값이 변경시 이벤트 잡기
-      $("input:checkbox[name='bestyn']").change(e=>{
+      $("input:checkbox[name='bestyn']").change(()=>{
 	    const page_length = page_val.length;
 	    if(URL.indexOf('?p=') != -1){
 	      let first_URL = URL.substring(0,URL.indexOf('p='));
@@ -459,6 +484,9 @@ $("document").ready(function(){
 		  return;
 		}
 	  });
+	  
+	  
+	  
 	  
 	  
 	  //gender 라디오 버튼 값이 변경시 이벤트 잡기
@@ -486,7 +514,7 @@ $("document").ready(function(){
 	  $("input#start_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
 	  $("input#end_price").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
 	  //가격대로 검색 버튼 클릭시 이벤트
-	  $("button#btn_price_search").click(e=>{
+	  $("button#btn_price_search").click(()=>{
 		
 		const input_start_price = $("input#start_price");
 		const input_end_price = $("input#end_price");
@@ -521,12 +549,15 @@ $("document").ready(function(){
 	  });
 	  
 	  
-	  //가격대 검색부분 지우기버튼클릭시 
-	  $("button#btn_price_clear").click(e=>{
+	  
+	  
+	  //가격대 검색부분 지우기버튼클릭시 입력한 가격부분 지워주기 
+	  $("button#btn_price_clear").click(()=>{
 		$("input#start_price").val("");
 		$("input#end_price").val("");
-		
 	  });
+	  
+	  
 	  
 	  
 	  
@@ -536,6 +567,9 @@ $("document").ready(function(){
         const detail_category = target.children().children("p.details_category_name").text().trim();
         detail_categoryClick(detail_category);
 	  });
+	  
+	  
+	  
 	  
 	  // 정렬옵션 선택시 URL에 정렬옵션 넣어서 전송하기
 	  $("select#sort_option").change(e=>{
@@ -554,6 +588,9 @@ $("document").ready(function(){
 	    }
 		sortChange(sort);
 	  });
+	  
+	  
+	  
 	  
 	  
 	  //좋아요 버튼 클릭시 이벤트 잡기
@@ -582,7 +619,7 @@ $("document").ready(function(){
 					},//end of success
 					
 					//success 대신 error가 발생하면 실행될 코드 
-					error: function(request,status,error){
+					error: function(request,error){
 						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 					}
 				});//end of $.ajax({})---
@@ -607,7 +644,7 @@ $("document").ready(function(){
 					  }
 					},//end of success
 					//success 대신 error가 발생하면 실행될 코드 
-					error: function(request,status,error){
+					error: function(request,error){
 						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 					}
 				});//end of $.ajax({})---
@@ -616,7 +653,7 @@ $("document").ready(function(){
 			  
 			},//end of success
 			//success 대신 error가 발생하면 실행될 코드 
-			error: function(request,status,error){
+			error: function(request,error){
 				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
 		  });//end of $.ajax({})---
@@ -1021,7 +1058,7 @@ $("document").ready(function(){
 	   let start_URL = URL.substring(0,sort_start_idx)+sort;
 	   let last_URL = URL.substring(sort_start_idx+sort_val_length);
 	   location.href=getContextPath()+start_URL + last_URL;
-	   return
+	   return;
 	 }
 	 
 	 
@@ -1121,7 +1158,11 @@ $("document").ready(function(){
 		return;
 	 }
   }
-
+  
+  //검색페이지에서 샵페이지로 온 경우 페이지 처리
+  function goPage_keyword(page){
+	location.href=getContextPath()+'/product/keywordGoShop.dream?keyword='+sessionStorage.getItem("keyword")+'&p='+page;
+  }
 
 
 
