@@ -5,7 +5,12 @@ let b_flag_zipcodeSearch_click = false;
 
 
 $(document).ready(function(){
-	console.log("3");
+	
+	
+	
+	 $("input#basic_address").hide();
+     $("label#basic_label").hide();
+	
 	
 	
 	/* 모달창이 열리면 이름입력부분에 오토포커스를 주는 기능  */
@@ -15,6 +20,8 @@ $(document).ready(function(){
 		$("span.mobile_error").hide();
 	    $('input#recipient_name').trigger('focus');
 	    
+	    
+    
 	    
 	    
 	    /*
@@ -163,7 +170,7 @@ $(document).ready(function(){
 	        
 	    }
 
-	});// end of $(document).on("keydown","input#modify_name",function(e) {}
+	});// $(document).on("keyup","input#mobile",function(e) {}--------------------------
 
 	
 	
@@ -176,24 +183,145 @@ $(document).ready(function(){
 	
 	/* 삭제버튼 클릭시 해당부분 div를 삭제해준다.  */
     $("a#delete").click( (event)=>{ 
+	
+	    let address_num ="";
+	    	
     	
     	const $target = $(event.target);    	
     	
-    	$target.parent().parent().remove(".my_item_is_active");    	
     	
+    	
+    	address_num = $target.parent().parent().find("#address_num").val();
+    	    	  	
+    	console.log(address_num);
+    	
+    	$("input#address_num").val(address_num);
+    	
+    	const frm = document.delete_add;
+		frm.action = "addressdelete.dream"
+		frm.method = "post";
+	    frm.submit();   	
+    	
+    	$target.parent().parent().remove(".my_item_is_active"); 
     });
+    
+    
+    
+    // 기본 배송지 버튼 클릭시 호출되는 함수
+	$("a#go_basic").click( (event)=>{ 
+		
+		
+		
+		
 	
+	    let address_num ="";	    	
+    	
+    	const $target = $(event.target);    	   	   	
+    	
+    	address_num = $target.parent().parent().find("#address_num").val();   	    	  	   	
+    	
+    	$("input#address_num").val(address_num);  	  
+    	
+    	console.log(address_num); 	  	    	
+    	
+    	const frm = document.delete_add;    
+	    frm.action = "addressgobasic.dream";
+	    frm.method = "post";
+	    frm.submit();	
+   
+    
+	
+});
+    
+   
+
 	
     
     $("a#basic_delete").click( (event)=>{ 
 
-        alert("다른 주소를 기본 베송지로 변경 후, 삭제할 수 있습니다.");
+        alert("다른 주소를 기본 배송지로 변경 후, 삭제할 수 있습니다.");
     		
     });
+    
+    
+    
+     // 기본배송지 아닌 수정버튼 클릭 이벤트
+    $("a#edit").click( (event)=>{ 
+	
+	
+	   $("input#basic_address").show();
+       $("label#basic_label").show();
+    	
+    	let address_num ="";	
+    		
+    	const target = $(event.target);    	
+    	
+    	
+    	const zipcode = target.parent().prev().children().children("div.address_box").children("span.zipcode").text();
+    	const address = target.parent().prev().children().children("div.address_box").children("span.address").text();
+    	const detail_address = target.parent().prev().children().children("div.address_box").children("span.detail_address").text();
+    	
+    	
+    	
+    	$("input#postcode").val(zipcode);
+    	$("input#address").val(address);
+    	$("input#detailAddress").val(detail_address);    	    	
+    	
+    	address_num = target.parent().parent().find("#address_num").val(); 
+    	
+    	console.log(detail_address);
+    		
+		$("input#address_num_modal").val(address_num);	 	
+		
+		
+		
+    	
+    });
+    
+    
+    
+  
+    // 기본배송지 수정버튼 클릭 이벤트
+    $("a#edit2").click( (event)=>{     
+	
+	  
+       $("input#basic_address").hide();
+       $("label#basic_label").hide();
 
-			
+    	
+    	let address_num ="";		
+    	const target = $(event.target);    	
+    	
+    	const zipcode = target.parent().prev().children().children("div.address_box").children("span.zipcode").text();
+    	const address = target.parent().prev().children().children("div.address_box").children("span.address").text();
+    	const detail_address = target.parent().prev().children().children("div.address_box").children("span.detail_address").text();
+    	
+    	
+    	
+    	$("input#postcode").val(zipcode);
+    	$("input#address").val(address);
+    	$("input#detailAddress").val(detail_address);
+    	
+    	 address_num = target.parent().parent().find("#address_num").val(); 
+    	
+    	console.log(detail_address);
+    		
+		$("input#address_num_modal").val(address_num);	 
+		
+		
+		$("input#address").val();
+		
+		
+		
+		
+		
+      
+      
+ });  
 
-});	// end of $(document).ready(function(){} -------------------------------	
+    
+
+});	// end of $(document).ready(function(){} -----------------------------------	
 		
 		
 
@@ -202,6 +330,14 @@ $(document).ready(function(){
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function new_add() {
+	
+	$("input#basic_address").show();
+    $("label#basic_label").show();
+	
+	$("a#add_edit").hide();	
+	$("a#add_save").show();
+	
+	$('#add_address').modal('show');
 
     $("h2.title2").hide();
     $("h2.title1").show();	
@@ -215,18 +351,25 @@ function new_add() {
 	$("#mobile").css("color","black");
 	$("div.input_item > input").css("border-bottom","solid 1px #ebebeb"); 
 	
+	$("input#basic_address").prop('checked', false);
+	
 }// end of function new_add() {}-----------------------
 	
 
 /* 수정 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function Revise_add() {
+
 	
+	$("a#add_save").hide();	
+	$("a#add_edit").show();
+	
+	$('#add_address').modal('show');
 
     $("h2.title1").hide();	
     $("h2.title2").show();
     
     
-    
+    $("div.input_item > input").val("");
     $("span.name_error").hide();
 	$("span.mobile_error").hide();
 	$("#name").css("color","black");
@@ -234,18 +377,19 @@ function Revise_add() {
 	$("div.input_item > input").css("border-bottom","solid 1px #ebebeb"); 
 	
 	/* 수정버튼 클릭시 이름,전화번호란은 비워주면서 저장되어있는 밸류값을 가져와준다  */
-	 $("div.input_item > input").val("");
+	 
 	
-	 $("input#address").val("주소 가져와본다");
-	 $("input#postcode").val("우편번호밸류 가져와본다"); 
-	 $("input#extraAddress").val("참고항목밸류  가져와본다"); 
-	 $("input#detailAddress").val("상세주소밸류 가져와본다"); 
+	 
 	/*              여기까지                                */
 	
 	/* console.log($("span.address").text()); */
 	
+	 
+	
+
 
 }// end of function Revise_add() {}------------------------	
+
 
 
 
@@ -307,13 +451,31 @@ function openDaumPOST() {
 
 
 
-//"저장하기" 버튼 클릭시 호출되는 함수  
+
+
+
+// 모달창의 "저장하기" 버튼 클릭시 호출되는 함수  
 function goRegister() {
+	
+	const name_length = $("input:text[name='order_name']").val().trim().length;
+	      if(name_length < 2) {
+	    	  alert("이름 형식에 맞지 않습니다!!");
+	    	  $("input:text[name='order_name']").val("").focus();
+	    	  return false; // submit 을 하지 않고 종료한다.
+	}
+	      
+    const mobile_length = $("input:text[name='mobile']").val().trim().length;
+    if(mobile_length < 11) {
+	    alert("전화번호 형식에 맞지않습니다 !!");
+	    $("input:text[name='mobile']").val("").focus();
+	    return false; // submit 을 하지 않고 종료한다.
+    }
 
 	// "우편번호찾기" 을 클릭했는지 여부 알아오기 
     if(!b_flag_zipcodeSearch_click) { 
     	// "우편번호찾기" 을 클릭 안 했을 경우 
     	alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
+    	
     	return; // 종료
     }
     else {
@@ -343,10 +505,48 @@ function goRegister() {
    
     
 
-
-    
-	
-	
-	
 	
 }// end of function goRegister()----------------------
+
+
+
+
+
+
+// 모달창의 "수정하기" 버튼 클릭시 호출되는 함수  
+function goEdit() {
+	
+	const name_length = $("input:text[name='order_name']").val().trim().length;
+	      if(name_length < 2) {
+	    	  alert("이름 형식에 맞지 않습니다!!");
+	    	  $("input:text[name='order_name']").val("").focus();
+	    	  return false; // submit 을 하지 않고 종료한다.
+	}
+	      
+    const mobile_length = $("input:text[name='mobile']").val().trim().length;
+    if(mobile_length < 11) {
+	    alert("전화번호 형식에 맞지않습니다 !!");
+	    $("input:text[name='mobile']").val("").focus();
+	    return false; // submit 을 하지 않고 종료한다.
+    }
+
+	
+	
+    const frm = document.registerFrm;    
+    
+    
+    frm.action = "addressedit.dream";
+    frm.method = "post";
+    frm.submit();
+   
+    
+
+	
+}// end of function goEdit()----------------------
+
+
+
+
+
+
+

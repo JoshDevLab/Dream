@@ -15,16 +15,16 @@ div#container{
   margin:auto;
 }
 @media screen and (max-width: 768px){
-	div#container{
-	  width:90%;
-	  margin:auto;
-	}
+   div#container{
+     width:90%;
+     margin:auto;
+   }
 }
 @media screen and (max-width: 480px){
-	div#container{
-	  width:100%;
-	  margin:auto;
-	}
+   div#container{
+     width:100%;
+     margin:auto;
+   }
 }
 button.btn_fillter{
   background-color: #F4F4F4;
@@ -39,7 +39,7 @@ button.btn_fillter:hover{
   color:white;
 }
 div#btn_category{
-  min-width: 400px;
+  min-width: 380px;
   padding:0 40px;
 }
 div#category > button.btn_fillter:nth-child(2),
@@ -75,7 +75,6 @@ div.details_category{
   height:90px;
   padding: 0 40px 0 40px;
   width:50%;
-  min-width:400px;
 }
 
 div.category_img{
@@ -98,13 +97,13 @@ p.details_category_name{
   }
   div.details_category{
     width:70%;
-    min-width:400px;
+    min-width:380px;
   }
 }
 @media screen and (max-width: 480px){
   div.details_category{
     width:70%;
-    min-width:400px;
+    min-width:380px;
   }
 }
 div.details_category > a {
@@ -173,7 +172,7 @@ select#sort_option{
 
 label#sort_option_label{
   font-size:small;
-  color:darkgray;	
+  color:darkgray;   
 }
 
 span#main_title{
@@ -220,11 +219,6 @@ div#product_name{
 div#product_name{
     font-size:14px;
   }
-span#product_price,
-div#product_sale_price{
-  font-size:15px;
-  font-size:15px;
-}
 @media screen and (max-width: 768px){
   div#product_name{
     font-size:14px;
@@ -243,16 +237,6 @@ div#product_sale_price{
   }
 }
 
-button#discount{
-  z-index:-1;
-  margin-left:auto;
-  background-color: black;
-  color:white;
-  width:60px;
-  height:25px;
-  font-size:x-small;
-  text-decoration:none;
-}
 
 /* a태그 데코레이션 없애기 시작 */
 a.product:link {
@@ -311,16 +295,16 @@ span#discount_percent{
   font-size:12px;
 }
 span#product_price_discount{
-	color:darkgray;
-	font-size:14px;
+   color:darkgray;
+   font-size:14px;
 }
 
 input#start_price,
 input#end_price{
-	width:100%;
-	height:40px;
-	border:none;
-	border-bottom:solid 1px darkgrey;
+   width:100%;
+   height:40px;
+   border:none;
+   border-bottom:solid 1px darkgrey;
 }
 input#start_price:focus,
 input#end_price:focus {
@@ -340,13 +324,13 @@ input#end_price::placeholder{
 }
 
 button.price{
-	width:80px;
-	height:40px;
-	font-size:15px;
+   width:80px;
+   height:40px;
+   font-size:15px;
 }
 button.price:hover{
-	background-color:black;
-	color:white;
+   background-color:black;
+   color:white;
 }
 
 
@@ -357,6 +341,10 @@ button.price:hover{
 
 
 /* 페이지바 */
+.my.pagination > li > a,
+.my.pagination > li > span{
+  color:black;
+}
 .my.pagination > .active > a, 
 .my.pagination > .active > span, 
 .my.pagination > .active > a:hover, 
@@ -375,6 +363,9 @@ button.price:hover{
   height:35px;
   background-color:white;
   position:absolute;
+  top:1%;
+  right:3%;
+  background-color:white;
   top:2%;
   left:78%;
 }
@@ -382,15 +373,15 @@ button.price:hover{
   color:pink;
 }
 #sale_mark{
-	width:50px;
-	height:28px;
-	background-color:red;
-	color:white;
-	position:absolute;
-	top:2%;
-	right:73%;
-	font-weight:bold;
-	border:none;
+   width:50px;
+   height:28px;
+   background-color:red;
+   color:white;
+   position:absolute;
+   top:2%;
+   right:73%;
+   font-weight:bold;
+   border:none;
 }
 i.fa-heart{
   position:relative;
@@ -401,5 +392,4 @@ i.fa-heart{
 
 
 /* Main 끝 */
-
 

@@ -75,7 +75,7 @@ public class LoginDAO implements InterLoginDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = " select userid , passwd , secession , rest_member , update_passwd_date, "
+			String sql = " select userid , passwd , secession , rest_member , update_passwd_date,  "
 					   + " trunc( months_between(sysdate, update_passwd_date) ) AS update_passwd_gap "
 			           + " from tbl_member_login "
 					   + " where userid =  ?  and passwd =  ? ";
@@ -140,7 +140,6 @@ public class LoginDAO implements InterLoginDAO {
 		
 	return isExistUser;
 	}// end of public boolean checkMobileEmail(Map<String, String> findPwdMap){}-------------
-
 	
 	
 	// 아이디(userid) 를 전달받아 일치하는 회원이 있으면 true, 없으면 false를 반환하는 메소드 (select) 
@@ -282,7 +281,7 @@ public class LoginDAO implements InterLoginDAO {
 	//아이디, 핸드폰 번호, 임시 비밀번호를 Map 을 전달받아 비밀번호를 변경하는 메소드 (update)
 	@Override
 	public int updatePassword(HashMap<String, String> findPwdMap) throws SQLException {
-		int result = 0;
+		int updtePwdResult = 0;
 		
 		try {
 			conn = ds.getConnection();
@@ -296,9 +295,42 @@ public class LoginDAO implements InterLoginDAO {
 			pstmt.setString(2, findPwdMap.get("userid"));
 			pstmt.executeUpdate();
 			
+			
 		} finally {
 			close();
 		}
-		return result;
+		return updtePwdResult;
 	}
+
+	
+	
+	// 관리자 아이디, 비밀번호를 map 으로 전달받아 일치하는 관리자가 있는지 조회하는 메소드 
+	@Override
+	public boolean selectAdmin(Map<String, String> userinfoMap) throws SQLException {
+		
+		boolean isAdmin = false;
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " select admin_id  "
+			           + " from tbl_admin_login "
+					   + " where admin_id =  ?  and admin_passwd =  ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userinfoMap.get("userid"));
+			pstmt.setString(2, userinfoMap.get("passwd"));
+			
+			rs = pstmt.executeQuery();
+			
+			isAdmin = rs.next();
+			
+		} finally {
+			close();
+		}
+		// System.out.println("DAO 에서 확인 isAdmin: "+ isAdmin);
+
+		return isAdmin;
+		
+	}// end of public LoginDTO selectAdmin(Map<String, String> userinfoMap) throws SQLException {}-------------------
 }

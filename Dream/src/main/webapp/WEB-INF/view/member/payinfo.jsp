@@ -134,7 +134,7 @@
 							<div id="button" data-v-7d49a47c="" class="my_item" data-v-1c284ef0="">
 								<div data-v-7d49a47c="" class="info_bind">
 									<div class="card_info" id="other_card_info">
-										<a class="btn_outlinegrey_small2"> KB</a>
+										<a class="btn_outlinegrey_small2"> SH</a>
 										<div class="card_num">
 											<span class="num_bind d-flex"> <span class="dot"><span
 													class="dot">****</span></span><span class="hyphen">-</span> <span
@@ -161,7 +161,7 @@
 								<div id="button" data-v-7d49a47c="" class="my_item" data-v-1c284ef0="">
 								<div data-v-7d49a47c="" class="info_bind">
 									<div class="card_info" id="other_card_info">
-										<a class="btn_outlinegrey_small2"> KB</a>
+										<a class="btn_outlinegrey_small2"> NH</a>
 										<div class="card_num">
 											<span class="num_bind d-flex"> <span class="dot"><span
 													class="dot">****</span></span><span class="hyphen">-</span> <span
@@ -211,11 +211,11 @@
 							</div> -->
 							<!---------------------첫 페이지 버튼 끝  ----------------------->
 							
-							
+							<!-- 
 							<div data-v-1f9de2f0="" class="page_bind">
 								<a data-v-1f9de2f0="" href="/my/address?page=1"
 									class="btn_page_active" aria-label="1페이지"> 1 </a>
-							</div>
+							</div> -->
 							
 							
 							

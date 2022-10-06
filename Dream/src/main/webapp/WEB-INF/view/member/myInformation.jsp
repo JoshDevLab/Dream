@@ -239,7 +239,7 @@
                     <div id="login_information_phone" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
                             <p style="color: gray; font-size: small;" class="mb-1">휴대폰 번호</p>
-                            <div style="color: gray;"><span id="mobile">${requestScope.mdto.mobile}</span></div>
+                            <div id="user_mobile" style="color: gray;"><span id="mobile">${requestScope.mdto.mobile}</span></div>
                             <input type="hidden" value="${requestScope.mdto.mobile}" name="mobile" />
                             <input type="hidden" value="" name="mobile_store_cnt"/>
                         </div>
