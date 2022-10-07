@@ -69,9 +69,13 @@
 					    
 					    const add_point = total_price*point_percent;
 					    
-					    $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en'));
+					    $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en')+"P");
 					    
-					    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
+					    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en')+"원");
+					    
+					    $("."+classname).parent().parent().parent().siblings().find(".mobile_point").text(add_point.toLocaleString('en')+"P");
+					    
+					    $("."+classname).parent().parent().parent().siblings().find(".mobile_price").text(total_price.toLocaleString('en')+"원");
 					    
 					    const discount_rate = $("."+classname).find('span.discount_rate').text();
 					    const discount_price = total_price * Number(discount_rate);
@@ -134,9 +138,13 @@
 					        
 					        const add_point = total_price*point_percent;
 					        
-					        $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en'));
+					        $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en')+"P");
 						    
-						    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
+						    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en')+"원");
+						    
+						    $("."+classname).parent().parent().parent().siblings().find(".mobile_point").text(add_point.toLocaleString('en')+"P");
+						    
+						    $("."+classname).parent().parent().parent().siblings().find(".mobile_price").text(total_price.toLocaleString('en')+"원");
 						    
 						    const discount_rate = $("."+classname).find('span.discount_rate').text();
 						    const discount_price = total_price * Number(discount_rate);
@@ -347,7 +355,7 @@ function goCoinPurchaseEnd() {
 				                                		<fmt:formatNumber value="${cartList.discount_price}" pattern="#,###"/>
 				                                	</c:otherwise>
 				                            </c:choose>
-		                                	</span>
+		                                	원</span>
 										<div style="font-weight: bold" class="discount_rate">		                                	
 			                                	<c:choose>
 					                                <c:when test="${cartList.discount_rate == 0}">
@@ -379,22 +387,21 @@ function goCoinPurchaseEnd() {
 			                                </c:when>
 			                                <c:otherwise>
 			                                		<fmt:formatNumber value="${cartList.discount_price*cartList.cart_cnt}" pattern="#,###"/>
-			                                		
+			                                </c:otherwise>
+		                                </c:choose>
+	                                원</span>
+	                                <br>(
+	                                <span class="plus_point" style="font-weight: bold;">
+		                                <c:choose>
+			                                <c:when test="${user.membership == 0}">
+			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.05}" pattern="#,###"/>
+			                                </c:when>
+			                                <c:otherwise>
+			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
 			                                </c:otherwise>
 		                                </c:choose>
 	                                </span>
-	                                <br>(
-		                                <span class="plus_point">
-			                                <c:choose>
-				                                <c:when test="${user.membership == 0}">
-				                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.05}" pattern="#,###"/>
-				                                </c:when>
-				                                <c:otherwise>
-				                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
-				                                </c:otherwise>
-			                                </c:choose>
-		                                </span>
-		                                )
+		                                p)
 	                                </td> <%-- 반복문으로 넣을때 db에서 받아온 수량이랑 가격 곱해서 넣음 --%>
 	                                <td style ='vertical-align : middle; text-align: center;'>
 	                                    <button class="remove_cart_list btn btn-outline-dark outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">삭제하기</button>
@@ -452,10 +459,30 @@ function goCoinPurchaseEnd() {
 	                    </div> <!-- top_moblie_cart_list -->
 	                    <div class="bottom_moblie_cart_list mt-3">
 	                        <div style="display: flex;">
-	                            <p>할인 금액 예상</p><span style="margin-left: auto;">-8,296원</span> <!-- span 태그에 할인금액 받아와서 넣을것 -->
+	                            <p>적립 금액</p>
+	                            <span style="margin-left: auto; font-weight: bold;" class="mobile_point">
+		                            <c:choose>
+			                                <c:when test="${user.membership == 0}">
+			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.05}" pattern="#,###"/>
+			                                </c:when>
+			                                <c:otherwise>
+			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
+			                                </c:otherwise>
+		                             </c:choose>
+								p</span> <!-- span 태그에 할인금액 받아와서 넣을것 -->
 	                        </div>
 	                        <div style="display: flex;">
-	                            <p>쿠폰 사용</p><span style="margin-left: auto;"><button class="btn btn-sm btn-dark">사용</button></span> <!-- span 태그에 쿠폰 받아와서 넣을것 -->
+	                            <p>결제 금액</p>
+	                            <span style="margin-left: auto;" class="mobile_price">
+	                            		<c:choose>
+			                                <c:when test="${cartList.discount_rate == 0}">
+			                                		<fmt:formatNumber value="${cartList.price*cartList.cart_cnt}" pattern="#,###"/>
+			                                </c:when>
+			                                <c:otherwise>
+			                                		<fmt:formatNumber value="${cartList.discount_price*cartList.cart_cnt}" pattern="#,###"/>
+			                                </c:otherwise>
+		                             </c:choose>
+	                            원</span> <!-- span 태그에 쿠폰 받아와서 넣을것 -->
 	                        </div>    
 	                    </div> <!-- bottom_moblie_cart_list -->
 	                </div> <!-- moblie_cart_list -->
