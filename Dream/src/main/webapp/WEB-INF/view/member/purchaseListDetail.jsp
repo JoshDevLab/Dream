@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ page import="java.util.*"%>
 <%@ page import="jjy.purchase.model.*"%>
 
@@ -14,15 +16,24 @@ String ctxPath = request.getContextPath();
 
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%=ctxPath%>/css/purchaseListDetail.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=ctxPath%>/css/purchaseListDetail.css" />
 <link rel="stylesheet" href="<%=ctxPath%>/css/sidebar.css">
 
 <%-- 직접만든 javascript --%>
-<script type="text/javascript" src="<%=ctxPath%>/js/purchaseListDetail.js"></script>
+<script type="text/javascript"
+	src="<%=ctxPath%>/js/purchaseListDetail.js"></script>
 
 
 
 <div id="div_purchaseListDetail" class="mt-4">
+<script type="text/javascript">
+${requestScope.shipping}
+
+</script>
+
+
+
 	<%-- 내용물 시작 --%>
 
 	<%-------------------- 사이드바 시작 ----------------------%>
@@ -50,50 +61,17 @@ String ctxPath = request.getContextPath();
 
 
 	</head>
-	<body>
 
-		<%-- 내용물 시작 --%>
-
-		<%-------------------- 사이드바 시작 ----------------------%>
-		<div id="sidebar" class="sidebar ml-5" style="width: 180px;">
-			<div>
-				<h4 class="mb-4" style="font-weight: bold;">
-					<a href="<%=ctxPath%>/member/mypage.dream">마이 페이지</a>
-				</h4>
-
-			</div>
-
-			<div class="category-section mb-5">
-				<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>/member/buylist.dream">구매 내역</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>/cart/cart.dream">관심 상품</a></li>
-				</ul>
-			</div>
-
-			<div class="category-section">
-				<h5 class="category-title font-weight-bold">내 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>/member/myInfo.dream">프로필 정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>#####">주소록</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>######">결제정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>/member/point.dream">포인트</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 color_gray"
-						href="<%=ctxPath%>/member/membership.dream">멤버십 정보</a></li>
-				</ul>
-			</div>
-		</div>
-		<%-------------------- 사이드바 끝 ----------------------%>
-	<body>
-		<div id="content" class="container">
+	<%-- 내용물 시작 --%>
 
 
+
+
+	<div id="content" class="container" style="display: flex">
+		<%--header 호출 --%>
+		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
+
+		<div>
 			<%-- 구매내역 상세보기 제목 시작 --%>
 			<div id="detail_title">
 				<button type="button">뒤로가기 버튼</button>
@@ -105,11 +83,10 @@ String ctxPath = request.getContextPath();
 
 			<%-- 구매내역 상세보기 제품 시작 --%>
 			<div id="product_info">
-				<img class="product_img" src="./title-icon.png" alt="..." />
+				<img class="product_img" src="<%=ctxPath %>/images/제품이미지/${requestScope.product_image}" alt="..." />
 				<div id="product" style="margin-left: 10px;">
-					<div id="div_product_name">침대는 영어로 bed침대는 영어로 bed침대는 영어로
-						bed침대는 영어로 bed침대는 영어로 bed</div>
-					<div id="div_purchase_cnt">구매 수량 : 300개</div>
+					<div id="div_product_name">${requestScope.product_name}</div>
+					<div id="div_purchase_cnt">구매 수량 : ${requestScope.buy_cnt} 개</div>
 				</div>
 			</div>
 			<button type="button" id="product_detail">상품 상세보기</button>
@@ -120,16 +97,35 @@ String ctxPath = request.getContextPath();
 			<div id="progress">
 				<div id="progress_title">진행 상황</div>
 				<div id="progressDetail">
+				
+				<c:if test="${requestScope.shipping == 0}">
+					<div id="shipping_ready" style="border-top: solid 3px black;">배송준비중</div>
+					<div id="shipping_now" style="border-top: solid 3px #ebebeb;">배송중</div>
+					<div id="shipping_end" style="border-top: solid 3px #ebebeb;">배송완료</div>
+				</c:if>
+				<c:if test="${requestScope.shipping == 1}">
+					<div id="shipping_ready" style="border-top: solid 3px black;">배송준비중</div>
+					<div id="shipping_now" style="border-top: solid 3px black;">배송중</div>
+					<div id="shipping_end" style="border-top: solid 3px #ebebeb;">배송완료</div>
+				
+				</c:if>
+				<c:if test="${requestScope.shipping == 2}">
+					<div id="shipping_ready" style="border-top: solid 3px black;">배송준비중</div>
+					<div id="shipping_now" style="border-top: solid 3px black;">배송중</div>
+					<div id="shipping_end" style="border-top: solid 3px black;">배송완료</div>
+				</c:if>
+				<%-- 
 					<div id="shipping_ready">배송준비중</div>
 					<div id="shipping_now">배송중</div>
 					<div id="shipping_end">배송완료</div>
+					 --%>
 				</div>
 			</div>
 			<%-- 진행상황 끝 --%>
-
+			
 			<div id="price">
 				<div id="price_title">총 정산금액</div>
-				<div id="div_price">369,000원</div>
+				<div id="div_price"><fmt:formatNumber value="${requestScope.price}" pattern="#,###"/>원</div>
 			</div>
 
 			<div id="price_detail">
@@ -137,19 +133,19 @@ String ctxPath = request.getContextPath();
 					<tr>
 						<%-- 첫번째 줄 시작 --%>
 						<td class="td_title">판매가</td>
-						<td class="td_content">369,000원</td>
+						<td class="td_content"><fmt:formatNumber value="${requestScope.sale_price}" pattern="#,###"/>원</td>
 					</tr>
 					<%-- 첫번째 줄 끝 --%>
-					<tr>
-						<%-- 두번째 줄 시작 --%>
+					<%--<tr>
+						 두번째 줄 시작 
 						<td class="td_title">배송비</td>
 						<td class="td_content">3,000원</td>
-					</tr>
+					</tr>--%>
 					<%-- 두번째 줄 끝 --%>
 					<tr>
 						<%-- 두번째 줄 시작 --%>
 						<td class="td_title">적립포인트</td>
-						<td class="td_content">1000 point</td>
+						<td class="td_content"><fmt:formatNumber value="${requestScope.point}" pattern="#,###"/> point</td>
 					</tr>
 					<%-- 두번째 줄 끝 --%>
 				</table>
@@ -162,36 +158,36 @@ String ctxPath = request.getContextPath();
 					<tr>
 						<%-- 첫번째 줄 시작 --%>
 						<td class="td_title">거래일시</td>
-						<td class="td_content">20/08/12 17:35</td>
+						<td class="td_content">${requestScope.buy_date}</td>
 					</tr>
 					<%-- 첫번째 줄 끝 --%>
 
 					<tr>
 						<%-- 두번째 줄 시작 --%>
 						<td class="td_title">받는사람</td>
-						<td class="td_content">3,000원</td>
+						<td class="td_content">${requestScope.order_name}</td>
 					</tr>
 					<%-- 두번째 줄 끝 --%>
 
 					<tr>
 						<%-- 두번째 줄 시작 --%>
 						<td class="td_title">휴대폰번호</td>
-						<td class="td_content">010-9***-*305</td>
+						<td class="td_content">${requestScope.mobile}</td>
 					</tr>
 					<%-- 두번째 줄 끝 --%>
 
 					<tr>
 						<%-- 두번째 줄 시작 --%>
 						<td class="td_title">주소</td>
-						<td class="td_content">주소는 address + detail_addressasdfasdf</td>
+						<td class="td_content">${requestScope.address}</td>
 					</tr>
 					<%-- 두번째 줄 끝 --%>
 
 				</table>
 			</div>
 		</div>
+	</div>
 
-	</body>
 
 
 	<%--footer 호출 --%>

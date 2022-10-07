@@ -19,6 +19,13 @@ public interface InterProductDAO {
 	List<String> getCagegory() throws SQLException;
 
 	/** 대카테고리를 전달받아 그에 맞는 소카테고리 구해오는 메소드 */
-	List<String> getDetailCategory(String category) throws SQLException;
+	// List<String> getDetailCategory(String category) throws SQLException;
 
+	/** 다음번에 사용될 제품일련번호 채번해오는 메소드 */
+	public int getPnumOfProduct() throws SQLException;
+
+	/** Map 으로 상품정보를 전달받아 tbl_product_stock 테이블에 insert 하는 메소드  */
+	int registPqty(Map<String, String> productMap)throws SQLException;
+	
+	
 }

@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import jjy.address.model.AddressDTO;
 import jjy.product.model.ProductDTO;
 import util.security.AES256;
 import util.security.SecretMyKey;
@@ -295,7 +296,6 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		
 		Map<String,String> orderCntMap = new HashMap<>();
 		
-		
 		try {
 			conn = ds.getConnection();
 			
@@ -331,4 +331,65 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 		
 	}// end of public Map<String, String> getOrderCnt(String loginedUserid) {}-------------------------------------------------------------
 
+	
+	//사용자 아이디, 주문번호를 Map 으로 전달받아 해당 주문번호에 해당하는 주문내역을 구해오는 메소드 
+	@Override
+	public PurchaseListDTO getDetailPurchaseList(String order_num) throws SQLException {
+		
+		PurchaseListDTO purchaseListDTO = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " SELECT order_num, address_num , address, detail_address , order_name , mobile , A.userid "
+					   + "       , B.product_num, buy_cnt , buy_date, shipping, fk_address_num "
+					   + "       , product_image, product_name, price, discount_rate "
+					   + " FROM tbl_address A "
+					   + " join tbl_buylist B "
+					   + " ON A.address_num = b.fk_address_num "
+					   + " JOIN tbl_product P "
+					   + " ON B.product_num = P.product_num "
+					   + " where order_num = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, order_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+
+				purchaseListDTO = new PurchaseListDTO();
+				
+				purchaseListDTO.setBuy_cnt(rs.getInt("buy_cnt"));      // 구매수량 
+				purchaseListDTO.setShipping(rs.getInt("shipping"));    // 배송진행 상황
+				purchaseListDTO.setBuy_date(rs.getString("buy_date")); // 거래일시 
+				
+				ProductDTO prodDTO = new ProductDTO();
+				prodDTO.setProduct_name(rs.getString("product_name"));  // 제품이름
+				prodDTO.setProduct_image(rs.getString("product_image"));// 제품이미지
+				prodDTO.setDiscount_rate(rs.getFloat("discount_rate")); // 할인율
+				prodDTO.setPrice(rs.getInt("price"));                   // 판매가
+				purchaseListDTO.setProdDTO(prodDTO);
+				
+				// 나중에 
+				// 정산 금액  => 판매가* 할인율
+				// 적립 포인트 => 판매가에서 계산
+				
+				AddressDTO addrDTO = new AddressDTO();
+				addrDTO.setOrder_name(rs.getString("order_name"));         // 받는사람
+				addrDTO.setMobile(rs.getString("mobile"));                 // 휴대폰번호
+				addrDTO.setAddress(rs.getString("address"));  			   // 주소 
+				addrDTO.setDetail_address(rs.getString("detail_address")); // 상세주소 
+				
+				purchaseListDTO.setAddressDTO(addrDTO);
+			}
+
+		} finally {
+			close();
+		}
+		
+		return purchaseListDTO;
+		
+	}// end of public PurchaseListDTO getDetailPurchaseList(Map<String, String> purchaseMap) throws SQLException {}-------------------------
+
+	
 }

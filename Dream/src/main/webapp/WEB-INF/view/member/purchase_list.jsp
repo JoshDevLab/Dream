@@ -124,7 +124,6 @@
 				<%-- 상단 진행중, 종료 버튼 끝 --%>
 
 
-
 				<%-- 기간조회 시작 --%>
 				<div id="date_button">
 					<button type="button" id="two_month" class="btn_month">최근 2개월</button>

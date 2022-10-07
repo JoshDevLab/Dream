@@ -52,7 +52,7 @@ public class LoginController extends AbstractController {
 				
 				JSONObject jsonObj = new JSONObject();
 				
-				System.out.println("isAdmin : " + isAdmin);
+//				System.out.println("확인용 isAdmin : " + isAdmin);
 				
 				// 제이슨에 값 담기
 				jsonObj.put("userid", userid);
@@ -69,7 +69,7 @@ public class LoginController extends AbstractController {
 				if(isAdmin) {
 					HttpSession session = request.getSession();
 					session.setAttribute("userid", "admin");
-					System.out.println("확인용 관리자 로그인 session에 저장된 값 : "+ session.getAttribute("userid"));
+//					System.out.println("확인용 관리자 로그인 session에 저장된 값 : "+ session.getAttribute("userid"));
 				}
 
 				// super.setRedirect(false);
@@ -86,11 +86,11 @@ public class LoginController extends AbstractController {
 	
 					InterMemberDAO mdao = new MemberDAO();
 					MemberDTO mdto = new MemberDTO();
-					System.out.println("확인용 userinfoMap: " + userinfoMap);
+					// System.out.println("확인용 userinfoMap: " + userinfoMap);
 	
 					mdto = mdao.selectOneUser(userid);
 	
-					System.out.println("확인용 mdto getMembershipregistgap " + mdto.getMembershipregistgap());
+					//System.out.println("확인용 mdto getMembershipregistgap " + mdto.getMembershipregistgap());
 	//				System.out.println("확인용 mdto mobile " + mdto.getMobile());
 	//				System.out.println("확인용 mdto userid " + mdto.getUserid());
 	
@@ -137,8 +137,8 @@ public class LoginController extends AbstractController {
 						int secession = Integer.parseInt(loginuser.getSecession()); // 탈퇴 유무
 						int restMember = Integer.parseInt(loginuser.getRest_member()); // 휴면 유무
 	
-						System.out.println("확인용secession = " + secession);
-						System.out.println("확인용 restMember = " + restMember);
+//						System.out.println("확인용secession = " + secession);
+//						System.out.println("확인용 restMember = " + restMember);
 	
 						if (secession == 1) { // 탈퇴 회원인 경우
 							isSecession = true; // json으로 전달할 탈퇴 회원

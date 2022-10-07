@@ -20,6 +20,9 @@ public interface InterPurchaseListDAO {
 	/** 사용자 아이디를 입력받아 배송상태가 "진행중" , "종료" 의 개수 알아오는 메소드 */
 	Map<String, String> getOrderCnt(String loginedUserid) throws SQLException ;
 
+	/** 사용자 아이디, 주문번호를 Map 으로 전달받아 해당 주문번호에 해당하는 주문내역을 구해오는 메소드 */
+	PurchaseListDTO getDetailPurchaseList(String order_num) throws SQLException ;
+
 
 
 	

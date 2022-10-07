@@ -66,7 +66,7 @@ $(document).ready(function() {
 
 
 	// 비밀번호 입력받을때마다 정규표현식을 통한 유효성 검사
-	$("input#input_passwd").keydown(function(e) {
+	$("input#input_passwd").keyup(function(e) {
 		const passwd = $("input#input_passwd").val();
 		const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
 

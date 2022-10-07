@@ -59,6 +59,9 @@ public class ProductRegister extends AbstractController{
 			*/
 			
 			
+			int pnum = pdao.getPnumOfProduct();
+			
+			
 			HttpSession session = request.getSession();
 //			String admin = (String) session.getAttribute("userid");
 			
@@ -67,6 +70,7 @@ public class ProductRegister extends AbstractController{
 			ServletContext svlCtx =  session.getServletContext();
 			String uploadFileDir = svlCtx.getRealPath("/images/제품이미지");
 			
+			System.out.println("확인용 주소 uploadFileDir => "+uploadFileDir);
 			
 			
 			// === 파일을 업로드 해준다. === // 
@@ -96,11 +100,14 @@ public class ProductRegister extends AbstractController{
 				case "3":
 					category = "파자마";
 					break;
+				case "4":
+					category = "수면용품";
+					break;
 			}
 			
 			// 소 카테고리 목록 가져오기
-			List<String> detailCategoryList = pdao.getDetailCategory(category);
-			request.setAttribute("detailCategoryList", detailCategoryList);
+//			List<String> detailCategoryList = pdao.getDetailCategory(category);
+//			request.setAttribute("detailCategoryList", detailCategoryList);
 			
 			String gender = mtrequest.getParameter("gender"); // 성별
 			
@@ -116,21 +123,32 @@ public class ProductRegister extends AbstractController{
 					break;
 			}
 			
-			System.out.println("확인용 gender => "+ gender);
+//			System.out.println("확인용 gender => "+ gender);
 			
 			String detail_category = mtrequest.getParameter("detail_category"); // 소 카테고리 
+			String attachCount = mtrequest.getParameter("attachCount"); // 이미지 파일 개수 
+
+			String product_image = ""; // 이미지 
+									// 0 1 2 
+			for(int i = 0; i<Integer.parseInt(attachCount); i++) {
+				if(i != Integer.parseInt(attachCount)-1) {
+					product_image +=  mtrequest.getFilesystemName("attach"+i);
+					product_image += ",";
+				}
+				else {
+					product_image += mtrequest.getFilesystemName("attach"+i);
+				}
+			}
 			
-			// 나중에 추가 이미지 수량 넘겨받아서 수량만큼 반복문 돌리고 마지막에는 , 붙도록 수정
-			String product_image = mtrequest.getFilesystemName("pimage1")+","+mtrequest.getFilesystemName("pimage2"); // 이미지 
 			
-			
+
 			String product_name = mtrequest.getParameter("product_name"); // 수량 
-			String product_cnt = mtrequest.getParameter("pqty"); // 수량 
+//			String product_cnt = mtrequest.getParameter("pqty"); // 수량 
 			String price = mtrequest.getParameter("saleprice");  // 판매가격 
 			
 			String discount_rate = mtrequest.getParameter("discountrate"); // 할인율 0 ~ 100
 			
-			if(discount_rate == null) {
+			if(discount_rate == null || "".equals(discount_rate) ) {
 				discount_rate = "0";
 			}
 			float i_discount_rate = Float.parseFloat(discount_rate)/100;
@@ -145,22 +163,87 @@ public class ProductRegister extends AbstractController{
 			product_content = product_content.replaceAll("<", "&lt;");     // < 치환
 			product_content = product_content.replaceAll(">", "&gt;");     // > 치환
 			product_content = product_content.replaceAll("\r\n", "<br/>"); // 엔터 치환
-	        //////////////////////////////////////////////////////////////////////////////////
+	        
 			
 			Map<String,String> productMap = new HashMap<>();
 			
+			String size_s ="0";
+			String size_m ="0";
+			String size_l ="0";
+			
+			String product_cnt ="0";
+			
+			if("파자마".equals(category)) {
+				// 카테고리가 파자마인경우 사이즈별 수량 각각 저장
+				size_s = mtrequest.getParameter("size_s");
+				size_m = mtrequest.getParameter("size_m");
+				size_l = mtrequest.getParameter("size_l");
+
+				productMap.put("size_s", size_s);          // 사이즈 s
+				productMap.put("size_m", size_m);          // 사이즈 m
+				productMap.put("size_l", size_l);          // 사이즈 l
+				
+				System.out.println("확인용 넘어온 값 size_s "+size_s);
+				System.out.println("확인용 넘어온 값 size_m "+size_m);
+				System.out.println("확인용 넘어온 값 size_l "+size_l);
+				
+			}
+			else {
+				// 카테고리가 파자마 이외의 경우 수량 한개만 저장
+				product_cnt = mtrequest.getParameter("pqty");
+				productMap.put("product_cnt", product_cnt);          // 제품수량
+				
+				// 넘어온 값 확인 
+				System.out.println("확인용 넘어온 값 product_cnt "+product_cnt);
+			}
+			
+			
+			//////////////////////////////////////////////////////////////////////////////////
+			// 넘어온 값 확인
+			
+			System.out.println("확인용 넘어온 값 product_name"+product_name);
+			System.out.println("확인용 넘어온 값 product_image"+product_image);
+			System.out.println("확인용 넘어온 값 category"+category);
+			System.out.println("확인용 넘어온 값 detail_category"+detail_category);
+			System.out.println("확인용 넘어온 값 price"+price);
+			System.out.println("확인용 넘어온 값 discount_rate"+discount_rate);
+			System.out.println("확인용 넘어온 값 gender"+gender);
+			System.out.println("확인용 넘어온 값 product_content"+product_content);
+			
+			
+			//////////////////////////////////////////////////////////////////////////////////
+			
+			
+			productMap.put("pnum", String.valueOf(pnum)); // 제품번호
 			productMap.put("product_name", product_name);        // 제품명
 			productMap.put("product_image", product_image); 	 // 제품이미지
 			productMap.put("category", category);   			 // 대카테고리
 			productMap.put("detail_category", detail_category);  // 소카테고리
-			productMap.put("product_cnt", product_cnt);          // 제품수량
 			productMap.put("price", price);                      // 가격
 			productMap.put("gender", gender);                    // 성별
 			productMap.put("discount_rate", discount_rate);      // 할인율
 			productMap.put("product_content", product_content);  // 제품상세내용
 			
+			int result = 0;
 			
-			int result = pdao.registProduct(productMap);
+			if(  !("0".equals(size_s) && "0".equals(size_m) && "0".equals(size_l) ) || !"0".equals(product_cnt) ) {
+			
+				result = pdao.registProduct(productMap);
+				
+				// 제품 재고 테이블에 insert 하는 메소드 
+				int n = pdao.registPqty(productMap);
+				
+				if(n == 1 ) {
+					System.out.println("제품재고 insert 성공!");
+				}
+				else {
+					System.out.println("제품재고 insert 실패!");
+				}
+				
+			}
+			
+			
+		
 			
 			String message ="";
 			String loc ="";
@@ -168,12 +251,12 @@ public class ProductRegister extends AbstractController{
 			if(result == 1) {
 				System.out.println("확인용 상품등록 성공");
 				message = "상품등록 성공";
-				loc = request.getContextPath()+"/Dream/product/shop.dream";
+				loc = request.getContextPath()+"/product/shop.dream";
 			}
 			else {
 				System.out.println("확인용 상품등록 실패");
 				message = "상품등록 실패";
-				loc = request.getContextPath()+"/Dream/product/shop.dream";
+				loc = request.getContextPath()+"/product/shop.dream";
 			}
 			
 			request.setAttribute("message", message);

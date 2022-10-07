@@ -84,11 +84,20 @@
 		            
 		            <%-- 상품이미지 --%>
 		            <tr>
+		            	
 		               <td width="25%" class="prodInputName">상품이미지</td>
 		               <td width="75%" align="left">
-		                  <input type="file" name="pimage1" class="infoData" /><span class="error">필수입력</span>
-		                  <input type="file" name="pimage2" class="infoData" /><span class="error">필수입력</span>
-		                 </td>
+		               <%-- 
+		               <label for="spinnerImgQty">파일갯수 : </label>
+                       <input id="spinnerImgQty" value="0" style="width: 30px; height: 20px;" maxlength="1"/>
+                       --%>
+                       <div id="divfileattach">
+                       	<input type='file' name='attach0' class='btn btn-default infoData' /> <span class='error'>필수입력</span>
+                       	<input type='file' name='attach1' class='btn btn-default' style="display: block;" /> 
+                       	<input type='file' name='attach2' class='btn btn-default' /> 
+                       </div>
+                       <input type="hidden" name="attachCount" id="attachCount" value="0"/>  
+		               </td>
 		            </tr>
 		            
 		            
@@ -103,10 +112,34 @@
 			             </td>
 		           		</tr>
 		            
-		            <tr>
+		            <tr class="product_cnt">
 		               <td width="25%" class="prodInputName">상품수량</td>
 		               <td width="75%" align="left">
 		                  <input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
+		                  <span class="error">필수입력</span>
+		               </td>
+		            </tr>
+		            
+		            <tr class="pajama_size">
+		               <td width="25%" class="prodInputName">상품수량( Size S )</td>
+		               <td width="75%" align="left">
+		                  <input id="size_s" name="size_s" value="0" style="width: 30px; height: 20px;"> 개
+		                  <span class="error">필수입력</span>
+		               </td>
+		            </tr>
+		            
+		            <tr class="pajama_size">
+		               <td width="25%" class="prodInputName">상품수량( Size M )</td>
+		               <td width="75%" align="left">
+		                  <input id="size_m" name="size_m" value="0" style="width: 30px; height: 20px;"> 개
+		                  <span class="error">필수입력</span>
+		               </td>
+		            </tr>
+		            
+		            <tr class="pajama_size">
+		               <td width="25%" class="prodInputName">상품수량( Size L )</td>
+		               <td width="75%" align="left">
+		                  <input id="size_l" name="size_l" value="0" style="width: 30px; height: 20px;"> 개
 		                  <span class="error">필수입력</span>
 		               </td>
 		            </tr>
@@ -125,8 +158,8 @@
 		            <tr>
 		               <td width="25%" class="prodInputName">할인율</td>
 		               <td width="75%" align="left">
-		                  <input type="text" style="width: 100px;" name="discountrate" class="box infoData" max="100"/> %
-		                  <span class="error">필수입력</span>
+		                  <input type="text" style="width: 100px;" name="discountrate" class="box" max="100"/> %
+		                  <%-- <span class="error">필수입력</span> --%>
 		               </td>
 		            </tr>
 		            
@@ -164,6 +197,8 @@
 		                </td>
 		             </tr>
 		             --%>
+		             
+		             
 		             <tr style="height: 70px;">
 		               <td colspan="2" align="center" style="border-left: hidden; border-bottom: hidden; border-right: hidden;">
 		                   <button type="button" class="btn btn-white border rounded" id="btnRegister">상품등록</button>

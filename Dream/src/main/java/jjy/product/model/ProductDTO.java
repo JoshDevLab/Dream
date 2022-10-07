@@ -18,9 +18,16 @@ public class ProductDTO {
 	private int product_cnt;		//수량
 	private String product_content; //제품상세설명 
 	
+	private int sale_price;
+	
+	
+	
+	
+	
 	public String getProduct_content() {
 		return product_content;
 	}
+	
 	public void setProduct_content(String product_content) {
 		this.product_content = product_content;
 	}

@@ -19,7 +19,7 @@ $(document).ready(function() {
     
     const viewChangeHandler = (mediaViewContent) => {  					// 3
     	//이곳에 원하는 이벤트 설정
-    	alert("확인용 max-width : 480px");
+    	// alert("확인용 max-width : 480px");
     	$("div#purchase").toggleClass('container');
     	$("div#purchase").css("width","100%");
     }
@@ -294,7 +294,8 @@ function callAjax(start) {
    				
    				 $.each(json, function(index, item){
    					$("span#totalHITCount").text(item.totalListCnt);
-   					html += "<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
+   					html += "<a href='buylistDetail.dream?ordernum="+item.order_num+"'>"+
+   						"<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
    		                     "<div id='purchase_detail'  class='d-flex'>"+
    		                        "<div class='image_box' style='line-height: 110px;'>"+
    		                           "<img class='product_img' src="+getContextPath()+"/images/제품이미지/"+item.product_image+" alt='...'>"+
@@ -312,7 +313,8 @@ function callAjax(start) {
 		                           "<span class='purchase_date'>"+item.buy_date+"</span><br>"+
 		                         "</div>"+
    		                     "</div>"+
-   		               "</div>";
+   		               "</div>"+
+   		               "</a>";
    		               
    				 })// end of $.each(json, function(index, item){}---------------------------
    			
