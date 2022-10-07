@@ -191,6 +191,34 @@ public class ProductDAO implements InterProductDAO {
 		
 		return n;
 	}
+
+	
+	
+	// cart의 수량을 업데이트하는 메소드
+	@Override
+	public int updateCart(String cart_num, String cart_qty) throws SQLException {
+		int result = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_cart set cart_cnt = ? "
+					   + " where cart_num = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cart_qty);
+			pstmt.setString(2, cart_num);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
 	
 	
 }

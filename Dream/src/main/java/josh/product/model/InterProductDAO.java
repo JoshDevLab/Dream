@@ -15,6 +15,9 @@ public interface InterProductDAO {
 	// cart 리스트에 상품 구매후 테이블 update 및 insert
 	int cartPurchaseUpdate(Map<String, String> paraMap) throws SQLException;
 
+	// cart 에 수량을 변경하는 메소드
+	int updateCart(String cart_num, String cart_qty) throws SQLException;
+
 	
 	
 }

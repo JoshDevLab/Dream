@@ -18,27 +18,66 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 
 <script type="text/javascript">
-
+	const membership = "${user.membership}";
 
 	$(document).ready(function() {
 		
-		$("button.remove_cart_list").click(function(e) { // 삭제하기 버튼
-
-	        const target = $(e.target);
-
-	        const cart_num = target.parent().parent().find('span#cart_num').text()
-
-	        $.ajax({
-		        url : "<%= ctxPath %>/cart/cartDelete.dream",
-		        type: "GET",
-		        data: {"cart_num" : cart_num},
+		
+	});
+	
+	function plus(classname) { // 플러스 버튼 눌렀을 시 함수
+	
+		let point_percent = 0;
+	    
+		if(membership == '1') {
+			point_percent = 0.1;
+		}
+		else {
+			point_percent = 0.05;
+		}
+		
+	    let total_cnt = $("."+classname).parent().parent().parent().find("span#size_cnt").text();
+	    let cart_qty = parseInt($("."+classname).parent().find("input").val());
+	    let cart_num = $("#"+classname).parent().parent().parent().find('th#first-child').find('span#cart_num').text();
+	    
+	    console.log("확인용 : "+cart_num);
+	    
+	    if(total_cnt == cart_qty) {
+			alert("재고량보다 더 주문할 수 없습니다.");
+			return;
+		}
+		cart_qty = cart_qty + 1;
+		
+		$.ajax({
+		        url : getContextPath()+"/cart/cartUpdate.dream",
+		        type: "post",
+		        data: {"cart_qty" : cart_qty,
+		        		   "cart_num" : cart_num },
 		        dataType:'json',
 		        success: function(json) {
 			        	
 		        		const n = json.n;
 		            	
 		        		if(n == 1) {
-		        			location.reload();
+						alert("수량이 변경되었습니다.")
+					    $("."+classname).prev().val(cart_qty);
+				
+					    let price = $("."+classname).parent().parent().prev().find('span').text();
+					    price = parseInt( price.split(",").join("") );
+				
+					    let total_price = cart_qty*price;
+					    
+					    const add_point = total_price*point_percent;
+					    
+					    $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en'));
+					    
+					    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
+					    
+					    const discount_rate = $("."+classname).find('span.discount_rate').text();
+					    const discount_price = total_price * Number(discount_rate);
+					    const discount = total_price - discount_price;
+					    
+					    
 		        		}
 		        		else {
 		        			alert('백엔드 에러 잡아라');
@@ -49,45 +88,62 @@
 		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		        }
 		    });
+		
 
-	    });// end of $("button.remove_cart_list").click(function() ------------------
-
-
-
-	    $("button#remove_check").click(function (e) { // 선택삭제 버튼 이벤트 처리
-	        
-	        let param = []
-	        let cart_num = "";
-	        
-	        $("input:checkbox[id='purchase_check']:checked").each(function(index,item) {
-	        	
-		        	let data = {
-		        		cart_num : $(item).parent().parent().find('span#cart_num').text()
-		        	};
-		        	
-		        	param.push(data);
-		        	
-	        });
-	        
-	        const jsonData = JSON.stringify(param);
-	        
-	        $.ajax({
-		        url : "<%= ctxPath %>/cart/cartSelectDelete.dream",
-		        traditional: true,
-		        type: "GET",
-		        data: {"jsonData" : jsonData},
+	}
+	
+	function minus(classname) { // 마이너스 버튼 눌렀을 시 함수
+		
+		let point_percent = 0;
+		
+		if(membership == '1') {
+			point_percent = 0.1;
+		}
+		else {
+			point_percent = 0.05;
+		}
+	    
+	    let cart_qty = parseInt($("."+classname).parent().find("input").val());
+	    let cart_num = $("#"+classname).parent().parent().parent().find('th#first-child').find('span#cart_num').text();
+	    
+	    if(cart_qty>1) {
+			$("."+classname).prop("disabled",false);
+		
+	    
+		cart_qty = cart_qty - 1;
+		
+		$.ajax({
+		        url : getContextPath()+"/cart/cartUpdate.dream",
+		        type: "post",
+		        data: {"cart_qty" : cart_qty,
+		        		   "cart_num" : cart_num },
 		        dataType:'json',
 		        success: function(json) {
 			        	
 		        		const n = json.n;
-		        		const count_n = param.length
-		        		
-		        		console.log("확인용 n => " + n);
-		        		console.log("확인용 count_n => " + count_n);
 		            	
-		        		if(n == count_n) {
-		        			location.reload();
-		        		}
+		        		if(n == 1) {
+					        $("."+classname).prop("disabled",false);
+					        alert("수량이 변경되었습니다.")
+					        $("."+classname).next().val(cart_qty);
+					
+					        let price = $("."+classname).parent().parent().prev().find('span').text();
+					        price = parseInt( price.split(",").join("") );
+					
+					        const total_price = cart_qty*price;
+					        
+					        const add_point = total_price*point_percent;
+					        
+					        $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en'));
+						    
+						    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
+						    
+						    const discount_rate = $("."+classname).find('span.discount_rate').text();
+						    const discount_price = total_price * Number(discount_rate);
+						    const discount = total_price - discount_price;
+						    
+					}
+					    
 		        		else {
 		        			alert('백엔드 에러 잡아라');
 		        		}
@@ -97,11 +153,15 @@
 		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		        }
 		    });
-	        
-	    });// end of $("button#remove_check").click(function (e)
+		    
+		    }
+		    
+		    else if(cart_qty == 0){
+		        $("."+classname).prop("disabled",true);
+			}
 		
-	});
 
+	}
 
 function goCoinPurchaseEnd() {
 	 
@@ -134,22 +194,14 @@ function goCoinPurchaseEnd() {
 	   
 		if ( rsp.success ) { // PC 데스크탑용
 		//	alert("진입성공");
-			
-			$.ajax({
-		        url:getContextPath()+"/member/smsSend.dream",
-		        data:{"mobile":$("input#modify_mobile").val()},
-		        type:"post",
-		        dataType:"json",
-		        async:true,   
-		        success:function(json){ 
-		        	
-			        	if(json.success_count == 1) {
-			        		
-			        }
-			        	
-		        }
-		        
-			});
+			let	point_percent =0;
+		
+			if(membership == '1') {
+				point_percent = 0.1;
+			}
+			else {
+				point_percent = 0.05;
+			}
 		
 			let param = []; 
 			
@@ -162,7 +214,7 @@ function goCoinPurchaseEnd() {
 					            cart_cnt : $(item).parent().parent().find("input[name='cart_qty']").val()
 				        		};
 				 
-				 param.push(data);
+				 param.push(data)
 			});
 			
 			const jsonData = JSON.stringify(param);
@@ -172,7 +224,7 @@ function goCoinPurchaseEnd() {
 		        traditional: true,
 		        type: "POST",
 		        data: {"jsonData" : jsonData, 
-		        		   "plusPoint" : Number( $("span#payment_price").text().split(",").join("") ) *0.1,
+		        		   "plusPoint" : Number( $("span#prd_price").text().split(",").join("") ) * point_percent,
 		        		   "minusPoint" : $("span#point_sale").text() },
 		        dataType:'json',
 		        success: function(json) {
@@ -190,6 +242,21 @@ function goCoinPurchaseEnd() {
 		            	
 		        		if(n == count_n) {
 		        			alert('구매가 완료되었습니다.');
+		        			$.ajax({
+		        		        url:getContextPath()+"/cart/purchaseSms.dream",
+		        		        data:{"mobile":'${user.mobile}'},
+		        		        type:"get",
+		        		        dataType:"json",
+		        		        async:true,   
+		        		        success:function(json){ 
+		        		        	
+		        			        	if(json.success_count == 1) {
+		        			        		
+		        			        }
+		        			        	
+		        		        }
+		        		        
+		        			});
 		        			location.reload();
 		        		}
 		        		else {
@@ -231,21 +298,21 @@ function goCoinPurchaseEnd() {
                                 <input type="checkbox" id="chk_all" name="chk_all" class="chk_all" title="전체 상품 선택"> 
                             </th>
                             <th scope="col" style="width:35%; text-align: center;">상품명(옵션)</th>
-                            <th scope="col">판매가</th>
-                            <th scope="col">수량</th>
-                            <th scope="col">
+                            <th scope="col" style="text-align: center;">판매가</th>
+                            <th scope="col" style="text-align: center;">수량</th>
+                            <th scope="col" style="text-align: center;">
                                 주문금액
                                 <br>
                                 (적립예정)
                             </th>
-                            <th scope="col">주문관리</th>
-                            <th scope="col">배송비/배송 형태</th>
+                            <th scope="col" style="text-align: center;">주문관리</th>
+                            <!-- <th scope="col">배송비/배송 형태</th> -->
                         </tr>
                     </thead>
 	                    <c:forEach var="cartList" items="${requestScope.cartList}" varStatus="status">
 	                    		<tbody class="cart_list_${status.index}">
 	                    			<tr>
-	                                <th scope="row" style ='vertical-align : middle; text-align: center;'>${status.count}
+	                                <th scope="row" style ='vertical-align : middle; text-align: center;' id="first-child">${status.count}
 	                                		<span id="product_num" style="display: none">${cartList.product_num}</span>
 	                                		<span id="cart_num" style="display: none">${cartList.cart_num}</span>
 	                                		<span id="discount_rate" style="display: none">${cartList.discount_rate}</span>
@@ -293,41 +360,52 @@ function goCoinPurchaseEnd() {
 				                         </div>
 	                                	</td>
 	                                <td style ='vertical-align : middle; text-align: center;'>
-	                                    <div class="prd_count" style="display: flex;">
+	                                    <div class="prd_count" style="display: flex; text-align: center">
 	                                    <c:if test="${cartList.size_cnt > 0}">
-	                                        <button class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button> <%-- 클래스뒤에 index --%>
-	                                        <input name="cart_qty" class="text cart_qty" size="1" value="${cartList.cart_cnt}"/> <%-- value 로 DB에 있는 수량들어가기 --%> 
-	                                        <button class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button> <%-- 클래스뒤에 index --%>
+	                                        <button class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')" id="minus${status.index}">-</button> <%-- 클래스뒤에 index --%>
+	                                        <input name="cart_qty" class="text cart_qty" size="1" value="${cartList.cart_cnt}" readonly/> <%-- value 로 DB에 있는 수량들어가기 --%> 
+	                                        <button class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')" id="plus${status.index}">+</button> <%-- 클래스뒤에 index --%>
 	                                    </c:if>
 	                                    <c:if test="${cartList.size_cnt <= 0}">
 	                                    		재고없음
 	                                	   </c:if>
 	                                    </div>
 	                                </td>
-	                                <td style ='vertical-align : middle; text-align: center;'>
+	                                <td style ='vertical-align : middle; text-align: center;' id="last-child">
 	                                <span class="total_price">
 		                                <c:choose>
 			                                <c:when test="${cartList.discount_rate == 0}">
 			                                		<fmt:formatNumber value="${cartList.price*cartList.cart_cnt}" pattern="#,###"/>
-			                                		<div class="plus_point"></div>
 			                                </c:when>
 			                                <c:otherwise>
 			                                		<fmt:formatNumber value="${cartList.discount_price*cartList.cart_cnt}" pattern="#,###"/>
-			                                		<div class="plus_point"></div>
+			                                		
 			                                </c:otherwise>
 		                                </c:choose>
 	                                </span>
+	                                <br>(
+		                                <span class="plus_point">
+			                                <c:choose>
+				                                <c:when test="${user.membership == 0}">
+				                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.05}" pattern="#,###"/>
+				                                </c:when>
+				                                <c:otherwise>
+				                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
+				                                </c:otherwise>
+			                                </c:choose>
+		                                </span>
+		                                )
 	                                </td> <%-- 반복문으로 넣을때 db에서 받아온 수량이랑 가격 곱해서 넣음 --%>
 	                                <td style ='vertical-align : middle; text-align: center;'>
 	                                    <button class="remove_cart_list btn btn-outline-dark outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">삭제하기</button>
 	                                </td>
-	                                <td style ='vertical-align : middle; text-align: center;'>
+	                                <!-- <td style ='vertical-align : middle; text-align: center;'>
 	                                    택배배송
 	                                    <br>
 	                                    <span>배송비무료</span>
 	                                    <br>
 	                                    0원 이상 무료
-	                                </td>
+	                                </td> -->
 	                            </tr>
 	                        </tbody>
 	                        
@@ -358,16 +436,16 @@ function goCoinPurchaseEnd() {
 	                            <p class="text-muted">옵션: ${cartList.product_size} / 재고: ${cartList.size_cnt}개</p>
 	                            <div class="prd_count" style="display: flex;">
 	                            <c:choose>
-	                            <c:when test="${cartList.cart_cnt>cartList.size_cnt}">
-	                                <button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
-	                                		<input type="text" size="1" value="${cartList.size_cnt}" class="cart_qty"/> 
-	                                <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
-	                            </c:when>
-	                            <c:otherwise>
-	                            		<button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
-	                                		<input type="text" size="1" value="${cartList.cart_cnt}" class="cart_qty"/> 
-	                                <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
-	                            </c:otherwise>
+		                            <c:when test="${cartList.cart_cnt>cartList.size_cnt}">
+		                                <button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
+		                                	<input type="text" size="1" value="${cartList.size_cnt}" class="cart_qty" readonly/> 
+		                                <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
+		                            </c:when>
+		                            <c:otherwise>
+		                            		<button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
+		                                	<input type="text" size="1" value="${cartList.cart_cnt}" class="cart_qty" readonly/> 
+		                                 <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
+		                            </c:otherwise>
 	                            </c:choose>
 	                            </div>
 	                        </div>
@@ -397,15 +475,16 @@ function goCoinPurchaseEnd() {
 		</c:if>
 		
 		  <%-- 포인트 섹션 --%>
-	      <section>
+	      <section class="mb-5" style="padding-left: 0">
 	        <div class="section_title">
 	          <h3 class="title_txt">포인트</h3>
 	        </div>
 	        <div class="section_content">
+	          
 	          <div class="section_input">
 	            <input placeholder="0" id="point" class="input_credit"></input>
-	            <button  id="pointAlluse" class="btn_use_credit disabled"> 모두 사용 </button>
-	          </div>
+	             <%--<button  id="pointAlluse" class="btn_use_credit disabled"> 모두 사용 </button>--%> 
+	          </div> 
 	          <div class="info_point">
 	            <div>
 	              <span class="text_current">보유 포인트</span>
