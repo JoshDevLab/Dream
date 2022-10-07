@@ -28,11 +28,11 @@ public class PurchasePageController extends AbstractController {
 		String method = request.getMethod(); 
 		HttpSession session = request.getSession();
 		String loginuserid = (String) session.getAttribute("userid");
-		
+		System.out.println(method);
 		if("GET".equalsIgnoreCase(method)) {
-		// GET 방식이라면    
-			super.setRedirect(false);
-			super.setViewPage("/WEB-INF/view/member/purchasePage.jsp");
+		// GET 방식이라면   
+				
+						
 		}
 		else {
 			// 필요한 값들 일단 정리
@@ -43,6 +43,7 @@ public class PurchasePageController extends AbstractController {
 			String productNum = request.getParameter("productNum");
 			ArrayList<String>sizeArr = new ArrayList<String>();
 			ArrayList<String>cntArr = new ArrayList<String>();
+			request.setAttribute("length", length);
 			
 			for(int i=0; i<length ;i++) {
 				sizeArr.add((String)request.getParameter("size"+i)); 
@@ -94,9 +95,9 @@ public class PurchasePageController extends AbstractController {
 				
 				// 기본배송지 하나 가져오기(한개)
 				InterAddressDAO adao = new AddressDAO();
+				AddressDTO basic_adto = adao.select_basic_address(loginuserid);
 				
-				
-				int total_cnt = adao.cntAllAddress();                      //총 게시물 수 기본배송지 제외
+				int total_cnt = adao.cntAllAddress(loginuserid);                      //총 게시물 수 기본배송지 제외
 				float display_cntf = 5f;	                              //한 페이지당 보여줄 게시물 수 float형
 				int display_cnt = (int)display_cntf;	                  //한 페이지당 보여줄 게시물 수 int형
 				int display_page = 5;					                  //한번에 보여줄 페이지번호의 갯수 int형
@@ -141,15 +142,17 @@ public class PurchasePageController extends AbstractController {
 			    List<AddressDTO> addressList = adao.selectAddress(paraMap);
 				
 				
-	//		    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	//		    System.out.println("현재보고있는 페이지 : "+ page);
-	//		    System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
-	//		    System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
-	//		    System.out.println("총 게시물 수 : "+ total_cnt);
-	//		    System.out.println("총페이지 : "+ totalPage);
-	//		    System.out.println("아래 시작페이지 : "+ startPage);
-	//		    System.out.println("아래 끝페이지 : "+ endPage);
-	//		    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+			    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			    System.out.println("현재보고있는 페이지 : "+ page);
+			    System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
+			    System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
+			    System.out.println("총 게시물 수 : "+ total_cnt);
+			    System.out.println("총페이지 : "+ totalPage);
+			    System.out.println("아래 시작페이지 : "+ startPage);
+			    System.out.println("아래 끝페이지 : "+ endPage);
+			    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+			    System.out.println("사이즈 : "+ addressList.size());
+			    
 				
 				
 				request.setAttribute("addressList", addressList);
@@ -172,7 +175,8 @@ public class PurchasePageController extends AbstractController {
 				
 				
 				
-				AddressDTO basic_adto = adao.select_basic_address(loginuserid);
+
+				
 				AddressDTO address_num = adao.select_basic_address(loginuserid);
 				String basic_mobile = basic_adto.getMobile();
 				

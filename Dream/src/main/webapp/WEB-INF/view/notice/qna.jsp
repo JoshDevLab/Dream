@@ -104,10 +104,10 @@
               ${qna.faq_subject}
             </td>
             <td class="downIcon">
-              <i class="fas fa-thin fa-caret-down" style="background-color: white;"></i>
+              <i class="fas fa-thin fa-caret-down border rounded px-2 py-1" style="background-color: white;"></i>
             </td>
             <td class="upIcon">
-              <i class="fas fa-regular fa-caret-up" style="background-color: white;"></i>
+              <i class="fas fa-regular fa-caret-up border rounded px-2 py-1" style="background-color: white;"></i>
             </td>
           </tr>
           <tr class="content">

@@ -28,6 +28,7 @@
 	sessionStorage.setItem("start_price",'${requestScope.start_price}');
 	sessionStorage.setItem("end_price",'${requestScope.end_price}');
 	sessionStorage.setItem("page",'${requestScope.page}');
+	sessionStorage.setItem("keyword",'${requestScope.keyword}');
 	<%-- 
 	sessionStorage.setItem("display_cnt", '${requestScope.display_cnt}');
 	sessionStorage.setItem("display_page", '${requestScope.display_page}');
@@ -49,9 +50,27 @@
   <div id="container">
     <%-- menu 시작 --%>
 	    <div class="menu">
-	      <div id="menu_title">
-	        <h2 id="menu_title" class="text-center">SHOP</h2>
-	      </div>
+	      <c:if test="${empty requestScope.keyword}">
+	        <div id="menu_title">
+	            <h2 id="menu_title" class="text-center">SHOP</h2>
+	        </div>
+	      </c:if>
+	      <c:if test="${not empty requestScope.keyword}">
+	        <%-- 검색부분 시작 --%>
+	        <div id="search_box">
+			   <div id="search_area" class="d-flex m-auto rounded">
+			      <div id="productSearch" class="d-flex justify-content-between">
+			         <div id="input_keyword">
+			           <input type="text" placeholder="제품번호,제품명,카테고리,상세카테고리 등" id="keyword" class="pl-3" name="keyword">
+			         </div>
+			         <div id="search_btn">
+			           <button type="button" class="btn btn-white" id="btn_search"><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></button>
+			         </div>
+			       </div>
+			    </div>
+			</div>
+			<%-- 검색부분 끝 --%>
+	      </c:if>
 	      <div id="btn_category">
 	        <button id="btn_fillter_all" type="button" class="btn_fillter btn rounded-pill border">전체</button>
 	        <button id="btn_fillter_bedding" type="button" class="btn_fillter btn rounded-pill border">침구류</button>
@@ -60,7 +79,7 @@
 	        <button id="btn_fillter_sleep_supplies" type="button" class="btn_fillter btn rounded-pill border">수면용품</button>
 	      </div>
 	    </div>
-	    <div class="details_category my-4 pt-2 d-flex flex-nowrap">
+	    <div class="details_category pt-2 d-flex flex-nowrap">
 	    
 	    
 	    </div>
@@ -123,8 +142,8 @@
 	            <span id="place_holder">BEST상품 필터</span>
 	          </div>
 	          <a type="button" class=btn_toggle_filter >
-	            <i id="category_bestyn_plus" class="plus_icon fa-solid fa-plus" style="color:black;"></i>
-	            <i id="category_bestyn_minus" class="minus_icon fa-solid fa-minus" style="color:black;"></i>
+	            <i id="bestyn_icon_plus" class="plus_icon fa-solid fa-plus" style="color:black;"></i>
+	            <i id="bestyn_icon_minus" class="minus_icon fa-solid fa-minus" style="color:black;"></i>
 	          </a>
 	        </div>
 	
@@ -215,16 +234,19 @@
 	
 	
 	      <%-- Main > productList 시작 --%>
-	      <div class="productList pl-md-4">
+	      <div class="productList pl-md-4 my-4">
 	        <%-- 정렬옵션 --%>
-	        <div class="sort_option text-right">
-	          <label id="sort_option_label" class="mr-1">정렬옵션</label>
-	          <select name="sort_option" id="sort_option" class="border rounded">
-	            <option>전체</option>
-	            <option>인기순</option>
-	            <option>최신순</option>
-	            <option>최저가순</option>
-	          </select>
+	        <div class="sort_option d-flex justify-content-between align-center">
+	          <button type="button" class="btn btn-white border rounded" id="btn_clear_filter">필터삭제</button>
+	          <div class="text-right">
+	            <label id="sort_option_label" class="mr-1">정렬옵션</label>
+	            <select name="sort_option" id="sort_option" class="border rounded">
+	              <option>전체</option>
+	              <option>인기순</option>
+	              <option>최신순</option>
+	              <option>최저가순</option>
+	            </select>
+	          </div>
 	          <%-- select 쓰지말고 버튼으로 한다음에 모달로 할지 고민중임!!!!!!!!!!!!! --%>
 	        </div>
 	        <%-- 정렬옵션 끝 --%>
@@ -269,7 +291,7 @@
 		                    <c:if test="${not empty product.discount_rate && product.discount_rate != 0}">
 			                    <span id="product_price_discount" style="text-decoration: line-through;">&#8361;${product.price}원</span>
 			                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳 --%>
-			                    <div id="discount_mark">
+			                    <div id="discount_mark" class="d-flex align-items-center">
 			                      <%-- 할인율 넣을 곳 --%>
 			                      <span id="discount_percent">${product.discount_rate}%</span>
 			                    </div> 
@@ -304,7 +326,8 @@
 	    <%-- Main 끝 --%>
 	    
 	    <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
-          <nav aria-label="...">
+	    <c:if test="${empty requestScope.keyword}">
+	    <nav aria-label="...">
 		    <ul class="my pagination pagination-md justify-content-center">
 		    	<%-- 첫페이지로 이동버튼 --%>
 		    	<c:if test="${requestScope.page > requestScope.display_page}">
@@ -353,7 +376,65 @@
 			    </c:if>
 		  	</ul>
 		</nav>
+  		</c:if>
+          
 		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
+		
+		
+		<%----------------------------------------------------------- 키워드 있을시 페이지 바 시작 ---------------------------------------------%>
+	    <c:if test="${not empty requestScope.keyword}">
+	    <nav aria-label="...">
+		    <ul class="my pagination pagination-md justify-content-center">
+		    	<%-- 첫페이지로 이동버튼 --%>
+		    	<c:if test="${requestScope.page > requestScope.display_page}">
+		    	<li class="page-item">
+			      <a type="button" class="page-link" onclick="goPage_keyword('1');">
+			      	<i class="fa-solid fa-angles-left"></i>
+			      </a>
+			    </li>
+			    
+			    
+			    <%-- 전페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a type="button" class="page-link" onclick="goPage_keyword('${requestScope.startPage-1}');">
+			      	<i class="fa-solid fa-angle-left"></i>
+			      </a>
+			    </li>
+			    </c:if>
+			    
+			    <%-- 페이지번호 시작--%>
+			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+                <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
+                <li class="page-item active" aria-current="page">
+			    	<a type="button" class="page-link" onclick="goPage_keyword('${requestScope.startPage+i.count-1}')">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                
+                <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
+                <li class="page-item">
+			    	<a type="button" class="page-link" onclick="goPage_keyword('${requestScope.startPage+i.count-1}')">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                </c:forEach>
+                <%-- 페이지번호 끝 --%>
+                
+                
+                
+			    <%-- 다음페이지로 이동버튼 --%>
+			    <c:if test="${!(requestScope.last_display_page)}">
+			    <li class="page-item">
+			      <a type="button" class="page-link" onclick="goPage_keyword('${requestScope.startPage+requestScope.display_page}')"><i class="fa-solid fa-angle-right"></i></a>
+			    </li>
+			    <%-- 맨 끝페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a type="button" class="page-link" onclick="goPage_keyword('${requestScope.totalPage}')"><i class="fas fa-solid fa-angles-right"></i></a>
+			    </li>
+			    </c:if>
+		  	</ul>
+		</nav>
+  		</c:if>
+          
+		<%----------------------------------------------------------- 키워드 있을시 페이지 바 끝 ---------------------------------------------%>
 		
 		
     </div>

@@ -97,13 +97,13 @@
 
                 <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 시작 -------------------------------------------------------------%>
                 <c:if test="${not empty requestScope.basic_mobile}">
-                <div class="my_list" id="yes_add_area">
-                     		<div class="basic">
+                <div class="my_list " id="yes_add_area">
+                     		<div class="basic adressOption" id="div${requestScope.basic_adto.address_num}">
 						<div class="my_item" default-mark="기본 배송지">
 							<div class="info_bind">
 								
 								<div class="address_info">
-									<div class="name_box">
+									<div class="name_b	ox">
 										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
 										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
 										<span class="mark">기본 배송지</span>
@@ -118,13 +118,7 @@
 									</div>
 								</div>
 							</div>
-							<div  class="btn_bind">
-								<%----%>
-								<a data-toggle="modal" data-target="#add_address" href="#"
-									class="btn_outlinegrey_small"  onclick="Revise_add()" id ="edit2"> 수정 </a><a
-								    href="#"  class="btn_outlinegrey_small" id="basic_delete">
-									삭제 </a>
-							</div>
+				
 						</div>
 					</div>
 
@@ -146,10 +140,10 @@
 						<c:forEach var="adao" items="${requestScope.addressList}"> 
 					
 						   
-						
+			
 							<%--for문 반복횟수는 태그라이브러리를 써서 하는데 var='리스트안에 들어있는 한개아이템' items='리스트이름' --%>
 							<%-- <c:forEach var="" items="${requestScope.addressList}"> --%>
-							<div class="my_item_is_active" id="active" style="">
+							<div class="my_item_is_active adressOption" id="div${adao.address_num}" style="">
 							
 								<div class="info_bind" >
 						  
@@ -170,12 +164,7 @@
 									</div>
 								</div>
 							   </div>
-							 	 
-								<div id="basic_text" class="btn_bind">
-									<a href="#" class="btn_outlinegrey_small" id="go_basic"> 기본 배송지 </a>
-										<a id ="edit" data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
-										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
-								</div>																
+																						
 									
 							</div>		
 														 	   							
@@ -207,7 +196,7 @@
 		    	<%-- 첫페이지로 이동버튼 --%>
 		    	<c:if test="${requestScope.page > requestScope.display_page}">
 		    	<li class="page-item">
-			      <a class="page-link" href="?p=1">
+			      <a class="page-link" p="1">
 			      	<i class="fa-solid fa-angles-left"></i>
 			      </a>
 			    </li>
@@ -215,7 +204,7 @@
 			    
 			    <%-- 전페이지로 이동버튼 --%>
 			    <li class="page-item">
-			      <a class="page-link" href="?p=${requestScope.startPage-1}">
+			      <a class="page-link" p="${requestScope.startPage-1}">
 			      	<i class="fa-solid fa-angle-left"></i>
 			      </a>
 			    </li>
@@ -225,13 +214,13 @@
 			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
                 <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
                 <li class="page-item active" aria-current="page">
-			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    	<a id = "firstPage" class="page-link" p= "${requestScope.startPage+i.count-1}" >${requestScope.startPage+i.count-1}</a>
 			    </li>
                 </c:if>
                 
                 <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
                 <li class="page-item">
-			    	<a class="page-link" href="?p=${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    	<a class="page-link" p="${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
 			    </li>
                 </c:if>
                 </c:forEach>
@@ -242,11 +231,11 @@
 			    <%-- 다음페이지로 이동버튼 --%>
 			    <c:if test="${!(requestScope.last_display_page)}">
 			    <li class="page-item">
-			      <a class="page-link" href="?p=${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
+			      <a class="page-link" p="${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
 			    </li>
 			    <%-- 맨 끝페이지로 이동버튼 --%>
 			    <li class="page-item">
-			      <a class="page-link" href="?p=${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
+			      <a class="page-link" p="${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
 			    </li>
 			    </c:if>
 		  	</ul>
@@ -417,6 +406,7 @@
     <input type="hidden" id="productName" name="productName" value="${product.product_name}"  />
 	<input type="hidden" id="fullPrice" name="fullPrice" value="${requestScope.fullPrice}"  />
 	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
+	<input type="hidden" id="selected_address_num" name="address_num" value=""  />
 					 
 </form>
 
@@ -455,7 +445,7 @@
                  
                <div class="layer_container" >
                  	 
-                 <button type="button" class="close passwdFindClose" data-dismiss="modal" >&times;</button>
+                 <button type="button" class="close" data-dismiss="modal" >&times;</button>
                   <div class="layer_header">	
                       <h2 class="title1">새 주소 추가</h2> 
 
@@ -552,5 +542,17 @@
 
 
 
+	<form id="page" name="page">
+		<input type="hidden" id="length" name="length" value="${length}" /> 
+		<input type="hidden"id="productNum" name="productNum" value="${product.product_num}" />
+		
+		<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
+			<input type="hidden"id="size${status.index}" name="size${status.index}" value="${size}" />
+			<input type="hidden"id="cnt${status.index}" name="cnt${status.index}" value="${product.order_product_cnt[status.index]}" />
+    	</c:forEach>
+		
+		<input type="hidden"id="p" name="p" value="" />
+		
+	</form>
 
 

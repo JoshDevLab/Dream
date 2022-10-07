@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import hgb.address.model.AddressDAO;
@@ -24,6 +25,12 @@ public class AddressEditController extends AbstractController {
 		}
 		
 		else {
+			
+			
+             HttpSession session = request.getSession();
+             //변수 선언
+             String userid = (String) session.getAttribute("userid");
+			
 			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
 			 String order_name = request.getParameter("order_name"); 				
 			 String mobile = request.getParameter("mobile"); 
@@ -42,7 +49,7 @@ public class AddressEditController extends AbstractController {
 	         }
 	                  	         	         
 	         
-	         AddressDTO address3 = new AddressDTO(order_name, mobile, post_code, address, detail_address, basic_address, address_num);
+	         AddressDTO address3 = new AddressDTO(order_name, mobile, post_code, address, detail_address, basic_address, address_num, userid);
 	         
 	         InterAddressDAO adao = new AddressDAO();
 	         

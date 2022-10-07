@@ -202,14 +202,14 @@ $(document).ready(function(){
   	  //사용자가 입력한 비밀번호를 입력받아서 비밀번호 형식을 검사해주는 함수
       function check_passwd(passwd){
 		const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
-		if(!(regExp.test(passwd))){
+		if(!(regExp.test(passwd))){	//유효성검사 통과못하면
 	        input_passwd.css("border-bottom","solid 1px red");  //빨간색 밑줄
 	        $("p#passwd_error").css("display","block");  //에러문구
 	        $("label[for='passwd']").css("color","red");  //라벨 빨간색
 	        passwd_ok = false;
 	        agree_check();
         }
-        else{
+        else{				//유효성검사 
 			input_passwd.css("border-bottom","");  //빨간색 밑줄 없애기
 	        $("label[for='passwd']").css("color","");  //라벨 빨간색 없애기
 	        $("p#passwd_error").css("display","none");  //에러문구 없애기
@@ -217,8 +217,8 @@ $(document).ready(function(){
 	        agree_check();
 	    }
 	  }
-      
-      
+	  
+	  
       
       // 비밀번호체크란과 입력한 비밀번호가 같은지 검사하는 함수
       function passwd_check(){

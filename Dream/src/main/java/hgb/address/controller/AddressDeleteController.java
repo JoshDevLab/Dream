@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import hgb.address.model.AddressDAO;
@@ -24,6 +25,11 @@ public class AddressDeleteController extends AbstractController {
 		}
 		
 		else {
+			
+			
+	         HttpSession session = request.getSession();
+	         //변수 선언
+	         String userid = (String) session.getAttribute("userid");
 						
 			
 			 // POST 방식이라면(즉, 저장하기 버튼을 클릭한 경우)
