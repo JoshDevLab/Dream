@@ -89,11 +89,16 @@ $(document).ready(function () {
             total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
         }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
 
-        // console.log(total_price);
-
         $("span#prd_price").text(total_price.toLocaleString('en'));
         $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
         
+        let length = $("table input:checkbox[name='prd_check']:checked").length;
+		
+		if(length == 0) {
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			$("span.payment_price").text('0');
+		}
         
     });// end of $(document).on("change","table#tbl_cart", function (e)
 
@@ -107,7 +112,7 @@ $(document).ready(function () {
             total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
         }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
 
-        // console.log(total_price);
+		
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
         $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
@@ -121,14 +126,6 @@ $(document).ready(function () {
       // 포인트입력칸 숫자만 가능하도록
       $("input#point").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
     
-      // 전부사용 버튼
-      $("button#pointAlluse").click(function(){
-         $("input#point").val($("span.user_point").text());
-         $("#span_point_amount").text($("input#point").val());
-         $("span#sale_point").text( $("span.point").text() );
-      });
-      
-      
       $("input#point").bind("blur",function() {
 	
 		const length = $("input:checkbox[name='prd_check']:checked").length;
@@ -154,6 +151,11 @@ $(document).ready(function () {
 			return false;
 		}
 		
+		if($("input#point").val() == "") {
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
+		}
 		
 	
 		$("span.sale_point").text( $("input#point").val() );
