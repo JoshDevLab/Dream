@@ -191,6 +191,38 @@ button#btnMoreHIT {
 	display: block;
 }
 
+a.purchaseDetail{
+    color: #222222; 
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+a.purchaseDetail:link {
+    color: #222222; 
+    background-color: transparent; 
+    text-decoration: none;
+}/*방문 전 링크 상태 */
+
+a.purchaseDetail:visited {
+    color: #222222;
+    background-color: transparent;
+    text-decoration: none;
+}/* 방문 후 링크 상태 */
+
+a.purchaseDetail:hover {
+    color: #222222;
+    background-color: transparent;
+    text-decoration: none;
+} /* 마우스 오버했을 때 링크 상태 */
+
+a.purchaseDetail:active {
+    color: #222222;
+    background-color: transparent;
+    text-decoration: none;
+} /* 클릭했을 때 링크 상태 */
+
+
+
 @media screen and (max-width: 958px) {
 	/* 기간 입력 input 태그 숨기기 */
 	div.input_date {

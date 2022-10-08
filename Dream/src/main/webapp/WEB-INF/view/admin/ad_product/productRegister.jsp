@@ -36,7 +36,7 @@
 		      <tbody>
 		      	   <%-- 카테고리 --%>
 		           <tr>
-		             <td width="25%" class="prodInputName" style="padding-top: 10px;">카테고리</td>
+		             <td width="25%" class="prodInputName" style="padding-top: 10px; ">카테고리</td>
 		             <td width="75%" align="left" style="padding-top: 10px;" >
 		               <select name="category" class="infoData rounded">
 		               
@@ -77,7 +77,7 @@
 		           <tr>
 		               <td width="25%" class="prodInputName">상품명</td>
 		               <td width="75%" align="left" >
-		                    <input type="text" style="width: 300px;" name="product_name" class="box infoData" />
+		                    <input type="text" style="width: 300px;" name="product_name" class="box infoData"  maxlength="40" />
 		                  <span class="error">필수입력</span>
 		              </td>
 		            </tr>
@@ -115,7 +115,8 @@
 		            <tr class="product_cnt">
 		               <td width="25%" class="prodInputName">상품수량</td>
 		               <td width="75%" align="left">
-		                  <input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
+		                  <input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;" 
+		                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 개
 		                  <span class="error">필수입력</span>
 		               </td>
 		            </tr>
@@ -123,7 +124,8 @@
 		            <tr class="pajama_size">
 		               <td width="25%" class="prodInputName">상품수량( Size S )</td>
 		               <td width="75%" align="left">
-		                  <input id="size_s" name="size_s" value="0" style="width: 30px; height: 20px;"> 개
+		                  <input id="size_s" name="size_s" value="0" style="width: 30px; height: 20px;"
+		                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 개
 		                  <span class="error">필수입력</span>
 		               </td>
 		            </tr>
@@ -131,7 +133,8 @@
 		            <tr class="pajama_size">
 		               <td width="25%" class="prodInputName">상품수량( Size M )</td>
 		               <td width="75%" align="left">
-		                  <input id="size_m" name="size_m" value="0" style="width: 30px; height: 20px;"> 개
+		                  <input id="size_m" name="size_m" value="0" style="width: 30px; height: 20px;"
+		                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 개
 		                  <span class="error">필수입력</span>
 		               </td>
 		            </tr>
@@ -139,7 +142,8 @@
 		            <tr class="pajama_size">
 		               <td width="25%" class="prodInputName">상품수량( Size L )</td>
 		               <td width="75%" align="left">
-		                  <input id="size_l" name="size_l" value="0" style="width: 30px; height: 20px;"> 개
+		                  <input id="size_l" name="size_l" value="0" style="width: 30px; height: 20px;"
+		                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 개
 		                  <span class="error">필수입력</span>
 		               </td>
 		            </tr>
@@ -150,7 +154,8 @@
 		            <tr>
 		               <td width="25%" class="prodInputName">가격</td>
 		               <td width="75%" align="left">
-		                  <input type="text" style="width: 100px;" name="saleprice" class="box infoData" /> 원
+		                  <input type="text" style="width: 100px;" name="saleprice" class="box infoData" 
+		                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> 원
 		                  <span class="error">필수입력</span>
 		               </td>
 		            </tr>
@@ -158,7 +163,8 @@
 		            <tr>
 		               <td width="25%" class="prodInputName">할인율</td>
 		               <td width="75%" align="left">
-		                  <input type="text" style="width: 100px;" name="discountrate" class="box" max="100"/> %
+		                  <input id="discountRate" type="text" style="width: 100px;" name="discountrate" class="box"
+		                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> %
 		                  <%-- <span class="error">필수입력</span> --%>
 		               </td>
 		            </tr>

@@ -364,6 +364,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 				purchaseListDTO.setBuy_date(rs.getString("buy_date")); // 거래일시 
 				
 				ProductDTO prodDTO = new ProductDTO();
+				prodDTO.setProduct_num(rs.getInt("product_num"));  // 제품번호
 				prodDTO.setProduct_name(rs.getString("product_name"));  // 제품이름
 				prodDTO.setProduct_image(rs.getString("product_image"));// 제품이미지
 				prodDTO.setDiscount_rate(rs.getFloat("discount_rate")); // 할인율

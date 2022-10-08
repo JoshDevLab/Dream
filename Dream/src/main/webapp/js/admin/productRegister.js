@@ -11,10 +11,19 @@ $(document).ready(function() {
 	$("input:radio[id='no_gender']").attr("checked", true);
 	
 	
+	/* 할인율 입력시 0 ~ 99%까지만 입력 받도록 설정*/
+	$("input#discountRate").blur(function(e){
+		if($("input#discountRate") < 0 || $("input#discountRate").val()>100){
+			alert("할인율은 1% ~ 99% 까지만 입력이 가능합니다!");
+			$("input#discountRate").val("");
+		}
+	});
+	
+	
+	
 	// 대 카테고리 파자마에서 파자마 클릭시 성별 항목 출력 (없을 경우 기본값 "없음")
 	$("select[name=category]").change(function(e){
 		
-		 // alert("select 태그 값 변경됨");
 		
 		let html ="";
 		

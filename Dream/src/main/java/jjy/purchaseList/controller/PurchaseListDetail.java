@@ -40,6 +40,8 @@ public class PurchaseListDetail extends AbstractController {
 		int shipping = purchaseDTO.getShipping(); // 배송상태
 		String buy_date = purchaseDTO.getBuy_date(); // 구매일자 
 		
+		int product_num = purchaseDTO.getProdDTO().getProduct_num(); // 제품번호
+		
 		String product_name = purchaseDTO.getProdDTO().getProduct_name(); // 제품명 
 		String product_image = purchaseDTO.getProdDTO().getProduct_image(); //제품 이미지 
 		float discount_rate = purchaseDTO.getProdDTO().getDiscount_rate(); // 할인율
@@ -54,6 +56,7 @@ public class PurchaseListDetail extends AbstractController {
 		
 		
 		int sale_price = (int)(price - (price * discount_rate));
+		int discount_price = (int)(price * discount_rate);
 		int point = (int)(price*0.05);
 		
 		// 확인용 ///
@@ -82,9 +85,13 @@ public class PurchaseListDetail extends AbstractController {
 		request.setAttribute("shipping", shipping);
 		request.setAttribute("buy_date", buy_date);
 		
+		System.out.println("product_num : "+product_num);
+		
+		request.setAttribute("product_num", product_num);
 		request.setAttribute("product_name", product_name);
 		request.setAttribute("product_image", product_image);
 		request.setAttribute("discount_rate", discount_rate);
+		request.setAttribute("discount_price", discount_price);
 		request.setAttribute("price", price);
 		
 		

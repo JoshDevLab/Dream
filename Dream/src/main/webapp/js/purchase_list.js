@@ -12,13 +12,14 @@ let start = 1;
 
 $(document).ready(function() {
 	
+	 $("div#shipping_cnt_left").trigger("click"); 
 	
-	// 화면인식 992px 사이즈 조절
-	const mediaViewContent = window.matchMedia(`(max-width: 480px)`)	// 1
+	
+	// 화면인식 480px 사이즈 조절
+	const mediaViewContent = window.matchMedia(`(max-width: 480px)`)	
 	console.log(mediaViewContent);
     
-    const viewChangeHandler = (mediaViewContent) => {  					// 3
-    	//이곳에 원하는 이벤트 설정
+    const viewChangeHandler = (mediaViewContent) => {  					
     	// alert("확인용 max-width : 480px");
     	$("div#purchase").toggleClass('container');
     	$("div#purchase").css("width","100%");
@@ -140,14 +141,14 @@ $(document).ready(function() {
 		if ($("button#btn_purchaseDate > i").hasClass("fa-sort-up")) {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-up").addClass("fa-sort-down");
 			$("input#sort_date").val("desc");
-			alert(sort.val());
+			// alert(sort.val());
 		
 		}
 		else {
 			$("button#btn_purchaseDate > i").removeClass("fa-sort-down").addClass("fa-sort-up");
 			sort.prop('value', "desc");
 			$("input#sort_date").val("asc");
-			alert(sort.val());
+			// alert(sort.val());
 		
 		}
 		// sort.val()에 저장된  asc / desc 전달
@@ -294,7 +295,7 @@ function callAjax(start) {
    				
    				 $.each(json, function(index, item){
    					$("span#totalHITCount").text(item.totalListCnt);
-   					html += "<a href='buylistDetail.dream?ordernum="+item.order_num+"'>"+
+   					html += "<a class='purchaseDetail' href='buylistDetail.dream?ordernum="+item.order_num+"'>"+
    						"<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
    		                     "<div id='purchase_detail'  class='d-flex'>"+
    		                        "<div class='image_box' style='line-height: 110px;'>"+
