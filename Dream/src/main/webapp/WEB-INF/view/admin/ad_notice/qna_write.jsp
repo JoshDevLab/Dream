@@ -17,6 +17,9 @@
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/admin/qna_write.js" ></script>
 
+<script type="text/javascript">
+	sessionStorage.setItem("faq_title",'${requestScope.faq_title}')
+</script>
 
 
 <%-- 글쓰기 페이지 시작 --%>
@@ -31,7 +34,7 @@
 		  <option>공통</option>
 		  <option>구매</option>
 		</select>
-		<input type="text" name="faq_subject" id="faq_subject" class="form-control mt-4 mb-2" placeholder="제목을 입력해주세요." value="${requestScope.faq_title }" required>
+		<input type="text" name="faq_subject" id="faq_subject" class="form-control mt-4 mb-2" placeholder="제목을 입력해주세요." value="${requestScope.faq_subject }" required>
 		<div class="form-group mt-3">
 			<textarea id="faq_content" class="form-control" rows="10" name="faq_content" placeholder="내용을 입력해주세요" required>${requestScope.faq_content }</textarea>
 		</div>

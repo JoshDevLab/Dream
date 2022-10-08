@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import choi.member.model.InterMemberDAO;
+import choi.member.model.MemberDAO;
 import choi.product.model.InterProductDAO;
 import choi.product.model.ProductDAO;
 import choi.product.model.ProductDTO;
@@ -39,6 +41,8 @@ public class KeywordGoShop extends AbstractController{
 				if(request.getParameter("p")!=null && request.getParameter("p").trim() != "") {		//파라미터 page가 not empty라면!
 					page = Integer.parseInt(request.getParameter("p").trim());
 				}
+				
+				
 				
 				InterProductDAO pdao = new ProductDAO();
 				Map<String,String> paraMap = new HashMap<>();
@@ -80,6 +84,20 @@ public class KeywordGoShop extends AbstractController{
 //			    System.out.println("b : "+ b);
 			    if(a == b) {
 			    	last_display_page = true;
+			    }
+			    
+			    if(total_cnt > 0) { //키워드로 검색한 결과가 1건이상있다면 검색어 테이블에 저장하기
+			    	if(userid == null) {
+			    		InterMemberDAO mdao = new MemberDAO();
+			    		userid = mdao.select_ip(ipAddress);
+			    	}
+			    	
+			    	Map<String,String> keywordMap = new HashMap<>();
+			    	keywordMap.put("keyword", keyword);
+			    	keywordMap.put("ipAddress", ipAddress);
+			    	keywordMap.put("userid", userid);
+			    	
+			    	pdao.insertKeyword(keywordMap);
 			    }
 			    
 			    

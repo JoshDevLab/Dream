@@ -20,6 +20,9 @@ public interface InterServiceCenterDAO {
 	// 모든 qna 갯수를 가져오는 메소드
 	int cntAllqna(String title) throws SQLException;
 	
+	// 하나의 Qna를 가져오는 메소드
+	QnaDTO select_one_qna(int faq_num) throws SQLException;
+	
 	// 페이지 번호에 알맞는 qna를 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 	List<QnaDTO> selectAllqna(Map<String, String> paraMap) throws SQLException;
 
@@ -37,6 +40,17 @@ public interface InterServiceCenterDAO {
 	
 	//자주묻는 질문 Insert 해주는 메소드
 	int faq_insert(Map<String, String> paraMap) throws SQLException;
+
+	
+	//자주묻는질문 Update 해주는 메소드
+	int faq_Update(Map<String, String> paraMap) throws SQLException;
+	
+	
+	//자주묻는질문 Delete 해주는 메소드
+	int faq_delete(int faq_num) throws SQLException;
+
+	
+	
 
 
 }

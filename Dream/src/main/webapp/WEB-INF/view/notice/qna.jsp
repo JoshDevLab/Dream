@@ -116,8 +116,9 @@
                 ${qna.faq_content}
                 <c:if test="${sessionScope.userid == 'admin'}">
                   <div class="d-flex justify-content-center">
-	                <button type="button" id="btn_update" class="btn btn-white border mx-1 my-2" onclick="location.href='<%= ctxPath%>/admin/faqUpdate.dream?num=${requestScope.qna.faq_num }'">수정</button>
-	                <button type="button" id="btn_delete" class="btn btn-white border mx-1 my-2" onclick="location.href='<%= ctxPath%>/admin/faqDelete.dream?num=${requestScope.qna.faq_num }'">삭제</button>
+	                <button type="button" id="btn_update" class="btn btn-white border mx-1 my-2" onclick="location.href='<%= ctxPath%>/admin/faqUpdate.dream?num=${qna.faq_num }'">수정</button>
+	                <button type="button" id="btn_delete" class="btn btn-white border mx-1 my-2">삭제</button>
+	                <div class="faq_num" style="display:none;">${qna.faq_num}</div>
                   </div>
 	            </c:if>
               </div>

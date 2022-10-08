@@ -20,4 +20,22 @@ public interface InterProductDAO {
 	// 키워드,페이지번호,한페이지당 보여줄 게시물수,유저아이디를 맵으로 입력받아서, 키워드로 검색한 게시물의 리스트들을 받아오는 메소드
 	List<ProductDTO> selectKeywordProduct(Map<String, String> paraMap) throws SQLException;
 
+	// 키워드로 검색한 결과가 1건이라도 있으면 키워드,클라이언트 아이피를 입력받아서 검색어 테이블에 insert 하는 메소드
+	int insertKeyword(Map<String, String> keywordMap) throws SQLException;
+
+	// 최근시간 00분 00초부터 한시간전까지의 인기검색어 10개를 불러오는 메소드
+	List<String> selectBestKeyword() throws SQLException;
+
+	// 현재시간을 알아오는 메소드
+	String selectCurrentHour() throws SQLException;
+
+	// 추천검색어 리스트를 알아오는 메소드
+	List<String> selectRecommendKeyword() throws SQLException;
+
+	// 추천검색어를 Insert 하는 메소드
+	int insertRecommendKeyword(String keyword) throws SQLException;
+
+	// 추천검색어를 Delete 하는 메소드
+	int DeleteRecommendKeyword(String keyword) throws SQLException;
+
 }

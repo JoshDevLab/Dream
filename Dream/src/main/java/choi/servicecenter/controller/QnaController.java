@@ -99,6 +99,7 @@ public class QnaController extends AbstractController{
 			request.setAttribute("last_display_page",last_display_page);
 			request.setAttribute("title",title);
 			
+			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/notice/qna.jsp");
 		}
 		else {	//요청이"POST"이라면

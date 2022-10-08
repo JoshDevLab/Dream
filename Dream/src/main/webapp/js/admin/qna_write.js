@@ -22,6 +22,17 @@ $(document).ready(function(){
 			bUseModeChanger : true 
 	    }
   });
+  
+  
+  const faq_title = sessionStorage.getItem("faq_title");
+  if(faq_title.trim() != ""){
+    $('select#faq_title').val(faq_title).prop("selected",true);
+  }
+  
+  
+  
+  
+  
 });//end of $(document).ready(function(){})---
 
 
@@ -37,7 +48,7 @@ function save(){
 		$("input#faq_subject").focus();
 		return;
 	}
-	else if(faq_title == '구분'){
+	else if(faq_title == '구분' || faq_title.trim() == ""){
 		alert("구분을 선택해주세요");
 		return;
 	}
@@ -57,9 +68,9 @@ function update(){
 	//const faq_content = $("textarea#faq_content").val();
 	const faq_title =  $("input#faq_title").val();
 	
-	if(faq_title.length > 50){	//제목이 50글자를 넘는다면
+	if(faq_subject.length > 50){	//제목이 50글자를 넘는다면
 		alert("제목은 50글자를 넘을 수 없습니다.");
-		$("input#faq_title").focus();
+		$("input#faq_subject").focus();
 		return;
 	}
 	else{		//제목이 50글자를 초과하지 않은경우
@@ -71,4 +82,7 @@ function update(){
 	}
 	
 }
+
+
+
 

@@ -63,6 +63,7 @@ button#btn_search{
 	width:100%;
 	height:100%;
 }
+
 /* 검색창 끝 */
 
 
@@ -74,6 +75,10 @@ p.title{
 i#reload{
 	font-size:18px;
 }
+
+
+
+
 /* 추천검색어 시작 */
 div.recommend_keyword{
 	height:30px;
@@ -88,8 +93,33 @@ div.recommend_keyword:hover{
 	color:white;
 	cursor:pointer;
 }
+i#icon_plus{
+	font-weight:bold;
+}
+div.recommend_keyword_add{
+	height:30px;
+}
+div.recommend_keyword_add:hover{
+	background-color:black;
+	color:white;
+	cursor:pointer;
+}
+
+div.keyword_delete_box{
+	width:20px;
+	height:20px;
+}
+div.btn_delete_keyword{
+	width:100%;
+	height:100%;
+	text-align: center;
+}
 
 /* 추천검색어 끝 */
+
+
+
+
 
 
 
@@ -160,5 +190,38 @@ p.category_title{
 }
 
 /* 카테고리 끝 */
+
+
+
+
+/* 모달창 시작 */
+input#recommend_keyword{
+  width:100%;
+  height:40px;
+}
+input#recommend_keyword::placeholder{
+	font-size:16px;
+	font-weight:normal;
+}
+@media (max-width: 768px) {
+  input#recommend_keyword::placeholder{
+	font-size:13px;
+  }
+}
+@media (max-width: 480px) {
+  input#recommend_keyword::placeholder{
+	font-size:12px;
+  }
+}
+button#insert_keyword:hover{
+  background-color:black;
+  color:white;
+}
+button.insert_recommend_keywordClose:hover{
+  background-color:black;
+  color:white;
+}
+
+/* 모달창 끝 */
 
 

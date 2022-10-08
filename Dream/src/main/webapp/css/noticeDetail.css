@@ -1,6 +1,6 @@
 div.Main{
   width:80%;
-  overflow: hidden;
+  overflow: auto;
   max-width: 1280px;
   margin:auto;
 }

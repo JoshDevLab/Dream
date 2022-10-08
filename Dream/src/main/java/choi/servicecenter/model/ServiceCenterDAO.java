@@ -267,7 +267,6 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			String sql = " update tbl_notice "
 					   + " set notice_title = ? , notice_content = ? "
 					   + " where notice_num = ?";
-			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,paraMap.get("notice_title"));
 			pstmt.setString(2,paraMap.get("notice_content"));
@@ -281,7 +280,7 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 	}
 	
 	
-	//공지사항 update 해주는 메소드
+	//공지사항 delete 해주는 메소드
 	@Override
 	public int notice_delete(int notice_num) throws SQLException {
 		int n = 0;
@@ -313,13 +312,87 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			
 			String sql = " insert into tbl_faq(faq_num,faq_title,faq_subject,faq_content,admin_id) "
 					   + " values(seq_faq_num.nextval, ?, ?, ?, ?) ";
-			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1,paraMap.get("faq_title"));
 			pstmt.setString(2,paraMap.get("faq_subject"));
 			pstmt.setString(3,paraMap.get("faq_content"));
 			pstmt.setString(4,paraMap.get("userid"));
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	
+	
+	// 하나의 Qna를 가져오는 메소드
+	@Override
+	public QnaDTO select_one_qna(int faq_num) throws SQLException {
+		QnaDTO qdto = null;
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select FAQ_NUM,FAQ_TITLE,FAQ_CONTENT,FAQ_SUBJECT "
+						+ " from tbl_faq "
+						+ " where faq_num = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, faq_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				qdto = new QnaDTO();
+				
+				qdto.setFaq_subject(rs.getString("FAQ_SUBJECT"));
+				qdto.setFaq_title(rs.getString("FAQ_TITLE"));
+				qdto.setFaq_content(rs.getString("FAQ_CONTENT"));
+			}
+		} finally {
+			close();
+		}
+		return qdto;
+	}
+
+	
+	
+	
+	//자주묻는 질문 업데이트해주는 메소드
+	@Override
+	public int faq_Update(Map<String, String> paraMap) throws SQLException {
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_faq "
+					   + " set faq_title = ? ,faq_subject = ?, faq_content = ? "
+					   + " where faq_num = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,paraMap.get("faq_title"));
+			pstmt.setString(2,paraMap.get("faq_subject"));
+			pstmt.setString(3,paraMap.get("faq_content"));
+			pstmt.setString(4,paraMap.get("faq_num"));
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	@Override
+	public int faq_delete(int faq_num) throws SQLException {
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " delete from tbl_faq where faq_num = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,faq_num);
 			n = pstmt.executeUpdate();
 			
 		} finally {
