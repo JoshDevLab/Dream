@@ -19,25 +19,30 @@ $(document).ready(function() {
 	});*/
 
 	// 아이디 입력받을때마다 정규표현식을 통한 유효성 검사
+	let flag_id = false;
+	let flag_pwd = false;
 	
-	
-	
-		$("input#input_userid").keydown(function(e) {
-			const userid = $("input#input_userid").val();
-			const regExp = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+	$("input#input_userid").keydown(function(e) {
+		let userid = $("input#input_userid").val();
+		const regExp = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+			
+			
 			
 			if (userid!="admin" && !regExp.test(userid)) {
 				
 				$("input#input_userid").css("border-bottom", "solid 1px red");  //빨간색 밑줄
 				$("span#email_warning").css("display","block");  //에러문구
 				$("div#div_userid>label").css("color", "red");  //이메일주소 문구 빨간색
+				flag_id = false;
 			}
 			else {
+				flag_id = true;
 				
 				$("span#email_warning").css("display","none");   //에러문구
 				$("div#div_userid>label").css("color", "");      //이메일주소 문구 빨간색
 				$(e.target).css({ "border": "", "border-bottom": "" });
 		
+
 				$("input#input_userid").focus((e) => {
 					
 					$(e.target).css("outline", "none");
@@ -48,7 +53,15 @@ $(document).ready(function() {
 					
 					$(e.target).css({ "border": "", "border-bottom": "" });
 					$(e.target).attr("placeholder", "예)dream@dream.co.kr");
+					
 				});
+			}
+			
+			if(flag_id && flag_pwd){
+				$("button#login").css("background-color","black");
+			}
+			else{
+				$("button#login").css("background-color","");
 			}
 	
 		});
@@ -67,18 +80,24 @@ $(document).ready(function() {
 
 	// 비밀번호 입력받을때마다 정규표현식을 통한 유효성 검사
 	$("input#input_passwd").keyup(function(e) {
-		const passwd = $("input#input_passwd").val();
-		const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
+		let passwd = $("input#input_passwd").val();
+		const regExp2 = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
 
-		if (!regExp.test(passwd)) {
+
+		if (!regExp2.test(passwd)) {
 			$(e.target).css("border-bottom", "solid 1px red");  //빨간색 밑줄
 			$("span#pwd_warning").css("display","block");       //에러문구
 			$("div#div_passwd>label").css("color", "red");      //비밀번호 빨간색
+			flag_pwd = false;
 		}
 		else {
+			flag_pwd = true;
+			
 			$(e.target).css({ "border": "", "border-bottom": "" });
 			$("span#pwd_warning").css("display","none"); 
 			$("div#div_passwd>label").css("color", "");  
+
+			
 
 			$("input#input_passwd").focus((e) => {
 				$(e.target).css("outline", "none");
@@ -89,9 +108,18 @@ $(document).ready(function() {
 			$("input#input_passwd").blur((e) => {
 				$(e.target).css({ "border": "", "border-bottom": "" });
 			});
+			
+			
+		}
+		if(flag_id && flag_pwd){
+				$("button#login").css("background-color","black");
+		}else{
+			$("button#login").css("background-color","");
 		}
 
 	});
+	
+	
 	
 	
 	 $("input#input_passwd").bind("keydown", (e)=>{

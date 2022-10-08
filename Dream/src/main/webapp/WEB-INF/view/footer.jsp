@@ -33,7 +33,7 @@
                <li class="footer_li" style="color: black;">1:1 문의하기는 앱에서만 가능합니다.</li>
             </ul>
             <button id="btn_question" type="button" onClick="javascript:location.href='/Dream/notice/qna.dream'">자주 묻는 질문 </button>
-            <button id="btn_question" type="button" onClick="javascript:location.href='/Dream/notice/qna.dream'">배송관리 메뉴 추가시 버튼 삭제</button>
+            <%--<button id="btn_question" type="button" onClick="javascript:location.href='/Dream/admin/shippingMangement.dream'">배송관리 메뉴 추가시 버튼 삭제</button> --%>
          </div>
 
          <div id = "left_left">

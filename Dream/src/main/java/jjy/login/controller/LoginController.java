@@ -65,6 +65,7 @@ public class LoginController extends AbstractController {
 				
 				String json = jsonObj.toString();
 				request.setAttribute("json", json);
+				logindao.updateLoginDate(userinfoMap);// 로그인 기록
 				
 				if(isAdmin) {
 					HttpSession session = request.getSession();

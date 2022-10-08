@@ -393,4 +393,157 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 	}// end of public PurchaseListDTO getDetailPurchaseList(Map<String, String> purchaseMap) throws SQLException {}-------------------------
 
 	
+	// 배송 준비중, 배송중, 배송완료 각각의 개수 알아오기 
+	@Override
+	public Map<String,String> admin_getOrderCnt() throws SQLException {
+		
+		Map<String,String> OrderCntMap = new HashMap<>();
+		String shipping = "";
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select shipping, count(shipping) as cnt "
+					   + " from tbl_buylist "
+					   + " group by shipping "
+					   + " order by shipping  ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				switch (rs.getString("shipping")) {
+					case "0":
+						shipping = "shipping_ready";
+						break;
+					case "1":
+						shipping = "shipping";
+						break;
+					case "2":
+						shipping = "shipping_complete";
+						break;
+				}
+				
+				OrderCntMap.put(shipping,rs.getString("cnt"));
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return OrderCntMap;
+		
+	}// end of public List<Map<String, Integer>> admin_getOrderCnt() {}-----------------------
+
+	
+	/** 배송상태를 전달받아 해당 배송상태의 모든 구매내역을 조회하는 메소드 (admin) */
+	@Override
+	public List<PurchaseListDTO> getAllPurchaseList(String input_shipping)throws SQLException {
+		
+		List<PurchaseListDTO> purchaseList = new ArrayList<>();
+		PurchaseListDTO purchaseDTO = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " SELECT B.order_num , B.userid, B.product_num, B.buy_cnt, B.buy_date, B.shipping, "
+					   + "       P.product_num , P.product_name, P.product_image, P.price, P.discount_rate "
+					   + " FROM tbl_buylist B LEFT JOIN tbl_product P "
+					   + " ON B.product_num = P.product_num "
+					   + " where shipping = ? ";
+					   
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, input_shipping);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				
+				purchaseDTO = new PurchaseListDTO();
+				
+				purchaseDTO.setOrder_num(rs.getInt("order_num"));
+				purchaseDTO.setUserid(rs.getString("userid"));
+				purchaseDTO.setProduct_num(rs.getInt("product_num"));
+				purchaseDTO.setBuy_cnt(rs.getInt("buy_cnt"));
+				purchaseDTO.setBuy_date(rs.getString("buy_date"));
+				purchaseDTO.setShipping(rs.getInt("shipping"));
+				
+				ProductDTO prodDTO = new ProductDTO();
+				prodDTO.setProduct_name(rs.getString("product_name"));
+				prodDTO.setProduct_image(rs.getString("product_image"));
+				prodDTO.setPrice(rs.getInt("price"));
+				prodDTO.setDiscount_rate(rs.getFloat("discount_rate"));
+				
+				purchaseDTO.setProdDTO(prodDTO);
+				purchaseList.add(purchaseDTO);
+			}
+			
+
+		} finally {
+			close();
+		}
+		return purchaseList;
+	} // end of public List<PurchaseListDTO> getAllPurchaseList(String input_shipping)throws SQLException {}-------------------------------
+	
+	// 출력해야 할 구매내역 수 조회하기 (관리자)
+		@Override
+		public int getTotalListAdminCnt(String shipping) throws SQLException {
+			
+			int cnt = 0;
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = "select count(*) "
+						   + "from tbl_buylist "
+						   + "where shipping = ? ";
+						   
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, shipping);
+				
+				rs = pstmt.executeQuery();
+				rs.next();
+				cnt = rs.getInt(1);
+
+			} finally {
+				close();
+			}
+			
+			return cnt;
+			
+		}// public int getTotalListCnt(Map<String, String> purchaseMap) throws SQLException {}----------------------------------
+
+		
+		
+		// 주문번호와 배송상태를 전달받아 배송처리 하는 메소드  
+		@Override
+		public int updateShipping(String shipping, String[] orderNumList) throws SQLException {
+			
+			int result = 0;
+			
+			try {
+				
+				
+				for(int i = 0; i<orderNumList.length; i++) {
+					conn = ds.getConnection();
+					
+					String sql = " update tbl_buylist set shipping = ?  "
+							   + " where order_num = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, String.valueOf((Integer.parseInt(shipping)+1)) );
+					pstmt.setString(2, orderNumList[i]);
+					result = pstmt.executeUpdate();
+				}
+				
+			} finally {
+				close();
+			}
+			
+			return result;
+			
+		}// public int updateShipping(String shipping, String[] orderNumList) throws SQLException {}-----------------
+
+	
+	
 }
