@@ -23,7 +23,7 @@ String ctxPath = request.getContextPath();
 
 
 
-<div id="purchase_list" class="mt-4">
+<div id="purchase_list" >
 	<%-- 내용물 시작 --%>
 
 	<%-------------------- 사이드바 시작 ----------------------%>
@@ -39,15 +39,15 @@ String ctxPath = request.getContextPath();
 
 
 
-
+	<div class="container d-flex">
 	<%-- 구매내역 시작  --%>
-	<div id="purchase" class="container" style="display: flex;">
 		<%-------------------- 사이드바 시작 ----------------------%>
 
 		<%-- sidebar 호출 --%>
 		<jsp:include page="/WEB-INF/view/sidebar.jsp" />
 
 		<%-------------------- 사이드바 끝 ----------------------%>
+	<div id="purchase" style="display: flex;">
 
 		<div style="width: 100%;">
 			<form name="purchaseFrm">
@@ -160,6 +160,7 @@ String ctxPath = request.getContextPath();
 		<%-- 구매내역 끝  --%>
 	</div>
 	<%-- 내용물 끝 --%>
+</div>
 </div>
 </div>
 
