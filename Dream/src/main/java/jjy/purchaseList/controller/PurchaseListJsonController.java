@@ -136,7 +136,7 @@ public class PurchaseListJsonController extends AbstractController {
 						
 					}// end of for()--------------------------------
 					
-					System.out.println(">> 확인용 json => " + jsonArray);
+					// System.out.println(">> 확인용 json => " + jsonArray);
 					request.setAttribute("json", jsonArray);
 					
 					super.setRedirect(false);

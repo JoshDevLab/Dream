@@ -82,9 +82,10 @@ public class LoginDAO implements InterLoginDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userinfoMap.get("userid"));
-			pstmt.setString(2, userinfoMap.get("passwd"));
+//			pstmt.setString(2, userinfoMap.get("passwd"));
 //			암호화 사용시 아래 코드로 교체
-//			pstmt.setString(2, Sha256.encrypt(userinfoMap.get("passwd")));
+			pstmt.setString(2, Sha256.encrypt(userinfoMap.get("passwd")));
+//			System.out.println("확인용 암호화된 비밀번호 => "+Sha256.encrypt(userinfoMap.get("passwd")) );
 			
 			rs = pstmt.executeQuery();
 			
@@ -293,11 +294,12 @@ public class LoginDAO implements InterLoginDAO {
 					   + "  where userid = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, findPwdMap.get("smsContent"));
+//			pstmt.setString(1, findPwdMap.get("smsContent"));
 //			암호화 사용시 아래 코드로 교체
-//			pstmt.setString(1, Sha256.encrypt((findPwdMap.get("smsContent")));
+			pstmt.setString(1, Sha256.encrypt((findPwdMap.get("smsContent"))));
 			pstmt.setString(2, findPwdMap.get("userid"));
 			pstmt.executeUpdate();
+			// System.out.println("확인용 암호화된 비밀번호  => "+ Sha256.encrypt((findPwdMap.get("smsContent"))));
 			
 			
 		} finally {
@@ -323,11 +325,11 @@ public class LoginDAO implements InterLoginDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userinfoMap.get("userid"));
-			pstmt.setString(2, userinfoMap.get("passwd"));
+//			pstmt.setString(2, userinfoMap.get("passwd"));
 //			암호화 사용시 아래 코드로 교체 
-//			pstmt.setString(2, Sha256.encrypt(userinfoMap.get("passwd")));
-			
+			pstmt.setString(2, Sha256.encrypt(userinfoMap.get("passwd")));
 			rs = pstmt.executeQuery();
+			// System.out.println("확인용 암호화 된 암호 => "+ Sha256.encrypt(userinfoMap.get("passwd")));
 			
 			isAdmin = rs.next();
 			

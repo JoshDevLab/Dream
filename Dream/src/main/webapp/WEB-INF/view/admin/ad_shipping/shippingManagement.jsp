@@ -9,8 +9,8 @@
 	String ctxPath = request.getContextPath();
 %>
 
-<%--header 호출 --%>
-<jsp:include page="/WEB-INF/view/header.jsp" />
+<%-- header 호출 --%>
+<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
 
 <%-- 직접 만든 CSS --%>
@@ -128,8 +128,21 @@
 				<button type="button" onclick="updateShipping();" >배송하기</button>
 				<input id="allCheckEnd" type="checkbox" name= "allCheckEnd" onclick="allCheckBox2();" /> <label for="allCheckEnd" >전체선택(배송완료)</label>
 				<button type="button" onclick="updateShippingEnd();" >배송완료</button>
-				<input id="updateshipping" value="0"/>
 			</div>
+			
+			<div id="sihpping_title">
+				<div style="width:100px">&nbsp;</div>
+				<div id="shipping_pname">상품명</div>
+				<div id="shipping_onum">주문번호</div>
+				<div id="shipping_ocnt">구매수량</div>
+				<div id="shipping_tprice">주문총액</div>
+				<div id="shipping_tpoint">적립포인트</div>
+				<div id="shipping_shipping">배송상태</div>
+				<div id="shipping_send">배송하기</div>
+				<div id="shipping_end">배송완료</div>
+				<div id="shipping_odate">거래일자</div>
+			</div>
+			
 			
 			
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력  --%>

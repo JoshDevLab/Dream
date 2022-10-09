@@ -479,10 +479,10 @@ function callAjax(start) {
 	   		                        "<div id = 'name_cnt'>"+
 	   		                           "<div class='item_name'>"+item.product_name+" </div>"+
 	   		                        "</div>"+
-	   		                         "<div class='order_num'> 주문번호 : "+item.order_num+" </div>"+
-	   		                         "<div class='purchase_cnt'> 구매수량 : "+item.buy_cnt+" </div>"+
-	   		                        "<div class='totalPrice' >주문총액 : "+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
-	   		                        "<div class='totalPrice' >적립 포인트 : "+(item.point).toLocaleString("en")+" 포인트</div>"+
+	   		                         "<div class='order_num'>[ D - "+item.order_num+" ]</div>"+
+	   		                         "<div class='purchase_cnt'>"+item.buy_cnt+" 개 </div>"+
+	   		                        "<div class='totalPrice' >"+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
+	   		                        "<div class='totalPoint' >"+(item.point).toLocaleString("en")+" p</div>"+
    		                     "</div>"+
    		                     "<div id='date_status'>"+
 	   		                        "<div>"+
@@ -494,7 +494,7 @@ function callAjax(start) {
 										"<label for='send"+index+"'>배송하기</label>"+
 										"<input value='"+item.order_num+"' id='end"+index+"' class='postEnd' type='checkbox' name='end' onclick='checkedEnd()' />"+
 										"<label for='end"+index+"'>배송완료</label>"+
-										"<input id='jsonLength' value='"+json.length+"'/>"+
+										"<input type='hidden' id='jsonLength' value='"+json.length+"'/>"+
 	   		                        
 		   		                     "<div>"+
 			                           "<span class='purchase_date'>"+item.buy_date+"</span><br>"+
