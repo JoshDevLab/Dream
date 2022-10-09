@@ -41,19 +41,34 @@
   <br>
   <p class="title">추천검색어</p>
   <%-- 추천검색어 시작 --%>
-  <div id="recommend" class="d-flex">
-    <%-- div.recommend_keyword 클릭이벤트 잡아서 처리하기 --%>
-    <div class="recommend_keyword mx-2 px-2 border rounded"><span class="recommend_keyword">조명</span></div>
-    <div class="recommend_keyword mx-2 px-2 border rounded"><span class="recommend_keyword">안대</span></div>
-    <div class="recommend_keyword mx-2 px-2 border rounded"><span class="recommend_keyword">필로우미스트</span></div>
-    <div class="recommend_keyword mx-2 px-2 border rounded"><span class="recommend_keyword">남자</span></div>
+  <div id="recommend" class="d-flex align-items-center">
+    <c:forEach var="recommendKeyword" items="${requestScope.recommendList}" varStatus="status">
+    <div class="recommend_keyword mx-2 px-2 border rounded">
+      <span class="recommend_keyword">${recommendKeyword}</span>
+    </div>
+    
+    <c:if test="${sessionScope.userid == 'admin'}">
+    <div class="keyword_delete_box" style="cursor:pointer;">
+ 	  <div class="btn_delete_keyword d-flex justify-content-center align-items-center">&times;</div>
+    </div>
+    </c:if>
+    </c:forEach>
+    
+    <c:if test="${sessionScope.userid == 'admin'}">
+    <div class="recommend_keyword_add mx-2 px-2 border rounded" 
+                data-toggle="modal" data-target="#insert_recommend_keyword" 
+                data-dismiss="modal" style="font-weight:bold;">
+                추천검색어 추가
+    </div>
+    </c:if>
   </div>
+  
   <%-- 추천검색어 끝 --%>
   
   <br>
   <br>
   
-  <p class="title">인기검색어 <span id="date">10/05 10:00 기준</span>
+  <p class="title">인기검색어 <span id="date">${requestScope.currentHour}:00 기준</span>
   <%-- span#reload 클릭이벤트 잡아서 처리하기 --%>
     <span id="reload" class="px-1 py-1 border rounded"><i class="fa-solid fa-rotate-right"></i></span>
   </p>
@@ -63,11 +78,9 @@
     <div class="w-50 d-flex flex-column">
       <ul class="best_keyword">
         <%-- span.span_best_keyword 클릭이벤트 잡아서 처리하기 --%>
-        <li><strong class="mr-2">1.</strong><span class="span_best_keyword">침대</span></li>
-        <li><strong class="mr-2">2.</strong><span class="span_best_keyword">조명</span></li>
-        <li><strong class="mr-2">3.</strong><span class="span_best_keyword">안대</span></li>
-        <li><strong class="mr-2">4.</strong><span class="span_best_keyword">인기</span></li>
-        <li><strong class="mr-2">5.</strong><span class="span_best_keyword">수면안대</span></li>
+        <c:forEach var="keyword" items="${requestScope.keywordList1}" varStatus="status">
+        <li><strong class="mr-2">${status.count}.</strong><span class="span_best_keyword">${keyword}</span></li>
+        </c:forEach>
       </ul>
     </div>
     
@@ -75,11 +88,9 @@
     <div class="w-50 d-flex flex-column">
       <ul class="best_keyword">
         <%-- span.span_best_keyword 클릭이벤트 잡아서 처리하기 --%>
-        <li><strong class="mr-2">6.</strong><span class="span_best_keyword">침대</span></li>
-        <li><strong class="mr-2">7.</strong><span class="span_best_keyword">조명</span></li>
-        <li><strong class="mr-2">8.</strong><span class="span_best_keyword">안대</span></li>
-        <li><strong class="mr-2">9.</strong><span class="span_best_keyword">수면안대</span></li>
-        <li><strong class="mr-2">10.</strong><span class="span_best_keyword">필로우미스트</span></li>
+        <c:forEach var="keyword" items="${requestScope.keywordList2}" varStatus="status">
+        <li><strong class="mr-2">${status.count+5}.</strong><span class="span_best_keyword">${keyword}</span></li>
+        </c:forEach>
       </ul>
     </div>
   </div>
@@ -124,3 +135,42 @@
   
 <%--footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+
+
+
+
+
+
+
+
+
+
+<%-- 추천검색어 추가 modal --%>
+<div class="modal fade" id="insert_recommend_keyword">
+   <div class="modal-dialog">
+     <div class="modal-content">
+     
+       <!-- Modal header -->
+       <div class="modal-header">
+         <div class="d-flex">
+           <h5 class="modal-title" style="font-weight:bold;">추천검색어 추가하기</h5>
+         </div>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       
+       <!-- Modal body -->
+       <div class="modal-body">
+         <form id="insertKeywordFrm" name="insertKeywordFrm">
+           <input type="text" name="recommend_keyword" id="recommend_keyword" class="border rounded pl-2" placeholder="추가할 추천검색어 입력(10자이내,특수문자제외)" maxlength="20">
+         </form>
+       </div>
+       
+       <!-- Modal footer -->
+       <div class="modal-footer">
+         <button type="button" class="btn btn-white border" id="insert_keyword">추가</button>
+         <button type="button" class="btn btn-white border insert_recommend_keywordClose" data-dismiss="modal">닫기</button>
+       </div>
+     </div>
+     
+   </div>
+ </div>

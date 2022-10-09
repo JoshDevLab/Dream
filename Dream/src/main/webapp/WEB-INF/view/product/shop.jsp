@@ -5,6 +5,7 @@
    String ctxPath = request.getContextPath();
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
   <%--header 호출 --%>
   <c:if test="${sessionScope.userid != 'admin'}">
@@ -293,7 +294,7 @@
 			                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳 --%>
 			                    <div id="discount_mark" class="d-flex align-items-center">
 			                      <%-- 할인율 넣을 곳 --%>
-			                      <span id="discount_percent">${product.discount_rate}%</span>
+			                      <span id="discount_percent"><fmt:formatNumber type="number" maxFractionDigits="0" value="${product.discount_rate}" />%</span>
 			                    </div> 
 		                    </c:if>
 		                  </div>

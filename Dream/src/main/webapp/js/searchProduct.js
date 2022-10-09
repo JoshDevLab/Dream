@@ -60,6 +60,30 @@ $(document).ready(function(){
   
   
   
+  //추천검색어 삭제 버튼 누를시 이벤트처리
+  $("div.keyword_delete_box").click((e)=>{
+	const target = $(e.currentTarget);
+	const recommend_keyword = target.prev().children().text();
+	location.href = getContextPath()+"/admin/deleteKeyword.dream?keyword="+recommend_keyword;
+  });
+  
+  //추천검색어 추가 버튼 클릭시 이벤트처리
+  $("button#insert_keyword").click((e)=>{
+    const frm = document.insertKeywordFrm;
+    frm.action = getContextPath()+"/admin/insertKeyword.dream"; // 상대경로이므로 맨 뒤에만 바뀜
+    frm.method = "POST"; 
+    frm.submit();
+  });
+  
+  $("div.recommend_keyword_add").click(function(){
+	$("input#recommend_keyword").focus();
+  });
+  
+  
+  
+  
+  
+  
   
   
   
