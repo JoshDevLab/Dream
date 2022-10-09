@@ -1,3 +1,6 @@
+  let time=180;
+  let certificationCode;
+
 $(document).ready(function () {
 
     let name_modify = "";
@@ -514,20 +517,22 @@ $(document).on("click","button.can_modify",function() {
 						        success:function(json){
 									if(json.success_count == 1) { // 문자 전송에 성공하였다면
 			                				alert("인증번호를 전송하였습니다. 인증번호를 입력해주세요");
-			                				let certificationCode = json.certificationCode;
+			                				setTimer = setInterval(timer,1000);
+			                				certificationCode = json.certificationCode;
 			                				console.log(certificationCode);
 			                				
 			                				$("button#certification_mobile_btn").prop("disabled",false);
 			                				
 			                				$("button#certification_mobile_btn").click(function() { // 인증번호 입력버튼 클릭이벤트
 					
-											const certification_mobile = $("input#certification_mobile").val().trim();
-											const modify_mobile = $("#modify_mobile").val();
+											let certification_mobile = $("input#certification_mobile").val().trim();
+											let modify_mobile = $("#modify_mobile").val();
 											
 											if(certification_mobile == "") {
 												alert("인증번호를 입력하세요.");
 											}
 											else {
+												console.log(certificationCode);
 												if(certification_mobile == certificationCode) {
 													mobile_store_cnt++;
 													$("#div_modifyMobile").hide();
@@ -535,12 +540,13 @@ $(document).on("click","button.can_modify",function() {
 											        $("#user_mobile").show();
 											        $("span#mobile").text(modify_mobile);
 											        $("input:hidden[name='mobile']").val(modify_mobile);
-											        $("input#certification_mobile").val("");
 											        $("input:hidden[name='mobile_store_cnt']").val(mobile_store_cnt);
+											        clearInterval(setTimer);
+													time = 180;
 												}
 												else {
 													alert("인증번호가 일치하지 않습니다.");
-													$("input#certification_mobile").val("");
+													
 												}
 											}
 											
@@ -577,4 +583,26 @@ function getContextPath(){
   let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
   return contextPath;
 }
+
+//타이머 함수 만들기
+  const timer = function timer(){
+  if(time<0){ // 타임이 0보다 작게된다면
+      clearInterval(setTimer);
+      alert("입력시간이 초과하였습니다. 핸드폰인증을 다시 진행해주세요");
+      $("button#mobile_store").attr("disabled",false);
+      $("button#mobile_store").text('재전송');
+      mobile_ok = false;
+      clearInterval(setTimer);
+	  time = 180;
+    }
+    else{
+      let minute = parseInt(time/60);
+      minute = (minute+"").length<2? "0"+minute : minute; //삼항연산자로 분 자리맞춰주기
+      let second = time%60;
+      second = (second+"").length<2? "0"+second : second; //삼항연산자로 초 자리맞춰주기
+      let text = `${minute} : ${second}`;
+      $("div#div_timer").text(text);
+      time--;
+    }
+  }// end of timer-----
 

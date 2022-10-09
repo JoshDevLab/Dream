@@ -89,7 +89,7 @@
 <!-- 내용물 시작 -->
 
    <!-- 사이드바 시작 -->
-   <div id="sidebar" class="sidebar" style="width: 180px; justify-content:space-between;">
+   <div id="sidebar" class="sidebar" style="width: 180px; justify-content:space-between; margin-top: 22px">
       <div>
          <h4 class="mb-4" style="font-weight:bold;"><a href="<%= ctxPath%>/member/mypage.dream">마이 페이지</a></h4>
             
@@ -102,7 +102,7 @@
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/buylist.dream" id="buylist_page">구매 내역</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream" id="cart_page">관심 상품</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream" id="cart_page">장바구니</a>
             </li>
          </ul>
       </div>
@@ -117,7 +117,7 @@
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/address.dream" id="address_page">주소록</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>######">결제정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/payInfo.dream">결제정보</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/point.dream" id="point_page">포인트</a>
