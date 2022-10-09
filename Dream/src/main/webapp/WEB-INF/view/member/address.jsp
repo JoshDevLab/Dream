@@ -34,38 +34,7 @@ String ctxPath = request.getContextPath();
 <div class="container">
 
 
-
-<%--------------------------------------------------- 사이드바 시작 ---------------------------------------------------%>
-		<div class="sidebar mr-5" style="width: 180px;">
-			<div>
-				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
-			</div>
-			<div class="category-section mb-5">
-				<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">구매 내역</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">관심 상품</a></li>
-				</ul>
-			</div>
-
-			<div class="category-section">
-				<h5 class="category-title font-weight-bold">내 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">프로필 정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">주소록</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">결제정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">포인트</a></li>
-				</ul>
-			</div>
-		</div>
-<%--------------------------------------------------- 사이드바 끝 ---------------------------------------------------%>
-
+<jsp:include page="/WEB-INF/view/sidebar.jsp" />
 
 
 
