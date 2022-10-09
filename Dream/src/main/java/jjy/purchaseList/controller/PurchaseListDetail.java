@@ -60,7 +60,7 @@ public class PurchaseListDetail extends AbstractController {
 		int point = (int)(price*0.05);
 		
 		// 확인용 ///
-		/*
+		
 		
 		System.out.println("### 확인용 purchaseDTO 주문수량 => " + buy_cnt );
 		System.out.println("### 확인용 purchaseDTO 배송상태 => " + shipping );
@@ -79,7 +79,7 @@ public class PurchaseListDetail extends AbstractController {
 		System.out.println("확인용 판매가 : "+  sale_price );
 		System.out.println("확인용 포인트 : "+ point);
 		
-		*/
+		
 		
 		request.setAttribute("buy_cnt", buy_cnt);
 		request.setAttribute("shipping", shipping);
