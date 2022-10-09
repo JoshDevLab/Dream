@@ -62,8 +62,8 @@
 				
 			          	
 			          	<li id="SeletedOption">
-			          	 		<p class="size_txt">${size}</p>
-			          	 		<p class="size_txt">${product.order_product_cnt[status.index]}</p>
+			          	 	<p class="size_txt">${size}</p>
+			          	 	<p class="size_txt">${product.order_product_cnt[status.index]}</p>
 			  			</li>
 				
 		    	</c:forEach>
@@ -414,6 +414,9 @@
 	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
     <input type="hidden" id="productNum" name="productNum" value="${product.product_num}"  />
     <c:if test="${user.membership == 0}">
+    	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.05}" />	
+    </c:if>
+    <c:if test="${user.membership == 1}">
     	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}" />	
     </c:if>
 	<input type="hidden" id="PointMinus" name="PointMinus" value="0"/>

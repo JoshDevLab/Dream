@@ -159,14 +159,16 @@
 		// 그냥 purchase controller 에서 넘어온값은 그대로 넣어놨고 추가할 값만 여기서 넣어줌
 		
 		const frm = document.goUpdate;
-		if( $("input#span_point_amount").text() != '-'){
-			frm.PointMinus.value = $("input#span_point_amount").text();	
+		if( $("span#span_point_amount").text() != "-"){
+			frm.PointMinus.value = $("span#span_point_amount").text();	
+			console.log($("input#PointMinus").val());
 		}
 		else{
 			frm.PointMinus.value = 0;
 		}
 		
-		let length = $("div#SeletedOption").length;
+		let length = $("li#SeletedOption").length;
+		console.log("length"+length);
 		frm.length.value = length;// 반복할 횟수 가져가줌
 		// 여기서 이벤트타입 분기점 생기면 여기서 나눠서 올리면 된다. 난 몰루겠음 구매말곤
 		let event_type = "구매"; 

@@ -33,6 +33,7 @@ public class GoUpdate extends AbstractController {
 				Map<String, String> paraMap = new HashMap<>();
 				 
 				int length = Integer.parseInt(request.getParameter("length")); 
+				System.out.println("length"+length);
 				String productNum = request.getParameter("productNum");
 				String PointPlus = request.getParameter("PointPlus");
 				System.out.println("PointPlus"+PointPlus);
@@ -52,7 +53,9 @@ public class GoUpdate extends AbstractController {
 					
 					paraMap.put("size"+i, (String)request.getParameter("size"+i));
 					paraMap.put("cnt"+i, (String)request.getParameter("cnt"+i));
+					
 				}
+				
 				paraMap.put("discountPrice",discountPrice);
 				
 				paraMap.put("userid",userid);
