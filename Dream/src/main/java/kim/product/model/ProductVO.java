@@ -15,7 +15,7 @@ public class ProductVO {
 
 	private String detail_category; // 소카테고리  , 로 구분      
 	private int price;           	// 가격
-	private int discount_rate;
+	private float discount_rate;
 	private String gender;          // "없음" "남" "여"    
 	private String product_content;
 	
@@ -100,10 +100,10 @@ public class ProductVO {
 		this.gender = gender;
 	}
 	
-	public int getDiscount_rate() {
+	public float getDiscount_rate() {
 		return discount_rate;
 	}
-	public void setDiscount_rate(int discount_rate) {
+	public void setDiscount_rate(float discount_rate) {
 		this.discount_rate = discount_rate;
 	}
 	
@@ -150,7 +150,7 @@ public class ProductVO {
 	
 	public int getDiscountPrice() {
 		
-		discountPrice = price *(100-discount_rate)/100;
+		discountPrice = (int)(price *(1-discount_rate));
 		return discountPrice;
 	}
 	

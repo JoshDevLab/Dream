@@ -61,7 +61,7 @@
 			        
 				
 			          	
-			          	 <li id="SeletedOption">
+			          	<li id="SeletedOption">
 			          	 		<p class="size_txt">${size}</p>
 			          	 		<p class="size_txt">${product.order_product_cnt[status.index]}</p>
 			  			</li>
@@ -415,6 +415,7 @@
     <input type="hidden" id="productNum" name="productNum" value="${product.product_num}"  />
 	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}"  />
 	<input type="hidden" id="PointMinus" name="PointMinus" value="0"/>
+	<input type="hidden" id="selected_address_num" name="address_num" value=""  />
 	
 	<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
 	
@@ -422,6 +423,8 @@
 		<input type="hidden" id="cnt" name="cnt${status.index}" value="${product.order_product_cnt[status.index]}"/>	          				          	
 		
    	</c:forEach>
+   	<input type="hidden" id="discountPrice" name="discountPrice" value="${discountPrice}"/>
+	
    	
 	
 	
@@ -434,14 +437,15 @@
 </form>
 
 
-<%-- 주소 추사 Modal --%>
+<%-- 주소 추가 Modal --%>
   <%-------------------------------------------------------------- 모달 시작 -----------------------------------------------------------%>
         
 
 
  
-             
-            <div class="modal modal_box layer lg " id="add_address" >
+            <input type="hidden"  id = "back" name="back" value=" "/>
+                           	
+            <div class="modal modal_box layer lg fade " id="add_address" >
                  
                <div class="layer_container" >
                  	 

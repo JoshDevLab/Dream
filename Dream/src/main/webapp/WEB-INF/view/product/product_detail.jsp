@@ -14,6 +14,7 @@ String ctxPath = request.getContextPath();
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <%-- header 호출 --%>
@@ -169,13 +170,15 @@ String ctxPath = request.getContextPath();
 						</div>
 						<div class="price">
 							<div class="amount">
-								<span id= "price"class="num"> ${product.price} </span>
+								<span id= "price"class="num"><fmt:formatNumber value="${product.price}" pattern="#,###" /> 원</span>
+								
 								<%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
 								<span class="won">원</span>
 							</div>
 							<div class="fluctuation">
 								<p id="discount_price">${product.discountPrice}원
-									(${product.discount_rate}%)</p>
+									( <fmt:formatNumber type="number" maxFractionDigits="0" value="${product.discount_rate * 100}" />% )</p>
+									
 							</div>
 						</div>
 					</div>
@@ -192,12 +195,14 @@ String ctxPath = request.getContextPath();
 							onclick="updateCart()"> <i
 							class="fa-solid fa-cart-plus fa-2x"></i>
 						</a>
-						
+					<c:if test="${sessionScope.userid == 'admin'}">
+   			
 						<a href="javascript:void(0)" class="btn_buy btn_edit"
 						   data-toggle="modal" data-target="#editProduct"> 
 							<i class="fa-solid fa-screwdriver-wrench fa-2x"></i>
 						</a>
-					<div class="border_rounded">ddd</div>
+					</c:if>
+					<div class="border-rounded">${product.product_content}</div>
 					</div>
 
 					<a onclick="likeCheck()" href="javascript:void(0)"
@@ -382,7 +387,8 @@ String ctxPath = request.getContextPath();
 		<div id="asd"></div>
 		<input id="productNum" type="hidden" name="productNum" value="${product.product_num}"  />
 		<input id="userid"  type="hidden" name="userid" value="${sessionScope.userid}"  />		
-
+		<input id="discountPrice"  type="hidden" name="discountPrice" value="${product.discountPrice}"  />		
+		
 	</form>
 
 

@@ -46,7 +46,7 @@ public class UpdateProduct extends AbstractController {
 				
 				   // 1. 첨부되어진 파일을 디스크의 어느경로에 업로드 할 것인지 그 경로를 설정해야 한다.
 				   ServletContext svlCtx = session.getServletContext();
-				   String uploadFileDir = svlCtx.getRealPath("/images");
+				   String uploadFileDir = "C:\\Users\\sist\\git\\Dream\\Dream\\src\\main\\webapp\\images\\제품이미지";
 			   //    System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir);  
 			   //  === 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> C:\NCS\workspace(jsp)\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\MyMVC\images    
 				
@@ -141,7 +141,7 @@ public class UpdateProduct extends AbstractController {
 				
 				if(n ==1 ) {//제품 정보 수정 성공
 					String message = "제품 정보가 성공적으로 수정되었습니다";
-					String loc = "javascript:history.back()";
+					String loc = "javascript:location.href = document.referrer";
 					
 					request.setAttribute("message", message);
 					request.setAttribute("loc", loc);
@@ -152,7 +152,7 @@ public class UpdateProduct extends AbstractController {
 				}
 				else{//제품 정보 수정 실패
 					String message = "제품 정보 수정에 실패했습니다";
-					String loc = "javascript:history.back()";
+					String loc = "javascript:location.href = document.referrer";
 					
 					request.setAttribute("message", message);
 					request.setAttribute("loc", loc);
@@ -171,7 +171,7 @@ public class UpdateProduct extends AbstractController {
 				System.out.println("관리자만 이용가능한 기능입니다");
 				
 				String message = "관리자만 이용가능한 기능입니다!";
-				String loc = "javascript:history.back()";
+				String loc = "javascript:location.href = document.referrer";
 				
 				request.setAttribute("message", message);
 				request.setAttribute("loc", loc);
@@ -182,14 +182,14 @@ public class UpdateProduct extends AbstractController {
 			}
 		}else {
 			// 로그인을 안 했으면
-			String message = "결제는 완료되었으나 제품 업데이트 이전 로그인 정보가 사라졌습니다!!";
+			String message = "로그인 하세요!!!";
 			String loc = "javascript:history.back()";
 			
 			request.setAttribute("message", message);
 			request.setAttribute("loc", loc);
 			
 		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/msg.jsp");
+			super.setViewPage("/WEB-INF/view/msg.jsp");
 		}
 
 	}

@@ -86,7 +86,9 @@ public class ProductDAO implements InterProductDAO {
 				 pvo.setCategory(rs.getString(5));
 				 pvo.setDetail_category(rs.getString(6));
 				 pvo.setPrice(rs.getInt(7));
-				 pvo.setDiscount_rate(rs.getInt(8));
+				 pvo.setDiscount_rate(rs.getFloat(8));
+				
+				 System.out.println("할인율" +pvo.getDiscount_rate()); 
 				 pvo.setGender(rs.getString(9));
 				 pvo.setProduct_content(rs.getString(10));
 				 // tbl_product_stock 테이블에서 사이즈, 재고 알아오기
@@ -216,61 +218,72 @@ public class ProductDAO implements InterProductDAO {
 		         
 		         
 		         
-		         
-		         // 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
-		        sql = "insert into tbl_buylist "+
-		        		 "(order_num, userid, product_num, buy_cnt, shipping) \n"+
-		        		 "values(seq_buylist.nextval,?,?,?,0) ";
-		         pstmt = conn.prepareStatement(sql);
+		         for(int i=0; i<length; i++) {
+				         
+			         // 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
+			        sql = "insert into tbl_buylist "+
+			        		 "(order_num, userid, product_num, buy_cnt, shipping,fk_address_num,product_size) \n"+
+			        		 "values(seq_buylist.nextval,?,?,?,0,?,?) ";
+			         pstmt = conn.prepareStatement(sql);
+	
+			         pstmt.setString(1, paraMap.get("userid"));
+			         pstmt.setString(2, paraMap.get("productNum"));
+			         pstmt.setString(3, paraMap.get("cnt"+i));
+			         pstmt.setString(4, paraMap.get("address_num"));
+			         pstmt.setString(5, paraMap.get("size"+i));
+		 		           
+			         
+			         
+			         n = pstmt.executeUpdate();
+			         if(n!=1) {// 실패
+	 		        	 System.out.println("조져따리");
+	 		        	 OK = false;
+	 		         }
+			         
+		         }
+		         if(!paraMap.get("PointMinus").equalsIgnoreCase("0")) {	        
+			         // 포인트 사용
+			         
+			         sql = " insert into tbl_point (point_num, userid, point_amount , status,  event_type,event_date) "+
+			        	   " values(seq_point_num.nextval , ?,?, '차감',?,sysdate) ";
+			         pstmt = conn.prepareStatement(sql);
+	
+			         pstmt.setString(1, paraMap.get("userid"));
+			         pstmt.setString(2, paraMap.get("PointMinus"));
+			         pstmt.setString(3, paraMap.get("event_type"));
+			         
+			         n = pstmt.executeUpdate();
+			         if(n!=1) {// 실패
+	 		        	 System.out.println("조져따리");
+	 		        	 OK = false;
+	 		         }
+		         }
 
-		         pstmt.setString(1, paraMap.get("userid"));
-		         pstmt.setString(2, paraMap.get("productNum"));
-		         pstmt.setInt(3, sum);
-		         
-		         n = pstmt.executeUpdate();
-		         if(n!=1) {// 실패
- 		        	 System.out.println("조져따리");
- 		        	 OK = false;
- 		         }
-		         // 포인트 사용
-		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,event_date) "+
-		        	   " values(seq_point_num.nextval , ?,?,?, '차감',?,sysdate) ";
-		         pstmt = conn.prepareStatement(sql);
+		         if(!paraMap.get("PointPlus").equalsIgnoreCase("0")) {
+		        	// 포인트 적립
+			         sql = " insert into tbl_point (point_num, userid, point_amount , status,  event_type,event_date) "+
+			        		 " values(seq_point_num.nextval , ?,?, '적립',?,sysdate) ";
+			         pstmt = conn.prepareStatement(sql);
 
-		         pstmt.setString(1, paraMap.get("userid"));
-		         System.out.println( paraMap.get("productNum"));
-		         pstmt.setString(2, paraMap.get("productNum"));
-		         pstmt.setString(3, paraMap.get("PointMinus"));
-		         pstmt.setString(4, paraMap.get("event_type"));
-		         
-		         n = pstmt.executeUpdate();
-		         if(n!=1) {// 실패
- 		        	 System.out.println("조져따리");
- 		        	 OK = false;
- 		         }
+			         pstmt.setString(1, paraMap.get("userid"));
+			         pstmt.setString(2, paraMap.get("PointPlus"));
+			         pstmt.setString(3, paraMap.get("event_type"));
+			         
+			         n = pstmt.executeUpdate();
+			         if(n!=1) {// 실패
+	 		        	 System.out.println("조져따리");
+	 		        	 OK = false;
+	 		         }
 
-		         // 포인트 적립
-		         sql = " insert into tbl_point (point_num, userid, product_num, point_amount , status,  event_type,event_date) "+
-		        		 " values(seq_point_num.nextval , ?,?,?, '적립',?,sysdate) ";
-		         pstmt = conn.prepareStatement(sql);
-
-		         pstmt.setString(1, paraMap.get("userid"));
-		         pstmt.setString(2, paraMap.get("productNum"));
-		         pstmt.setString(3, paraMap.get("PointPlus"));
-		         pstmt.setString(4, paraMap.get("event_type"));
-		         
-		         n = pstmt.executeUpdate();
-		         if(n!=1) {// 실패
- 		        	 System.out.println("조져따리");
- 		        	 OK = false;
- 		         }
-		         
+		         }
+		         		         
 		         // 여기까지 왔는데도 OK 가  true 면 전부 1행씩 잘 진행된 것 
 		         if(OK) {
 		        	 conn.commit(); // 커밋함
 		        	 n = 1; // n=1 맞춰줌 사실 안맞춰도 1인데 대충
 		    	 }
 		         else {
+		        	 System.out.println("환자발생!");
 		        	 conn.rollback();
 		         }
 
@@ -313,13 +326,15 @@ public class ProductDAO implements InterProductDAO {
 	         pstmt.setString(2, paraMap.get("img_list"));
 	         pstmt.setString(3, paraMap.get("price"));
 	         pstmt.setString(4, paraMap.get("discount_rate"));
+	        
+	       
 	         pstmt.setString(5, paraMap.get("product_content"));
-	         System.out.println(paraMap.get("product_num"));
+	    
 	         pstmt.setString(6, paraMap.get("product_num"));
 	         n = pstmt.executeUpdate(); 
 	         
 	         if(n!=1) {// 0개행 업데이트
-	        	 System.out.println("조져따리");
+	        	 System.out.println("업데이트가 되지 않았습니다.");
 	        	
 	         }
 	         

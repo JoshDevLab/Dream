@@ -44,7 +44,6 @@ public class PurchasePageController extends AbstractController {
 			ArrayList<String>sizeArr = new ArrayList<String>();
 			ArrayList<String>cntArr = new ArrayList<String>();
 			request.setAttribute("length", length);
-			
 			for(int i=0; i<length ;i++) {
 				sizeArr.add((String)request.getParameter("size"+i)); 
 				cntArr.add((String)request.getParameter	("cnt"+i)); 
@@ -56,16 +55,17 @@ public class PurchasePageController extends AbstractController {
 			request.setAttribute("sizeArr", sizeArr);
 			request.setAttribute("cntArr", cntArr);
 			
-;
+
 			System.out.println(loginuserid);
 			// memberVO 객체 하나로 드갈 예정
 			InterMemberDAO mdao = new MemberDAO();
 			MemberVO user = new MemberVO();
 			// 일단 포인트 얼마 남았나 체크
+			request.setAttribute("discountPrice",request.getParameter("discountPrice"));
 			
 			
 			user = mdao.pointCheck(loginuserid);
-			
+		
 			request.setAttribute("user", user);
 			System.out.println("fullPrice"+request.getParameter("fullPrice"));
 			request.setAttribute("fullPrice",request.getParameter("fullPrice"));

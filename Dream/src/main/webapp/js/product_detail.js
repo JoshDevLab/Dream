@@ -717,8 +717,9 @@ function goUpdateProduct(){
 	  const bool2 = regExp2.test( $("input#price").val() );    
 	
 	  const regExp3 =  /^(0|0[.][0-9]{1,2})$/;    
-	  const bool3 = regExp3.test( $("input#discount_rate").val() );    
-	if(bool1 && bool2 && bool3){// 정규식 다 만족하면
+	  const bool3 = regExp3.test( $("input#discount_rate").val() );  
+	    
+	if((bool1 || $("input#product_name").val() == "" )&& (bool2 || $("input#price").val() == "" )&& (bool3 || $("input#discount_rate").val() == "")){// 정규식 다 만족하거나 다 빈칸으로 둔 상태
 		let length = $("a.modalimage").not('a.hide').length;
 		let real_length = $("a.modalimage").length;
 		
