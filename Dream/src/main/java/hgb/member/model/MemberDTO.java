@@ -11,10 +11,39 @@ public class MemberDTO {
 	
 	// == select 용 == //
 	private String passwd;
-	private int Shipping;
+	private String Shipping;
 	private int secession;
 	private int rest_member;
 	private String buy_date;
+	private String buy_cnt;
+	private String product_num;
+	private String order_num;
+	
+	
+	public String getBuy_date() {
+		return buy_date;
+	}
+	public void setBuy_date(String buy_date) {
+		this.buy_date = buy_date;
+	}
+	public String getBuy_cnt() {
+		return buy_cnt;
+	}
+	public void setBuy_cnt(String buy_cnt) {
+		this.buy_cnt = buy_cnt;
+	}
+	public String getProduct_num() {
+		return product_num;
+	}
+	public void setProduct_num(String product_num) {
+		this.product_num = product_num;
+	}
+	public String getOrder_num() {
+		return order_num;
+	}
+	public void setOrder_num(String order_num) {
+		this.order_num = order_num;
+	}
 	
 	
 	public String getUserid() {
@@ -59,10 +88,10 @@ public class MemberDTO {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
-	public int getShipping() {
+	public String getShipping() {
 		return Shipping;
 	}
-	public void setShipping(int shipping) {
+	public void setShipping(String shipping) {
 		Shipping = shipping;
 	}
 	public int getSecession() {

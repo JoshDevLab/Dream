@@ -29,7 +29,7 @@ public class SearchProduct extends AbstractController{
 			int size = keywordList.size();
 			int cnt=1;
 			if(size==10) {	//인기검색어가 10개인 경우
-				for(int i=0;i<=size;i++) {
+				for(int i=0;i<=size-1;i++) {
 					if(cnt <= 5) {
 						keywordList1.add(keywordList.get(i));
 					}
@@ -40,7 +40,7 @@ public class SearchProduct extends AbstractController{
 				}//end of for---
 			}
 			else if(0<size && size<6){
-				for(int i=0;i<=size;i++) {
+				for(int i=0;i<=size-1;i++) {
 					keywordList1.add(keywordList.get(i));
 				}//end of for---
 			}

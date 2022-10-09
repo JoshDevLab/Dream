@@ -9,7 +9,23 @@ public class PointVO {
 	String event_date;
 	String status;
 	String event_type; 
-	
+    String sum;
+    String point_number_see;
+
+   
+
+    public String getSum() {
+       return sum;
+    }
+    public void setSum(String sum) {
+       this.sum = sum;
+    }
+    public String getPoint_number_see() {
+       return point_number_see;
+    }
+    public void setPoint_number_see(String point_number_see) {
+       this.point_number_see = point_number_see;
+    }
 
 	
 
