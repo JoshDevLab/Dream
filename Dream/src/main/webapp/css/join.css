@@ -60,9 +60,6 @@ button#btn_join{
   border:none;
   border-radius: 10px;
 }
-button#btn_join:hover{
-  background-color: #FF0000;
-}
 
 input{
   border:none;

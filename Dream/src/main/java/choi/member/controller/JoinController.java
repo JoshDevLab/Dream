@@ -18,15 +18,19 @@ public class JoinController extends AbstractController{
 		if("post".equalsIgnoreCase(method)) {	//"POST"요청인 경우
 			String userid = request.getParameter("userid");
 			String passwd = request.getParameter("passwd");
+			String mobile = request.getParameter("mobile");
+			String username = userid.substring(0, userid.indexOf("@"));
 			
 			Map<String,String> paraMap = new HashMap<>();
 			paraMap.put("userid", userid);
+			paraMap.put("username", username);
+			paraMap.put("mobile", mobile);
 			paraMap.put("passwd", passwd);
 			InterMemberDAO mdao = new MemberDAO();
 			
 			int n = mdao.memberJoin(paraMap);	//데이터베이스에 회원정보 insert 해주는 함수 호출
 			
-			if(n != 2) {	//DB에 저장하는게 실패한 경우
+			if(n != 3) {	//DB에 저장하는게 실패한 경우
 				System.out.println("DB저장 실패");
 				super.setViewPage("/WEB-INF/view/error/join_error.jsp");
 			}

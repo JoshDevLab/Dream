@@ -11,7 +11,7 @@ public class ProductDTO {
 	private String detail_category;	//상세카테고리
 	private String gender;      	//성별
 	private String bestyn;      	//베스트상품인지
-	private int discount_rate;	//할인율
+	private int discount_rate;	    //할인율
 	private int product_num;        //상품번호
 	private int price;          	//가격
 	private int real_price;			//계산된 가격
