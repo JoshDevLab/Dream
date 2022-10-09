@@ -168,13 +168,15 @@ public class ProductDAO implements InterProductDAO {
 			n += pstmt.executeUpdate();
 			
 			// 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
-			sql = " insert into tbl_buylist(order_num, userid, product_num, buy_cnt, shipping) values(seq_buylist.nextval,?,?,?,0) ";
+			sql = " insert into tbl_buylist(order_num, userid, product_num, buy_cnt, shipping, fk_address_num, product_size) values(seq_buylist.nextval,?,?,?,0,?,?) ";
 			
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, paraMap.get("userid"));
 			pstmt.setString(2, paraMap.get("product_num"));
 			pstmt.setString(3, paraMap.get("cart_cnt"));
+			pstmt.setString(4, paraMap.get("fk_address_num"));
+			pstmt.setString(5, paraMap.get("product_size"));
 			
 			n += pstmt.executeUpdate();
 			

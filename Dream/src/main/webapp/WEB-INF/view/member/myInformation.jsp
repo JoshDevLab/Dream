@@ -11,6 +11,29 @@
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
   
   <script type="text/javascript">
+  
+  $(document).ready(function() {
+	  $('#MemberOut').click(function (){
+			const userid = '${sessionScope.userid}';
+		    alert("바이바이");
+		    $.ajax({
+		        url : getContextPath()+"/member/memberDelete.dream",
+		        traditional: true,
+		        type: "post",
+		        data: {"userid" : userid },
+		        dataType:'json',
+		        success: function(json) {
+					if(json.n == 1) {
+						alert("회원탈퇴가 완료되었습니다.");
+						location.href = '<%= ctxPath %>/index.dream';
+					}
+				},
+		        error: function(request, status, error){
+		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+		    });
+		  });
+  });
 	  
 	   function myInfoEdit() {
 			
@@ -48,7 +71,7 @@
                             <div class="checkbox_item">
                               <input id="title0" type="checkbox" name="ModalCheckbox" class="blind">
                               <label for="title0" class="check_label" >
-                                <span class="label_txt">KREAM을 탈퇴하면 회원 정보 및 서비스 이용 기록이 삭제됩니다.</span>
+                                <span class="label_txt">DREAM을 탈퇴하면 회원 정보 및 서비스 이용 기록이 삭제됩니다.</span>
                               </label>
                             </div>
                           </h5>
@@ -94,7 +117,7 @@
                             <div class="checkbox_item">
                               <input id="title2" type="checkbox" name="ModalCheckbox" class="blind">
                               <label for="title2" class="check_label">
-                                <span class="label_txt">KREAM 탈퇴가 제한된 경우에는 아래 내용을 참고하시기 바랍니다.</span>
+                                <span class="label_txt">DREAM 탈퇴가 제한된 경우에는 아래 내용을 참고하시기 바랍니다.</span>
                               </label>
                             </div>
                           </h5>
@@ -167,8 +190,7 @@
                         <div id="user-email" style="font-size:10pt;">
                             <p>${requestScope.mdto.userid}</p> <%-- 백단에서 아이디 가져오기 --%>
                         </div>  
-                        <button type="button" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">이미지 변경</button>
-                        <button type="button" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">내 스타일</button>
+                        <button type="file" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">이미지 변경</button>
                     </div>
                 </div>
             </div>

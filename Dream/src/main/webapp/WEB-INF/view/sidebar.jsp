@@ -89,7 +89,7 @@
 <!-- 내용물 시작 -->
 
    <!-- 사이드바 시작 -->
-   <div id="sidebar" class="sidebar" style="width: 180px;">
+   <div id="sidebar" class="sidebar" style="width: 180px; justify-content:space-between;">
       <div>
          <h4 class="mb-4" style="font-weight:bold;"><a href="<%= ctxPath%>/member/mypage.dream">마이 페이지</a></h4>
             

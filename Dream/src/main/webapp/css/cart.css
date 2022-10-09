@@ -116,4 +116,8 @@ section .section_title .title_txt{
     color: #fff;
 }
 
+option {
+	height: 40px;
+}
+
  
