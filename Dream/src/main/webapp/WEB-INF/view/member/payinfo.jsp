@@ -5,6 +5,58 @@
    String ctxPath = request.getContextPath();
 %>
 
+
+<style>
+
+
+ div.modal-content {
+ 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 390px;
+  border-radius: 16px;
+  }
+  
+  h2.modal-title {
+      padding: 18px 50px 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: 700;
+  }
+  
+  div#basic_check {
+    text-align: center;
+  }
+  
+  div#pay_button {
+    display:inline-block;
+    width:120px;
+  }
+  
+  button.basic_cancel {
+        border: 1px solid #d3d3d3;
+        background-color: white;
+  }
+  
+  button.basic_change {
+     background-color: black;
+     color: white;
+     margin-left: 8px;
+  }
+  
+
+
+
+</style>
+
+
+
+
+
+
+
   <%--header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
@@ -114,7 +166,7 @@
 											class="hyphen">-</span> <span class="dot">****</span><span
 											class="hyphen">-</span> <span class="last_num_box"><span
 												class="last_num">4005</span></span>
-										</span> <span class="mark" id="pay_mark">기본 결제</span>
+										</span> <span class="mark" id="pay_mark" >기본 결제</span>
 									</div>
 								</div>
 							</div>
@@ -148,7 +200,7 @@
 									</div>
 								</div>
 								<div class="btn_bind" id="other_bind">
-									<a href="#" class="btn_outlinegrey_small2"> 기본결제 </a> <a
+									<a href="#" class="btn_outlinegrey_small2" data-toggle="modal" data-target="#pay_modal" data-dismiss="modal" onclick="show_modal()"> 기본결제 </a> <a
 										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
 								</div>
 							</div>
@@ -175,7 +227,7 @@
 									</div>
 								</div>
 								<div class="btn_bind" id="other_bind">
-									<a href="#" class="btn_outlinegrey_small2"> 기본결제 </a> <a
+									<a href="#" class="btn_outlinegrey_small2" data-toggle="modal" data-target="#pay_modal" data-dismiss="modal" onclick="show_modal()"> 기본결제 </a> <a
 										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
 								</div>
 							</div>
@@ -254,11 +306,55 @@
 <!------------------------------------------------------------- 결제정보가 있을때 출력되는 부분 끝 -------------------------------------------------------------></div> 
 
 
+
+
+				
+				
+				
+
+
 </div>
 <!--------------------------------------------------- 메인컨텐츠 끝 --------------------------------------------------->
 
 </div>
 <!-- 컨테이너 끝  -->
+
+
+
+
+
+
+
+
+
+
+
+ <%-- **** 기본결제로 변경여부 Modal **** --%>
+  <div class="modal" id="pay_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal header -->
+        <div >
+          <h2 class="modal-title">기본결제로<br>변경하시겠습니까?</h4>          
+        </div>
+        
+        <!-- Modal body -->
+        <div >
+          <div id="basic_check">
+          	 이미 진행 중인 거래를 포함하여 앞으로<br> 모든 거래의 결제가 해당카드로 변경됩니다.
+          </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="layer_btn" id="pay_button">
+           <button type="button" id="pay_btn" class="basic_cancel"> 취소 </button>
+           <button type="button" id="pay_btn" class="basic_change"> 계속 변경 </button>
+         </div>
+      </div>
+      
+    </div>
+  </div>  
 
 
 
