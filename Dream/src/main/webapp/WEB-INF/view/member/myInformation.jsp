@@ -176,7 +176,7 @@
         
         
         
-        
+        <div style="width: 100%">
         <form id="right-content" class="mt-4" name="myEdit">
             <div id="content_title border">
                 <h4 class="mb-4 pb-3" style="font-weight:bold; border-bottom: solid 3px black;">프로필 정보</h4>
@@ -326,7 +326,9 @@
 
             </div>
         </form>
+        </div>
     </div>
+    
     
     
     
