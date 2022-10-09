@@ -82,7 +82,7 @@ public class FindPwdController extends AbstractController {
 		        jsonObj.put("isExistUser", isExistUser);		        
 		        String json = jsonObj.toString();
 		        
-		        System.out.println("~~~~ 확인용 json => "+json);
+		        // System.out.println("~~~~ 확인용 json => "+json);
 		        
 		        int updtePwdResult = logindao.updatePassword(findPwdMap);
 		        
