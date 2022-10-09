@@ -1,6 +1,5 @@
 package choi.member.model;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +11,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import util.security.AES256;
-import util.security.SecretMyKey;
 import util.security.Sha256;
 
 public class MemberDAO implements InterMemberDAO{
@@ -22,7 +19,6 @@ public class MemberDAO implements InterMemberDAO{
 			private Connection conn;
 			private PreparedStatement pstmt;
 			private ResultSet rs;
-			private AES256 aes;
 			
 			
 			// 생성자 
@@ -34,12 +30,8 @@ public class MemberDAO implements InterMemberDAO{
 					Context envContext  = (Context)initContext.lookup("java:/comp/env");
 					ds = (DataSource)envContext.lookup("/jdbc/dream");
 					
-					aes = new AES256(SecretMyKey.KEY);// KEY는 스태틱 변수이기때문에 객체생성 필요 x
-					// SecretMyKey.KEY 는 우리가 만든 비밀키이다.
 					
 				} catch(NamingException e) {
-					e.printStackTrace();
-				} catch(UnsupportedEncodingException e) { // key 가 16글자 미만인경우 발생하는 예외 처리
 					e.printStackTrace();
 				}
 			}
@@ -99,11 +91,13 @@ public class MemberDAO implements InterMemberDAO{
 					conn.setAutoCommit(false);	//트랜잭션 처리를 위해서 autocommit
 					
 					
-					String sql = " insert into tbl_member(userid) "
-							   + " values(?) ";
+					String sql = " insert into tbl_member(userid,username,mobile) "
+							   + " values(?, ?, ?) ";
 					
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, paraMap.get("userid"));
+					pstmt.setString(2, paraMap.get("username"));
+					pstmt.setString(3, paraMap.get("mobile"));
 					
 					n = pstmt.executeUpdate();
 					
@@ -129,13 +123,57 @@ public class MemberDAO implements InterMemberDAO{
 							return n;
 						}
 						else {	//tbl_member_login 테이블에 insert하는것까지 성공시
-							conn.commit();
-							conn.setAutoCommit(true);
-							return n;
+							sql = "insert into tbl_point(point_num,userid,point_amount,status,event_type) "
+								 +" values(seq_point_num.nextval , ?, 2000, '적립', '신규가입') ";
+							pstmt = conn.prepareStatement(sql);
+							pstmt.setString(1, paraMap.get("userid"));
+							n += pstmt.executeUpdate();
+							
+							if(n != 3) {
+								conn.rollback();
+								conn.setAutoCommit(true);
+								return n;
+							}
+							else {
+								conn.commit();
+								conn.setAutoCommit(true);
+								return n;
+							}
 						}
 					}//end of else---
 				} finally {
 					close();
 				}
 			}//end of public int memberJoin(Map<String, String> paraMap) throws SQLException
+
+			
+			
+			
+			// 회원 아이피를 파라미터로 받아서, 로그인기록테이블에서 유저아이디를 검색해오는 메소드
+			@Override
+			public String select_ip(String ipAddress) throws SQLException{
+				String userid = null; 
+				
+				try {
+					
+					conn = ds.getConnection();
+					
+					String sql = " select userid from tbl_login_record "
+							   + " where client_up = ? "
+							   + " order by login_date desc ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, ipAddress);
+					
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						userid = rs.getString("userid");
+					}
+					
+				} finally {
+					close();
+				}
+				
+				return userid;
+			}
 }

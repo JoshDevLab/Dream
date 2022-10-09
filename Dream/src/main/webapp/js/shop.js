@@ -592,7 +592,6 @@ $("document").ready(function(){
 	  
 	  
 	  
-	  
 	  //좋아요 버튼 클릭시 이벤트 잡기
 	  $("div#btn_like").click(e=>{
 		const target = $(e.currentTarget);	//이벤트버블링방지 currentTarget 사용

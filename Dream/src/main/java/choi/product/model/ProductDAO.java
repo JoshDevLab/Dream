@@ -395,4 +395,162 @@ public class ProductDAO implements InterProductDAO{
 			
 	
 	}
+
+	@Override
+	public int insertKeyword(Map<String, String> keywordMap) throws SQLException {
+		int n = 0;
+		String userid = keywordMap.get("userid");
+		try {
+			conn = ds.getConnection();
+			String sql = "";
+			if(userid != null) {
+				sql =  " insert into tbl_search_keyword(search_num, keyword, search_ip, userid) "
+						+ " values(seq_search_num.nextval, ?, ?, ?)";
+			}
+			else {
+				sql =  " insert into tbl_search_keyword(search_num, keyword, search_ip) "
+					 + " values(seq_search_num.nextval, ?, ?)";
+			}
+			
+								
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,keywordMap.get("keyword"));
+			pstmt.setString(2,keywordMap.get("ipAddress"));
+			
+			if(userid != null) {
+				pstmt.setString(3,keywordMap.get("userid"));
+			}
+			
+			n = pstmt.executeUpdate();
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	
+	// 최근시간 00분 00초부터 한시간전까지의 인기검색어 10개를 불러오는 메소드
+	@Override
+	public List<String> selectBestKeyword() throws SQLException{
+		List<String> keywordList = new ArrayList<>();
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select keyword,cnt_keyword "
+						+ " from "
+						+ " ( "
+						+ " select keyword,cnt_keyword,rownum R "
+						+ " from "
+						+ " ( "
+						+ " select keyword,count(*) cnt_keyword "
+						+ " from tbl_search_keyword "
+						+ " where search_date between to_date(to_char(sysdate-7,'yyyy-mm-dd hh24')||':00:00','yyyy-mm-dd hh24:mi:ss') and to_date(to_char(sysdate,'yyyy-mm-dd hh24')||':00:00','yyyy-mm-dd hh24:mi:ss') "
+						+ " group by keyword "
+						+ " order by cnt_keyword desc "
+						+ " ) V "
+						+ " ) T "
+						+ " where R between 1 and 10 ";
+								
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				keywordList.add(rs.getString("keyword"));
+			}
+			
+		} finally {
+			close();
+		}
+		return keywordList;
+	}
+
+	@Override
+	public String selectCurrentHour() throws SQLException {
+		String currentHour = "";
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select to_char(sysdate,'mm/dd hh24') currentHour"
+					    + " from dual ";
+								
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				currentHour = rs.getString("currentHour");
+			}
+			
+		} finally {
+			close();
+		}
+		return currentHour;
+	}
+	
+	// 추천검색어 리스트를 알아오는 메소드
+	@Override
+	public List<String> selectRecommendKeyword() throws SQLException {
+		List<String> recommendList = new ArrayList<>();
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select keyword_num,keyword"
+					    + " from tbl_recommend_keyword ";
+								
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				recommendList.add(rs.getString("keyword"));
+			}
+			
+		} finally {
+			close();
+		}
+		return recommendList;
+	}
+
+	
+	
+	// 추천검색어를 insert 하는 메소드
+	@Override
+	public int insertRecommendKeyword(String keyword) throws SQLException {
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = " insert into tbl_recommend_keyword(keyword_num,keyword) "
+					    +" values(seq_keyword_num.nextval, ?) ";
+								
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,keyword);
+			
+			n = pstmt.executeUpdate();
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	
+	
+	// 추천검색어를 Delete 하는 메소드
+	@Override
+	public int DeleteRecommendKeyword(String keyword) throws SQLException {
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = " delete from tbl_recommend_keyword "
+					   + " where keyword = ?";
+								
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,keyword);
+			
+			n = pstmt.executeUpdate();
+		} finally {
+			close();
+		}
+		return n;
+	}
 }

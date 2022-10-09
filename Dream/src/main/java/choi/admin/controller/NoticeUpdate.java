@@ -35,6 +35,7 @@ public class NoticeUpdate extends AbstractController{
 					request.setAttribute("notice_content", ndto.getNotice_content());
 					request.setAttribute("write_date", ndto.getWrite_date());
 					
+					
 					super.setRedirect(false);
 					super.setViewPage("/WEB-INF/view/admin/ad_notice/notice_write.jsp");	//공지사항 작성페이지 가서 값 꽂아주기
 				}
