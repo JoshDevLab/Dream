@@ -23,5 +23,16 @@ public interface InterServiceCenterDAO {
 	// 페이지 번호에 알맞는 qna를 한 페이지에 보여줄 게시물 수만큼가져오는 메소드
 	List<QnaDTO> selectAllqna(Map<String, String> paraMap) throws SQLException;
 
+	
+	//공지사항 Insert 해주는 메소드
+	int notice_insert(Map<String, String> paraMap) throws SQLException;
+	
+	
+	//공지사항 Update 해주는 메소드
+	int notice_Update(Map<String, String> paraMap) throws SQLException;
+
+	//공지사항 Delete 해주는 메소드
+	int notice_delete(int notice_num) throws SQLException;
+
 
 }

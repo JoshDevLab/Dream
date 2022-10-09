@@ -199,7 +199,6 @@ public class ProductDAO implements InterProductDAO{
 				 + " ) T "
 			     + " where R between (?*?)-(?-1) and (?*?) ";
 //					(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
-			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(paraMap.get("page")));
 			pstmt.setInt(2,Integer.parseInt(paraMap.get("display_cnt")));
@@ -233,5 +232,167 @@ public class ProductDAO implements InterProductDAO{
 		}
 		return productList;
 			
+	}
+
+	
+	
+	
+	// 키워드를 입력받아서, 키워드로 검색한 총게시물의 수를 알아오는 메소드
+	@Override
+	public int cntkeywordProduct(String keyword) throws SQLException {
+		int total_cnt = 1;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select count(*) "
+					    + " from tbl_product "
+					    + " where product_num = ? or "
+					    + "       product_name like '%'|| ? || '%' or"
+					    + "       category = ? or "
+					    + "       detail_category = ? ";
+								
+			pstmt = conn.prepareStatement(sql);
+			try {
+				pstmt.setInt(1,Integer.parseInt(keyword));
+			}catch(NumberFormatException e) {
+				pstmt.setString(1, "");
+			}//end of try-catch--
+			pstmt.setString(2,keyword);
+			pstmt.setString(3,keyword);
+			pstmt.setString(4,keyword);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total_cnt = rs.getInt(1);
+			}
+			
+		} finally {
+			close();
+		}
+		return total_cnt;
+	}
+	
+	
+	
+	
+	
+	
+	
+	// 키워드,페이지번호,한페이지당 보여줄 게시물수,유저아이디를 맵으로 입력받아서, 키워드로 검색한 게시물의 리스트들을 받아오는 메소드
+	@Override
+	public List<ProductDTO> selectKeywordProduct(Map<String, String> paraMap) throws SQLException {
+		List<ProductDTO> productList = new ArrayList<>();
+		String userid = paraMap.get("userid");
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "";
+			sql += " select * "
+				 + " from "
+				 + " ( "
+				 + " select V.*, rownum R "
+				 + " from "
+				 + " ( ";
+			if(userid != null) {	//로그인중일 경우
+				sql += " select C.*, "
+			         + " nvl(D.product_like_cnt,0) product_like_cnt "
+					 + " from ( " ;
+			}
+			
+	        sql += " select A.* "
+			     + "      , nvl(B.like_cnt,0) like_cnt "
+			     + " from  "
+			     + " ( "
+			     + " select product_num "
+			     + "     , register_date "
+			     + "     , product_name "
+			     + "     , product_image "
+			     + "     , category "
+			     + "     , detail_category "
+			     + "     , price "
+			     + "	 , (discount_rate*100) discount_rate "
+			     + "     , price - (price * discount_rate) real_price  "
+			     + "     , gender "
+			     + "     , bestyn "
+			     + " from tbl_product "
+			     + " where product_num = ? or "
+			     + "	   product_name like '%'|| ? || '%' or "
+			     + "	   category = ? or "
+			     + "	   detail_category = ? "
+		         + " ) A "
+				 + " left join "
+				 + " ( "
+				 + " select product_num, "
+				 + "        count(*) as like_cnt "
+				 + " from tbl_like "
+		         + " group by product_num"
+		         + " ) B "
+				 + " on A.product_num = B.product_num ";
+		    
+			
+			if(userid != null) {
+				sql += " ) C "
+					 + " left join "
+					 + " ("
+					 + " select product_num, "
+					 + "        count(*) as product_like_cnt "	//product_like_cnt는 내가 좋아요를 눌렀는지 확인용?
+					 + " from tbl_like"
+					 + " where userid = '" + userid + "'"
+					 + " group by product_num "
+					 + " ) D "
+					 + " on C.product_num = D.product_num ";
+		    }
+			
+			
+			sql += " ) V "
+				 + " ) T "
+			     + " where R between (?*?)-(?-1) and (?*?) ";
+//					(조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
+			pstmt = conn.prepareStatement(sql);
+			try {
+				pstmt.setInt(1,Integer.parseInt(paraMap.get("keyword")));
+			}catch(NumberFormatException e) {
+				pstmt.setString(1, "");
+			}//end of try-catch--
+			pstmt.setString(2,paraMap.get("keyword"));
+			pstmt.setString(3,paraMap.get("keyword"));
+			pstmt.setString(4,paraMap.get("keyword"));
+			
+			
+			pstmt.setInt(5,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(6,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(7,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(8,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(9,Integer.parseInt(paraMap.get("display_cnt")));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductDTO pdto = new ProductDTO();	//dto 하나 생성
+				pdto.setProduct_num(rs.getInt("product_num") );  
+				pdto.setRegister_date(rs.getString("register_date") );  
+				pdto.setProduct_name(rs.getString("product_name") );   
+				pdto.setProduct_image(rs.getString("product_image") );
+				pdto.setCategory(rs.getString("category") );
+				pdto.setDetail_category(rs.getString("detail_category") );
+				pdto.setPrice(rs.getInt("price") );
+				pdto.setDiscount_rate(rs.getInt("discount_rate") );
+				pdto.setGender(rs.getString("gender") );
+				pdto.setBestyn(rs.getString("bestyn") );
+				pdto.setReal_price(rs.getInt("real_price") );
+				if(userid != null) {
+					pdto.setProduct_like_cnt(rs.getInt("product_like_cnt"));
+				}
+				
+				productList.add(pdto);	//NoticeDTO들만 들어갈 수 있는 리스트에 담기
+			}
+		} finally {
+			close();
+		}
+		return productList;
+			
+	
 	}
 }

@@ -1,5 +1,7 @@
 package jjy.purchase.model;
 
+import jjy.address.model.AddressDTO;
+import jjy.member.model.MemberDTO;
 import jjy.product.model.ProductDTO;
 
 public class PurchaseListDTO {
@@ -13,18 +15,43 @@ public class PurchaseListDTO {
 	
 	// 제품 이름, 제품이미지명 갖고오는 용도
 	///////////////////////////////////////////////////////////
-	private ProductDTO prodDTO = new ProductDTO();
+	private ProductDTO prodDTO = new ProductDTO();    // 상품테이블
+	private MemberDTO memberDTO = new MemberDTO();    // 회원테이블 
+	private AddressDTO addressDTO = new AddressDTO(); // 주소록테이블
 	
+	
+	
+	// JOIN 용 DTO ===================================================// 
+	// ===== MemberDTO ===== // 
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
+	}
+
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
+	}
+
+	// ===== AddressDTO ===== // 
+	public AddressDTO getAddressDTO() {
+		return addressDTO;
+	}
+
+	public void setAddressDTO(AddressDTO addressDTO) {
+		this.addressDTO = addressDTO;
+	}
+	// ===== product DTO ===== // 
 	public ProductDTO getProdDTO() {
 		return prodDTO;
 	}
-
 	public void setProdDTO(ProductDTO prodDTO) {
 		this.prodDTO = prodDTO;
 	}
-	///////////////////////////////////////////////////////
+	// JOIN 용 DTO ===================================================// 
 
-	// Getter, Setter 시작
+	
+	
+	
+	// Getter, Setter 시작 ===========================================//
 	public int getOrder_num() {
 		return order_num;
 	}
@@ -72,7 +99,7 @@ public class PurchaseListDTO {
 	public void setShipping(int shipping) {
 		this.shipping = shipping;
 	}
-	// Getter, Setter 끝
+	// Getter, Setter 끝 ===========================================//
 	
 	
 	

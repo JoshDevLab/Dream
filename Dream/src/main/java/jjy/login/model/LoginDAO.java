@@ -83,6 +83,8 @@ public class LoginDAO implements InterLoginDAO {
 			
 			pstmt.setString(1, userinfoMap.get("userid"));
 			pstmt.setString(2, userinfoMap.get("passwd"));
+//			암호화 사용시 아래 코드로 교체
+//			pstmt.setString(2, Sha256.encrypt(userinfoMap.get("passwd")));
 			
 			rs = pstmt.executeQuery();
 			
@@ -292,6 +294,8 @@ public class LoginDAO implements InterLoginDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, findPwdMap.get("smsContent"));
+//			암호화 사용시 아래 코드로 교체
+//			pstmt.setString(1, Sha256.encrypt((findPwdMap.get("smsContent")));
 			pstmt.setString(2, findPwdMap.get("userid"));
 			pstmt.executeUpdate();
 			
@@ -320,6 +324,8 @@ public class LoginDAO implements InterLoginDAO {
 			
 			pstmt.setString(1, userinfoMap.get("userid"));
 			pstmt.setString(2, userinfoMap.get("passwd"));
+//			암호화 사용시 아래 코드로 교체 
+//			pstmt.setString(2, Sha256.encrypt(userinfoMap.get("passwd")));
 			
 			rs = pstmt.executeQuery();
 			

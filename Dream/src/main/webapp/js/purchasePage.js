@@ -204,23 +204,7 @@ $(document).ready(function(){
    
    
    
- /*  
-   주소입력창이 공백이 아닐때 저장하기 버튼이 활성화 (보류)
-   $("input#detailAddress").blur( (e)=>{
-       
-       const $target = $(e.target);
-   
-       const detailAddress = $target.val().trim();
-       
-       if(detailAddress == "") {       
-       }
-       else {          
-          $( 'a.btn.btn_save.solid.medium' ).removeClass( 'disabled' );                  
-       }
-       
-    });   
- */
-   
+
    
    
     
@@ -352,8 +336,34 @@ $(document).ready(function(){
        b_flag_zipcodeSearch_click = true; 
     });
    
+   // 페이징처리 post 타입으로 이악물고 하기
+   $("a.page-link").click(function(e){
+	
+		console.log($(e.target));
+		console.log($(e.target).attr("p"));
+		const p = $(e.target).attr("p");
+		$("input#p").val(p);
+		
+		const frm = document.page;    
+	    frm.action = getContextPath()+"/member/purchasePage.dream";
+	    frm.method = "post";
+	    frm.submit();
+	});
    
-   
+   	// 주소지 클릭시 hidden input 에 주소넘버 넣어주기
+	$("div.adressOption").click(function(e){
+	  	let $target = $(e.target).parent().parent();
+	  	console.log($target);
+	  	let selectedNumber =  $target.find("input#address_num").val();
+	  	console.log(selectedNumber);
+	  
+	   $("input#selected_address_num").val(selectedNumber);
+	
+		// 클릭 할때마다 선택한 애만 달라지도록
+		$("div.adressOption").removeClass('selectedAddress');
+		$("div#div"+selectedNumber).addClass('selectedAddress');
+	  });
+	
     
 
 });   // end of $(document).ready(function(){} -------------------------------   

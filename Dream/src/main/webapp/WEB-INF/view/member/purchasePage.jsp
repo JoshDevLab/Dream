@@ -61,7 +61,7 @@
 			        
 				
 			          	
-			          	 <li id="SeletedOption">
+			          	<li id="SeletedOption">
 			          	 		<p class="size_txt">${size}</p>
 			          	 		<p class="size_txt">${product.order_product_cnt[status.index]}</p>
 			  			</li>
@@ -79,109 +79,181 @@
       <%-- 제품 주소 && 배송 섹션--%>
       <section>
         <div class="section_unit">
-          <div class="section_title">
-            <h3 class="title_txt">배송 주소</h3>
-            <a href="#" class="add_more_btn"  data-toggle="modal" data-target="#add_address">+ 새 주소 추가</a>
-          </div>
-          <div class="section_content">
+          <c:if test="${empty requestScope.basic_mobile}">
+			<div class="empty_area" id="no_add_area">
+				<p class="desc">
+					배송지 정보가 없습니다.<br />새 배송지를 등록해주세요
+				</p>
+				<span href="#" id="add_btn2" class="btn_btn_add2" data-toggle="modal" data-target="#add_address" onclick="new_add()">새 배송지 추가 </span>
+			</div>
+		  </c:if>
+				
+ 				
+				
+				<%------------------------------------------------------------- 주소정보 없을시 출력되는 부분 끝 -------------------------------------------------------------%>
+
+
+
+
+                <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 시작 -------------------------------------------------------------%>
+                <c:if test="${not empty requestScope.basic_mobile}">
+                <div class="my_list " id="yes_add_area">
+                     		<div class="basic adressOption" id="div${requestScope.basic_adto.address_num}">
+						<div class="my_item" default-mark="기본 배송지">
+							<div class="info_bind">
+								
+								<div class="address_info">
+									<div class="name_b	ox">
+										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
+										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
+										<span class="mark">기본 배송지</span>
+									</div>
+									<p id="basic_text" class="phone">
+										${requestScope.basic_first_mobile}-${requestScope.basic_second_mobile}-${requestScope.basic_third_mobile}
+									</p>
+									<div  class="address_box">
+										(<span id="basic_text"  class="zipcode">${requestScope.basic_adto.post_code }</span>)
+										 <span id="basic_text" class="address">${requestScope.basic_adto.address} </span>
+										 <span id="basic_text" class="detail_address">${requestScope.basic_adto.detail_address}</span>
+									</div>
+								</div>
+							</div>
+				
+						</div>
+					</div>
+
+
+
+
+
           
-          	
-            <a href="#" class="empty_delivery_info">
-              <span class="guide_txt">주소를 추가해주세요.</span>
-            </a>
-            
-            <%-- 기본주소 --%>
-            
-            <div class="my_list" id="yes_add_area">
-                           <div class="basic">
-                  <div class="my_item" default-mark="기본 배송지">
-                     <div class="info_bind">
-                        
-                        <div class="address_info">
-                           <div class="name_box">
-                           <input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
-                              <span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
-                              <span class="mark">기본 배송지</span>
-                           </div>
-                           <p id="basic_text" class="phone">
-                              ${requestScope.basic_first_mobile}-${requestScope.basic_second_mobile}-${requestScope.basic_third_mobile}
-                           </p>
-                           <div  class="address_box">
-                              (<span id="basic_text"  class="zipcode">${requestScope.basic_adto.post_code }</span>)
-                               <span id="basic_text" class="address">${requestScope.basic_adto.address} ${requestScope.basic_adto.detail_address}</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div  class="btn_bind">
-                        <%----%>
-                        <a data-toggle="modal" data-target="#add_address" href="#"
-                           class="btn_outlinegrey_small"  onclick="Revise_add()" id ="edit2"> 수정 </a><a
-                            href="#"  class="btn_outlinegrey_small" id="basic_delete">
-                           삭제 </a>
-                     </div>
-                  </div>
-               </div>
-            
-            
-            <%-- 다른 주소 불러오기 --%>
-             <div class="other">
-                  <div class="other_list">
-                  
-                      
-                  
-                      
-               <form name="delete_add" method="post" >
-                  <c:forEach var="adao" items="${requestScope.addressList}"> 
+          
+             
+          
+					<div class="other">
+						<div class="other_list">
+						
+						 	
+				   	
+				          
+				   <form name="delete_add" method="post" >
+						<c:forEach var="adao" items="${requestScope.addressList}"> 
+					
+						   
+			
+							<%--for문 반복횟수는 태그라이브러리를 써서 하는데 var='리스트안에 들어있는 한개아이템' items='리스트이름' --%>
+							<%-- <c:forEach var="" items="${requestScope.addressList}"> --%>
+							<div class="my_item_is_active adressOption" id="div${adao.address_num}" style="">
+							
+								<div class="info_bind" >
+						  
+								<div class="address_info">
+									<div class="name_box">
+									<input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>${adao.address_num}
+									    <%-- <span type="" name="address_num" value="${adao.address_num}"></span> --%>
+										<span id="basic_text" class="name">${adao.order_name}</span>
+										
+									</div>
+									<p id="basic_text" class="phone">
+										${adao.first_mobile}-${adao.second_mobile}-${adao.third_mobile}
+									</p>
+									<div  class="address_box">
+										(<span id="basic_text"  class="zipcode">${adao.post_code}</span>)
+										 <span id="basic_text" class="address">${adao.address} </span>
+										 <span id="basic_text" class="detail_address">${adao.detail_address}</span>
+									</div>
+								</div>
+							   </div>
+																						
+									
+							</div>		
+														 	   							
+							
+							</c:forEach>
+							</form>
+						 	
+							<%--for문 --%>
+							
+
+
+				</div>             
+              
+              
+      </div>
+
+
+
+
+
+         
+
+               <%----------------------------------------------------------- 페이지 바 시작 ---------------------------------------------%>
                
-                     
-                  
-                     <%--for문 반복횟수는 태그라이브러리를 써서 하는데 var='리스트안에 들어있는 한개아이템' items='리스트이름' --%>
-                     <%-- <c:forEach var="" items="${requestScope.addressList}"> --%>
-                     <div class="my_item_is_active" id="active" style="">
-                     
-                        <div class="info_bind" >
-                    
-                        <div class="address_info">
-                           <div class="name_box">
-                           <input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>${adao.address_num}
-                               <%-- <span type="" name="address_num" value="${adao.address_num}"></span> --%>
-                              <span id="basic_text" class="name">${adao.order_name}</span>
-                              
-                           </div>
-                           <p id="basic_text" class="phone">
-                              ${adao.first_mobile}-${adao.second_mobile}-${adao.third_mobile}
-                           </p>
-                           <div  class="address_box">
-                              (<span id="basic_text"  class="zipcode">${adao.post_code}</span>)
-                               <span id="basic_text" class="address">${adao.address} ${adao.detail_address}</span>
-                           </div>
-                        </div>
-                        </div>
-                          
-                        <div id="basic_text" class="btn_bind">
-                           <a href="#" class="btn_outlinegrey_small" id="go_basic"> 기본 배송지 </a>
-                              <a id ="edit" data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
-                              <a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
-                        </div>                                                
-                           
-                     </div>      
-                                                                      
-                     
-                     </c:forEach>
-                     </form>
-                      
-                     <%--for문 --%>
-                     
+               <c:if test="${not empty requestScope.addressList}">
+               
+        <nav aria-label="...">
+		    <ul class="my pagination pagination-md justify-content-center mt-5">
+		    	<%-- 첫페이지로 이동버튼 --%>
+		    	<c:if test="${requestScope.page > requestScope.display_page}">
+		    	<li class="page-item">
+			      <a class="page-link" p="1">
+			      	<i class="fa-solid fa-angles-left"></i>
+			      </a>
+			    </li>
+			    
+			    
+			    <%-- 전페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" p="${requestScope.startPage-1}">
+			      	<i class="fa-solid fa-angle-left"></i>
+			      </a>
+			    </li>
+			    </c:if>
+			    
+			    <%-- 페이지번호 시작--%>
+			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+                <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
+                <li class="page-item active" aria-current="page">
+			    	<a id = "firstPage" class="page-link" p= "${requestScope.startPage+i.count-1}" >${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                
+                <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
+                <li class="page-item">
+			    	<a class="page-link" p="${requestScope.startPage+i.count-1}">${requestScope.startPage+i.count-1}</a>
+			    </li>
+                </c:if>
+                </c:forEach>
+                <%-- 페이지번호 끝 --%>
+                
+                
+                
+			    <%-- 다음페이지로 이동버튼 --%>
+			    <c:if test="${!(requestScope.last_display_page)}">
+			    <li class="page-item">
+			      <a class="page-link" p="${requestScope.startPage+requestScope.display_page}"><i class="fa-solid fa-angle-right"></i></a>
+			    </li>
+			    <%-- 맨 끝페이지로 이동버튼 --%>
+			    <li class="page-item">
+			      <a class="page-link" p="${requestScope.totalPage}"><i class="fas fa-solid fa-angles-right"></i></a>
+			    </li>
+			    </c:if>
+		  	</ul>
+		</nav>
+		
+		
+		</c:if>	
+		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
 
 
-            </div>             
-              
-              
-		</div>
-            
-            
-            
-            <%-- 주소 불러오기 끝 --%>
+
+
+
+
+  </div>	
+</c:if>			
+<%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 끝 -------------------------------------------------------------%>			
+ 
             
             
             
@@ -334,6 +406,7 @@
     <input type="hidden" id="productName" name="productName" value="${product.product_name}"  />
 	<input type="hidden" id="fullPrice" name="fullPrice" value="${requestScope.fullPrice}"  />
 	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
+	<input type="hidden" id="selected_address_num" name="address_num" value=""  />
 					 
 </form>
 
@@ -342,6 +415,7 @@
     <input type="hidden" id="productNum" name="productNum" value="${product.product_num}"  />
 	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}"  />
 	<input type="hidden" id="PointMinus" name="PointMinus" value="0"/>
+	<input type="hidden" id="selected_address_num" name="address_num" value=""  />
 	
 	<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
 	
@@ -349,6 +423,8 @@
 		<input type="hidden" id="cnt" name="cnt${status.index}" value="${product.order_product_cnt[status.index]}"/>	          				          	
 		
    	</c:forEach>
+   	<input type="hidden" id="discountPrice" name="discountPrice" value="${discountPrice}"/>
+	
    	
 	
 	
@@ -361,18 +437,19 @@
 </form>
 
 
-<%-- 주소 추사 Modal --%>
+<%-- 주소 추가 Modal --%>
   <%-------------------------------------------------------------- 모달 시작 -----------------------------------------------------------%>
         
 
 
  
-             
-            <div class="modal modal_box layer lg " id="add_address" >
+            <input type="hidden"  id = "back" name="back" value=" "/>
+                           	
+            <div class="modal modal_box layer lg fade " id="add_address" >
                  
                <div class="layer_container" >
                  	 
-                 <button type="button" class="close passwdFindClose" data-dismiss="modal" >&times;</button>
+                 <button type="button" class="close" data-dismiss="modal" >&times;</button>
                   <div class="layer_header">	
                       <h2 class="title1">새 주소 추가</h2> 
 
@@ -469,5 +546,17 @@
 
 
 
+	<form id="page" name="page">
+		<input type="hidden" id="length" name="length" value="${length}" /> 
+		<input type="hidden"id="productNum" name="productNum" value="${product.product_num}" />
+		
+		<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
+			<input type="hidden"id="size${status.index}" name="size${status.index}" value="${size}" />
+			<input type="hidden"id="cnt${status.index}" name="cnt${status.index}" value="${product.order_product_cnt[status.index]}" />
+    	</c:forEach>
+		
+		<input type="hidden"id="p" name="p" value="" />
+		
+	</form>
 
 

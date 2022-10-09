@@ -39,6 +39,9 @@ public class GoUpdate extends AbstractController {
 				String PointMinus = request.getParameter("PointMinus");
 				System.out.println("PointMinus"+PointMinus);
 				String event_type = request.getParameter("event_type");
+				String address_num = request.getParameter("address_num");
+				String discountPrice = request.getParameter("discountPrice");
+				
 				
 
 				ArrayList<String>sizeArr = new ArrayList<String>();
@@ -50,20 +53,33 @@ public class GoUpdate extends AbstractController {
 					paraMap.put("size"+i, (String)request.getParameter("size"+i));
 					paraMap.put("cnt"+i, (String)request.getParameter("cnt"+i));
 				}
+				paraMap.put("discountPrice",discountPrice);
 				
 				paraMap.put("userid",userid);
 				paraMap.put("productNum",productNum);
 				paraMap.put("length",request.getParameter("length")); // 가서 int 로 변환해서 쓰세요
 				paraMap.put("PointPlus",PointPlus);
 				paraMap.put("PointMinus",PointMinus);
+				paraMap.put("address_num",address_num);
 				
 				paraMap.put("event_type",event_type);
 				
 				InterProductDAO pdao = new ProductDAO();
 				int n = pdao.nocartPurchaseUpdate(paraMap);
 				
-				if(n ==1 ) {// 안전하게 결제 다 끝나고 업데이트도 아 된 상태
+				if(n ==1 ) {// 안전하게 결제 다 끝나고 업데이트도 다 된 상태
 					String message = "구매가 성공적으로 완료되었습니다!!";
+					String loc = "javascript:history.back()";
+					
+					request.setAttribute("message", message);
+					request.setAttribute("loc", loc);
+					
+				//	super.setRedirect(false);
+					super.setViewPage("/WEB-INF/view/msg.jsp");
+					return;
+				}
+				else {
+					String message = "구매가 성공적으로 완료되지 않았습니다!!";
 					String loc = "javascript:history.back()";
 					
 					request.setAttribute("message", message);

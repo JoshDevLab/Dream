@@ -1,6 +1,5 @@
 package choi.servicecenter.model;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +13,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import util.security.AES256;
-import util.security.SecretMyKey;
 
 public class ServiceCenterDAO implements InterServiceCenterDAO{
 	// DBCP
@@ -23,7 +20,6 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	private AES256 aes;
 	
 	
 	// 생성자 
@@ -34,16 +30,10 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			Context initContext = new InitialContext();
 			Context envContext  = (Context)initContext.lookup("java:/comp/env");
 			ds = (DataSource)envContext.lookup("/jdbc/dream");
-			
-			aes = new AES256(SecretMyKey.KEY);// KEY는 스태틱 변수이기때문에 객체생성 필요 x
-			// SecretMyKey.KEY 는 우리가 만든 비밀키이다.
-			
 		} catch(NamingException e) {
 			e.printStackTrace();
-		} catch(UnsupportedEncodingException e) { // key 가 16글자 미만인경우 발생하는 예외 처리
-			e.printStackTrace();
-		}
-	}
+		}//end of try-catch
+	}//end of public ServiceCenterDAO()
 	
 	// 사용한 자원을 반납하는 close() 메소드 생성하기
 	private void close() {
@@ -56,7 +46,7 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			e.printStackTrace();
 		}// end of try ~ catch()---------------------------------
 		
-	}
+	}//end of private void close()
 			
 			
 			
@@ -241,6 +231,73 @@ public class ServiceCenterDAO implements InterServiceCenterDAO{
 			close();
 		}
 		return qnaList;
+	}
+	
+	
+	//공지사항 insert 해주는 메소드
+	@Override
+	public int notice_insert(Map<String, String> paraMap) throws SQLException{
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " insert into tbl_notice(notice_num,notice_title,notice_content,admin_id) "
+					   + " values(seq_notice_num.nextval, ?, ?, ?) ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,paraMap.get("notice_title"));
+			pstmt.setString(2,paraMap.get("notice_content"));
+			pstmt.setString(3,paraMap.get("userid"));
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	
+	//공지사항 update 해주는 메소드
+	@Override
+	public int notice_Update(Map<String, String> paraMap) throws SQLException {
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_notice "
+					   + " set notice_title = ? and notice_content = ? "
+					   + " where notice_num = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,paraMap.get("notice_title"));
+			pstmt.setString(2,paraMap.get("notice_content"));
+			pstmt.setString(3,paraMap.get("notice_num"));
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return n;
+	}
+	
+	
+	//공지사항 update 해주는 메소드
+	@Override
+	public int notice_delete(int notice_num) throws SQLException {
+		int n = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " delete from tbl_notice where notice_num = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,notice_num);
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		return n;
 	}
 
 }

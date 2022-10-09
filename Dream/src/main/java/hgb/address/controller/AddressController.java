@@ -1,6 +1,7 @@
 package hgb.address.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +21,35 @@ public class AddressController extends AbstractController{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod();
 		
+		
+           
+		
 		if("POST".equalsIgnoreCase(method)) {	//method가 "POST" 일 때
 						
 			
 		}
 		
 		else {	//method가 "GET"일 때 
+			
+			HttpSession session = request.getSession();	//로그인중인 userid값 가져오기위한 session 객체생성
+			
+			//로그인 중인 사람의 userid 값 가져오기
+			String userid = (String)session.getAttribute("userid");
+//			String userid = "josh@gmail.com";	//세션 코드 합치면 위의코드로 변경하기 이건 가라로  해놓은거임
+			
+			
+			if(userid == null) {	//get요청을 한 사용자가 관리자로 로그인중이 아니라면
+				super.setRedirect(true);
+				super.setViewPage(request.getContextPath()+"/login/login.dream");
+			}
+			else {
+			
+			
+			
+			
+			
+			
+			
 			try {
 			
 				int page= 1;
@@ -38,7 +62,7 @@ public class AddressController extends AbstractController{
 				InterAddressDAO adao = new AddressDAO();
 				
 				
-				int total_cnt = adao.cntAllAddress();                      //총 게시물 수 기본배송지 제외
+				int total_cnt = adao.cntAllAddress(userid);                      //총 게시물 수 기본배송지 제외
 				float display_cntf = 10f;	                              //한 페이지당 보여줄 게시물 수 float형
 				int display_cnt = (int)display_cntf;	                  //한 페이지당 보여줄 게시물 수 int형
 				int display_page = 5;					                  //한번에 보여줄 페이지번호의 갯수 int형
@@ -73,11 +97,7 @@ public class AddressController extends AbstractController{
 			    	last_display_page = true;
 			    }
 			    
-			    HttpSession session = request.getSession();	//로그인중인 userid값 가져오기위한 session 객체생성
-				
-				//로그인 중인 사람의 userid 값 가져오기
-	//			String userid = (String)session.getAttribute("userid");
-				String userid = "josh@gmail.com";	//세션 코드 합치면 위의코드로 변경하기 이건 가라로  해놓은거임
+			    
 				
 			    
 			    Map<String,String> paraMap = new HashMap<>();
@@ -89,15 +109,15 @@ public class AddressController extends AbstractController{
 			    List<AddressDTO> addressList = adao.selectAddress(paraMap);
 				
 				
-	//		    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	//		    System.out.println("현재보고있는 페이지 : "+ page);
-	//		    System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
-	//		    System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
-	//		    System.out.println("총 게시물 수 : "+ total_cnt);
-	//		    System.out.println("총페이지 : "+ totalPage);
-	//		    System.out.println("아래 시작페이지 : "+ startPage);
-	//		    System.out.println("아래 끝페이지 : "+ endPage);
-	//		    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+			    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			    System.out.println("현재보고있는 페이지 : "+ page);
+			    System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
+			    System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
+			    System.out.println("총 게시물 수 : "+ total_cnt);
+			    System.out.println("총페이지 : "+ totalPage);
+			    System.out.println("아래 시작페이지 : "+ startPage);
+			    System.out.println("아래 끝페이지 : "+ endPage);
+			    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
 				
 				
 				request.setAttribute("addressList", addressList);
@@ -162,6 +182,7 @@ public class AddressController extends AbstractController{
 			}//end of try-catch-----------------
 			
 		}
+	  }
 		
 	}		
 }
