@@ -114,6 +114,13 @@
             <td colspan="3">
               <div id="content">
                 ${qna.faq_content}
+                <c:if test="${sessionScope.userid == 'admin'}">
+                  <div class="d-flex justify-content-center">
+	                <button type="button" id="btn_update" class="btn btn-white border mx-1 my-2" onclick="location.href='<%= ctxPath%>/admin/faqUpdate.dream?num=${qna.faq_num }'">수정</button>
+	                <button type="button" id="btn_delete" class="btn btn-white border mx-1 my-2">삭제</button>
+	                <div class="faq_num" style="display:none;">${qna.faq_num}</div>
+                  </div>
+	            </c:if>
               </div>
             </td>
           </tr>
@@ -174,6 +181,11 @@
 		  	</ul>
 		</nav>
 		<%----------------------------------------------------------- 페이지 바 끝 ---------------------------------------------%>
+		<c:if test="${sessionScope.userid == 'admin'}">
+		<div class="d-flex justify-content-end">
+	      <button type="button" id="btn_notice_write" class="btn btn-white border rounded" onclick="location.href='<%=ctxPath %>/admin/qna_write.dream'">글 작성</button>
+	    </div>
+	    </c:if>
     </div>
     <%-- 자주묻는질문 끝 --%>
   </div>

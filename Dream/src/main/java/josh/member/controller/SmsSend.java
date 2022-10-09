@@ -54,7 +54,7 @@ public class SmsSend extends AbstractController {
 			// == 4개 파라미터(to, from, type, text)는 필수사항이다. == 
 		    HashMap<String, String> paraMap = new HashMap<>();
 			paraMap.put("to",mobile);  				// 수신번호
-			paraMap.put("from","010-7269-6621"); 	// 발신번호
+			paraMap.put("from","010-8866-5389"); 	// 발신번호
 													// 2020년 10월 16일 이후로 발신번호 사전등록제로 인해 등록된 발신번호로만 문자를 보내실 수 있습니다
 			paraMap.put("type","SMS");				// Message type ( SMS(단문), LMS(장문), MMS, ATA )
 			paraMap.put("text",certificationCode);	// 인증번호
