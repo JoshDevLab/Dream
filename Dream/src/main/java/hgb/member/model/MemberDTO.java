@@ -14,6 +14,7 @@ public class MemberDTO {
 	private int Shipping;
 	private int secession;
 	private int rest_member;
+	private String buy_date;
 	
 	
 	public String getUserid() {
