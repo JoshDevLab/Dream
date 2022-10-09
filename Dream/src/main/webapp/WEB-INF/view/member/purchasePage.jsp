@@ -413,7 +413,9 @@
 <form id= "goUpdate" name="goUpdate">
 	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
     <input type="hidden" id="productNum" name="productNum" value="${product.product_num}"  />
-	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}"  />
+    <c:if test="${user.membership == 0}">
+    	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}" />	
+    </c:if>
 	<input type="hidden" id="PointMinus" name="PointMinus" value="0"/>
 	<input type="hidden" id="selected_address_num" name="address_num" value=""  />
 	
