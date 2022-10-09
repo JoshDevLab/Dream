@@ -28,7 +28,7 @@ table#tblProdInput td {
 	color: red; 
 	font-weight: bold; 
 	font-size: 9pt;
-	display:none;
+	/* display:none; */
 }
 
 

@@ -32,7 +32,8 @@
                <li class="footer_li">운영시간 평일 11:00 - 18:00 (토∙일, 공휴일 휴무) 점심시간 평일 13:00 - 14:00</li>
                <li class="footer_li" style="color: black;">1:1 문의하기는 앱에서만 가능합니다.</li>
             </ul>
-            <button id="btn_question" type="button">자주 묻는 질문 </button>
+            <button id="btn_question" type="button" onClick="javascript:location.href='/Dream/notice/qna.dream'">자주 묻는 질문 </button>
+            <%--<button id="btn_question" type="button" onClick="javascript:location.href='/Dream/admin/shippingMangement.dream'">배송관리 메뉴 추가시 버튼 삭제</button> --%>
          </div>
 
          <div id = "left_left">

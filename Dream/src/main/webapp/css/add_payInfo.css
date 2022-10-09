@@ -118,6 +118,8 @@ div.empty_area {
 	text-align: center;
 }
 
+
+
 /* 버튼 호버시 효과를 없애주는 css 시작 */
 a#add_btn:link {
 	color: black;
@@ -141,7 +143,10 @@ a#add_btn:active {
 
 /* 버튼 호버시 효과를 없애주는 css 끝 */
 
-
+div.btn_bind > a {
+	color: #000000;
+	text-decoration: none;
+}
 
 
 

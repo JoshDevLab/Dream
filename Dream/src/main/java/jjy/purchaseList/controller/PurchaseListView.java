@@ -93,11 +93,11 @@ public class PurchaseListView extends AbstractController {
 			
 			// 총 페이지 수 알아오기
 			int totalPage = pdao.getTotalPage(purchaseMap);
-			System.out.println("확인용 조회해온 totalPage => " + totalPage);
+			// System.out.println("확인용 조회해온 totalPage => " + totalPage);
 			
 			// 총 구매내역 수 알아오기 
 			int totalListCnt = pdao.getTotalListCnt(purchaseMap);
-			System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
+			// System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
 			
 
 			// System.out.println("~~~~~~~~~~~~~~~~~~확인용 totalPage => "+totalPage);

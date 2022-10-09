@@ -15,5 +15,8 @@ public interface InterProductDAO {
 	
 	/** 카트 거치지 않고 바로구매시 가는 페이지에서 하는 결제 */
 	int nocartPurchaseUpdate(Map<String, String> paraMap) throws SQLException;
+	
+	/** 제품 업데이트 */
+	int UpdateProduct(Map<String, String> paraMap) throws SQLException;
 
 }

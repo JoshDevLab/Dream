@@ -21,6 +21,8 @@ $(document).ready(function(){
 	    $('input#recipient_name').trigger('focus');
 	    
 	    
+    
+	    
 	    
 	    /*
 	    저장하기 버튼 활성화 기능
@@ -102,10 +104,6 @@ $(document).ready(function(){
 	        $("#name").css("color","red");  //라벨 빨간색 	        	        
 	        
 	        $("#add_address > input").prop("disabled", true);
-	        
-	        
-	       
-	        
 	    }
 	    else {
 	        $(e.target).css("border-bottom","solid 1px #ebebeb");
@@ -275,7 +273,7 @@ $(document).ready(function(){
     		
 		$("input#address_num_modal").val(address_num);	 	
 		
-		$("input#basic_address").prop('checked', false);
+		
 		
     	
     });
@@ -313,7 +311,7 @@ $(document).ready(function(){
 		
 		$("input#address").val();
 		
-		$("input#basic_address").prop('checked', true);
+		
 		
 		
 		
@@ -371,7 +369,7 @@ function Revise_add() {
     $("h2.title2").show();
     
     
-    
+    $("div.input_item > input").val("");
     $("span.name_error").hide();
 	$("span.mobile_error").hide();
 	$("#name").css("color","black");
@@ -532,32 +530,7 @@ function goEdit() {
 	    return false; // submit 을 하지 않고 종료한다.
     }
 
-	// "우편번호찾기" 을 클릭했는지 여부 알아오기 
-    if(!b_flag_zipcodeSearch_click) { 
-    	// "우편번호찾기" 을 클릭 안 했을 경우 
-    	alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
-    	
-    	return; // 종료
-    }
-    else {
-    	// "우편번호찾기" 을 클릭을 했을 경우 
-    	
-        //	const regExp = /^\d{5}$/g;  
-		//  또는
-		    const regExp = new RegExp(/^\d{5}$/g);  
-            //  숫자 5자리만 들어오도록 검사해주는 정규표현식 객체 생성 
-            
-            const postcode = $("input:text[id='postcode']").val();
-            
-            const bool = regExp.test(postcode);
-            
-            if(!bool) {
-            	alert("우편번호 형식에 맞지 않습니다.");
-            	$("input:text[id='postcode']").val("");
-            	b_flag_zipcodeSearch_click = false;
-            	return; // 종료
-            }                       
-    }
+	
 	
     const frm = document.registerFrm;    
     

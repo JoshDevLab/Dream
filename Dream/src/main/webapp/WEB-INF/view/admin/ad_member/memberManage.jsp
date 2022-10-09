@@ -20,19 +20,58 @@
 
 	$(document).ready(function() {
 		
-		if("${requestScope.searchWord}" != "" ){
-	         $("select#searchType").val("${requestScope.searchType}");
-	         $("input#searchWord").val("${requestScope.searchWord}"); 
-	    }
+		 $("#date_button").hide();
+		
+         $("select#searchType").val("${requestScope.searchType}");
+         $("input#searchWord").val("${requestScope.searchWord}"); 
+	    
+		
+		if("${requestScope.searchType}" == "joindate" ) {
+			$("#start_date").val("${requestScope.start_date}");
+			$("#end_date").val("${requestScope.end_date}");
+			$("#date_button").show();
+		}
 		
 		if("${requestScope.searchType}" == "secession" || "${requestScope.searchType}" == "rest_member" 
 		  || "${requestScope.searchType}" == "membership" ) {
 			$("input#searchWord").css({'placeholder':'찾으시는 회원ID 입력'});
 		}
 		
+		
+		$("#searchType").change(function() {
+			const searchType = $("#searchType").val();
+			
+			if(searchType == 'joindate') {
+				$("#end_date").val(new Date().toISOString().substring(0, 10));
+				$("#date_button").show();
+			}
+			else {
+				$("#date_button").hide();
+			}
+		});
+		
 	});
 	
 	function goSearch() {
+		
+		const searchType = $("#searchType").val();
+		
+		if(searchType == 'joindate') {
+			if( $("#start_date").val() == '' || $("#end_date").val() == '' ) {
+				alert("시작날짜와 마지막날짜는 둘다 입력해야 합니다.");
+				return;
+			}
+			if($("#start_date").val() > new Date().toISOString().substring(0, 10)) {
+				alert("시작날짜가 오늘날짜보다 작아야 합니다.");
+				$("#start_date").val('');
+				$("#start_date").focus();
+				return;
+			}
+			if($("#start_date").val() > $("#end_date").val()) {
+				alert("마지막 날짜가 시작날짜보다 빠를 수 없습니다.");
+				return;
+			}
+		}
 		
 		const frm = document.memberFrm;
 		frm.action = "memberManage.dream";
@@ -64,7 +103,7 @@
      <tbody>
      <c:if test="${not empty requestScope.memberList}">
 	     <c:forEach var="mdto" items="${requestScope.memberList}" >
-		     <tr onclick="location.href='<%= ctxPath%>/admin/memberDetail.dream?userid='" style="cursor:pointer">
+		     <tr onclick="location.href='<%= ctxPath%>/admin/memberDetail.dream?userid=${mdto.userid}'" style="cursor:pointer">
 		         <td class="text-center">${mdto.userid}</td>
 		         <td class="text-center">${mdto.username}</td>
 		         <td class="text-center">${mdto.mobile}</td>
@@ -117,6 +156,7 @@
  <form name="memberFrm">
    <div id="search_area" class="d-flex m-auto pt-2">
      <select id="searchType" name="searchType">
+       <option value="">선택하세요</option>
        <option value="userid">아이디</option>
        <option value="username">회원명</option>
        <option value="mobile">핸드폰번호</option>
@@ -125,6 +165,21 @@
        <option value="membership">멤버쉽여부</option>
        <option value="rest_member">휴면여부</option>
      </select>
+     
+     <%-- 기간조회 시작 --%>
+	<div id="date_button" style="display:flex; margin-left: 20px">
+
+		<div id="from_date" class="input_date" style="vertical-align: middle;">
+			<input type="date" name="start_date" id="start_date" style="width: 120px; margin: 6px auto;" value ="" ></input>~
+		</div>
+
+		<div id="to_date" class="input_date">
+			<input type="date" name="end_date" id="end_date" style="width: 120px; margin: 6px auto;" value="">
+		</div>
+
+	</div>
+	<%-- 기간조회 끝 --%>
+     
     <div id="memberIdSearch" class="d-flex ml-3">
       <div id="input_id">
         <input type="text" placeholder="검색어" id="searchWord" name="searchWord" class="rounded">
