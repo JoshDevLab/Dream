@@ -4,7 +4,7 @@ $(document).ready(function () {
     
     $(".total_cnt").html(prd_check_length);
 
-    $("input#chk_all").click(function (e) { // 전체선택 버튼을 클릭하였을시 이벤트처리
+    $("input#chk_all").click(function () { // 전체선택 버튼을 클릭하였을시 이벤트처리
         
         const bool = $("input.chk_all").prop("checked");
         $("input:checkbox[name='prd_check']").prop("checked",bool);
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
     });// end of $("input:checkbox[name='chk_all']").click(function (e) ----------------
 
-    $("input#mobile_chk_all").click(function (e) { // 모바일 전체선택 버튼을 클릭하였을시 이벤트처리
+    $("input#mobile_chk_all").click(function () { // 모바일 전체선택 버튼을 클릭하였을시 이벤트처리
         
         const bool = $("input#mobile_chk_all").prop("checked");
         $("input:checkbox[name='prd_check']").prop("checked",bool);
@@ -82,24 +82,29 @@ $(document).ready(function () {
     });// end of $("input:checkbox[name='prd_check']").click(function (e) ------------
 
 
-    $("input:checkbox[name='prd_check']").change(function (e) {
+    $("input:checkbox[name='prd_check']").change(function () {
         // 체크된 상품들의 total price들을 가져와서 합계를 구한것을 아래 html에 넣어주기
         let total_price = 0;
         $("table input:checkbox[name='prd_check']:checked").each(function (index,item) {
             total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
         }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
 
-        // console.log(total_price);
-
         $("span#prd_price").text(total_price.toLocaleString('en'));
         $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
         
+        let length = $("table input:checkbox[name='prd_check']:checked").length;
+		
+		if(length == 0) {
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			$("span.payment_price").text('0');
+		}
         
     });// end of $(document).on("change","table#tbl_cart", function (e)
 
     
 
-    $(document).on("DOMSubtreeModified","table#tbl_cart", function (e) {
+    $(document).on("DOMSubtreeModified","table#tbl_cart", function () {
         //alert('헿');
 
         let total_price = 0;
@@ -107,7 +112,7 @@ $(document).ready(function () {
             total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
         }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
 
-        // console.log(total_price);
+		
 
         $("span#prd_price").text(total_price.toLocaleString('en'));
         $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
@@ -121,14 +126,6 @@ $(document).ready(function () {
       // 포인트입력칸 숫자만 가능하도록
       $("input#point").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") );  }); //숫자만
     
-      // 전부사용 버튼
-      $("button#pointAlluse").click(function(){
-         $("input#point").val($("span.point").text());
-         $("#span_point_amount").text($("input#point").val());
-         $("span#sale_point").text( $("span.point").text() );
-      });
-      
-      
       $("input#point").bind("blur",function() {
 	
 		const length = $("input:checkbox[name='prd_check']:checked").length;
@@ -154,6 +151,11 @@ $(document).ready(function () {
 			return false;
 		}
 		
+		if($("input#point").val() == "") {
+			$("input#point").val('');
+			$("span.sale_point").text('0');
+			return false;
+		}
 		
 	
 		$("span.sale_point").text( $("input#point").val() );
@@ -161,70 +163,101 @@ $(document).ready(function () {
 	
 	  });
 	  
+	  
+	  $("button.remove_cart_list").click(function(e) { // 삭제하기 버튼
+
+	        const target = $(e.target);
+
+	        const cart_num = target.parent().parent().find('span#cart_num').text()
+
+	        $.ajax({
+		        url : getContextPath()+"/cart/cartDelete.dream",
+		        type: "GET",
+		        data: {"cart_num" : cart_num},
+		        dataType:'json',
+		        success: function(json) {
+			        	
+		        		const n = json.n;
+		            	
+		        		if(n == 1) {
+		        			location.reload();
+		        		}
+		        		else {
+		        			alert('백엔드 에러 잡아라');
+		        		}
+		            
+		        },
+		        error: function(request, status, error){
+		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+		    });
+
+	    });// end of $("button.remove_cart_list").click(function() ------------------
+
+
+
+	    $("button#remove_check").click(function () { // 선택삭제 버튼 이벤트 처리
+	        
+	        let param = []
+	        
+	        $("input:checkbox[id='purchase_check']:checked").each(function(index,item) {
+	        	
+		        	let data = {
+		        		  cart_num : $(item).parent().parent().find('span#cart_num').text()
+		        	};
+		        	
+		        	param.push(data);
+		        	
+	        });
+	        
+	        const jsonData = JSON.stringify(param);
+	        
+	        $.ajax({
+		        url : getContextPath()+"/cart/cartSelectDelete.dream",
+		        traditional: true,
+		        type: "GET",
+		        data: {"jsonData" : jsonData},
+		        dataType:'json',
+		        success: function(json) {
+			        	
+		        		const n = json.n;
+		        		const count_n = param.length
+		        		
+		        		console.log("확인용 n => " + n);
+		        		console.log("확인용 count_n => " + count_n);
+		            	
+		        		if(n == count_n) {
+		        			location.reload();
+		        		}
+		        		else {
+		        			alert('백엔드 에러 잡아라');
+		        		}
+		            
+		        },
+		        error: function(request, status, error){
+		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+		    });
+	        
+	    });// end of $("button#remove_check").click(function (e)
+	  
+	  
 	 //가격대 검색창 입력시 숫자만 입력 가능하게 만들기
      $("input.cart_qty").keyup(function(){ 
-		$(this).val($(this).val().replace(/[^0-9]/gi,"") );  
+		const original = $(this).val();
+		$(this).val($(this).val().replace(/^[0-9]+$/,original) );
+		
 	 });
     
 
 });// end of $(document).ready(function () {} -----------------------------------------------------------------------------------------------------------------------------
 
 
-function plus(classname) { // 플러스 버튼 눌렀을 시 함수
 
-    //console.log(classname)
-    
-    let total_cnt = $("."+classname).parent().parent().parent().find("span#size_cnt").text();
-    let cart_qty = parseInt($("."+classname).parent().find("input").val());
-    
-    if(total_cnt == cart_qty) {
-		alert("재고량보다 더 주문할 수 없습니다.");
-		return;
-	}
-    
-    alert("수량이 변경되었습니다.")
-    cart_qty = cart_qty+1
-    $("."+classname).prev().val(cart_qty);
 
-    let price = $("."+classname).parent().parent().prev().find('span').text();
-    price = parseInt( price.split(",").join("") );
 
-    let total_price = cart_qty*price;
 
-    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
-    
-    const discount_rate = $("."+classname).find('span.discount_rate').text();
-    const discount_price = total_price * Number(discount_rate);
-    
-    $("."+classname).parent().parent().siblings().find(".plus_point").text(discount_price.toLocaleString('en'));
 
-	
 
-}
-
-function minus(classname) { // 마이너스 버튼 눌렀을시 함수
-
-    //console.log(classname)
-
-    let cart_qty = parseInt($("."+classname).parent().find("input").val());
-
-    if(cart_qty>0) {
-        $("."+classname).prop("disabled",false);
-        alert("수량이 변경되었습니다.")
-        cart_qty = cart_qty-1
-        $("."+classname).next().val(cart_qty);
-
-        let price = $("."+classname).parent().parent().prev().find('span').text();
-        price = parseInt( price.split(",").join("") );
-
-        const total_price = cart_qty*price;
-
-        $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en'));
-    }
-    else if(cart_qty == 0){
-        $("."+classname).prop("disabled",true);
-    }
-    
-}
 
   

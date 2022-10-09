@@ -170,11 +170,11 @@
 	<div id="date_button" style="display:flex; margin-left: 20px">
 
 		<div id="from_date" class="input_date" style="vertical-align: middle;">
-			<input type="date" name="start_date" id="start_date" style="width: 120px;"value ="" ></input>~
+			<input type="date" name="start_date" id="start_date" style="width: 120px; margin: 6px auto;" value ="" ></input>~
 		</div>
 
 		<div id="to_date" class="input_date">
-			<input type="date" name="end_date" id="end_date" style="width: 120px;" value="">
+			<input type="date" name="end_date" id="end_date" style="width: 120px; margin: 6px auto;" value="">
 		</div>
 
 	</div>
