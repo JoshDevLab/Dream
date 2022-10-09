@@ -81,7 +81,7 @@ public class ShippingMangement extends AbstractController {
 				PurchaseListDTO pdto = new PurchaseListDTO();
 				List<PurchaseListDTO> purchaseList = pdao.getAllPurchaseList(input_shipping);
 
-				System.out.println("확인용 purchaseList =>" + purchaseList);
+				// System.out.println("확인용 purchaseList =>" + purchaseList);
 
 				request.setAttribute("OrderCntMap", OrderCntMap); // 배송준비중, 배송중, 배송완료 개수
 				request.setAttribute("purchaseList", purchaseList); // 배송 상태에 따른 모든 구매내역

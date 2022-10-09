@@ -15,7 +15,9 @@ string#string_title{
 
 
 /* 배송관리 title css */
-
+div#sihpping_title{
+	display:flex;
+}
 
 
 /* 버튼은 px로 고정 */
@@ -204,6 +206,27 @@ button#btnMoreHIT {
 	display: block;
 }
 
+/* 반복문으로 생성되는 구매내역 정보 css */
+div.item_name, div#shipping_pname{
+	width : 200px;
+}
+div.order_num, div#shipping_onum{
+	width : 100px;
+}
+div.purchase_cnt div#shipping_ocnt{
+	width : 100px;
+}
+div.totalPrice, div#shipping_tprice{
+	width: 100px;
+}
+div.totalPoint, div#shipping_tpoint{
+	width: 100px;
+}
+
+
+
+
+
 a.purchaseDetail {
 	color: #222222;
 	background-color: transparent;
@@ -230,6 +253,10 @@ a.purchaseDetail:active {
 	background-color: transparent;
 	text-decoration: none;
 } /* 클릭했을 때 링크 상태 */
+
+
+
+
 @media screen and (max-width: 958px) {
 	/* 기간 입력 input 태그 숨기기 */
 	div.input_date {

@@ -61,28 +61,37 @@
 				else if(json.length > 0) {
 				
 					$.each(json, function(index, item) {
+						html += "<div class='item col-6 col-md-3 d-flex flex-column px-3 py-3 px-lg-4'>"+
+						            "<a id='"+item.product_num+"' class='product' href='<%=ctxPath %>/product/detail.dream?num="+item.product_num+"'>"+
+						              "<div class='product'>"+
+						                "<div class='product_imgbox border'>"+
+						                  "<img id='product_img' src='<%= ctxPath %>/images/제품이미지/"+item.product_image+"'>"+
+						                "</div>"+
+						                "<div id='product_simple_explain' class='pl-2'>"+
+						                  <%-- 상품 카테고리 넣을 곳 --%>
+						                  "<div id='product_division' class='mt-2'>"+item.product_category+"</div>"+
+						                  <%-- 상품이름 넣을 곳 --%>
+						                  "<div id='product_name' class='my-2'>"+item.product_name+"</div>"+
+						                  <%-- 상품가격 넣을 곳 --%>
+						                  "<div id='product_price' class='d-flex justify-content-between'>"+
+						                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
+						                    "<span id='product_price_discount' style='text-decoration: line-through;'>&#8361;"+item.price+"원</span>"+
+						                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳 --%>
+						                    "<div id='discount_mark' class='d-flex align-items-center'>"+
+						                      <%-- 할인율 넣을 곳 --%>
+						                      "<span id='discount_percent'>"+item.discount_rate*100+"%</span>"+
+						                    "</div>"+ 
+						                  "</div>"+
+						                  <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳--%>
+						                  "<div id='product_sale_price'>&#8361;"+item.discount_price.toLocaleString('en')+"<span>원</span></div>"+
+						                "</div>"+
+						              "</div>"+
+						            "</a>"+
+						            "<div id='sale_mark' class='border rounded text-center'>SALE</div>"+
+						         "</div>";
+								
+								
 						
-					    html += "<div class='item col-6 col-md-3 d-flex flex-column py-3'>"+
-									"<a id='"+item.product_num+"' class='product' href='<%= ctxPath %>/product/detail.dream?num="+item.product_num+"'>"+
-										"<div class='product'>"+	
-											"<div class='product_imgbox border'>"+
-												"<img src='<%= ctxPath %>/images/제품이미지/"+item.product_image+"'>"+
-											"</div>"+
-											"<div id='product_simple_explain'>"+	
-												"<div id='product_division'>"+item.product_category+"</div>"+
-												"<div id='product_name' class='my-2'>"+item.product_name+"</div>"+
-											"<div id='product_price' class='d-flex justify-content-between'>"+
-												"<span id='product_price' style='text-decoration: line-through;''>&#8361;"+item.price+"</span>"+
-												"<div id='discount_mark'>"+
-													"<span id='discount_percent'>"+item.discount_rate*100+"%</span>"+
-													"<button id='discount' class='rounded'><span id='discount'>discount</span></button>"+
-												"</div>"+
-											"</div>"+
-											"<div id='product_sale_price'>&#8361;"+item.discount_price.toLocaleString('en')+"<span>원</span></div>"+
-											"</div>"+
-										"</div>"+
-									"</a>"+
-								"</div>"; 
 								
 					}); // end of $.each(json, function(index, item) {}) -----------------
 					

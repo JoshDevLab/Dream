@@ -96,14 +96,19 @@ public class ProductDAO implements InterProductDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = " select product_num, product_name, product_content, product_image, price, discount_rate, category "
-					+ "from "
-					+ "( "
-					+ "select row_number() over(order by product_num desc) AS rno, discount_rate, product_num, product_name, product_content, product_image, price, category  "
-					+ "from tbl_product "
-					+ "where discount_rate > 0 "
-					+ ") "
-					+ "where rno between ? and ? ";
+			String sql =  " select product_num, product_name, product_content, product_image, price, discount_rate, category"
+					    + " from "
+					    + " ( "
+					    + " select rownum rno, product_num, product_name, product_content, product_image, price, discount_rate, category "
+						+ " from "
+						+ " ( "
+						+ " select discount_rate, product_num, product_name, product_content, product_image, price, category  "
+						+ " from tbl_product "
+						+ " where discount_rate > 0 "
+						+ " order by discount_rate desc "
+						+ " ) V "
+						+ " ) T "
+						+ " where rno between ? and ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
