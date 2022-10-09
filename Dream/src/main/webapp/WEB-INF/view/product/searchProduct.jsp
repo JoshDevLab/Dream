@@ -58,29 +58,28 @@
     <span id="reload" class="px-1 py-1 border rounded"><i class="fa-solid fa-rotate-right"></i></span>
   </p>
   <%-- 인기검색어 시작 --%>
-  <div class="d-flex">
+  <div class="d-flex border rounded px-3 py-3">
     <%-- 1~5위 --%>
     <div class="w-50 d-flex flex-column">
       <ul class="best_keyword">
         <%-- span.span_best_keyword 클릭이벤트 잡아서 처리하기 --%>
-        <li><span class="span_best_keyword"><strong class="mr-2">1</strong>침대</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">2</strong>조명</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">3</strong>안대</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">4</strong>인기</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">5</strong>수면안대</span></li>
+        <li><strong class="mr-2">1.</strong><span class="span_best_keyword">침대</span></li>
+        <li><strong class="mr-2">2.</strong><span class="span_best_keyword">조명</span></li>
+        <li><strong class="mr-2">3.</strong><span class="span_best_keyword">안대</span></li>
+        <li><strong class="mr-2">4.</strong><span class="span_best_keyword">인기</span></li>
+        <li><strong class="mr-2">5.</strong><span class="span_best_keyword">수면안대</span></li>
       </ul>
     </div>
     
     <%-- 6~10위 --%>
     <div class="w-50 d-flex flex-column">
       <ul class="best_keyword">
-      
         <%-- span.span_best_keyword 클릭이벤트 잡아서 처리하기 --%>
-        <li><span class="span_best_keyword"><strong class="mr-2">6</strong>침대</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">7</strong>조명</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">8</strong>안대</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">9</strong>수면안대</span></li>
-        <li><span class="span_best_keyword"><strong class="mr-2">10</strong>인기</span></li>
+        <li><strong class="mr-2">6.</strong><span class="span_best_keyword">침대</span></li>
+        <li><strong class="mr-2">7.</strong><span class="span_best_keyword">조명</span></li>
+        <li><strong class="mr-2">8.</strong><span class="span_best_keyword">안대</span></li>
+        <li><strong class="mr-2">9.</strong><span class="span_best_keyword">수면안대</span></li>
+        <li><strong class="mr-2">10.</strong><span class="span_best_keyword">필로우미스트</span></li>
       </ul>
     </div>
   </div>

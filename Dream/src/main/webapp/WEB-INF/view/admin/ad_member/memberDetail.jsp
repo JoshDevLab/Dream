@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -271,5 +272,9 @@
 
 
 
+
+
+
 <%--footer 호출 --%>
+>>>>>>> refs/remotes/origin/main
 <jsp:include page="/WEB-INF/view/footer.jsp" />

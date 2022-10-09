@@ -104,10 +104,6 @@ $(document).ready(function(){
 	        $("#name").css("color","red");  //라벨 빨간색 	        	        
 	        
 	        $("#add_address > input").prop("disabled", true);
-	        
-	        
-	       
-	        
 	    }
 	    else {
 	        $(e.target).css("border-bottom","solid 1px #ebebeb");

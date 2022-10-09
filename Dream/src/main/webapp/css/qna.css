@@ -39,6 +39,9 @@ div#qna > table > thead > tr{
 td.selectTag{
   display:none;
 }
+tr.content{
+  display:none;
+}
 
 button.btn_fillter{
   background-color: white;
@@ -69,6 +72,7 @@ td.downIcon{
   background-color: white;
 }
 td.upIcon{
+  display:none;
   text-align: right;
   width:32px;
   background-color: white;

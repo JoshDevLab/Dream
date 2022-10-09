@@ -848,8 +848,13 @@ input[type="checkbox"] {
 
 
 
-
-
+/* 주소창 css */
+div.selectedAddress{
+	background-color: lavender;
+}
+div.adressOption{
+	padding: 5px;
+}
   
 
 

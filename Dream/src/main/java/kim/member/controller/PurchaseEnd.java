@@ -14,7 +14,7 @@ public class PurchaseEnd extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-String method = request.getMethod(); // "GET" 또는 "POST"
+		String method = request.getMethod(); // "GET" 또는 "POST"
 		
 		if("POST".equalsIgnoreCase(method)) {
 			

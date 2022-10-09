@@ -14,6 +14,7 @@ String ctxPath = request.getContextPath();
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <%-- header 호출 --%>
@@ -112,7 +113,7 @@ String ctxPath = request.getContextPath();
 			<div id="column_2">
 				<div class="main_title">
 					<a href="#" class="brand"></a>
-					<p class="title">${product.product_name}</p>
+					<p id = "product_name" class="title">${product.product_name}</p>
 					<p class="sub_title"><%=request.getAttribute("pdName")%></p>
 				</div>
 				<div class="product_figure">
@@ -169,13 +170,15 @@ String ctxPath = request.getContextPath();
 						</div>
 						<div class="price">
 							<div class="amount">
-								<span class="num"> ${product.price} </span>
+								<span id= "price"class="num"><fmt:formatNumber value="${product.price}" pattern="#,###" /> 원</span>
+								
 								<%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
 								<span class="won">원</span>
 							</div>
 							<div class="fluctuation">
 								<p id="discount_price">${product.discountPrice}원
-									(${product.discount_rate}%)</p>
+									( <fmt:formatNumber type="number" maxFractionDigits="0" value="${product.discount_rate * 100}" />% )</p>
+									
 							</div>
 						</div>
 					</div>
@@ -187,12 +190,19 @@ String ctxPath = request.getContextPath();
 									<span class="won">원</span>
 								</span> <span class="desc">즉시 구매가</span>
 							</div>
-						</a> <a href="javascript:void(0)" class="btn_buy btn_cart"
+						</a> 
+						<a href="javascript:void(0)" class="btn_buy btn_cart"
 							onclick="updateCart()"> <i
 							class="fa-solid fa-cart-plus fa-2x"></i>
-
 						</a>
-
+					<c:if test="${sessionScope.userid == 'admin'}">
+   			
+						<a href="javascript:void(0)" class="btn_buy btn_edit"
+						   data-toggle="modal" data-target="#editProduct"> 
+							<i class="fa-solid fa-screwdriver-wrench fa-2x"></i>
+						</a>
+					</c:if>
+					<div class="border-rounded">${product.product_content}</div>
 					</div>
 
 					<a onclick="likeCheck()" href="javascript:void(0)"
@@ -201,6 +211,8 @@ String ctxPath = request.getContextPath();
 						<span class="btn_text" type="button">관심상품</span> <span
 						class="wish_count_num">${product.likeCnt}</span> <%-- 여기 숫자는 제품 관심상품 등록된 횟수 카운트해줘야하니 나중에 제품자체에 관심등록 칼럼 추가해줘서 관리하는게 편할듯 --%>
 					</a>
+					
+					
 
 				</div>
 
@@ -329,7 +341,7 @@ String ctxPath = request.getContextPath();
 					<img alt="상품 이미지" src="images/Koala.jpg" class="image">
 				</div>
 				<div class="product_info">
-					<p class="name">S${product.product_name}</p>
+					<p class="name">${product.product_name}</p>
 					<p class="translated_name">${product.product_name}</p>
 				</div>
 			</div>
@@ -375,7 +387,8 @@ String ctxPath = request.getContextPath();
 		<div id="asd"></div>
 		<input id="productNum" type="hidden" name="productNum" value="${product.product_num}"  />
 		<input id="userid"  type="hidden" name="userid" value="${sessionScope.userid}"  />		
-
+		<input id="discountPrice"  type="hidden" name="discountPrice" value="${product.discountPrice}"  />		
+		
 	</form>
 
 
@@ -387,4 +400,90 @@ String ctxPath = request.getContextPath();
 	</div>
 
 </body>
+
+
+
+
+ <div id="editProduct" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">제품 정보 변경</h4>
+      </div>
+      <div class="modal-body">
+        <form name="editProductFrm" class="delivery_input" enctype="multipart/form-data">
+         <div class = delete_image>
+         	<input id="delete_length" type="hidden" name="delete_length" value=""  />
+         </div>
+        	<h4 id="product_name" class="input_title">제품명</h4>
+              <div class="input_item">
+                 <input name="product_name" class="input_txt" id="product_name" type="text" placeholder= "${product.product_name}" autocomplete="off" >
+              </div>
+              <span class="product_name_error modal_error" style="color:red">올바른 이름을 입력해주세요. (1 - 30자)</span>
+        
+        	<h4 id="name" class="input_title">가격</h4>
+              <div class="input_item">
+                 <input name="price" class="input_txt" id="price" type="text" placeholder="${product.price}" autocomplete="off" >
+              </div>
+              <span class="price_error modal_error" style="color:red">올바른 가격을 입력해주세요. (0 - 20자)</span>
+        
+        
+	        <h4 id="name" class="input_title">할인율</h4>
+	              <div class="input_item">
+	                 <input name="discount_rate" class="input_txt" id="discount_rate" type="text" placeholder="${product.discount_rate}" autocomplete="off" >
+	                 <input id="discount_rate_origin" type="hidden" value="${product.discount_rate}"  />
+	              </div>
+	              <span class="discount_rate_error modal_error" style="color:red">올바른 할인율을 입력해주세요. (0이상 1미만의 수를 소수 두자리 이하로 작성해주세요)</span>
+        	
+        	<h4 id="name" class="input_title">제품이미지</h4>
+        		
+        		<c:forEach var="imgvo" items="${product.product_image_array}" varStatus="status">	
+					<c:if test="${status.index==0}">
+						<div id = "modalImage">
+							<img src="<%= ctxPath%>/images/제품이미지/${imgvo}"
+							 alt="제품이미지를<br>등록해주세요">
+							 <button id ="ximage"type="button" class="close ximage" >&times;</button>
+						</div>
+						<div class= "modalImageFileSelect">
+						
+						 	<label for="spinnerImgQty">파일갯수 : </label>
+                      		<input id="spinnerImgQty" value="0" style="width: 30px; height: 20px;">
+							<div id="divfileattach"></div>
+							<input type="hidden" name="attachCount" id="attachCount" value="0"/>
+							<a id= "pdimg${status.index}"name = "src" href="#" class="btn modalimage" value="${imgvo}">${imgvo}</a>	
+					</c:if>	
+					<c:if test="${status.index!=0}">
+							<a id= "pdimg${status.index}"name = "src" href="#" class="btn modalimage" value="${imgvo}">${imgvo}</a>	
+					</c:if>
+				</c:forEach>
+				</div>
+        	<h4 id="name" class="input_title">제품설명</h4>
+              <div class="input_item">
+                 <input name="product_content" class="input_txt" id="product_content" type="text" placeholder="${product.product_content}" autocomplete="off" >
+                 <input id="product_content_origin" type="hidden" value="${product.product_content}"  />
+	             <input id="product_num" type="hidden" name = "product_num" value="${product.product_num}"  />
+	              
+              </div>
+<!--               <span class="product_content_error modal_error" style="color:red">올바른 제품설명을 적어주세요. (공백 제외 내용이 존재하여야 합니다)</span> -->
+        
+        
+        </form>
+                        
+      </div>
+      <div class="modal-footer">
+        <button id="x" type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a id="goUpdateProduct" href="#" class="btn btn_save solid medium" onclick="goUpdateProduct()"> 저장하기 </a>
+      </div>
+    </div>
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+       
+  </div>
+</div>
+               
+
+
+
 <jsp:include page="/WEB-INF/view/footer.jsp" />

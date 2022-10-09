@@ -13,7 +13,8 @@ div#noticeDetail{
   width:1000px;
 }
 div#noticeDetail > table > thead > tr > th{
-  border-bottom:solid 2px black;
+  border-top:0;
+  border-bottom:solid 3px black;
 }
 td#noticeContent{
   background-color: #FAFAFA;
@@ -26,7 +27,7 @@ div#noticeDetail > table.table > tbody > tr:nth-child(1) > td > p#title{
   font-size:medium;
 }
 
-button#btn_close:hover{
+button.btn-white:hover{
 	background-color: black;
 	color:white;
 }
