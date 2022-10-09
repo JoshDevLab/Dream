@@ -1,24 +1,29 @@
-package jjy.purchaseList.controller;
+package jjy.admin.controller;
 
 import java.util.Calendar;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import common.controller.AbstractController;
-import jjy.member.model.*;
-import jjy.purchase.model.*;
+import jjy.purchase.model.InterPurchaseListDAO;
+import jjy.purchase.model.PurchaseListDAO;
+import jjy.purchase.model.PurchaseListDTO;
 
-public class PurchaseListJsonController extends AbstractController {
+public class ShippingManagementJson extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		
+		
+		
 		HttpSession session = request.getSession();
 		String sessionUserid = (String) session.getAttribute("userid");
 		
@@ -93,21 +98,18 @@ public class PurchaseListJsonController extends AbstractController {
 				purchaseMap.put("end", end);
 				
 				
-				
-				
 				// 페이징 처리를위한 총 페이지 수 알아오기
 				int totalPage = pdao.getTotalPage(purchaseMap);
 //				System.out.println("확인용 조회해온 totalPage => "+totalPage);
 				
 				
-//				List<PurchaseListDTO> purchaseList = pdao.allPurchaseList(purchaseMap);
 				// 페이징처리를 위한 구매내역 페이지 구해오기 
-				List<PurchaseListDTO> pagingPurchaseList = pdao.selectPagingPurchaseList(purchaseMap);
+				List<PurchaseListDTO> pagingPurchaseList = pdao.getAllPurchaseList(input_shipping);
 				
 				// 총 구매내역 수 알아오기 
-				int totalListCnt = pdao.getTotalListCnt(purchaseMap);
+				int  totalListCnt = pdao.getTotalListAdminCnt(input_shipping);
 				
-				//System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
+				System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
 				// System.out.println("확인용 => "+ pagingPurchaseList);
 				
 				JSONArray jsonArray = new JSONArray(); // 배열로 선언 
@@ -129,8 +131,23 @@ public class PurchaseListJsonController extends AbstractController {
 						
 						jsonObj.put("shipping", shipping );       //배송상태
 						
-						jsonObj.put("product_name", pdto.getProdDTO().getProduct_name() ); //제품명
+						String product_name = pdto.getProdDTO().getProduct_name(); // 제품이름이 20자 이상일 경우 ... 붙여서 표시 
+						if(product_name.length() > 20) {
+							product_name = product_name.substring(0,20)+"...";
+						}
+						
+						float discount_rate = pdto.getProdDTO().getDiscount_rate(); // 할인율
+						int price = pdto.getProdDTO().getPrice();                   // 가격 
+						int salePrice = (int)(price + (price*discount_rate));       // 판매가격
+						int point = (int)(price * 0.05);							// 포인트
+						
+						jsonObj.put("price", price );                                //할인된 가격
+						jsonObj.put("salePrice", salePrice );                        //할인된 가격
+						jsonObj.put("product_name", product_name ); 				 //제품명
 						jsonObj.put("product_image", pdto.getProdDTO().getProduct_image() ); //제품이미지
+						jsonObj.put("price", pdto.getProdDTO().getPrice() ); 		 //가격
+						jsonObj.put("point", point); 								 //포인트
+						                                                              
 						
 						jsonArray.put(jsonObj);
 						
@@ -150,11 +167,8 @@ public class PurchaseListJsonController extends AbstractController {
 					
 					super.setRedirect(false);
 					super.setViewPage("/WEB-INF/view/jjyjsonview.jsp");
-					
 				}
-				
 		}
-		
 
 	}
 

@@ -10,27 +10,77 @@ let lenHIT = 5;
 let start = 1;
 
 
+
+function allCheckBox() {
+      let bool = $("#allCheckSend").is(":checked");
+      $(".postSend").prop("checked", bool);
+}// end of function allCheckBox()-------------------------
+
+function allCheckBox2() {
+      let bool = $("#allCheckEnd").is(":checked");
+      $(".postEnd").prop("checked", bool);
+}// end of function allCheckBox()-------------------------
+
+function checkedSend(){
+	let bFlag = false;
+         $(".postSend").each(function(){
+            let bChecked = $(this).prop("checked");
+            if(!bChecked) {
+               $("#allCheckSend").prop("checked",false);
+               bFlag = true;
+               return false;
+            }
+         });
+         
+         if(!bFlag) {
+            $("#allCheckSend").prop("checked",true);
+         }
+}
+
+function checkedEnd(){
+         let bFlag = false;
+         $(".postEnd").each(function(){
+            let bChecked = $(this).prop("checked");
+            if(!bChecked) {
+               $("#allCheckEnd").prop("checked",false);
+               bFlag = true;
+               return false;
+            }
+         });
+         
+         if(!bFlag) {
+            $("#allCheckEnd").prop("checked",true);
+         }
+	
+}
+
 $(document).ready(function() {
 	
-	 $("div#shipping_cnt_left").trigger("click"); 
+	
+	$(document).on("click","input.postSend",function(e){
+         
+         let bFlag = false;
+         $(".postSend").each(function(){
+            let bChecked = $(this).prop("checked");
+            if(!bChecked) {
+               $("#allCheckSend").prop("checked",false);
+               bFlag = true;
+               return false;
+            }
+         });
+         
+         if(!bFlag) {
+            $("#allCheckSend").prop("checked",true);
+         }
+      });
 	
 	
-	// 화면인식 480px 사이즈 조절
-	const mediaViewContent = window.matchMedia(`(max-width: 480px)`)	
-	console.log(mediaViewContent);
-    
-    const viewChangeHandler = (mediaViewContent) => {  					
-    	// alert("확인용 max-width : 480px");
-    	$("div#purchase").toggleClass('container');
-    	$("div#purchase").css("width","100%");
-    }
-    
-    mediaViewContent.addEventListener("change", viewChangeHandler);
+	//  $("div#shipping_cnt_left").trigger("click"); 
 	
-	
-	
-	$("span#totalHITCount").hide();
-	$("span#countHIT").hide();
+      
+      
+	//$("span#totalHITCount").hide();
+	// $("span#countHIT").hide();
 	
 	// callAjax(start); // 맨 처음 8개를 출력
 	
@@ -88,18 +138,55 @@ $(document).ready(function() {
         $("span#countHIT").text("0");
 		
 		$("div#shipping_cnt_right").css("border", "");
+		$("div#shipping_cnt_middle").css("border", "");
 		$("div.shipping_status").css({ "font-weight": "", "color": "" });
 		$("div#shipping_cnt_right > div.purchase_count").css("color", "black");
+		$("div#shipping_cnt_middle > div.purchase_count").css("color", "black");
+		
 		$("div#shipping_cnt_left").css("border-bottom", "solid 2px #222");
 		$("div#shipping_cnt_left > div.purchase_count").css("color", "#f15746");
 		$("div#shipping_cnt_left > div.shipping_status").css({ "font-weight": "700", "color": "#222" });
+		
 		$("div#show_shipping_completed").hide();
+		$("div#show_shipping_processing").hide();
 		$("div#show_shipping").show();
+		
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("0");
 		
+		// goSearch();
 		callAjax(start);
 	});
+	
+	
+	
+	$("div#shipping_cnt_middle").click(function(e) {
+		
+		$("div#show_shipping").empty();           // append 된 상품들 삭제 
+        $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
+        $("span#countHIT").text("0");
+		
+		$("div#shipping_cnt_right").css("border", "");
+		$("div#shipping_cnt_left").css("border", "");
+		$("div.shipping_status").css({ "font-weight": "", "color": "" });
+		$("div#shipping_cnt_right > div.purchase_count").css("color", "black");
+		$("div#shipping_cnt_left > div.purchase_count").css("color", "black");
+		
+		$("div#shipping_cnt_middle").css("border-bottom", "solid 2px #222");
+		$("div#shipping_cnt_middle > div.purchase_count").css("color", "#f15746");
+		$("div#shipping_cnt_middle > div.shipping_status").css({ "font-weight": "700", "color": "#222" });
+	
+		$("div#show_shipping").show();
+		$("div#show_shipping_completed").hide();
+		$("div#show_shipping_processing").show();
+		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
+		$("div#status_button> input#input_shipping").val("1");
+		
+		// goSearch();
+		callAjax(start);
+	});
+	
+	
 	
 
 	// 종료 클릭시 테두리, 글자 속성 변경 
@@ -110,17 +197,22 @@ $(document).ready(function() {
         $("span#countHIT").text("0");
 		
 		$("div#shipping_cnt_left").css("border", "");
+		$("div#shipping_cnt_middle").css("border", "");
 		$("div.shipping_status").css({ "font-weight": "", "color": "" });
 		$("div#shipping_cnt_left > div.purchase_count").css("color", "black");
+		$("div#shipping_cnt_middle > div.purchase_count").css("color", "black");
 		$("div#shipping_cnt_right").css("border-bottom", "solid 2px #222");
 		$("div#shipping_cnt_right > div.purchase_count").css("color", "#f15746");
 		$("div#shipping_cnt_right > div.shipping_status").css({ "font-weight": "700", "color": "#222" });
-		$("div#show_shipping").hide();
+	
+		$("div#show_shipping").show();
+		$("div#show_shipping_processing").hide();
 		$("div#show_shipping_completed").show();
 
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
-		$("div#status_button> input#input_shipping").val("1");
+		$("div#status_button> input#input_shipping").val("2");
 		
+		// goSearch();
 		callAjax(start);
 
 	});
@@ -152,6 +244,8 @@ $(document).ready(function() {
 		
 		}
 		// sort.val()에 저장된  asc / desc 전달
+		
+		//goSearch();
 		callAjax(start);
 	});
 
@@ -193,6 +287,7 @@ $(document).ready(function() {
 			$("div#show_shipping_completed").empty();	// div 초기화 
 			$("span#countHIT").text("0");
 		
+		// goSearch();
 		callAjax(start);
 	});
 
@@ -258,12 +353,95 @@ $(document).ready(function() {
 
 });// end of $(document).ready(function()----------------------------------
 
+/*
+function goSearch(){
+	const frm = document.purchaseFrm;
+	frm.action = getContextPath()+"/admin/shippingMangement.dream"; 
+	frm.method = "POST";
+	frm.submit();
+}
+*/
+
+
+
+function updateShipping() {
+
+	let ordernum_arr = [];
+	for (let i = 0; i < $("input#jsonLength").val(); i++) {
+
+		if ($("input:checkbox[name='send']").eq(i).is(":checked")) {
+			ordernum_arr[i] = $("input:checkbox[name='send']").eq(i).val();
+		}
+	}
+
+	console.log("확인용" + ordernum_arr);
+
+	// 결과 값 찍어주는 ajax
+	$.ajax({
+		url: getContextPath() + "/admin/shippingMangementUpdate.dream",
+		type: "GET",
+		dataType: "json",
+		traditional: true, //필수
+		data: {
+			"shipping": "0",
+			"ordernum": JSON.stringify(ordernum_arr)
+		},
+		success: function(json) {
+			if (json.result == 1) {
+				window.location.reload();
+			}
+
+			// 조회결과가 있는 경우 
+		}, error: function(request, status, error) {
+			alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		}
+	});// end of ajax(){};===========================================================
+
+
+}// end of function updateShipping(){}--------------------------------------------------
+
+function updateShippingEnd(){
+	
+	let ordernum_arr = [];
+	for (let i = 0; i < $("input#jsonLength").val(); i++) {
+		
+		if( $("input:checkbox[name='end']").eq(i).is(":checked") ){  
+			ordernum_arr[i] = $("input:checkbox[name='end']").eq(i).val();
+		}
+	}  
+	
+	    console.log("확인용"+ordernum_arr);
+	  
+   	// 결과 값 찍어주는 ajax
+   	$.ajax({
+   		url: getContextPath()+"/admin/shippingMangementUpdate.dream",
+   		type: "GET",
+   		dataType: "json",
+   		traditional : true, //필수
+   		data: {"shipping": "1",
+   			   "ordernum": JSON.stringify(ordernum_arr)},
+   		success: function(json) {
+	
+			if(json.result == 1){
+			   window.location.reload();
+   			}
+   			// 조회결과가 있는 경우 
+   		},error: function(request, status, error) {
+   			alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+   		}
+   	});// end of ajax(){};===========================================================
+   				 
+	
+	
+} // end of function updateShippingEnd(){}----------------------------------
+
+
 
 function callAjax(start) {
 	  
    	// 결과 값 찍어주는 ajax
    	$.ajax({
-   		url: getContextPath()+"/member/buylistView.dream",
+   		url: getContextPath()+"/admin/shippingMangementView.dream",
    		type: "GET",
    		data: {"end_date": $("input#start_date").val(),
    			   "start_date": $("input#end_date").val(),
@@ -274,8 +452,6 @@ function callAjax(start) {
    			   "lenHIT":lenHIT},
    		dataType: "json",
    		success: function(json) {
-   			
-   			
    			
    			let html =" ";
    			
@@ -295,27 +471,40 @@ function callAjax(start) {
    				
    				 $.each(json, function(index, item){
    					$("span#totalHITCount").text(item.totalListCnt);
-   					html += "<a class='purchaseDetail' href='buylistDetail.dream?ordernum="+item.order_num+"'>"+
-   						"<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
+   					html += "<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
    		                     "<div id='purchase_detail'  class='d-flex'>"+
-   		                        "<div class='image_box' style='line-height: 110px;'>"+
-   		                           "<img class='product_img' src="+getContextPath()+"/images/제품이미지/"+item.product_image+" alt='...'>"+
-   		                        "</div>"+
-   		                        "<div id = 'name_cnt'>"+
-   		                           "<div class='item_name'> "+item.product_name+" </div>"+
-   		                           "<div class='purchase_cnt'> 구매수량 : "+item.buy_cnt+" </div>"+
-   		                        "</div>"+
+	   		                        "<div class='image_box' style='line-height: 110px;'>"+
+	   		                           "<img class='product_img' src="+getContextPath()+"/images/제품이미지/"+item.product_image+" alt='...'>"+
+	   		                        "</div>"+
+	   		                        "<div id = 'name_cnt'>"+
+	   		                           "<div class='item_name'>"+item.product_name+" </div>"+
+	   		                        "</div>"+
+	   		                         "<div class='order_num'> 주문번호 : "+item.order_num+" </div>"+
+	   		                         "<div class='purchase_cnt'> 구매수량 : "+item.buy_cnt+" </div>"+
+	   		                        "<div class='totalPrice' >주문총액 : "+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
+	   		                        "<div class='totalPrice' >적립 포인트 : "+(item.point).toLocaleString("en")+" 포인트</div>"+
    		                     "</div>"+
    		                     "<div id='date_status'>"+
-   		                        "<div>"+
-   		                           "<span class='purchase_status'>"+item.shipping+"</span>"+ 
-   		                        "</div>"+
-	   		                     "<div>"+
-		                           "<span class='purchase_date'>"+item.buy_date+"</span><br>"+
-		                         "</div>"+
+	   		                        "<div>"+
+	   		                           "<span class='purchase_status'>"+item.shipping+"</span>"+ 
+	   		                        "</div>"+
+	   		                        
+										"<input value='"+item.order_num+"' id='send"+index+"' class='postSend' type='checkbox' name='send' />"+
+									/*	"<input id='send"+index+"' class='postSend' type='checkbox' name='send"+index+"' onclick='checkedSend()' />"+*/
+										"<label for='send"+index+"'>배송하기</label>"+
+										"<input value='"+item.order_num+"' id='end"+index+"' class='postEnd' type='checkbox' name='end' onclick='checkedEnd()' />"+
+										"<label for='end"+index+"'>배송완료</label>"+
+										"<input id='jsonLength' value='"+json.length+"'/>"+
+	   		                        
+		   		                     "<div>"+
+			                           "<span class='purchase_date'>"+item.buy_date+"</span><br>"+
+			                         "</div>"+
    		                     "</div>"+
-   		               "</div>"+
-   		               "</a>";
+   		                     "<div>"+
+								"<div>"+ 
+								"</div>"+
+   		                     "</div>"+
+   		               "</div>";
    		               
    				 })// end of $.each(json, function(index, item){}---------------------------
    			
@@ -323,16 +512,17 @@ function callAjax(start) {
    				//$("div#show_shipping_completed").empty();		
    				
    				// 배송상태에 따라 다른 div에 append ///
+   					$("div#show_shipping").append(html); // div 값 입력
+   					/*
    				if($("input#input_shipping").val()==0){
    					$("div#show_shipping_completed").empty();	
-   					$("div#show_shipping").append(html); // div 값 입력
    					
    				}
    				else if($("input#input_shipping").val()==1){
    					$("div#show_shipping").empty(); // div 초기화 
    					$("div#show_shipping_completed").append(html); // div 값 입력
    				}
-   					
+   					*/
    			 // HIT 상품 결과를 출력하기
 		    	// >>> !!! 중요 !!! 더보기... 버튼의 value 속성에 값을 지정하기 <<< //
 				$("button#btnMoreHIT").val( Number(start) + lenHIT);

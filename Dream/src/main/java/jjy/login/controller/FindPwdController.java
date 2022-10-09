@@ -26,7 +26,7 @@ public class FindPwdController extends AbstractController {
 
 			Message coolsms = new Message(api_key, api_secret);
 			
-			String smsContent = ""; // 랜덤 문자 + 숫자 + 특수문자 8자리 임시 비밀번호 발급  
+			String smsContent = "Dream 임시 비밀번호 [ "; // 랜덤 문자 + 숫자 + 특수문자 8자리 임시 비밀번호 발급  
 			
 			/////////////////////////////////////////////////////////////////////////////////////////
 			// 임시 비밀번호 생성 
@@ -46,6 +46,7 @@ public class FindPwdController extends AbstractController {
 			
 			final char[] passwordTable =  { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' };
 			smsContent += passwordTable[rnd.nextInt(passwordTable.length)];
+			smsContent += " ]입니다."; 
 			System.out.println("확인용 발급된 임시 비밀번호 => "+ smsContent);
 			///////////////////////////////////////////////////////////////////////////////////////////
 			
@@ -81,7 +82,7 @@ public class FindPwdController extends AbstractController {
 		        jsonObj.put("isExistUser", isExistUser);		        
 		        String json = jsonObj.toString();
 		        
-		        System.out.println("~~~~ 확인용 json => "+json);
+		        // System.out.println("~~~~ 확인용 json => "+json);
 		        
 		        int updtePwdResult = logindao.updatePassword(findPwdMap);
 		        

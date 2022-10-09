@@ -15,12 +15,11 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css"
-	href="<%=ctxPath%>/css/purchase_list.css" />
+	href="<%=ctxPath%>/css/admin/shippingManagement.css" />
 <link rel="stylesheet" href="<%=ctxPath%>/css/sidebar.css">
 
 <%-- 직접만든 javascript --%>
-  <script type="text/javascript" src="<%= ctxPath%>/js/purchase_list.js" ></script>
-
+<script type="text/javascript" src="<%= ctxPath%>/js/admin/shippngManagement.js" ></script>
 
 
 
@@ -32,84 +31,15 @@
 
 <script>
    $(document).ready(function(){
-	   $("div#shipping_cnt_left").trigger("click"); 
+	    $("div#shipping_cnt_left").trigger("click");
    });// end of $(document).ready(function()----------------------------------
 </script>
-	   <%--  
-      /* 사이드바 script 시작 */
-      $("div.category-section > ul > li").click(function(e){
-         //  클릭할 경우 글자 css 변경
-         alert("클릭됨.");
-         $("div.category-section > ul > li > a").css({"font-weight":"","color":""});
-         $(e.target).css({"font-weight":"700","color":"black"});
-      });
-      /* 사이드바 script 끝  */
-
-
-	   
-
-
-	<!-- 내용물 시작 -->
-
-	<!-- 사이드바 시작 
-	<div id="sidebar" class="sidebar ml-5" style="width: 180px;">
-		<div>
-			<h4 class="mb-4" style="font-weight: bold;">
-				<a href="<%=ctxPath%>/member/mypage.dream">마이 페이지</a>
-			</h4>
-
-		</div>
-
-		<div class="category-section mb-5">
-			<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
-			<ul class="nav flex-column">
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>/member/buylist.dream">구매 내역</a></li>
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>/cart/cart.dream">관심 상품</a></li>
-			</ul>
-		</div>
-
-		<div class="category-section">
-			<h5 class="category-title font-weight-bold">내 정보</h5>
-			<ul class="nav flex-column">
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>/member/myInfo.dream">프로필 정보</a></li>
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>#####">주소록</a></li>
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>######">결제정보</a></li>
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>/member/point.dream">포인트</a></li>
-				<li class="nav-item"><a class="nav-link pl-0 color_gray"
-					href="<%=ctxPath%>/member/membership.dream">멤버십 정보</a></li>
-			</ul>
-		</div>
-	</div>-->
-	<!-- 사이드바 끝 -->
-
---%>
-
-
-
-		<%-------------------- 사이드바 끝 ----------------------%>
-		
-		
-	<%-------------------- 사이드바 시작 ----------------------%>
-
-	<%-- sidebar 호출 --%>
-	<jsp:include page="/WEB-INF/view/sidebar.jsp" />
-
-	<%-------------------- 사이드바 끝 ----------------------%>
-		
-		
-
 
 		<%-- 구매내역 시작  --%>
 		<div id="purchase" class="container">
 			<form name="purchaseFrm">
 				<div id="content_title">
-					<strong style="font-size: 24px;">구매 내역</strong>
+					<strong id="string_title" style="font-size: 24px;">배송관리</strong>
 				</div>
 
 
@@ -119,13 +49,18 @@
 					<input type="hidden" id="userid" name="userid" value="${sessionScope.userid}" readonly />
 
 					<div id="shipping_cnt_left" class="shipping_cnt">
-						<div id="sipping_count" class="purchase_count">${requestScope.orderCntMap.shipping}</div>
-						<div id="shipping" class="shipping_status">진행중</div>
+						<div id="sipping_count" class="purchase_count">${requestScope.OrderCntMap.shipping_ready}</div>
+						<div id="shipping" class="shipping_status">배송 준비중</div>
+					</div>
+					
+					<div id="shipping_cnt_middle" class="shipping_cnt">
+						<div id="sipping_processing_count" class="purchase_count">${requestScope.OrderCntMap.shipping}</div>
+						<div id="shipping_processing" class="shipping_status">배송중</div>
 					</div>
 
 					<div id="shipping_cnt_right" class="shipping_cnt">
-						<div id="shipping_end_count" class="purchase_count">${requestScope.orderCntMap.shipping_end}</div>
-						<div id="shipping_completed" class="shipping_status">종료</div>
+						<div id="shipping_end_count" class="purchase_count">${requestScope.OrderCntMap.shipping_complete}</div>
+						<div id="shipping_completed" class="shipping_status">배송완료</div>
 					</div>
 
 				</div>
@@ -170,11 +105,6 @@
 				<hr style="background-color: #ebebeb;">
 
 				<div id="result" class="my-4">
-					<ul>
-						<li class="result_notice">한 번에 조회 가능한 기간은 최대 6개월입니다.</li>
-						<li class="result_notice">기간별 조회 결과는 입찰일 기준으로 노출됩니다.</li>
-					</ul>
-
 					<%-- 구매일, 상태 버튼 시작 --%>
 					<div id="result_buttons">
 						<%-- 전체버튼 일단 비활성화 --%>
@@ -190,23 +120,41 @@
 					</div>
 			</form>
 			<%-- 구매일, 상태 버튼 끝 --%>
-
-
-
+			
+			
+			<%-- 배송 일괄 처리 버튼 div --%>
+			<div style="border: solid 2px red;">
+				<input id="allCheckSend" type="checkbox" name= "allCheckSend" onclick="allCheckBox();" /> <label for="allCheckSend" >전체선택(배송하기)</label>
+				<button type="button" onclick="updateShipping();" >배송하기</button>
+				<input id="allCheckEnd" type="checkbox" name= "allCheckEnd" onclick="allCheckBox2();" /> <label for="allCheckEnd" >전체선택(배송완료)</label>
+				<button type="button" onclick="updateShippingEnd();" >배송완료</button>
+				<input id="updateshipping" value="0"/>
+			</div>
+			
+			
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력  --%>
 			<div id="no_result" class="text-center my-5" style="color: #22222280; font-size: 13;"></div>
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력 끝  --%>
 
-			<%-- 진행중 클릭시 보여줄 div --%>
+						
+			<%-- 배송준비중 클릭시 보여줄 div --%>
 			<div id="show_shipping"></div>
-
+			
+			
+			<%-- 배송중 클릭시 보여줄 div 	--%>
+			<div id="show_shipping_processing"></div>
+			
+			
 			<%-- 종료 클릭시 보여줄 div --%>
 			<div id="show_shipping_completed"></div>
+			
+			
+			
 			
 		<%-- 더보기 버튼 넣기 시작  --%>
 			<button type="button" id="btnMoreHIT" value="">더보기</button>
 			<span id="totalHITCount"></span>
-            <span id="countHIT">0</span>
+            <span id="countHIT"></span>
 
 		</div>
 		<%-- 구매내역 끝  --%>
