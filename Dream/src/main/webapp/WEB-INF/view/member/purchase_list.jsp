@@ -32,6 +32,119 @@ String ctxPath = request.getContextPath();
 		$(document).ready(function() {
 			$("div#shipping_cnt_left").trigger("click");
 		});// end of $(document).ready(function()----------------------------------
+				
+				
+		
+		function viewDetail(index){
+			$("#frm"+index).method='POST';
+			$("#frm"+index).action='buylistDetail.dream';
+			$("#frm"+index).submit();
+		}
+
+
+		function callAjax(start) {
+			  
+		   	// 결과 값 찍어주는 ajax
+		   	$.ajax({
+		   		url: getContextPath()+"/member/buylistView.dream",
+		   		type: "GET",
+		   		data: {"end_date": $("input#start_date").val(),
+		   			   "start_date": $("input#end_date").val(),
+		   			   "input_shipping": $("input#input_shipping").val(),
+		   			   "sort": $("input#sort_date").val(),
+		   			   "userid": $("input#userid").val(),
+		   			   "start":start,
+		   			   "lenHIT":lenHIT},
+		   		dataType: "json",
+		   		success: function(json) {
+		   			
+		   			
+		   			
+		   			let html =" ";
+		   			
+		   			// 조회결과가 업는 경우 
+		   			if(start == "1" && json.length == 0){
+		   				$("div#show_shipping").empty(); // div 초기화 
+		   				$("div#show_shipping_completed").empty();	// div 초기화 
+		   				$("div#no_result").html("거래 내역이 없습니다.");
+		   				$("button#btnMoreHIT").hide();
+		   			}
+		   			// 조회결과가 있는 경우 
+		   			else if(json.length > 0){
+		   				
+		   				$("button#btnMoreHIT").show();
+		   				
+		   				$("div#no_result").html("");
+		   				
+		   				 $.each(json, function(index, item){
+		   					$("span#totalHITCount").text(item.totalListCnt);
+<%--		   					html += "<a class='purchaseDetail' href='buylistDetail.dream?ordernum="+item.order_num+"'>"+ --%>
+		   					html += "<a class='purchaseDetail' href='#' onclick='viewDetail("+index+")'>"+
+			   						"<form id='frm"+index+"' action='buylistDetail.dream' method='post'>"+
+			   							"<input name='order_num' type='hidden' value='"+item.order_num+"'></input>"+
+			   							"<input name='userid' type='hidden' value='${sessionScope.userid}'></input>"+
+			   						"</form>"+
+		   						"<div class='purchase_item my-1' style=' border-bottom: solid 1px #ebebeb; border-top: solid 1px #ebebeb;'>"+
+		   		                     "<div id='purchase_detail'  class='d-flex'>"+
+		   		                        "<div class='image_box' style='line-height: 110px;'>"+
+		   		                           "<img class='product_img' src="+getContextPath()+"/images/제품이미지/"+item.product_image+" alt='...'>"+
+		   		                        "</div>"+
+		   		                        "<div id = 'name_cnt'>"+
+		   		                           "<div class='item_name'> "+item.product_name+" </div>"+
+		   		                           "<div class='purchase_cnt'> 구매수량 : "+item.buy_cnt+" </div>"+
+		   		                        "</div>"+
+		   		                     "</div>"+
+		   		                     "<div id='date_status'>"+
+		   		                        "<div>"+
+		   		                           "<span class='purchase_status'>"+item.shipping+"</span>"+ 
+		   		                        "</div>"+
+			   		                     "<div>"+
+				                           "<span class='purchase_date'>"+item.buy_date+"</span><br>"+
+				                         "</div>"+
+		   		                     "</div>"+
+		   		               "</div>"+
+		   		               "</a>";
+		   		               
+		   				 })// end of $.each(json, function(index, item){}---------------------------
+		   			
+		   				//$("div#show_shipping").empty(); // div 초기화 
+		   				//$("div#show_shipping_completed").empty();		
+		   				
+		   				// 배송상태에 따라 다른 div에 append ///
+		   				if($("input#input_shipping").val()==0){
+		   					$("div#show_shipping_completed").empty();	
+		   					$("div#show_shipping").append(html); // div 값 입력
+		   					
+		   				}
+		   				else if($("input#input_shipping").val()==1){
+		   					$("div#show_shipping").empty(); // div 초기화 
+		   					$("div#show_shipping_completed").append(html); // div 값 입력
+		   				}
+		   					
+		   			 // HIT 상품 결과를 출력하기
+				    	// >>> !!! 중요 !!! 더보기... 버튼의 value 속성에 값을 지정하기 <<< //
+						$("button#btnMoreHIT").val( Number(start) + lenHIT);
+						
+						// span#countHIT 에 지금까지 출력된 상품의 개수를 누적해서 기록한다.
+						$("span#countHIT").text( Number($("span#countHIT").text()) + json.length );
+						
+						// 더보기... 버튼을 계속해서 클릭하여 countHIT 값과 totalHITCount 값이 일치하는 경우 
+						if( $("span#countHIT").text() == $("span#totalHITCount").text() ) {
+							$("button#btnMoreHIT").text("처음으로");
+							$("span#countHIT").text("0");
+						}
+		   				
+		   				
+		   			}
+		   		}, // end of success
+		   		error: function(request, status, error) {
+		   			alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		   		}
+		   	});// end of ajax(){};===========================================================
+		   				 
+		}  //end of function callAjax() {}-----------------------		
+				
+				
 	</script>
 
 	<!-- 내용물 시작 -->
@@ -103,7 +216,7 @@ String ctxPath = request.getContextPath();
 
 				<%-- 모바일 화면에서 기간 선택 시작 --%>
 				<select name="month" id="select_month" class="container">
-					<option value="기간선택">기간선택</option>
+					<option value="기간선택" >기간선택</option>
 					<option></option>
 					<option></option>
 					<option></option>

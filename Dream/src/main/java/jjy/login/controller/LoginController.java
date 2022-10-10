@@ -39,6 +39,8 @@ public class LoginController extends AbstractController {
 			userinfoMap.put("passwd", passwd);
 			userinfoMap.put("client_ip", client_ip);
 			
+			
+			boolean isFirstLogin = false;        // 첫 로그인 여부 
 			boolean isSecession = false;        // 탈퇴 회원 여부
 			boolean isRestMember = false;       // 휴면 회원 여부
 			boolean isMembership = false;       // 멤버십 가입 여부
@@ -102,11 +104,11 @@ public class LoginController extends AbstractController {
 							int result = mdao.deleteMembership(userid);
 							// 확인용
 							if (result == 1) {
-								System.out.println("확인용 멤버십 탈퇴처리됨.");
+						//		System.out.println("확인용 멤버십 탈퇴처리됨.");
 								isMembership = false;
 								isMembershipGap = true;
 							} else {
-								System.out.println("확인용 멤버십 탈퇴처리 오류발생");
+						//		System.out.println("확인용 멤버십 탈퇴처리 오류발생");
 							}
 						}
 					}
@@ -159,10 +161,10 @@ public class LoginController extends AbstractController {
 									HttpSession session = request.getSession();
 									session.setAttribute("userid", userid);
 	
-									System.out.println("확인용 로그인된 아이디 : " + loginuser.getUserid());
+							//		System.out.println("확인용 로그인된 아이디 : " + loginuser.getUserid());
 									System.out.println("확인용 session에 저장된 아이디 : " + session.getAttribute("userid"));
 								} else {
-									System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
+							//		System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
 	
 									// session 영역에 로그인 한 사용자 아이디(userid) 저장
 									HttpSession session = request.getSession();
