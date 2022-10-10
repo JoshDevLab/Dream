@@ -361,6 +361,31 @@ public class ProductDAO implements InterProductDAO {
 
 	}
 
+	@Override
+	public int ilikethis(String productnum, String loginuserid) throws SQLException {
+		int result = 0;
+
+		try {
+			conn = ds.getConnection();
+			String sql = " select * from tbl_like "+
+					" where userid= ? and product_num= ? ";
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1 , loginuserid);
+			 pstmt.setString(2 , productnum);
+			 
+			 rs = pstmt.executeQuery();
+			 if(rs.next()) {
+				result = 1;
+			 }
+			 
+		
+			 return result;
+		} finally {
+			
+			close();
+		}
+	}
+
 }
 
 

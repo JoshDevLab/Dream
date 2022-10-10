@@ -19,4 +19,8 @@ public interface InterProductDAO {
 	/** 제품 업데이트 */
 	int UpdateProduct(Map<String, String> paraMap) throws SQLException;
 
+	/** uesrid 랑 제품번호로 내가 이미 관심등록 했는지 여부 확인! 
+	 * @throws SQLException */
+	int ilikethis(String productnum, String loginuserid) throws SQLException;
+
 }

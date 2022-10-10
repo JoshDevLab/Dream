@@ -30,6 +30,9 @@ public class DetailProductController extends AbstractController {
 			
 			
 			String productnum = request.getParameter("num");
+
+			HttpSession session = request.getSession();
+			String loginuserid = (String) session.getAttribute("userid");
 			
 			
 			try {
@@ -44,6 +47,10 @@ public class DetailProductController extends AbstractController {
 				request.setAttribute("pdCnt", product.getProduct_cnt());
 				request.setAttribute("product", product);
 				
+				if(loginuserid != null) { // 로그인 중이라면
+					int n = pdao.ilikethis(productnum , loginuserid);
+					request.setAttribute("like", n);
+				}
 				
 			//	super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/product/product_detail.jsp");
