@@ -91,9 +91,23 @@ $(document).ready(function(){
       
       //이메일 인증번호 전송을 클릭했을때
       $("button#btn_send_email").click(function(){
+	
 		const userid = input_userid.val();
+		
 		$("input#emailConfirmCode").css("display","inline-block");
+		$("button#emailConfirmComplete").attr("disabled",false);
+        $("button#emailConfirmComplete").css("background-color","");
+        $("button#emailConfirmComplete").css("color","");
+        
+		if($("button#btn_send_email").text() == '재전송'){
+			alert("이메일 인증코드를 재전송하였습니다.");
+			clearInterval(email_setTimer);
+			email_time = 180;
+		}
+		
+		email_setTimer = setInterval(email_timer,1000);
 	    $("span#send_guide").html(`입력하신 이메일 ${userid}로 <br> 인증번호를 전송하였습니다.`);
+	    $("button#btn_send_email").text("재전송");
 		$.ajax({ 
 			url:getContextPath()+"/member/emailCheck.dream", 
 			data:{"userid": userid},
@@ -104,7 +118,10 @@ $(document).ready(function(){
 				  emailConfirmCode = json.certificationCode;
 				}
 				else{	//이메일 전송에 실패했다면
-					$("span#send_guide").html("입력하신 이메일로 전송을 실패했습니다.이메일을 다시한번 확인해주세요")
+					$("span#send_guide").html("입력하신 이메일로 전송을 실패했습니다.이메일을 다시한번 확인해주세요");
+					$("button#emailConfirmComplete").attr("disabled",true);
+			        $("button#emailConfirmComplete").css("background-color","#EBEBEB");
+			        $("button#emailConfirmComplete").css("color","white");
 				}
 			},//end of success
 			
@@ -120,6 +137,8 @@ $(document).ready(function(){
 	  //이메일 인증완료 버튼 클릭시
 	  $("button#emailConfirmComplete").click(function(){
 		if(emailConfirmCode == $("input:text[name='emailConfirmCode']").val()){ //입력한 코드와 인증코드가 같다면
+		  clearInterval(email_setTimer);
+		  email_time= 0;
 		  const frm = document.joinFrm;
 		  frm.action = "join.dream"; // 상대경로이므로 맨 뒤에만 바뀜
 		  frm.method = "post"; // get 방식이라면 회원가입 창을 보여주고, post 방식이라면 DB에 데이터 전달
@@ -132,6 +151,7 @@ $(document).ready(function(){
 	  
 	  //가입하기 버튼 클릭시
 	  $("button#btn_join").click(function(){
+		$("button#btn_send_email").text("인증번호 전송");
 		$("span#send_guide").html("");
 	  });
 	  
@@ -162,6 +182,29 @@ $(document).ready(function(){
           let text = `${minute} : ${second}`;
           $("div#div_timer").text(text);
           time--;
+        }
+      }// end of timer-----
+      
+      
+      //타이머 함수 만들기
+      const email_timer = function timer(){
+		if(email_time<0){ // 타임이 0보다 작게된다면
+          clearInterval(email_setTimer);
+          alert("입력시간이 초과하였습니다. 이메일인증을 다시 진행해주세요");
+          $("button#emailConfirmComplete").attr("disabled",true);
+          $("button#emailConfirmComplete").css("background-color","#EBEBEB");
+          $("button#emailConfirmComplete").css("color","white");
+          email_ok = false;
+          agree_check();
+        }
+        else{
+          let minute = parseInt(email_time/60);
+          minute = (minute+"").length<2? "0"+minute : minute; //삼항연산자로 분 자리맞춰주기
+          let second = email_time%60;
+          second = (second+"").length<2? "0"+second : second; //삼항연산자로 초 자리맞춰주기
+          let text = `${minute} : ${second}`;
+          $("div#div_email_timer").text(text);
+          email_time--;
         }
       }// end of timer-----
 
@@ -260,7 +303,6 @@ $(document).ready(function(){
 	  
 	  //체크박스 체크했는지 알아내기
 	  function agree_check(){
-	  /*
 	  	if(id_ok  && passwd_ok && passwd_check_ok && mobile_ok){	//회원가입 입력 조건이 갖춰지면
 		  const chkbox_agree_age = $("input:checkbox[name='agree_age']:checked").length
 		  	if(chkbox_agree_age == 0){	//이용약관 여부를 검사하고.
@@ -279,9 +321,6 @@ $(document).ready(function(){
   			$("button#btn_join").css("background","#EBEBEB");
 			return;
 		}
-		  
-	  */
-	  $("button#btn_join").attr("disabled",false);
 	  }//end of agree_check
 	  
 	  
@@ -313,10 +352,10 @@ $(document).ready(function(){
       
       //핸드폰인증하기 버튼 클릭시 인증번호를 전송해주기
       $("button#btn_mobile_check").click(function(){
-	    $("div#mobileConfirm").css("display","");
+	    $("div#mobileConfirm").show();
 	    $("button#btn_mobile_check").text("재전송");
 		const mobile = $("input#mobile").val();
-		if(cnt_mobile_check>0){
+		if(cnt_mobile_check>0){	
 			clearInterval(setTimer);
 			time = 180;
 		}
