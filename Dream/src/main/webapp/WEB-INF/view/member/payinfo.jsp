@@ -212,7 +212,7 @@
 									</div>
 								</div>
 								<div class="btn_bind" id="other_bind">
-									<a href="#" class="btn_outlinegrey_small2" data-toggle="modal" data-target="#pay_modal" data-dismiss="modal" onclick="show_modal()"> 기본결제 </a> <a
+									<a href="#" class="btn_outlinegrey_small2"onclick="show_modal()"> 기본결제 </a> <a
 										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
 								</div>
 							</div>
@@ -239,7 +239,7 @@
 									</div>
 								</div>
 								<div class="btn_bind" id="other_bind">
-									<a href="#" class="btn_outlinegrey_small2" data-toggle="modal" data-target="#pay_modal" data-dismiss="modal" onclick="show_modal()"> 기본결제 </a> <a
+									<a href="#" class="btn_outlinegrey_small2"onclick="show_modal()"> 기본결제 </a> <a
 										href="#" class="btn_outlinegrey_small2" id="delete"> 삭제 </a>
 								</div>
 							</div>
@@ -348,7 +348,7 @@
       
         <!-- Modal header -->
         <div >
-          <h2 class="modal-title">기본결제로<br>변경하시겠습니까?</h4>          
+          <h2 class="modal-title">기본결제로<br>변경하시겠습니까?</h2>          
         </div>
         
         <!-- Modal body -->
