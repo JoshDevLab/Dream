@@ -231,11 +231,8 @@
                       </div>
                       <div class="point_change_explain">
                         ${pointObj.event_type} 적립
-                        
                       </div>
-                      <div class="point_date">
-                        .
-                      </div>
+                    
 
                     </div>
                     <div class="point_amount">
@@ -263,9 +260,7 @@
                         <!-- 얘는 위의  point_circle 의 클래스가 plus 면 포인트적립 minus면 구매 시 사용-->
                         ${pointObj.event_type} 시 사용<br>
                       </div>
-                      <div class="point_date">
-                        .
-                      </div>
+              
 
                     </div>
                     <div class="point_amount">
