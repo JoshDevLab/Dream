@@ -20,7 +20,6 @@
 
 	$(document).ready(function() {
 		
-		 $("#date_button").hide();
 		
          $("select#searchType").val("${requestScope.searchType}");
          $("input#searchWord").val("${requestScope.searchWord}"); 
@@ -29,7 +28,7 @@
 		if("${requestScope.searchType}" == "joindate" ) {
 			$("#start_date").val("${requestScope.start_date}");
 			$("#end_date").val("${requestScope.end_date}");
-			$("#date_button").show();
+			$("#date_button").css("display","flex");
 		}
 		
 		if("${requestScope.searchType}" == "secession" || "${requestScope.searchType}" == "rest_member" 
@@ -43,7 +42,7 @@
 			
 			if(searchType == 'joindate') {
 				$("#end_date").val(new Date().toISOString().substring(0, 10));
-				$("#date_button").show();
+				$("#date_button").css("display","flex");
 			}
 			else {
 				$("#date_button").hide();
@@ -153,8 +152,8 @@
 
 
  <%-- 검색부분 시작 --%>
- <form name="memberFrm">
-   <div id="search_area" class="d-flex m-auto pt-2">
+ <form name="memberFrm" class="mx-auto mt-3">
+   <div id="search_area" class="d-flex pt-2">
      <select id="searchType" name="searchType">
        <option value="">선택하세요</option>
        <option value="userid">아이디</option>
@@ -166,19 +165,6 @@
        <option value="rest_member">휴면여부</option>
      </select>
      
-     <%-- 기간조회 시작 --%>
-	<div id="date_button" style="display:flex; margin-left: 20px">
-
-		<div id="from_date" class="input_date" style="vertical-align: middle;">
-			<input type="date" name="start_date" id="start_date" style="width: 120px; margin: 6px auto;" value ="" ></input>~
-		</div>
-
-		<div id="to_date" class="input_date">
-			<input type="date" name="end_date" id="end_date" style="width: 120px; margin: 6px auto;" value="">
-		</div>
-
-	</div>
-	<%-- 기간조회 끝 --%>
      
     <div id="memberIdSearch" class="d-flex ml-3">
       <div id="input_id">
@@ -191,6 +177,20 @@
       </div>
     </div>
    </div>
+   
+   <%-- 기간조회 시작 --%>
+	<div id="date_button" class="mt-2">
+
+		<div id="from_date" class="input_date" style="vertical-align: middle;">
+			<input type="date" name="start_date" id="start_date" style="width: 120px; margin: 6px auto;" value ="" ></input>~
+		</div>
+
+		<div id="to_date" class="input_date">
+			<input type="date" name="end_date" id="end_date" style="width: 120px; margin: 6px auto;" value="">
+		</div>
+
+	</div>
+	<%-- 기간조회 끝 --%>
  </form>
   
   

@@ -113,9 +113,10 @@
 			<div class="d-flex flex-column mt-2">
 				<button id="btn_send_email" class="btn btn-white border mr-1">인증번호 전송</button>
 				<span id="send_guide" class="mt-2"></span>
-				<input class="mt-2" type="text" id="emailConfirmCode" name="emailConfirmCode" placeholder="인증번호를 입력해주세요">
-				<!-- 이메일 타이머 디자인 해놓기아ㅣㅏㅡㄴㅇ라ㅣㅡㄴㅇㅁ ㅣㄴ ㅣㅊ잋리ㅏ기ㅏ릴 -->
-				<div id="div_email_timer">03:00</div>
+				<div class="d-flex align-items-center">
+				  <input class="mt-2" type="text" id="emailConfirmCode" name="emailConfirmCode" placeholder="인증번호를 입력해주세요">
+				  <div id="div_email_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;">03:00</div>
+				</div>
 			</div>
        </div>
        
