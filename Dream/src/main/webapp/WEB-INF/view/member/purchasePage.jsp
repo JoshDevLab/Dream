@@ -72,6 +72,9 @@
 
       <%-- 제품 주소 && 배송 섹션--%>
       <section style="padding:32px">
+      <div class="section_title">
+            <h3 class="title_txt">배송지 선택</h3>
+          </div>
       
         <div class="section_unit">
           <c:if test="${empty requestScope.basic_mobile}">
@@ -289,9 +292,9 @@
                   <div class="way_desc">
                     <p class="company">
                       <span class="badge_title">일반배송 </span>
-                      <span class="title">3,000원</span>
+                      <span class="title">무료</span>
                     </p>
-                    <p class="sub_text">검수 후 배송 ・ 5-7일 내 도착 예정</p>
+                    <p class="sub_text">배송 ・ 1-3일 내 도착 예정</p>
                   </div>
                 </div>
               </div>
@@ -344,15 +347,15 @@
            <ul>
               <li>
                  <span class="product_price" >상품금액</span>
-                 <span style="font-weight: 700;">-</span>
+                 <span class = "payment" id="payment_price" style="font-weight: 700;">${requestScope.fullPrice}</span>
               </li>
               <li>
                  <span id="span_point" class="span_title">포인트</span>
-                 <span id = "span_point_amount">-</span>
+                 <span class = "payment" id = "span_point_amount">-</span>
               </li>
               <li>
                  <span id="span_ship_price" class="span_title">배송비</span>
-                 <span>-</span>
+                 <span class = "payment" >0</span>
               </li>
            </ul>
         </div>
@@ -382,7 +385,7 @@
               <input class = "aaaa" name="li_check" id="checkbox_3" type="checkbox" />
            </li>
            <li>
-              <span class="total_amount">총결제금액</span><span>${requestScope.fullPrice}</span>
+              <span class="total_amount">총결제금액</span><span id="final_price">${requestScope.fullPrice}</span>
            </li>
            <li>
               <a id="payment">결제하기</a>

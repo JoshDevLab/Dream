@@ -170,7 +170,8 @@ String ctxPath = request.getContextPath();
 						</div>
 						<div class="price">
 							<div class="amount">
-								<span id= "price"class="num"><fmt:formatNumber value="${product.price}" pattern="#,###" /> 원</span>
+								<span id= "price"class="num"><fmt:formatNumber value="${product.price}" pattern="#,###" />
+								 원</span>
 								
 								<%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
 								<span class="won">원</span>
@@ -230,14 +231,7 @@ String ctxPath = request.getContextPath();
 								<dt class="product_title">출시일</dt>
 								<dd class="product_info">${product.register_date}</dd>
 							</div>
-							<div class="detail_box">
-								<dt class="product_title">컬러</dt>
-								<dd class="product_info">여기 뭘로 하지</dd>
-							</div>
-							<div class="detail_box">
-								<dt class="product_title">컬러랑 합치고</dt>
-								<dd class="product_info">상세설명?</dd>
-							</div>
+							
 						</dl>
 					</div>
 				</div>

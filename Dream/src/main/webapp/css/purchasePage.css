@@ -18,7 +18,6 @@ div.content{
 }
 
 .product_info_area {
-  padding: 32px;
   background-color: #fff;
 }
 
@@ -36,8 +35,8 @@ div.content{
   right: 0;
   bottom: 0;
   background: rgba(0,0,0,0);
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: 200px;
 }
 .product>img{
   height: 100%;
@@ -51,7 +50,7 @@ div.content{
 .product_detail {
   overflow: hidden;
   flex: 1;
-  padding-left: 16px;
+  padding-left: 50px;
 }
 
 .product_detail .model_number {
@@ -191,6 +190,10 @@ img.way_img, div.way_status_thumb{
   color: rgba(34,34,34,.5);
 }
 
+
+.table td{
+	text-align: center;
+}
 
 /* 포인트 css */
 
@@ -867,9 +870,15 @@ div.selectedAddress{
 	background-color: lavender;
 }
 div.adressOption{
-	padding: 5px;
+	padding: 10px 40px;
 }
   
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #222;
+    border-color: #222;
+}  
 
 
 

@@ -723,11 +723,6 @@ a.dropdown-item{
 }
 
 
-#added_option>:last-child{
-	margin-left: 30%;
-	
-}
-
 /* 모달 css */
 
 .modal-header {
