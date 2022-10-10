@@ -11,6 +11,30 @@
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
   
   <script type="text/javascript">
+  
+  
+  $(document).ready(function() {
+	  $('#MemberOut').click(function (){
+			const userid = '${sessionScope.userid}';
+		    alert("바이바이");
+		    $.ajax({
+		        url : getContextPath()+"/member/memberDelete.dream",
+		        traditional: true,
+		        type: "post",
+		        data: {"userid" : userid },
+		        dataType:'json',
+		        success: function(json) {
+					if(json.n == 1) {
+						alert("회원탈퇴가 완료되었습니다.");
+						location.href = '<%= ctxPath %>/index.dream';
+					}
+				},
+		        error: function(request, status, error){
+		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+		    });
+		  });
+  });
 	  
 	   function myInfoEdit() {
 			
@@ -20,6 +44,8 @@
 			frm.submit();
 			
 		}
+	   
+	 
 	  
   </script>
 
@@ -48,7 +74,7 @@
                             <div class="checkbox_item">
                               <input id="title0" type="checkbox" name="ModalCheckbox" class="blind">
                               <label for="title0" class="check_label" >
-                                <span class="label_txt">KREAM을 탈퇴하면 회원 정보 및 서비스 이용 기록이 삭제됩니다.</span>
+                                <span class="label_txt">DREAM을 탈퇴하면 회원 정보 및 서비스 이용 기록이 삭제됩니다.</span>
                               </label>
                             </div>
                           </h5>
@@ -94,7 +120,7 @@
                             <div class="checkbox_item">
                               <input id="title2" type="checkbox" name="ModalCheckbox" class="blind">
                               <label for="title2" class="check_label">
-                                <span class="label_txt">KREAM 탈퇴가 제한된 경우에는 아래 내용을 참고하시기 바랍니다.</span>
+                                <span class="label_txt">DREAM 탈퇴가 제한된 경우에는 아래 내용을 참고하시기 바랍니다.</span>
                               </label>
                             </div>
                           </h5>
@@ -150,8 +176,8 @@
         
         
         
-        
-        <form id="right-content" style="width: 90%;" class="mt-4" name="myEdit">
+        <div style="width: 100%">
+        <form id="right-content" class="mt-4" name="myEdit">
             <div id="content_title border">
                 <h4 class="mb-4 pb-3" style="font-weight:bold; border-bottom: solid 3px black;">프로필 정보</h4>
             </div>
@@ -167,8 +193,6 @@
                         <div id="user-email" style="font-size:10pt;">
                             <p>${requestScope.mdto.userid}</p> <%-- 백단에서 아이디 가져오기 --%>
                         </div>  
-                        <button type="button" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">이미지 변경</button>
-                        <button type="button" type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">내 스타일</button>
                     </div>
                 </div>
             </div>
@@ -238,18 +262,19 @@
                     </div>
                     <div id="login_information_phone" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
-                            <p style="color: gray; font-size: small;" class="mb-1">휴대폰 번호</p>
+                            <p style="color: gray; font-size: small; width: 96.74px;" class="mb-1">휴대폰 번호</p>
                             <div id="user_mobile" style="color: gray;"><span id="mobile">${requestScope.mdto.mobile}</span></div>
                             <input type="hidden" value="${requestScope.mdto.mobile}" name="mobile" />
                             <input type="hidden" value="" name="mobile_store_cnt"/>
                         </div>
-                        <div class="mt-4" id="div_modifyMobile" style="position: relative; left: -69px;">
+                        <div class="mt-4" id="div_modifyMobile" style="position: relative; left:-96.74px;">
                             <p id="new_mobile" style="color: black; font-size: small;" class="mb-1">새로운 전화번호</p>
                             <input type="text" id="modify_mobile" placeholder="고객님의 전화번호" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_mobile_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 전화번호 양식으로 입력하세요</span>
                             <div id="mobile_certification" style="display: flex;">
                               <input class="mt-2" type="text" name="certification_mobile" id="certification_mobile"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 />
                               <button type="button" id="certification_mobile_btn" class="can_modify btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
+                              <div id="div_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;"></div>
                             </div>
                             <br><br>
                             <button type="button"  id="mobile_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
@@ -301,11 +326,16 @@
 
             </div>
         </form>
+        </div>
     </div>
     
     
     
     
+    
     <%--footer 호출 --%>
-<jsp:include page="/WEB-INF/view/footer.jsp" />
+<jsp:include page="/WEB-INF/view/footer.jsp" /> 
+    
+    
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
     

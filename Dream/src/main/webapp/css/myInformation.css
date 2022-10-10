@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .profile_group {
-    width: 70%;
+    width: 100%;
 }
 
 
@@ -132,6 +132,14 @@ button#x {
     
 }
 
+form#right-content {
+	width: 90%;
+}
+
+#profile_info {
+	width: 100%;
+}
+
 
 @media (max-width: 768px) {
     #ModalPoint>.modal-dialog {
@@ -146,11 +154,24 @@ button#x {
 	.sidebar {
 		display: none;
 	}
+	form#right-content {
+		width: 100%;
+	}
+	#footer {
+   	  display: none;
+   }
 }
 
 @media (max-width: 415px) {
 	.profile_group {
 		width: 100%;
 	}
+}
+
+@media (min-width: 768px) {
+   #myPageFooter {
+      display: none;
+   } 
+  
 }
 
