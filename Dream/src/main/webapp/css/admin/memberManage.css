@@ -27,8 +27,12 @@ input#searchWord{
   height:40px;
   border:none;
 }
+input#searchWord:focus { 
+	outline: none; 
+}
 div#memberIdSearch{
   border:solid 2px black;
+  
 }
 div#search_btn{
   height:100%;
@@ -42,6 +46,9 @@ input#userid::placeholder{
 select#searchType{
   width:120px;
 }
+select#searchType:focus{
+	outline:none;
+}
 
 
 li.active > a, 
@@ -53,6 +60,9 @@ li.active:focus   {
   background: black !important;
   border-color:black !important;
   color: white !important;
+}
+div#date_button{
+	display:none;
 }
 
 

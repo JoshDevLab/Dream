@@ -215,7 +215,7 @@ public class LoginDAO implements InterLoginDAO {
       try {
          conn = ds.getConnection();
          
-         String sql = " insert into tbl_login_record (login_num, userid,client_up) values "
+         String sql = " insert into tbl_login_record (login_num, userid,client_ip) values "
                    + " (seq_login_history.nextval, ?, ? ) ";
          
          pstmt = conn.prepareStatement(sql);

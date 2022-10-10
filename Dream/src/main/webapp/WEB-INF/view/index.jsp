@@ -75,7 +75,7 @@
 						                  <%-- 상품가격 넣을 곳 --%>
 						                  "<div id='product_price' class='d-flex justify-content-between'>"+
 						                    <%-- if문!!상품자체할인가격이 있다면 아래태그,할인된가격--%>
-						                    "<span id='product_price_discount' style='text-decoration: line-through;'>&#8361;"+item.price+"원</span>"+
+						                    "<span id='product_price_discount' style='text-decoration: line-through;'>&#8361;"+item.price.toLocaleString('en')+"원</span>"+
 						                    <%-- 상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳 --%>
 						                    "<div id='discount_mark' class='d-flex align-items-center'>"+
 						                      <%-- 할인율 넣을 곳 --%>

@@ -140,7 +140,9 @@ button#btn_mobile_check_complete{
 	height:40px;
 	font-size:small;
 }
-
+div#mobileConfirm{
+	display:none;	
+}
 
 
 
