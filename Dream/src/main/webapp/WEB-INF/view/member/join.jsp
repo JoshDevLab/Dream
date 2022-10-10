@@ -115,7 +115,7 @@
 				<span id="send_guide" class="mt-2"></span>
 				<div class="d-flex align-items-center">
 				  <input class="mt-2" type="text" id="emailConfirmCode" name="emailConfirmCode" placeholder="인증번호를 입력해주세요">
-				  <div id="div_email_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;">03:00</div>
+				  <div id="div_email_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;"></div>
 				</div>
 			</div>
        </div>

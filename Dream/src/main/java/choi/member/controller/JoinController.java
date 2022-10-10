@@ -30,13 +30,28 @@ public class JoinController extends AbstractController{
 			
 			int n = mdao.memberJoin(paraMap);	//데이터베이스에 회원정보 insert 해주는 함수 호출
 			
+			String message = "";
+			String loc = "";
 			if(n != 3) {	//DB에 저장하는게 실패한 경우
-				System.out.println("DB저장 실패");
-				super.setViewPage("/WEB-INF/view/error/join_error.jsp");
+				message = "시스템오류로 회원가입에 실패하였습니다. 다시 시도해주세요";
+				loc = request.getContextPath()+"/member/join.dream";
+				
+				request.setAttribute("message", message);
+				request.setAttribute("loc", loc);
+				
+				super.setRedirect(false);
+				super.setViewPage("/WEB-INF/view/msg.jsp");
 			}
+			
 			else {	//DB에 저장하는게 성공한 경우
-				System.out.println("DB저장 성공");
-				super.setViewPage("/WEB-INF/view/login/login.jsp");
+				message = userid+"님 회원가입에 성공하였습니다.";
+				loc = request.getContextPath()+"/login/login.dream";
+				
+				request.setAttribute("message", message);
+				request.setAttribute("loc", loc);
+				
+				super.setRedirect(false);
+				super.setViewPage("/WEB-INF/view/msg.jsp");
 			}
 		}
 		else {	//"GET"요청인 경우
