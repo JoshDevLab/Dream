@@ -70,6 +70,11 @@
 		$("div.category-section > ul > li > a").css({"font-weight":"","color":""});
 		$("a#cart_page").css({"font-weight":"700","color":"black"});
 		break;
+		
+	case "/member/payInfo.dream" :
+		$("div.category-section > ul > li > a").css({"font-weight":"","color":""});
+		$("a#payment_page").css({"font-weight":"700","color":"black"});
+		break;
 
 	default:
 		break;
@@ -117,7 +122,7 @@
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/address.dream" id="address_page">주소록</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/payInfo.dream">결제정보</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/payInfo.dream" id="payment_page">결제정보</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/point.dream" id="point_page">포인트</a>

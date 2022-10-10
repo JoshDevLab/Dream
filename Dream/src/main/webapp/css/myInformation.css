@@ -165,3 +165,10 @@ form#right-content {
 	}
 }
 
+@media (min-width: 768px) {
+   #myPageFooter {
+      display: none;
+   } 
+  
+}
+
