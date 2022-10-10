@@ -24,7 +24,7 @@ $(document).ready(function(){
       $("input#mobile").val("010");	//mobile 칸에 010채워두기
 	  $("button#btn_mobile_check").attr("disabled",true);	//핸드폰인증버튼 비활성화
 	  $("button#btn_mobile_check").css("color","white");	//핸드폰인증버튼 비활성화
-	  $("div#mobileConfirm").css("display","none");
+	  
 	  
 	  
       // 변수 선언
@@ -258,9 +258,9 @@ $(document).ready(function(){
 	  
 	  
 	  
-	  
 	  //체크박스 체크했는지 알아내기
 	  function agree_check(){
+	  /*
 	  	if(id_ok  && passwd_ok && passwd_check_ok && mobile_ok){	//회원가입 입력 조건이 갖춰지면
 		  const chkbox_agree_age = $("input:checkbox[name='agree_age']:checked").length
 		  	if(chkbox_agree_age == 0){	//이용약관 여부를 검사하고.
@@ -280,6 +280,8 @@ $(document).ready(function(){
 			return;
 		}
 		  
+	  */
+	  $("button#btn_join").attr("disabled",false);
 	  }//end of agree_check
 	  
 	  
