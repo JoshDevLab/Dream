@@ -111,11 +111,19 @@ section{
 }
 
 .section_title {
-  display: flex;
-  align-items: center;
-  padding-bottom: 12px;
+	display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+    padding: 0 36px 12px 36px;
 }
 
+h3.title_txt{
+	    line-height: 22px;
+    font-size: 18px;
+    letter-spacing: -.27px;
+    font-weight: 700;
+    letter-spacing: -.15px;
+}
 section .section_title .title_txt, section.section_title .title_txt {
   line-height: 22px;
   font-size: 18px;
@@ -198,7 +206,7 @@ img.way_img, div.way_status_thumb{
   border: 1px solid #ebebeb;
   border-radius: 10px;
   margin-right: 8px;
-  width: calc(100% - 76px);
+  width: 100%;
 }
 
 .section_input .btn_use_credit.disabled {
@@ -437,6 +445,12 @@ input#checkbox_3{
 
 .check_content{
 	padding-top: 16px;
+}
+
+#modalImage>img{
+	height: 100%;
+    width: 100%;
+    border-radius: 18%;
 }
 
 /*  물결  */

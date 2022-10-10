@@ -3,7 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
    String ctxPath = request.getContextPath();
@@ -79,7 +79,7 @@
                 <input type="h4" id="pointCode" placeholder="쿠폰 코드를 입력하세요." autocomplete="off" class="input_txt">
               </div>
             </div>
-            <p class="description"> • 유효기간이 지난 쿠폰 코드는 등록이 불가합니다.<br data-v-6d9a7a00="" data-v-1f7c6d3f=""> • 쿠폰에 따라 발급 수량 및 계정당 사용 횟수가 제한될 수 있습니다. </p> 
+            <p class="description"> • 유효기간이 지난 쿠폰 코드는 등록이 불가합니다.<br> • 쿠폰에 따라 발급 수량 및 계정당 사용 횟수가 제한될 수 있습니다. </p> 
           </div>
           <div class="layer_btn">
             <button data-dismiss="modal" type="button" class="btn outlinegrey medium">취소</button>
@@ -127,7 +127,8 @@
           <div class="point_info">
             <p class="title">사용 가능한 포인트</p>
             <p  class="point">
-              <b >${totalPoint}P</b>
+              <b ><fmt:formatNumber value="${totalPoint}" pattern="#,###" />P</b>
+              
             </p>
           </div>
           <div class="divider">
@@ -240,7 +241,8 @@
                     <div class="point_amount">
                       <!-- plus 면 + 아니면 - 가 span 의 값이 되도록 -->
                       <span class="plus-minus">+</span>
-                      ${pointObj.point_amount}
+                      
+                      <fmt:formatNumber value="${pointObj.point_amount}" pattern="#,###" />P
                     </div>
                   </div>
               	</c:if>
@@ -259,10 +261,7 @@
                       </div>
                       <div class="point_change_explain">
                         <!-- 얘는 위의  point_circle 의 클래스가 plus 면 포인트적립 minus면 구매 시 사용-->
-                        ${pointObj.event_type} 시 사용<br> 주문번호:
-                        <!-- 나중에 포인트 내역 테이블 제작지 포인트 적립방법, 어떤 이벤트인지 기록해야될듯 -->
-                        <!--  point_circle 의 클래스가 minus 이므로 주문번호가 들어가야함-->
-                        9494994945
+                        ${pointObj.event_type} 시 사용<br>
                       </div>
                       <div class="point_date">
                         .
@@ -272,7 +271,7 @@
                     <div class="point_amount">
                       <!-- plus 면 + 아니면 - 가 span 의 값이 되도록 -->
                       <span class="plus-minus">-</span>
-                      ${pointObj.point_amount}
+                      <fmt:formatNumber value="${pointObj.point_amount}" pattern="#,###" />P
                     </div>
                   </div>
               	</c:if>

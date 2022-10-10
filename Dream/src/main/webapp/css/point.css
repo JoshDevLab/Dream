@@ -44,7 +44,7 @@ input{
 
 .container{
     margin: 0 auto;
-    padding: 40px 40px 160px;
+    padding: 0 40px 160px;
     max-width: 1280px;
 }
 .content_area{
@@ -55,7 +55,7 @@ input{
 
 .content_title{
     display: flex;
-    padding: 5px 0 6px;
+    padding: 0 0 6px;
 }
 
 .point>.dashboard{
@@ -68,10 +68,6 @@ input{
 }
 
 
-.content_title {
-    display: flex;
-    padding: 5px 0 6px;
-}
 
 .title {
     font-size: 24px;
@@ -665,7 +661,7 @@ button#x {
 
     .container{
         margin: 0 auto;
-        padding: 40px 40px 160px;
+        padding: 0 40px 160px;
         max-width: 1280px;
     }
     .content_title {
