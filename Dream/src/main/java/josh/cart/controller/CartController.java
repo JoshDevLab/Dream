@@ -40,7 +40,7 @@ public class CartController extends AbstractController{
             InterAdressDAO adao = new AddressDAO();
             List<AddressDTO> adList = adao.selectAddress(userid);
             
-            System.out.println("adList 길이 ==> " + adList.size() );
+            //System.out.println("adList 길이 ==> " + adList.size() );
 			
 			request.setAttribute("cartList", cartList);
 			request.setAttribute("user", user);

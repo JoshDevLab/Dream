@@ -161,7 +161,7 @@ $(document).ready(function () {
 		}
 		
 	
-		$("span.sale_point").text( $("input#point").val() );
+		$("span.sale_point").text( Number($("input#point").val()).toLocaleString('en') );
 		$(".payment_price").text( (Number($("span#prd_price").text().split(",").join("")) - Number($("input#point").val())).toLocaleString('en') )
 	
 	  });
@@ -185,6 +185,9 @@ $(document).ready(function () {
 		            	
 		        		if(n == 1) {
 		        			 $("."+remove_div).remove();
+		        			 $(".sale_point").text('0');
+		        			 $(".payment_price").text('0');
+		        			 $("#point").val('');
 					     prd_check_length = $("table input:checkbox[name='prd_check']").length
 					     
 					     let count = 1;
@@ -248,6 +251,9 @@ $(document).ready(function () {
 		        		
 		            	
 		        		if(n == count_n) {
+						$(".sale_point").text('0');
+		        			$(".payment_price").text('0');
+		        			$("#point").val('');
 		        			$("input:checkbox[name='prd_check']:checked").parent().parent().parent().remove();
 				        if($("input:checkbox[name='prd_check']").length == 0) {
 				            $("input#chk_all").prop("checked",false);

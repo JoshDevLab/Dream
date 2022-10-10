@@ -93,8 +93,8 @@
 					
 					$("input#countDiscount").val( Number($("input#countDiscount").val()) + json.length );
 					
-					console.log($("input#countDiscount").val())
-					console.log($("input#totalDiscount").val())
+					//console.log($("input#countDiscount").val())
+					//console.log($("input#totalDiscount").val())
 					
 					if( $("input#countDiscount").val() == $("input#totalDiscount").val()) {
 						$("button#more_btn").text("처음으로");

@@ -29,7 +29,7 @@
 		$("select#fk_address").change(function () {
 			
 			fk_address_num = $("option:selected").val();
-			console.log("확인용 =>" + fk_address_num);
+			//console.log("확인용 =>" + fk_address_num);
 		});
 		
 	});
@@ -50,7 +50,7 @@
 	    let cart_num = $("#"+classname).parent().parent().parent().find('th#first-child').find('span#cart_num').text();
 	    let halin = $("#"+classname).parent().parent().prev().find(".discount_price").text();
 	    
-	    console.log("확인용 : "+cart_num);
+	    //console.log("확인용 : "+cart_num);
 	    
 	    if(total_cnt == cart_qty) {
 			alert("재고량보다 더 주문할 수 없습니다.");
@@ -60,7 +60,7 @@
 		
 		halin = 	halin * cart_qty;
 		
-		console.log("확인용 =>" + halin)
+		//console.log("확인용 =>" + halin)
 		
 		$.ajax({
 		        url : getContextPath()+"/cart/cartUpdate.dream",
@@ -132,7 +132,7 @@
 		
 		halin = 	halin * cart_qty;
 		
-		console.log(" 총 할인가격 "+halin);
+		//console.log(" 총 할인가격 "+halin);
 		
 		$.ajax({
 		        url : getContextPath()+"/cart/cartUpdate.dream",
@@ -239,7 +239,7 @@ function goCoinPurchaseEnd() {
 					           	fk_address_num : $("option:selected").val()
 				        		};
 				 
-				 console.log("안에들어온 주소 확인용 ==>" + $("option:selected").val());
+				 //console.log("안에들어온 주소 확인용 ==>" + $("option:selected").val());
 				 
 				 param.push(data)
 			});
@@ -263,9 +263,9 @@ function goCoinPurchaseEnd() {
 		        		const n = json.n;
 		        		const count_n = (param.length*3)+pointCount
 		        			
-		        		console.log("확인용 param.length =>" + param.length);
-		        		console.log("확인용 n =>" + n);
-		        		console.log("확인용 count_n =>" + count_n);
+		        		//console.log("확인용 param.length =>" + param.length);
+		        		//console.log("확인용 n =>" + n);
+		        		//console.log("확인용 count_n =>" + count_n);
 		            	
 		        		if(n == count_n) {
 		        			alert('구매가 완료되었습니다.');
@@ -535,7 +535,7 @@ function goCoinPurchaseEnd() {
 	                <i class="fa-regular fa-circle-question"></i>
 	              </button>
 	              <div class="value_current">
-	                <span class="user_point">${user.point}</span>
+	                <span class="user_point"><fmt:formatNumber value="${user.point}" pattern="###,###"></fmt:formatNumber></span>
 	                <span class="unit">P</span>
 	              </div>
 	            </div>

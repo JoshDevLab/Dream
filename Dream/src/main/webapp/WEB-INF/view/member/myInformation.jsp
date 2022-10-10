@@ -16,7 +16,7 @@
   $(document).ready(function() {
 	  $('#MemberOut').click(function (){
 			const userid = '${sessionScope.userid}';
-		    alert("바이바이");
+		    //alert("바이바이");
 		    $.ajax({
 		        url : getContextPath()+"/member/memberDelete.dream",
 		        traditional: true,
@@ -233,8 +233,8 @@
                         </div>
                         <div class="mt-4" id="div_modifyPasswd" style="position: relative; left: -60px;">
                             <p style="color: black; font-size: small;" class="mb-1" id="new_passwd">새로운 비밀번호</p>
-                            <input type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
-                            <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</span>
+                            <input type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="width: 100%; border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
+                            <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함형태의 8 ~ 15자리 이내로 작성하세요</span>
                             <br><br>
                             <button type="button" id="passwd_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
                             <button type="button" id="passwd_store" class="can_modify btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
