@@ -153,7 +153,7 @@ String ctxPath = request.getContextPath();
 			<div id="show_shipping_completed"></div>
 
 			<%-- 더보기 버튼 넣기 시작  --%>
-			<button type="button" id="btnMoreHIT" value="">더보기</button>
+			<button type="button" class="border" id="btnMoreHIT" value="">더보기</button>
 			<span id="totalHITCount"></span> <span id="countHIT">0</span>
 
 		</div>
