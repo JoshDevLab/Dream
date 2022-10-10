@@ -12,7 +12,6 @@ import common.controller.AbstractController;
 
 public class SearchProduct extends AbstractController{
 
-
    @Override
    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
       String method = request.getMethod(); 
@@ -73,4 +72,3 @@ public class SearchProduct extends AbstractController{
       
    }
 }
-
