@@ -9,8 +9,8 @@
 	String ctxPath = request.getContextPath();
 %>
 
-<%--header 호출 --%>
-<jsp:include page="/WEB-INF/view/header.jsp" />
+<%-- header 호출 --%>
+<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
 
 <%-- 직접 만든 CSS --%>
@@ -69,7 +69,7 @@
 
 				<%-- 기간조회 시작 --%>
 				<div id="date_button">
-					<button type="button" id="two_month" class="btn_month">최근 2개월</button>
+				<%-- 	<button type="button" id="two_month" class="btn_month">최근 2개월</button>
 					<button type="button" id="four_month" class="btn_month">4개월</button>
 					<button type="button" id="six_month" class="btn_month">6개월</button>
 
@@ -80,9 +80,21 @@
 					<div id="to_date" class="input_date">
 						<input type="text" name="end_date" id="end_date" style="width: 120px;" value="">
 					</div>
-
-					<button type="button" id="search_simple">조회</button>
-					<button type="button" id="search_date">기간조회</button>
+				--%>
+					<%-- 배송 일괄 처리 버튼 div --%>
+			<div id="allCheckAndButtons">
+				<div class='div_postSend'>
+					<input id="allCheckSend" type="checkbox" name= "allCheckSend" onclick="allCheckBox();" /> <label for="allCheckSend" >전체선택(배송하기)</label>
+					<button class="btn_shipping" type="button" onclick="updateShipping();" >배송하기</button>
+				</div>
+				<div class='div_postEnd'>
+					<input id="allCheckEnd" type="checkbox" name= "allCheckEnd" onclick="allCheckBox2();" /> <label for="allCheckEnd" >전체선택(배송완료)</label>
+					<button class="btn_shipping" type="button" onclick="updateShippingEnd();" >배송완료</button>
+				</div>
+			</div>
+				
+					<button style="display:none;" type="button" id="search_simple">조회</button>
+					<button style="display:none;" type="button" id="search_date">기간조회</button>
 
 				</div>
 				<%-- 기간조회 끝 --%>
@@ -112,7 +124,7 @@
 
 						<div id="sort">
 							<%-- 여기 input 태그 name 은 테이블의 컬럼? 오름차순, 내림차순 여부 , 진행중, 상태 --%>
-							<button type="button" id="btn_purchaseDate" class="result_detail">
+							<button style="display:none;" type="button" id="btn_purchaseDate" class="result_detail">
 								<input id="sort_date" name="sort" type="hidden" value="" />구매일<i class="fas fa-duotone fa-sort-up"></i>
 							</button>
 							<%-- <button type="button" id="btn_purchaseStatus" class="result_detail"><input id="sort_status" name="status" type="hidden" value="진행중"/> 상태<i class="fas fa-duotone fa-sort-up"></i></button>--%>
@@ -122,14 +134,20 @@
 			<%-- 구매일, 상태 버튼 끝 --%>
 			
 			
-			<%-- 배송 일괄 처리 버튼 div --%>
-			<div style="border: solid 2px red;">
-				<input id="allCheckSend" type="checkbox" name= "allCheckSend" onclick="allCheckBox();" /> <label for="allCheckSend" >전체선택(배송하기)</label>
-				<button type="button" onclick="updateShipping();" >배송하기</button>
-				<input id="allCheckEnd" type="checkbox" name= "allCheckEnd" onclick="allCheckBox2();" /> <label for="allCheckEnd" >전체선택(배송완료)</label>
-				<button type="button" onclick="updateShippingEnd();" >배송완료</button>
-				<input id="updateshipping" value="0"/>
+			
+			<div id="sihpping_title">
+				<span class="span_stitle" style="width:100px">&nbsp;</span>
+				<span class="span_stitle" id="shipping_pname">상품명</span>
+				<span class="span_stitle" id="shipping_onum">주문번호</span>
+				<span class="span_stitle" id="shipping_ocnt">구매수량</span>
+				<span class="span_stitle" id="shipping_tprice">주문총액</span>
+				<span class="span_stitle" id="shipping_tpoint">포인트</span>
+				<span class="span_stitle" id="shipping_shipping">배송상태</span>
+				<span class="span_stitle" id="shipping_send"></span>
+				<span class="span_stitle" id="shipping_end"></span>
+				<span class="span_stitle" id="shipping_odate">거래일자</span>
 			</div>
+			
 			
 			
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력  --%>

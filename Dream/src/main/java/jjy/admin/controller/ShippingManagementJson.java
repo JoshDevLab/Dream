@@ -109,7 +109,7 @@ public class ShippingManagementJson extends AbstractController {
 				// 총 구매내역 수 알아오기 
 				int  totalListCnt = pdao.getTotalListAdminCnt(input_shipping);
 				
-				System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
+				// System.out.println("출력해야 할 구매내역 수 = "+totalListCnt );
 				// System.out.println("확인용 => "+ pagingPurchaseList);
 				
 				JSONArray jsonArray = new JSONArray(); // 배열로 선언 
@@ -153,7 +153,7 @@ public class ShippingManagementJson extends AbstractController {
 						
 					}// end of for()--------------------------------
 					
-					System.out.println(">> 확인용 json => " + jsonArray);
+					// System.out.println(">> 확인용 json => " + jsonArray);
 					request.setAttribute("json", jsonArray);
 					
 					super.setRedirect(false);

@@ -159,7 +159,7 @@ public class MemberDAO implements InterMemberDAO{
 					conn = ds.getConnection();
 					
 					String sql = " select userid from tbl_login_record "
-							   + " where client_up = ? "
+							   + " where client_ip = ? "
 							   + " order by login_date desc ";
 					
 					pstmt = conn.prepareStatement(sql);

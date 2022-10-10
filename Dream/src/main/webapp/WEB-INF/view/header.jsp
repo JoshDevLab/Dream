@@ -43,6 +43,9 @@
           <li class="border-bottom"><a href="<%=ctxPath %>/product/shop.dream">SHOP</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/qna.dream">자주묻는질문</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/notice.dream">공지사항</a></li>
+          <c:if test="${not empty sessionScope.userid}">
+          <li class="border-bottom"><a href="<%=ctxPath %>/member/mypage.dream">마이페이지</a></li>
+          </c:if>
           <c:if test="${empty sessionScope.userid}">
           <li class="border-bottom"><a href="<%=ctxPath %>/login/login.dream">로그인</a></li>
           </c:if>
