@@ -25,6 +25,7 @@ import util.security.SecretMyKey;
 import util.security.Sha256;
 
 public class MemberDAO implements InterMemberDAO{
+
 	// DBCP
 	private DataSource ds; // DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection pool)이다.
 	private Connection conn;
@@ -125,7 +126,10 @@ public class MemberDAO implements InterMemberDAO{
 				
 	}// end of public MemberDTO memberOneDetail(String userid) throws SQLException-------------------
 
-	
+  
+  
+   
+   
 	// 회원한명의 구매내역을 보여주는 메소드
 	@Override
 	public ArrayList<PurchaseListDTO> memberOneBuyDetail(String userid) throws SQLException {
@@ -173,6 +177,7 @@ public class MemberDAO implements InterMemberDAO{
 		
 	}
 
+  
 	/** 회원한명의 포인트내역을 보여주는 메소드 */
 	@Override
 	public ArrayList<PointVO> memberOnePointDetail(String userid) throws SQLException {
@@ -339,32 +344,13 @@ public class MemberDAO implements InterMemberDAO{
 	}// end of public int delMember(String userid) throws SQLException ----------------------
 	
 	
-	
-	
-	
-	
-	
-		
 
 
-		
-		
-		
-		
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

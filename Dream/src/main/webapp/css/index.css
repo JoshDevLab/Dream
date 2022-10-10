@@ -152,7 +152,7 @@ div.product_imgbox{
   overflow:hidden;
   border: solid 1px #DEE2E6;
   border-radius:20px;
-  height:80%;
+  height:70%;
 }
 div#product_division{
   font-size:12px;
@@ -165,18 +165,19 @@ div#product_detail_division{
 div#product_name{
   font-size:15px;
 }
+div#product_name{
+    font-size:14px;
+  }
 @media screen and (max-width: 768px){
   div#product_name{
     font-size:14px;
   }
 }
-
 div#product_price,
 div#product_sale_price{
   font-size:17px;
   font-weight:bold;
 }
-
 @media screen and (max-width: 768px){
   div#product_price,
   div#product_sale_price{
@@ -184,48 +185,30 @@ div#product_sale_price{
     font-size:16px;
   }
 }
-
-
-button#discount{
-  z-index:-1;
-  margin-left:auto;
-  background-color: black;
-  color:white;
-  width:60px;
-  height:25px;
-  font-size:x-small;
-  text-decoration:none;
+#sale_mark{
+   width:50px;
+   height:28px;
+   background-color:red;
+   color:white;
+   position:absolute;
+   top:2%;
+   right:73%;
+   font-weight:bold;
+   border:none;
 }
-
-@media screen and (max-width: 1100px){
-  button#discount{
-    display:none;
-  }
+div.item:hover{
+  border-radius:20px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.5);
 }
-
-@media screen and (max-width: 990px){
-  button#discount{
-    display:inline-block;
-  }
-}
-
-@media screen and (max-width: 825px){
-  button#discount{
-    display:none;
-  }
-}
-
-@media screen and (max-width: 768px){
-  div#discount_mark{
-    display:inline-block;
-    text-align:left;
-  }
-}
-
 span#discount_percent{
   color:red;
   font-size:12px;
 }
+span#product_price_discount{
+   color:darkgray;
+   font-size:14px;
+}
+
 
 
 

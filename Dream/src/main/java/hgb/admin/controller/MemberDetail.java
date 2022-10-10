@@ -47,8 +47,7 @@ public class MemberDetail extends AbstractController{
 				pointlist = mdao.memberOnePointDetail(userid);
 				request.setAttribute("pointlist", pointlist);	
 				
-				
-		
+
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/admin/ad_member/memberDetail.jsp");
 			     
