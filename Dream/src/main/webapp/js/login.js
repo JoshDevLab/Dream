@@ -211,9 +211,10 @@ function goLogin() {
 					
 					
 					
-					$("input#input_userid").val("");
+					// $("input#input_userid").val("");
+					// $("input#input_userid").focus();
 					$("input#input_passwd").val("");
-					$("input#input_userid").focus();
+					$("input#input_passwd").focus();
 					// => login 화면 또는 index 로 이동 
 					// location.href=getContextPath()+"/login/login.dream";
 				 }
@@ -243,6 +244,12 @@ function goLogin() {
 					if(json.userid =="admin"){
 						alert("관리자로 로그인되었습니다");
 					}
+					if(!json.isFirstLogin) {
+						alert("신규회원 전용 포인트 2000P가 지급되었습니다!");
+						// => login 화면 또는 index 로 이동 
+						// location.href=getContextPath()+"/login/login.dream";
+				 }
+					
 					location.href=getContextPath()+"/index.dream";
 				}
 				 
@@ -257,7 +264,7 @@ function goLogin() {
 
 	if (input_userid == "") {
 		alert("아이디를 입력하세요!!");
-		$("input#input_userid").val("");
+	//	$("input#input_userid").val("");
 		$("input#input_userid").focus();
 		return; // goLogin() 함수 종료
 	}
