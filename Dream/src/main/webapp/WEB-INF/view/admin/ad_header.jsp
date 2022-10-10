@@ -42,6 +42,7 @@
         <ul id="menu_list">
           <li class="border-bottom"><a href="<%=ctxPath %>/product/shop.dream">SHOP</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/notice.dream">고객센터</a></li>
+          <li class="border-bottom"><a href="<%=ctxPath %>/admin/ad_member/memberManage.dream">회원관리</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/admin/shippingMangement.dream">배송관리</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/notice.dream">공지사항</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/login/logout.dream">로그아웃</a></li>

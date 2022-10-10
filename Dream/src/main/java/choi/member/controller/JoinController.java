@@ -55,6 +55,7 @@ public class JoinController extends AbstractController{
 			}
 		}
 		else {	//"GET"요청인 경우
+			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/member/join.jsp");
 		}
 	}

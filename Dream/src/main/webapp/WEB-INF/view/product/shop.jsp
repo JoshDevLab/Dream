@@ -263,7 +263,7 @@
 			  
 	          <%-- 관리자로 로그인한 경우 상품등록버튼 --%>
 	          <c:if test="${sessionScope.userid == 'admin'}">
-	            <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4" onclick="location.href='<%=ctxPath %>/admin/productRegister.dream'" style="cursor:pointer;">
+	            <div class="item col-6 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4" onclick="location.href='<%=ctxPath %>/admin/productRegister.dream'" style="cursor:pointer;">
 	          	  상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정
 	            </div>
 	          </c:if>
@@ -271,10 +271,13 @@
 	          
 	          <%-- 게시물 시작 --%>
           	  <c:forEach var="product" items="${requestScope.productList}">
-		          <div class="item col-6 col-md-4 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4">
+		          <div class="item col-6 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4">
 		            <a id="${product.product_num}" class="product" href="<%=ctxPath %>/product/detail.dream?num=${product.product_num}"><%-- id값에 제품번호 넣기!!!!*** --%>
 		              <div class="product">
 		                <div class="product_imgbox border">
+		                  <c:if test="${not empty product.discount_rate && product.discount_rate != 0}">
+			                <div id="sale_mark" class="border rounded text-center">SALE</div>
+			              </c:if>
 		                  <img id="product_img" src="<%=ctxPath %>/images/제품이미지/${product.product_image}">
 		                </div>
 		                <div id="product_simple_explain" class="pl-2">
@@ -310,9 +313,6 @@
 		            </c:if>
 		            <c:if test="${not empty sessionScope.userid && product.product_like_cnt != 0}">
 		              <div type="button" id="btn_like" class="border rounded text-center" style="color:pink;"><i class="fa-solid fa-heart"></i></div>
-		            </c:if>
-		            <c:if test="${not empty product.discount_rate && product.discount_rate != 0}">
-		              <div id="sale_mark" class="border rounded text-center">SALE</div>
 		            </c:if>
 		          </div>
 	          </c:forEach>
