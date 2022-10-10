@@ -2,6 +2,9 @@
 	.sidebar {
 		display: none;
 	}
+	#footer {
+		display: none;
+	}
 }
 
 @media (max-width: 500px) {

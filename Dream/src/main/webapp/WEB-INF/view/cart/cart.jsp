@@ -635,5 +635,6 @@ function goCoinPurchaseEnd() {
     
     
   <%--footer 호출 --%>
+<jsp:include page="/WEB-INF/view/footer.jsp" />
 <jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
 

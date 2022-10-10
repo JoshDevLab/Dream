@@ -157,6 +157,9 @@ form#right-content {
 	form#right-content {
 		width: 100%;
 	}
+	#footer {
+   	  display: none;
+   }
 }
 
 @media (max-width: 415px) {

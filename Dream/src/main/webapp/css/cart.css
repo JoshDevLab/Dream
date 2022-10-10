@@ -26,6 +26,9 @@ th {
    .sidebar {
       display: none;
    }
+   #footer {
+   	  display: none;
+   }
 }
 
 @media (max-width: 991px) {
