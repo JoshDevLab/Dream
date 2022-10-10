@@ -85,7 +85,7 @@
 
 
 <!-- 컨테이너 시작  -->
-<div class="container">
+<div class="container d-flex">
 
 
 
@@ -126,7 +126,7 @@
 
 
 <!--------------------------------------------------- 메인컨텐츠 시작 --------------------------------------------------->
-<div class="content_area">
+<div class="content_area" style="margin-top: 21px;">
     <div class="my_addressbook">
       <div class="content_title" id="pay_title">
 					<div class="title">

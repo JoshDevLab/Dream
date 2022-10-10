@@ -11,19 +11,8 @@
    //
 %>
     
-<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    
-<%@
-	String ctxPath = request.getContextPath();
-	//
-%>
     
 <jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
@@ -165,9 +154,7 @@
   
   
   <div class="d-flex m-auto">
-    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" id="edit_info"
-     data-toggle="modal" data-target="#info_edit" data-dismiss="modal" >수정
-    </button>
+    <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" id="edit_info" >수정</button>
     <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" onclick="delete_confirm('${mdto.userid}')">삭제</button> 
     <button type="button" class="btn btn-white border rounded mx-2 my-2 btn_bottom" onclick="location.href=document.referrer">뒤로가기</button>
   </div>

@@ -27,25 +27,24 @@ String ctxPath = request.getContextPath();
 <%-- 다음 주소검색  --%>
 <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
- 
 
 
 <%-- 컨테이너 시작  --%>
-<div class="container">
+<div class="container d-flex">
 
 
 <jsp:include page="/WEB-INF/view/sidebar.jsp" />
 
 
 <%--------------------------------------------------- 메인컨텐츠 시작 ---------------------------------------------------%>
-<div class="content_area">
+<div class="content_area" style="margin-top: 21px;">
     <div class="my_addressbook">
       <div class="content_title">
 					<div class="title">
 						<h3>주소록</h3>						
 					</div>
 					 <div class="btn_box">
-						<a href="#" data-toggle="modal" data-target="#add_address" id="add_btn" class="btn_add" onclick="new_add()">							
+						<a href="#"  id="add_btn" class="btn_add" onclick="new_add()">							
 							<span class="btn_txt" id="add_btn3"  >+ 새 배송지 추가</span>
 						</a>
 					</div>
@@ -61,7 +60,7 @@ String ctxPath = request.getContextPath();
 						<p class="desc">
 							배송지 정보가 없습니다.<br />새 배송지를 등록해주세요
 						</p>
-						<span href="#" id="add_btn2" class="btn_btn_add2" data-toggle="modal" data-target="#add_address" onclick="new_add()">새 배송지 추가 </span>
+						<span href="#" id="add_btn2" class="btn_btn_add2"  onclick="new_add()">새 배송지 추가 </span>
 					</div>
 				</c:if>
 				
@@ -98,7 +97,7 @@ String ctxPath = request.getContextPath();
 							</div>
 							<div  class="btn_bind">
 								<%----%>
-								<a data-toggle="modal" data-target="#add_address" href="#"
+								<a href="#"
 									class="btn_outlinegrey_small"  onclick="Revise_add()" id ="edit2"> 수정 </a><a
 								    href="#"  class="btn_outlinegrey_small" id="basic_delete">
 									삭제 </a>
@@ -151,7 +150,7 @@ String ctxPath = request.getContextPath();
 							 	 
 								<div id="basic_text" class="btn_bind">
 									<a href="#" class="btn_outlinegrey_small" id="go_basic"> 기본 배송지 </a>
-										<a id ="edit" data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
+										<a id ="edit"  href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
 										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
 								</div>																
 									
@@ -250,7 +249,7 @@ String ctxPath = request.getContextPath();
 
  
              
-				<div class="modal modal_box layer lg"  id="add_address"  >
+				<div class="modal modal_box layer lg "  id="add_address">
 				     
 					<div class="layer_container" >
 					  

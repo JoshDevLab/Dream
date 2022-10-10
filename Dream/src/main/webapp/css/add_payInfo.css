@@ -30,13 +30,12 @@ div#yes_pay_area {  /* 결제정보 있을때 출력되는 부분 */
 
 
 div.container {
-	margin: 0 auto;
-	padding: 40px 40px 160px;
-	max-width: 1280px;
-	border-bottom: 0;
-	display: flex;
-	justify-content: space-between;
-	padding-top: 112.5px;
+	    width: 100%;
+    padding-right: 15px;
+    /* padding-left: 15px; */
+    margin-right: auto;
+    margin-left: auto;
+	/* padding-top: 112.5px; */
 }
 
 div.content_area {
@@ -139,7 +138,7 @@ a#add_btn:hover {    /* 주소록 주소추가하기 버튼 호버  */
 }
 
 a#add_btn:active {
-	color: #000000;
+	color: white;
 	text-decoration: none;
 }
 
