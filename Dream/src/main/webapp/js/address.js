@@ -319,14 +319,17 @@ $(document).ready(function(){
       
  });  
 
+
+
+
+
+
     
 
 });	// end of $(document).ready(function(){} -----------------------------------	
-		
-		
 
-		
-		
+
+
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function new_add() {
@@ -363,7 +366,7 @@ function Revise_add() {
 	$("a#add_save").hide();	
 	$("a#add_edit").show();
 	
-	$('#add_address').modal('show');
+	$('div#add_address').modal('show');
 
     $("h2.title1").hide();	
     $("h2.title2").show();
@@ -389,6 +392,13 @@ function Revise_add() {
 
 
 }// end of function Revise_add() {}------------------------	
+
+		
+		
+
+		
+		
+
 
 
 

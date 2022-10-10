@@ -113,7 +113,7 @@ div.layer_content>div.delivery_bind>form.delivery_input>div
 	{
 	padding-top: 16px;
 	position: relative;
-	padding: 10px 0 14px;
+	padding: 10px 0 3px;
 	margin: 0;
 }
 
@@ -126,7 +126,7 @@ div > a > i.material-icons {
 
 div.layer_btn{
 	padding-top: 32px;
-	padding: 5px 32px 32px;
+	padding: 5px 32px 15px;
 	display: flex;
 	justify-content: center;
 	

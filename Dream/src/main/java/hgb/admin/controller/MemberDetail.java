@@ -49,7 +49,7 @@ public class MemberDetail extends AbstractController{
 				
 				
 		
-			//	super.setRedirect(false);
+				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/admin/ad_member/memberDetail.jsp");
 			     
 			}

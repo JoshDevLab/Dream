@@ -124,6 +124,7 @@ div.empty_area {
 a#add_btn:link {
 	color: black;
 	text-decoration: none;
+	background-color: black;
 }
 
 a#add_btn:visited {
@@ -131,9 +132,10 @@ a#add_btn:visited {
 	text-decoration: none;
 }
 
-a#add_btn:hover {
-	color: black;
+a#add_btn:hover {    /* 주소록 주소추가하기 버튼 호버  */
+	color: white;
 	text-decoration: none;
+	background-color: black;
 }
 
 a#add_btn:active {
@@ -148,6 +150,25 @@ div.btn_bind > a {
 	text-decoration: none;
 }
 
+
+a.btn_outlinegrey_small:hover {  /* 주소록 버튼들 호버  */
+	color: white;
+	text-decoration: none;
+	background-color: black;
+}
+
+
+a.btn_outlinegrey_small2:hover {   /* 결제정보 버튼들 호버  */
+	color: white;
+	text-decoration: none;
+	background-color: black;
+}
+
+a.btn_add:hover {     /* 결제정보  새 카드 추가하기 호버  */
+	color: white;
+	text-decoration: none;
+	background-color: black;
+}
 
 
 

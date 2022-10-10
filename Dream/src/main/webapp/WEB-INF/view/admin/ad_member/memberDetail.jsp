@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -239,10 +239,10 @@
 					   <h4 class="input_title" >탈퇴여부</h4>
 					   <input type="radio" id="secession" name="secession" value="1" /><label for="secession" style="margin-left: 2%;">O</label>
                        <input type="radio" id="secession" name="secession" value="0" style="margin-left: 10%;" /><label for="secession" style="margin-left: 2%;">X</label>
-					   <h4 class="input_title" style="margin-top:10px;">휴면여부</h4>
+					   <h4 class="input_title" >휴면여부</h4>
 					   <input type="radio" id="rest_member" name="rest_member" value="1" /><label for="rest_member" style="margin-left: 2%;">O</label>
   					   <input type="radio" id="rest_member" name="rest_member" value="0" style="margin-left: 10%;" /><label for="rest_member" style="margin-left: 2%;">X</label>
-					   <h4 class="input_title" style="margin-top:10px;">멤버쉽여부</h4>
+					   <h4 class="input_title" >멤버쉽여부</h4>
 					   <input type="radio" id="membership" name="membership" value="1" /><label for="membership" style="margin-left: 2%;">O</label>
                        <input type="radio" id="membership" name="membership" value="0" style="margin-left: 10%;" /><label for="membership" style="margin-left: 2%;">X</label>
 					  
@@ -276,5 +276,5 @@
 
 
 <%--footer 호출 --%>
->>>>>>> refs/remotes/origin/main
+
 <jsp:include page="/WEB-INF/view/footer.jsp" />

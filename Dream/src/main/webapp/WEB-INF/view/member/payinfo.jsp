@@ -20,7 +20,7 @@
   }
   
   h2.modal-title {
-      padding: 18px 50px 20px;
+      padding: 18px 50px 7px;
       font-size: 18px;
       text-align: center;
       font-weight: 700;
@@ -28,24 +28,34 @@
   
   div#basic_check {
     text-align: center;
+    font-size: 14px;
   }
   
-  div#pay_button {
-    display:inline-block;
-    width:120px;
-  }
+  
   
   button.basic_cancel {
         border: 1px solid #d3d3d3;
         background-color: white;
+        border-radius: 12px;
+        width: 120px;
+        height: 42px;
   }
   
   button.basic_change {
      background-color: black;
      color: white;
      margin-left: 8px;
+     border-radius: 12px;
+     width: 120px;
+     height: 42px;
+     font-weight: 600;
+     font-size: 14px;
   }
   
+  div#pay_button {
+    padding: 24px 32px 32px;
+        
+  }
 
 
 
@@ -80,7 +90,7 @@
 
 
 <!--------------------------------------------------- 사이드바 시작 --------------------------------------------------->
-		<div class="sidebar mr-5" style="width: 180px;">
+		<!-- <div class="sidebar mr-5" style="width: 180px;">
 			<div>
 				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
 			</div>
@@ -107,8 +117,10 @@
 						href="#">포인트</a></li>
 				</ul>
 			</div>
-		</div>
-<!--------------------------------------------------- 사이드바 끝 --------------------------------------------------->
+		</div> -->
+
+
+<jsp:include page="/WEB-INF/view/sidebar.jsp" />
 
 
 
@@ -348,7 +360,7 @@
         
         <!-- Modal footer -->
         <div class="layer_btn" id="pay_button">
-           <button type="button" id="pay_btn" class="basic_cancel"> 취소 </button>
+           <button type="button" id="pay_btn" class="basic_cancel" data-dismiss="modal"> 취소 </button>
            <button type="button" id="pay_btn" class="basic_change"> 계속 변경 </button>
          </div>
       </div>
