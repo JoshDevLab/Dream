@@ -190,11 +190,18 @@ function goCoinPurchaseEnd() {
 	 
 	 let price = $("span#payment_price").text();
 	 price = price.split(",").join("");
+	 
+	 const address = $("option:selected").val();
 	
 	if(price == 0) {
 		alert("상품을 체크 한 후에 결제버튼을 눌러주세요");
 		return;
 	} 
+	
+	if(typeof address == 'undefined') {
+		alert("배송지를 선택하세요");
+		return;
+	}
  	
   //여기 링크를 꼭 참고하세용 http://www.iamport.kr/getstarted
   var IMP = window.IMP;     // 생략가능
@@ -549,11 +556,12 @@ function goCoinPurchaseEnd() {
 	      <section class="mb-5" style="padding-left: 0">
 	        <div class="section_title">
 	          <h3 class="title_txt">배송지</h3>
+	          <a style="margin-left: auto;  text-decoration:none; color: gray; " href="<%= ctxPath %>/member/address.dream" >배송지 추가 > </a>
 	        </div>
 	        <div class="section_content">
+	        <c:if test="${not empty requestScope.adList}">
 	           <select name="fk_address" id="fk_address" style="width: 88%; height: 50px">
-		          <c:if test="${not empty requestScope.adList}">
-			          <c:forEach var="adto" items="${requestScope.adList}">
+		          <c:forEach var="adto" items="${requestScope.adList}">
 			          <c:if test="${adto.basic_address == 1}">
 			          		<option selected value="${adto.address_num}" style="font-size: 15pt">
 			          			${adto.address}
@@ -573,9 +581,14 @@ function goCoinPurchaseEnd() {
 			          			${adto.mobile}
 			          		</option>
 			          </c:if>		
-			          </c:forEach>
-		          </c:if>
-	           </select> 
+		          </c:forEach>
+	           </select>
+	          </c:if> 
+	           <c:if test="${empty requestScope.adList}">
+	           <div style="display: flex">
+	          	  <h3 class="text-muted text-center">등록된 주소가 없습니다.</h3>
+		       </div>
+		       </c:if>
 	        </div>
 	      </section>
 	      
