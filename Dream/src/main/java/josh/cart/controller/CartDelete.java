@@ -14,21 +14,40 @@ public class CartDelete extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String cart_num = request.getParameter("cart_num");
+		String method = request.getMethod();
 		
-		InterCartDAO cdao = new CartDAO();
+		if(!"POST".equalsIgnoreCase(method)) {
+			// GET 방식이라면
+			String message = "비정상적인 경로로 들어왔습니다.";
+            String loc = "javascript:history.back()";
+            
+            request.setAttribute("message", message);
+            request.setAttribute("loc", loc);
+            
+       //   super.setRedirect(false);
+            super.setViewPage("/WEB-INF/joshmsg.jsp");
+		}
 		
-		int n = cdao.cartSelectDelete(cart_num);
+		else {
+			
+			String cart_num = request.getParameter("cart_num");
+			
+			InterCartDAO cdao = new CartDAO();
+			
+			int n = cdao.cartSelectDelete(cart_num);
+			
+			JSONObject jsonObj = new JSONObject();
+			
+			jsonObj.put("n", n);
+			String json = jsonObj.toString();
+			
+			request.setAttribute("json", json);
+			
+			super.setRedirect(false);
+			super.setViewPage("/WEB-INF/joshJsonview.jsp");
+		}
 		
-		JSONObject jsonObj = new JSONObject();
 		
-		jsonObj.put("n", n);
-		String json = jsonObj.toString();
-		
-		request.setAttribute("json", json);
-		
-		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/joshJsonview.jsp");
 		
 	}
 
