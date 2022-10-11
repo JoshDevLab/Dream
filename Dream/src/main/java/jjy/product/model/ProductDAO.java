@@ -164,6 +164,7 @@ public class ProductDAO implements InterProductDAO {
 	      
 	    try {
 	         conn = ds.getConnection();
+	         conn.setAutoCommit(false);
 	         
 	         String sql = " insert into tbl_product(product_num , register_date, product_name, product_image, "
 	         			+ " category, detail_category, price, discount_rate, gender, product_content, bestyn ) "+

@@ -242,9 +242,6 @@ public class ProductRegister extends AbstractController{
 				
 			}
 			
-			
-		
-			
 			String message ="";
 			String loc ="";
 			
