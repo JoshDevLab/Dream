@@ -331,9 +331,7 @@ $(document).ready(function(){
 
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
-function new_add() {
-	
-
+function new_add() {	
 	
 	
 	$("input#basic_address").show();

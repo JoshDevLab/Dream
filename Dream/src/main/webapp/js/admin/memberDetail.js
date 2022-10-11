@@ -9,6 +9,7 @@ $(document).ready(function(){
 	
 	
 	$("span.name_error").hide();	
+	$("span.passwd_error").hide();	
 			
 	$("input#username").blur( (e)=>{
     	
@@ -30,7 +31,7 @@ $(document).ready(function(){
     	});
    
    
-   $("span.name_error").hide();   
+   
    
    
    $("input#username").blur( (e)=>{
@@ -39,8 +40,8 @@ $(document).ready(function(){
        
        
        
-       const recipient_name = $target.val().trim();
-       if(recipient_name == "") { 
+       const username = $target.val().trim();
+       if(username == "") { 
           // 입력하지 않거나 공백만 입력했을 경우 
           $(e.target).css("border-bottom","solid 1px red");  //빨간색 밑줄
            $("span.name_error").show();  //에러문구
@@ -73,7 +74,7 @@ $(document).ready(function(){
        if(!bool) {
            $(e.target).css("border-bottom","solid 1px red");  //빨간색 밑줄
            $("span.name_error").show();  //에러문구
-           
+           $("h4#name").css("color","red");  
            
            
            
@@ -83,7 +84,7 @@ $(document).ready(function(){
        else {
            $(e.target).css("border-bottom","solid 1px #ebebeb");
            $("span.name_error").hide();
-           $("#username").css("color","black");  
+           $("h4#name").css("color","black");  
            
           
            
@@ -95,6 +96,38 @@ $(document).ready(function(){
 	
 	
 	
+	
+	
+	 // 비밀번호 유효성 검사	
+	 $(document).on("keyup","input#passwd",function(e) { // 성명 2글자 이상 50글자 이하 유효성 검사 처리
+
+      
+      
+       const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g; 
+
+       const bool = regExp.test( $(e.target).val() );       
+
+
+       if(!bool) {
+           $(e.target).css("border-bottom","solid 1px red");  //빨간색 밑줄
+           $("span.passwd_error").show();  //에러문구      
+           $("#passwd").css("color","red");   
+          
+           
+       }
+       else {
+           $(e.target).css("border-bottom","solid 1px #ebebeb");
+           $("span.passwd_error").hide();
+           $("#passwd").css("color","black");  
+           
+          
+           
+       }
+
+
+	});// end of $(document).on("keyup","input#recipient_name",function(e
+	
+	
 		
 		    
 // 모달창을 열어주는 기능   
@@ -104,6 +137,12 @@ $("button#edit_info").click( (event)=>{
 	
 	$("span.name_error").hide();
 	$("input#username").css("border-bottom","solid 1px #ebebeb");
+	$("#name").css("color","black");  
+	
+	$("span.passwd_error").hide();
+	$("input#passwd").css("border-bottom","solid 1px #ebebeb");
+	$("#passwd").css("color","black");  
+	$("input#passwd").val("");
 	
 	
 	
@@ -158,6 +197,10 @@ $("button#edit_info").click( (event)=>{
     
 	
 });
+
+
+
+
 
 
 

@@ -13,7 +13,13 @@ button.btn_bottom:hover{
 }
 
 
+span.name_error {
+	font-size: 14px;
+}
 
+span.passwd_error {
+	font-size: 14px;
+}
 
 
 

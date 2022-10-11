@@ -208,7 +208,8 @@
 					   <h4 id="passwd" class="input_title">비밀번호</h4>
 					   <div class="input_item">
 					      <input name="passwd" class="input_txt" id="passwd" type="text" autocomplete="off" value="">
-					   </div>										
+					   </div>	
+					   <span class="passwd_error" style="color:red">영문, 숫자, 특수문자를 조합하여 입력해주세요. (8-16자)</span>									
 					</div>															  
 								  
 								  
