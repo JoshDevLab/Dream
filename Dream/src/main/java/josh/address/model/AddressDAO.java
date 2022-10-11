@@ -93,6 +93,8 @@ public class AddressDAO implements InterAdressDAO{
 			
 			
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}

@@ -83,6 +83,8 @@ public class MemberDAO implements InterMemberDAO{
 			isExists = rs.next(); // 행이 있으면(중복된 email) true ,
 			                      // 행이 없으면(사용가능한 email) false 
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
@@ -307,9 +309,13 @@ public class MemberDAO implements InterMemberDAO{
             }
          
          
+      } catch (Exception e) {
+    	  	  e.printStackTrace();
       } finally {
-         close();
-      }
+          close();
+       }
+      
+      
       
       return mvo;
       

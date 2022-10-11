@@ -287,7 +287,7 @@ function goCoinPurchaseEnd() {
 		        success: function(json) {
 			        	let pointCount = 1;
 			        	
-			        	if( Number($("span#point_sale").text()) > 0) {
+			        	if( Number($("span#point_sale").text().split(',').join('')) > 0) {
 			        		pointCount = 2;
 			        	}
 		        		const n = json.n;
@@ -307,10 +307,6 @@ function goCoinPurchaseEnd() {
 		        		        async:true,   
 		        		        success:function(json){ 
 		        		        	
-		        			        	if(json.success_count == 1) {
-		        			        		
-		        			        }
-		        			        	
 		        		        }
 		        		        
 		        			});
