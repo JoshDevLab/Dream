@@ -193,6 +193,8 @@ public class LoginController extends AbstractController {
 					// 제이슨 객체생성
 					JSONObject jsonObj = new JSONObject();
 					
+					// System.out.println("확인용 isFirstLogin "+isFirstLogin);
+					
 					// 제이슨에 값 담기
 					jsonObj.put("userid", userid);
 					jsonObj.put("isFirstLogin", isFirstLogin); // json으로 전달할 첫 로그인 여부

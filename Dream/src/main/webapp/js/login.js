@@ -246,9 +246,7 @@ function goLogin() {
 					}
 					if(!json.isFirstLogin) {
 						alert("신규회원 전용 포인트 2000P가 지급되었습니다!");
-						// => login 화면 또는 index 로 이동 
-						// location.href=getContextPath()+"/login/login.dream";
-				 }
+				 	}
 					
 					location.href=getContextPath()+"/index.dream";
 				}
