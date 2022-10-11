@@ -244,7 +244,7 @@ function goLogin() {
 					if(json.userid =="admin"){
 						alert("관리자로 로그인되었습니다");
 					}
-					if(!json.isFirstLogin) {
+					if(!json.isFirstLogin && json.userid != "admin") {
 						alert("신규회원 전용 포인트 2000P가 지급되었습니다!");
 				 	}
 					

@@ -118,6 +118,7 @@ public class ShippingManagementJson extends AbstractController {
 					for( PurchaseListDTO pdto : pagingPurchaseList ) { 
 						JSONObject jsonObj = new JSONObject();  
 						
+						jsonObj.put("userid",pdto.getUserid());       //주문일련번호
 						jsonObj.put("order_num",pdto.getOrder_num());       //주문일련번호
 						jsonObj.put("product_num", pdto.getProduct_num() ); //제품번호
 						jsonObj.put("buy_cnt", pdto.getBuy_cnt() );         //구매수량

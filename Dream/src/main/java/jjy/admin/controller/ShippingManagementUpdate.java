@@ -33,7 +33,6 @@ public class ShippingManagementUpdate extends AbstractController {
 		System.out.println(orderNumList.length);
 		
 		InterPurchaseListDAO pdao = new PurchaseListDAO();
-		PurchaseListDTO pdto = new PurchaseListDTO();
 		
 		int result = pdao.updateShipping(shipping,orderNumList);
 		
@@ -49,8 +48,6 @@ public class ShippingManagementUpdate extends AbstractController {
 			System.out.println(" 확인용i " + orderNumList[i]);
 		}
 		*/
-		
-		
 		
 		super.setViewPage("/WEB-INF/view/jjyjsonview.jsp");
 

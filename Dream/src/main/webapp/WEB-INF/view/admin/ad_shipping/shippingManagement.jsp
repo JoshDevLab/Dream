@@ -33,6 +33,24 @@
    $(document).ready(function(){
 	    $("div#shipping_cnt_left").trigger("click");
    });// end of $(document).ready(function()----------------------------------
+		   
+// === 나의 정보 수정하기 === //
+function goEditPersonal(userid) {
+	
+	// 나의정보 수정하기 팝업창 띄우기
+	const url = "<%=request.getContextPath()%>/admin/shippingMangement.dream?userid="+${sessionScope.userid};
+	
+	// 너비 800, 높이 600 인 팝업창을 화면 가운데 위치시키기
+	const pop_width = 800;
+	const pop_height = 680; 
+	const pop_left = Math.ceil((window.screen.width - pop_width)/2);   /*<!-- 정수로 만듦 -->*/
+	const pop_top = Math.ceil((window.screen.height - pop_height)/2);  /*<!-- 정수로 만듦 --> */                           
+	
+	window.open(url, "memberEdit",
+				"left="+pop_left+", top="+pop_top+", width="+pop_width+", height="+pop_height);
+	
+}// end of function goEditPersonal()-------------------	   
+		   
 </script>
 
 		<%-- 구매내역 시작  --%>
