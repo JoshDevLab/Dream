@@ -15,12 +15,35 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/cart.css" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/cart.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 
 
 <script type="text/javascript">
+	toastr.options = {
+			  "closeButton": false,
+			  "debug": true,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-top-center",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut",
+			  "toastClass": 'toastr'
+			}
+
 	const membership = "${user.membership}";
 	let fk_address_num = "";
 
@@ -53,7 +76,7 @@
 	    //console.log("확인용 : "+cart_num);
 	    
 	    if(total_cnt == cart_qty) {
-			alert("재고량보다 더 주문할 수 없습니다.");
+			toastr["error"]("재고량보다 더 주문할 수 없습니다.");
 			return;
 		}
 		cart_qty = cart_qty + 1;
@@ -73,7 +96,7 @@
 		        		const n = json.n;
 		            	
 		        		if(n == 1) {
-						alert("수량이 변경되었습니다.")
+						toastr["success"]("수량이 변경되었습니다.");
 					    $("."+classname).prev().val(cart_qty);
 				
 					    let price = $("."+classname).parent().parent().prev().find('span').text();
@@ -146,7 +169,7 @@
 		            	
 		        		if(n == 1) {
 					        $("."+classname).prop("disabled",false);
-					        alert("수량이 변경되었습니다.")
+					        toastr["success"]("수량이 변경되었습니다.");
 					        $("."+classname).next().val(cart_qty);
 					
 					        let price = $("."+classname).parent().parent().prev().find('span').text();
@@ -194,12 +217,12 @@ function goCoinPurchaseEnd() {
 	 const address = $("option:selected").val();
 	
 	if(price == 0) {
-		alert("상품을 체크 한 후에 결제버튼을 눌러주세요");
+		toastr["warning"]("상품을 체크 한 후에 결제버튼을 눌러주세요.");
 		return;
 	} 
 	
 	if(typeof address == 'undefined') {
-		alert("배송지를 선택하세요");
+		toastr["warning"]("배송지를 선택하세요.");
 		return;
 	}
  	
@@ -259,7 +282,7 @@ function goCoinPurchaseEnd() {
 		        type: "POST",
 		        data: {"jsonData" : jsonData, 
 		        		   "plusPoint" : Number( $("span#prd_price").text().split(",").join("") ) * point_percent,
-		        		   "minusPoint" : $("span#point_sale").text() },
+		        		   "minusPoint" : Number($("span#point_sale").text().split(',').join('')) },
 		        dataType:'json',
 		        success: function(json) {
 			        	let pointCount = 1;
@@ -275,7 +298,7 @@ function goCoinPurchaseEnd() {
 		        		//console.log("확인용 count_n =>" + count_n);
 		            	
 		        		if(n == count_n) {
-		        			alert('구매가 완료되었습니다.');
+		        			toastr["success"]("구매가 완료되었습니다.");
 		        			$.ajax({
 		        		        url:getContextPath()+"/cart/purchaseSms.dream",
 		        		        data:{"mobile":'${user.mobile}'},
@@ -306,7 +329,7 @@ function goCoinPurchaseEnd() {
 			
        } else {
            location.href="<%= request.getContextPath()%>/index.dream";
-           alert("결제에 실패하였습니다.");
+           toastr["error"]("결제가 실패하였습니다.");
       }
 
   }); // end of IMP.request_pay()----------------------------
