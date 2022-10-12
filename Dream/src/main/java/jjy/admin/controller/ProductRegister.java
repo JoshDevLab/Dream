@@ -200,7 +200,7 @@ public class ProductRegister extends AbstractController{
 			
 			//////////////////////////////////////////////////////////////////////////////////
 			// 넘어온 값 확인
-			
+			/*
 			System.out.println("확인용 넘어온 값 product_name"+product_name);
 			System.out.println("확인용 넘어온 값 product_image"+product_image);
 			System.out.println("확인용 넘어온 값 category"+category);
@@ -209,7 +209,7 @@ public class ProductRegister extends AbstractController{
 			System.out.println("확인용 넘어온 값 discount_rate"+discount_rate);
 			System.out.println("확인용 넘어온 값 gender"+gender);
 			System.out.println("확인용 넘어온 값 product_content"+product_content);
-			
+			*/
 			
 			//////////////////////////////////////////////////////////////////////////////////
 			
@@ -241,9 +241,6 @@ public class ProductRegister extends AbstractController{
 				}
 				
 			}
-			
-			
-		
 			
 			String message ="";
 			String loc ="";

@@ -103,6 +103,9 @@ public class ShippingMangement extends AbstractController {
 				super.setViewPage("/WEB-INF/view/admin/ad_shipping/shippingManagement.jsp");
 				
 			}
+			else {
+				super.setViewPage("/WEB-INF/view/index.jsp");
+			}
 		}
 
 	}

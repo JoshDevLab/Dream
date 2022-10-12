@@ -35,5 +35,8 @@ public interface InterPurchaseListDAO {
 	/** 주문번호와 배송상태를 전달받아 배송처리 하는 메소드  */
 	int updateShipping(String shipping, String[] orderNumList) throws SQLException;
 
+	/** 주문번호를 전달받아 주문자의 아이디를 알아오는 메소드 */
+	String getOrderUserid(String order_num) throws SQLException;
+
 	
 }

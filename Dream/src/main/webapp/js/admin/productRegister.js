@@ -98,7 +98,7 @@ $(document).ready(function() {
 		if(!regExp.test($(e.target).val())){
 			// alert("부적합");
 			$(e.target).val("1");
-			console.log("$(e.target).val()"+$(e.target).val());
+			// console.log("$(e.target).val()"+$(e.target).val());
 		}
 	});
 

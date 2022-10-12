@@ -156,7 +156,7 @@ String ctxPath = request.getContextPath();
 					<tr>
 						<%-- 두번째 줄 시작 --%>
 						<td id = "td_address" class="td_title">주소</td>
-						<td class="td_content order_info">${requestScope.address}</td>
+						<td class="td_content order_info">(${requestScope.post_code})${requestScope.address}</td>
 					</tr>
 					<%-- 두번째 줄 끝 --%>
 

@@ -75,8 +75,39 @@ a.btn_find{
    padding: 14px;
    border-radius: 10px;
    text-align: center;
-   
 }
+
+
+a#btn_find{
+    text-decoration: none;
+    color:white;
+}
+
+a#btn_find:link {
+    text-decoration: none;
+    color:white;
+}/*방문 전 링크 상태 */
+
+a#btn_find:visited {
+    text-decoration: none;
+    color:white;
+}/* 방문 후 링크 상태 */
+
+a#btn_find:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color:white;
+} /* 마우스 오버했을 때 링크 상태 */
+
+a#btn_find:active {
+    text-decoration: none;
+    color:white;
+} /* 클릭했을 때 링크 상태 */
+
+
+
+
+
 
 h2#find_email_title{
    font-size: 32px;
