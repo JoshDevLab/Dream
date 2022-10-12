@@ -486,7 +486,7 @@ function callAjax(start) {
 	   		                        "<div id = 'name_cnt'>"+
 	   		                           "<div class='item_name'>"+item.product_name+" </div>"+
 	   		                        "</div>"+
-	   		                         "<a href='javascript:goEditPersonal("+item.userid+");'><div class='order_num'>[ D - "+item.order_num+" ]</div></a>"+
+	   		                         "<a href='javascript:void(0);' onclick='viewShippingInfo(`"+item.userid+"`,`"+item.order_num+"`);'><div class='order_num'>[ D - "+item.order_num+" ]</div></a>"+
 	   		                         "<div class='purchase_cnt' style='width:50px;'>"+item.buy_cnt+" 개 </div>"+
 	   		                        "<div class='totalPrice' >"+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
 	   		                        "<div class='totalPoint' >"+(item.point).toLocaleString("en")+" p</div>"+

@@ -7,11 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2> 여기는 사용자 정보!</h2>
-	<div> 여기는 아이디! </div>
-	<div> 여기는 이름! </div>
-	<div> 여기는 연락처! </div>
-	<div> 여기는 우편번호! </div>
-	<div> 여기는 주소+ 상세주소! </div>
+	<h2> !주문자 상세정보!</h2>
+	<div> 주문자 아이디 : ${requestScope.userid} </div>
+	<div> 받는사람 : ${requestScope.order_name} </div>
+	<div> 연락처 : ${requestScope.mobile} </div>
+	<div> 우편번호: ${requestScope.post_code} </div>
+	<div> 주소 : ${requestScope.address}</div>
+	<div> 상세주소 : ${requestScope.detail_address}</div>
 </body>
 </html>

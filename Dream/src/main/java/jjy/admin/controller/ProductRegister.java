@@ -205,7 +205,6 @@ public class ProductRegister extends AbstractController{
 			System.out.println("확인용 넘어온 값 gender"+gender);
 			System.out.println("확인용 넘어온 값 product_content"+product_content);
 			*/
-			
 			//////////////////////////////////////////////////////////////////////////////////
 			
 			
