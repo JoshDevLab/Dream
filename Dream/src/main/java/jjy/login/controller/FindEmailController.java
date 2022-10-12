@@ -42,7 +42,7 @@ public class FindEmailController extends AbstractController {
 				jsonObj.put("userid", userid);
 				
 				String json = jsonObj.toString(); // 문자열 형태인 "{"isExists":true}" 또는 "{"isExists":false}" 으로 만들어준다.
-				System.out.println(">> 확인용 json existMobile => " + json);
+				// System.out.println(">> 확인용 json existMobile => " + json);
 				// >> 확인용 json => {"isExists":true}
 				// >> 확인용 json => {"isExists":false}
 				
@@ -56,7 +56,7 @@ public class FindEmailController extends AbstractController {
 			else {
 				jsonObj.put("existMobile", existMobile); 
 				String json = jsonObj.toString();
-				System.out.println(">> 확인용 json existMobile => " + json);
+				// System.out.println(">> 확인용 json existMobile => " + json);
 				request.setAttribute("json", json);
 				
 				super.setViewPage("/WEB-INF/view/jjyjsonview.jsp");
