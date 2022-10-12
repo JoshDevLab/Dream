@@ -230,3 +230,7 @@ div#menu_close {
     cursor: pointer;
     color: #1a1d243f;
 }
+
+:checked {
+    accent-color: black;
+}

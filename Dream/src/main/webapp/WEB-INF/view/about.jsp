@@ -14,80 +14,555 @@
   <title>DREAM | 편안한 수면을 위한 FLEX</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/bootstrap-4.6.0-dist/css/bootstrap.min.css" > 
-  
+  <%-- Font Awesome 5 Icons --%>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <%-- title Icon --%>
   <link href="<%= ctxPath%>/images/titleicon.png" rel="shortcut icon" type="image/x-icon">
-  <!-- 직접 만든 CSS -->
+  <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" href="<%= ctxPath%>/css/about.css">
   
-  <!-- Optional JavaScript -->
+  <%-- Optional JavaScript --%>
   <script type="text/javascript" src="<%= ctxPath%>/jquery3.6.0/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
 
-  <!-- fullpage 라이브러리 -->
+  <%-- fullpage 라이브러리 --%>
   <link href="<%= ctxPath%>/fullpagelib/jquery.fullPage.css" rel="stylesheet"> 
   <script type="text/javascript" src="<%= ctxPath%>/fullpagelib/jquery.fullPage.js"></script>
-
-  <!-- 직접만든 javascript -->
+  
+  <%-- TypeIt 라이브러리 --%>
+  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+  
+  <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/about.js" ></script>
   
+  
 </head>
+
+
 <body>
-  <div class="header">
-    <div class="header_main d-flex justify-content-between align-items-end">
-      <div>
-        <a href="<%= ctxPath%>/index.dream"><h1 id="logo">DREAM</h1></a>
-      </div>
-      <nav>
-        <ul>
-          <li data-menuanchor="section1" style="display:none;"><a href="#section1">드림</a></li>
-          <li class="mt-2 btn" style="font-weight:bold;" data-menuanchor="section2"><a href="#section2">최현우</a></li>
-          <li class="mt-2 btn" style="font-weight:bold;" data-menuanchor="section3"><a href="#section3">장진영</a></li>
-          <li class="mt-2 btn" style="font-weight:bold;" data-menuanchor="section4"><a href="#section4">조상운</a></li>
-          <li class="mt-2 btn" style="font-weight:bold;" data-menuanchor="section5"><a href="#section5">황광빈</a></li>
-          <li class="mt-2 btn" style="font-weight:bold;" data-menuanchor="section6"><a href="#section6">김진석</a></li>
-        </ul>
-      </nav>
-      <ul class="hidden_main_list list-unstyled mt-2">
-        <li class="hidden_main_list bg-white" type="button" onclick="window.open('https://www.facebook.com/')"; target="_blank"><i class="fa-brands fa-facebook fa-2x"></i></li>
-        <li class="hidden_main_list bg-white" type="button" onclick="window.open('https://www.instagram.com/')"; target="_blank"><i class="fa-brands fa-2x fa-instagram"></i></li>
-      </ul>
+  <div class="header d-flex justify-content-between align-items-center">
+    <div>
+      <a href="<%= ctxPath%>/index.dream"><h1 id="logo">DREAM</h1></a>
     </div>
+    <ul class="sns_list list-unstyled d-flex">
+      <li class="sns_list mr-3" style="cursor:pointer;" onclick="window.open('https://www.facebook.com/')" target="_blank"><i class="fa-brands fa-facebook fa-2x"></i></li>
+      <li class="sns_list" style="cursor:pointer;" onclick="window.open('https://www.instagram.com/dream_kr_official/')" target="_blank"><i class="fa-brands fa-2x fa-instagram"></i></li>
+    </ul>
   </div>
 
 
 
   
   <main id="fullpage">
-    <div class="section bg-white">
-      <div class="slide">
-        <h1 id="project_dream" class="text-center" style="font-weight:bold">Project Dream</h1>
+  
+    <%-- 시작 section1 --%>
+    <div class="section">
+      <h1 id="project_dream" class="text-center" style="font-weight:bold">Project Dream</h1>
+    </div>
+    <%-- 시작 section1 --%>
+    
+    
+    
+    <%-- 드림개발목적 section2 시작 --%>
+    <div id="develop_reason_section" class="section">
+      <h1 id="develop_reason" class="text-center" style="font-weight:bold">
+        Dream은 왜 만들어졌나요?
+      </h1>
+    </div>
+    <%-- 드림개발목적 section2 끝 --%>
+    
+    
+    
+    <%-- 드림개발목적 section3 시작 --%>
+    <div id="develop_reason_section2" class="section">
+    
+      <div id="develop_reason_text" class="clipText w-75">
+        <h1 style="font-weight:bold;">드림 개발 목적</h1>
+        <p>코로나로 인해 활성화된 온라인 커머스 시장에서 서비스를 제공해보고 싶다 생각하던 도중 현대인들에게 부족한 잠을 떠올리게 되었고</p>
+        <p>어떻게 하면 수면의 질을 올릴 수 있을까 하다가</p>
+        <p>수면용품 전문 쇼핑몰을 기획하게 되었습니다.</p>
       </div>
-      <div class="slide">
-        <h1 id="" class="text-center" style="font-weight:bold">그냥만들었어요</h1>
+      
+    </div>
+    <%-- 드림개발목적 section3 끝 --%>
+    
+    
+    
+    
+    <%-- 드림개발자소개 section4 시작 --%>
+    <div id="developer_introduce_section" class="section">
+      <h1 id="developer_introduce" class="text-center" style="font-weight:bold">
+        드림 개발자 소개
+      </h1>
+    </div>
+    <%-- 드림개발자소개 section4 끝 --%>
+    
+    
+    
+    
+    <%-------------------------------------- 최현우 section5 시작 ------------------------------------%>
+    <div id="hyunwoo" class="section">
+      <div id="hyunwoo_container" class="container d-flex flex-column">
+        <div class="introduce d-flex">
+          <div id="hyunwoo_profile_image" class="profile_image">
+            <div class="profile_image_box">
+              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+            </div>
+            <p class="text-center" style="font-size:16pt; font-weight:bold">Hyun Woo</p>
+          </div>
+          
+          <div class="introduct_my_self ml-5">
+            <div id="hyunwoo_about_me" class="about_me">
+              <h4 style="font-weight:bold">ABOUT ME</h4>
+              <%-- 자기소개 내용물 시작 --%>
+              <div class="about_me_content pl-4">
+                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+              </div>
+              <%-- 자기소개 내용물 끝 --%>
+            </div>
+            
+            <div id="hyunwoo_skill" class="skill mt-2">
+              <h4 style="font-weight:bold">SKILL</h4>
+              <div class="skill_content">
+                <%-- 기술 나열 --%>
+                <ul class="skill d-flex">
+                  <%-- Java icon --%>
+                  <li><img src="<%=ctxPath%>/images/about/java.png"/></li>
+                  <%-- JS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/js.png"/></li>
+                  <%-- HTML5 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/html5.png"/></li>
+                  <%-- CSS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/css3.png"/></li>
+                  <%-- Bootstrap4 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/bootstrap.png"/></li>
+                  <%-- Jquery icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jquery.png"/></li>
+                  <%-- JSP icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jsp-file.png"/></li>
+                  <%-- Oracle icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/oracle.png"/></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div id="hyunwoo_contact_me" class="contact_me mt-2">
+              <h4 style="font-weight:bold">CONTACT ME</h4>
+              <div class="contact_me_content">
+                <%-- 전화번호,블로그,인스타,깃주소 등 --%>
+                <ul class="contact_me">
+                  <li>
+                    <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
+                    <span>010-7423-9713</span>
+                  </li>
+                  <li>
+                    <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
+                    <span>https://github.com/hyunwoocastle</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
+        
+        
+        <div id="hyunwoo_project_review" class="project_review">
+          <div class="project_review_header">
+            <h1 class="project_review_title">Project Review</h1>
+          </div>
+          <%-- 프로젝트 후기 내용물 시작 --%>
+          <div class="project_review_content">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          </div>
+          <%-- 프로젝트 후기 내용물 끝 --%>
+        </div>
       </div>
-      <div class="slide">
-        <h1 class="text-center">슬라이드 세번째</h1>
+    </div>
+    <%-------------------------------------- 최현우 section5 끝 ------------------------------------%>
+    
+    
+    
+    
+    
+    
+    
+    <%-------------------------------------- 장진영 section6 시작 ------------------------------------%>
+    <div id="jinyoung" class="section">
+      <div id="jinyoung_container" class="container d-flex flex-column">
+        <div class="introduce d-flex">
+          <div id="jinyoung_profile_image" class="profile_image">
+            <div class="profile_image_box">
+              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+            </div>
+            <p class="text-center" style="font-size:16pt; font-weight:bold">Jin Young</p>
+          </div>
+          
+          <div class="introduct_my_self ml-5">
+            <div id="jinyoung_about_me" class="about_me">
+              <h4 style="font-weight:bold">ABOUT ME</h4>
+              <%-- 자기소개 내용물 시작 --%>
+              <div class="about_me_content pl-4">
+                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+              </div>
+              <%-- 자기소개 내용물 끝 --%>
+            </div>
+            
+            <div id="jinyoung_skill" class="skill mt-2">
+              <h4 style="font-weight:bold">SKILL</h4>
+              <div class="skill_content">
+                <%-- 기술 나열 --%>
+                <ul class="skill d-flex">
+                  <%-- Java icon --%>
+                  <li><img src="<%=ctxPath%>/images/about/java.png"/></li>
+                  <%-- JS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/js.png"/></li>
+                  <%-- HTML5 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/html5.png"/></li>
+                  <%-- CSS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/css3.png"/></li>
+                  <%-- Bootstrap4 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/bootstrap.png"/></li>
+                  <%-- Jquery icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jquery.png"/></li>
+                  <%-- JSP icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jsp-file.png"/></li>
+                  <%-- Oracle icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/oracle.png"/></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div id="jinyoung_contact_me" class="contact_me mt-2">
+              <h4 style="font-weight:bold">CONTACT ME</h4>
+              <div class="contact_me_content">
+                <%-- 전화번호,블로그,인스타,깃주소 등 --%>
+                <ul class="contact_me">
+                  <li>
+                    <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
+                    <span>010-7423-9713</span>
+                  </li>
+                  <li>
+                    <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
+                    <span>https://github.com/hyunwoocastle</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
+        
+        
+        <div id="jinyoung_project_review" class="project_review">
+          <div class="project_review_header">
+            <h1 class="project_review_title">Project Review</h1>
+          </div>
+          <%-- 프로젝트 후기 내용물 시작 --%>
+          <div class="project_review_content">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          </div>
+          <%-- 프로젝트 후기 내용물 끝 --%>
+        </div>
       </div>
-      <div class="slide">
-        <h1 class="text-center">슬라이드 네번째</h1>
+    </div>
+    <%-------------------------------------- 장진영 section6 끝 ------------------------------------%>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <%-------------------------------------- 조상운 section7 시작 ------------------------------------%>
+    <div id="josh" class="section">
+      <div id="josh_container" class="container d-flex flex-column">
+        <div class="introduce d-flex">
+          <div id="josh_profile_image" class="profile_image">
+            <div class="profile_image_box">
+              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+            </div>
+            <p class="text-center" style="font-size:16pt; font-weight:bold">Josh</p>
+          </div>
+          
+          <div class="introduct_my_self ml-5">
+            <div id="josh_about_me" class="about_me">
+              <h4 style="font-weight:bold">ABOUT ME</h4>
+              <%-- 자기소개 내용물 시작 --%>
+              <div class="about_me_content pl-4">
+                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+              </div>
+              <%-- 자기소개 내용물 끝 --%>
+            </div>
+            
+            <div id="josh_skill" class="skill mt-2">
+              <h4 style="font-weight:bold">SKILL</h4>
+              <div class="skill_content">
+                <%-- 기술 나열 --%>
+                <ul class="skill d-flex">
+                  <%-- Java icon --%>
+                  <li><img src="<%=ctxPath%>/images/about/java.png"/></li>
+                  <%-- JS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/js.png"/></li>
+                  <%-- HTML5 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/html5.png"/></li>
+                  <%-- CSS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/css3.png"/></li>
+                  <%-- Bootstrap4 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/bootstrap.png"/></li>
+                  <%-- Jquery icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jquery.png"/></li>
+                  <%-- JSP icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jsp-file.png"/></li>
+                  <%-- Oracle icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/oracle.png"/></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div id="josh_contact_me" class="contact_me mt-2">
+              <h4 style="font-weight:bold">CONTACT ME</h4>
+              <div class="contact_me_content">
+                <%-- 전화번호,블로그,인스타,깃주소 등 --%>
+                <ul class="contact_me">
+                  <li>
+                    <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
+                    <span>010-7423-9713</span>
+                  </li>
+                  <li>
+                    <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
+                    <span>https://github.com/hyunwoocastle</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
+        
+        
+        <div id="josh_project_review" class="project_review">
+          <div class="project_review_header">
+            <h1 class="project_review_title">Project Review</h1>
+          </div>
+          <%-- 프로젝트 후기 내용물 시작 --%>
+          <div class="project_review_content">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          </div>
+          <%-- 프로젝트 후기 내용물 끝 --%>
+        </div>
       </div>
     </div>
-    <div class="section bg-dark">
-      <h2 class="text-center">최현우</h2>
+    <%-------------------------------------- 조상운 section7 끝 ------------------------------------%>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <%-------------------------------------- 황광빈 section8 시작 ------------------------------------%>
+    <div id="hgb" class="section">
+      <div id="hgb_container" class="container d-flex flex-column">
+        <div class="introduce d-flex">
+          <div id="hgb_profile_image" class="profile_image">
+            <div class="profile_image_box">
+              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+            </div>
+            <p class="text-center" style="font-size:16pt; font-weight:bold">hgb</p>
+          </div>
+          
+          <div class="introduct_my_self ml-5">
+            <div id="hgb_about_me" class="about_me">
+              <h4 style="font-weight:bold">ABOUT ME</h4>
+              <%-- 자기소개 내용물 시작 --%>
+              <div class="about_me_content pl-4">
+                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+              </div>
+              <%-- 자기소개 내용물 끝 --%>
+            </div>
+            
+            <div id="hgb_skill" class="skill mt-2">
+              <h4 style="font-weight:bold">SKILL</h4>
+              <div class="skill_content">
+                <%-- 기술 나열 --%>
+                <ul class="skill d-flex">
+                  <%-- Java icon --%>
+                  <li><img src="<%=ctxPath%>/images/about/java.png"/></li>
+                  <%-- JS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/js.png"/></li>
+                  <%-- HTML5 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/html5.png"/></li>
+                  <%-- CSS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/css3.png"/></li>
+                  <%-- Bootstrap4 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/bootstrap.png"/></li>
+                  <%-- Jquery icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jquery.png"/></li>
+                  <%-- JSP icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jsp-file.png"/></li>
+                  <%-- Oracle icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/oracle.png"/></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div id="hgb_contact_me" class="contact_me mt-2">
+              <h4 style="font-weight:bold">CONTACT ME</h4>
+              <div class="contact_me_content">
+                <%-- 전화번호,블로그,인스타,깃주소 등 --%>
+                <ul class="contact_me">
+                  <li>
+                    <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
+                    <span>010-7423-9713</span>
+                  </li>
+                  <li>
+                    <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
+                    <span>https://github.com/hyunwoocastle</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
+        
+        
+        <div id="hgb_project_review" class="project_review">
+          <div class="project_review_header">
+            <h1 class="project_review_title">Project Review</h1>
+          </div>
+          <%-- 프로젝트 후기 내용물 시작 --%>
+          <div class="project_review_content">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          </div>
+          <%-- 프로젝트 후기 내용물 끝 --%>
+        </div>
+      </div>
     </div>
-    <div class="section bg-danger">
-      <h2 class="text-center">장진영</h2>
+    <%-------------------------------------- 황광빈 section8 끝 ------------------------------------%>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <%-------------------------------------- 김진석 section9 시작 ------------------------------------%>
+    <div id="kimjs" class="section">
+      <div id="kimjs_container" class="container d-flex flex-column">
+        <div class="introduce d-flex">
+          <div id="kimjs_profile_image" class="profile_image">
+            <div class="profile_image_box">
+              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+            </div>
+            <p class="text-center" style="font-size:16pt; font-weight:bold">kimjs</p>
+          </div>
+          
+          <div class="introduct_my_self ml-5">
+            <div id="kimjs_about_me" class="about_me">
+              <h4 style="font-weight:bold">ABOUT ME</h4>
+              <%-- 자기소개 내용물 시작 --%>
+              <div class="about_me_content pl-4">
+                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+              </div>
+              <%-- 자기소개 내용물 끝 --%>
+            </div>
+            
+            <div id="kimjs_skill" class="skill mt-2">
+              <h4 style="font-weight:bold">SKILL</h4>
+              <div class="skill_content">
+                <%-- 기술 나열 --%>
+                <ul class="skill d-flex">
+                  <%-- Java icon --%>
+                  <li><img src="<%=ctxPath%>/images/about/java.png"/></li>
+                  <%-- JS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/js.png"/></li>
+                  <%-- HTML5 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/html5.png"/></li>
+                  <%-- CSS icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/css3.png"/></li>
+                  <%-- Bootstrap4 icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/bootstrap.png"/></li>
+                  <%-- Jquery icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jquery.png"/></li>
+                  <%-- JSP icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/jsp-file.png"/></li>
+                  <%-- Oracle icon --%>
+                  <li class="ml-3"><img src="<%=ctxPath%>/images/about/oracle.png"/></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div id="kimjs_contact_me" class="contact_me mt-2">
+              <h4 style="font-weight:bold">CONTACT ME</h4>
+              <div class="contact_me_content">
+                <%-- 전화번호,블로그,인스타,깃주소 등 --%>
+                <ul class="contact_me">
+                  <li>
+                    <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
+                    <span>010-7423-9713</span>
+                  </li>
+                  <li>
+                    <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
+                    <span>https://github.com/hyunwoocastle</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
+        
+        
+        <div id="kimjs_project_review" class="project_review">
+          <div class="project_review_header">
+            <h1 class="project_review_title">Project Review</h1>
+          </div>
+          <%-- 프로젝트 후기 내용물 시작 --%>
+          <div class="project_review_content">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          </div>
+          <%-- 프로젝트 후기 내용물 끝 --%>
+        </div>
+      </div>
     </div>
-    <div class="section bg-info">
-      <h2 class="text-center">조상운</h2>
+    <%-------------------------------------- 김진석 section9 끝 ------------------------------------%>
+    
+    
+    
+    
+    
+    
+    
+    <%-- 끝 section10 시작--%>
+    <div id="end_section" class="section">
+      <h1 id="section_end" class="text-center" style="font-weight:bold">
+        끝까지 봐주신 여러분 다들 사랑합니..
+      </h1>
     </div>
-    <div class="section bg-primary">
-      <h2 class="text-center">황광빈</h2>
-    </div>
-    <div class="section bg-success">
-      <h2 class="text-center">김진석</h2>
-    </div>
+    <%-- 끝 section10 끝 --%>
+    
+    
+    
   </main>
 </body>
 </html>

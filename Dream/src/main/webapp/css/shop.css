@@ -19,6 +19,11 @@ div#search_area{
   height:10vh;
   border:solid 2px black;
 }
+div#result_cnt{
+  width:80%;
+  position:relative;
+  bottom:30px;
+}
 @media (max-width: 768px) {
   div#search_area{
     height:9vh;

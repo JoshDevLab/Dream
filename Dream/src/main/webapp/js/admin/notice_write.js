@@ -84,7 +84,7 @@ function updateBoard(){
 	  cancelButtonText: '취소'
 	}).then((result) => {
 	  if (result.value) {
-        //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다. 
+        //"수정" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다. 
 		const frm = document.writerFrm;
 		frm.method = "post";
 	    frm.action = getContextPath()+"/admin/noticeUpdate.dream";
