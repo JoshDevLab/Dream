@@ -17,5 +17,11 @@ public interface InterMemberDAO {
 	
 	/** Total point 저장하기 */
 	int getTotalPoint(String userid) throws SQLException;
+	
+	/** 답장하기 눌러서 나에게 보낸 user 를 대상으로 내가 쓴 메시지 insert하기 */
+	int reply(Map<String, String> paraMap) throws SQLException;
+	
+	/** 메시지 번호로 삭제하기  */
+	int deletemessage(String messageno);
 
 }

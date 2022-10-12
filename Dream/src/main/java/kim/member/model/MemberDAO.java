@@ -414,6 +414,33 @@ public class MemberDAO implements InterMemberDAO {
 		}
 	}
 
-
+	@Override
+	public int reply(Map<String, String> paraMap) throws SQLException {
+		int result = 0;
+		conn = ds.getConnection();
+		int n = -1;
+		try {
+		
+			String sql = " insert into tbl_message (messageno, fk_sender_userid, fk_Recipient_userid, title, Contents) "+
+					" values(seq_message_num.nextval , ? ,?,?, ?) ";
+				
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("fk_sender_userid")); 
+			pstmt.setString(2, paraMap.get("fk_Recipient_userid")); 
+			pstmt.setString(3, paraMap.get("title")); 
+			pstmt.setString(4, paraMap.get("contents")); 
+			
+			
+			result = pstmt.executeUpdate();
+				
+			
+			return result;
+		}finally{
+			close();
+			
+		}
+	}
+	
 
 }

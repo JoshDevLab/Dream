@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import kim.member.controller.MessageVO;
 import kim.member.model.MemberVO;
 import util.security.AES256;
 import util.security.SecretMyKey;
@@ -380,6 +381,62 @@ public class ProductDAO implements InterProductDAO {
 			 
 		
 			 return result;
+		} finally {
+			
+			close();
+		}
+	}
+
+	@Override
+	public Map<String, Object> getAllMessage(String loginuserid, String type) throws SQLException {
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		ArrayList<MessageVO> messageList = new ArrayList<MessageVO>();
+
+		
+		try {
+			conn = ds.getConnection();
+			// receive_list 채우기
+			String where = "fk_Recipient_userid";
+			String where2 = "Recipient_delete";
+			
+			if(type != "receieve") {
+				where = "fk_sender_userid";		
+				where2 = "sender_delete";
+			}
+			
+			
+			String sql = " select messageno, fk_sender_userid, fk_Recipient_userid, title, Contents, Shipping, read_check, sender_delete, Recipient_delete "+
+					" from tbl_message "+
+					" where  "+ where + " = '"+loginuserid +"' and "+where2+" = 0 "
+				  + " order by messageno desc ";
+			 pstmt = conn.prepareStatement(sql);
+			
+			 System.out.println(sql);
+			 
+			 rs = pstmt.executeQuery();
+			 while(rs.next()) {
+				MessageVO mvo = new MessageVO();
+				mvo.setMessageno(rs.getString(1));
+				mvo.setFk_sender_userid(rs.getString(2));
+				mvo.setFk_Recipient_userid(rs.getString(3));
+				mvo.setTitle(rs.getString(4));
+				mvo.setContents(rs.getString(5));
+				mvo.setShipping(rs.getString(6));
+				mvo.setRead_check(rs.getString(7));
+				mvo.setSender_delete(rs.getString(8));
+				mvo.setRecipient_delete(rs.getString(9));
+				
+				messageList.add(mvo);
+			 }
+			 
+		paraMap.put("messageList", messageList);	 
+			 
+			 		
+		return paraMap;
+		
+		
+		
 		} finally {
 			
 			close();
