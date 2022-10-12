@@ -13,6 +13,7 @@
    <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/join.js"></script>
   
+  
     <div id="Main" class="">
       <div class="login_form">
         <div class="title d-flex justify-content-center align-items-center pt-5">

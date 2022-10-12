@@ -8,9 +8,7 @@ div.login_form{
 
 @media screen and (max-width: 480px){
   div.login_form{
-    width:100%;
-    background-color: #FFFFFF;
-    border: solid 1px red;
+    width:90%;
     margin:auto;
   }
 }

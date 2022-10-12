@@ -74,14 +74,33 @@ function update(){
 		return;
 	}
 	else{		//제목이 50글자를 초과하지 않은경우
+		updateBoard();
+	}
+	
+}
+
+function updateBoard(){
+	Swal.fire({
+	  title: '수정하시겠습니까?',
+	  icon: 'info',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: '수정',
+	  cancelButtonText: '취소'
+	}).then((result) => {
+	  if (result.value) {
+        //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다. 
 		const frm = document.writerFrm;
 		frm.method = "post";
 	    frm.action = getContextPath()+"/admin/faqUpdate.dream";
 	    frm.submit();
-		return; 
-	}
-	
+		return;  
+	  }
+	});
 }
+
+
 
 
 

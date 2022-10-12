@@ -138,8 +138,6 @@ public class AddressController extends AbstractController{
 				
 				
 				
-				
-				
 				AddressDTO basic_adto = adao.select_basic_address(userid);
 				AddressDTO address_num = adao.select_basic_address(userid);
 				String basic_mobile = basic_adto.getMobile();

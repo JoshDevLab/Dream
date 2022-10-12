@@ -32,10 +32,17 @@ public interface InterProductDAO {
 	// 추천검색어 리스트를 알아오는 메소드
 	List<String> selectRecommendKeyword() throws SQLException;
 
-	// 추천검색어를 Insert 하는 메소드
+	// 키워드를 파라미터로 받아서 추천검색어를 Insert 하는 메소드
 	int insertRecommendKeyword(String keyword) throws SQLException;
 
-	// 추천검색어를 Delete 하는 메소드
+	// 키워드를 파라미터로 받아서 추천검색어를 Delete 하는 메소드
 	int DeleteRecommendKeyword(String keyword) throws SQLException;
+
+	// 유저아이디를 입력받아서 좋아요한 상품들 갯수를 알아오는 메소드
+	int cntLikeAllProduct(String userid) throws SQLException;
+
+	// 유저아이디를 입력받아서 좋아요한 상품들 리스트를 알아오는 메소드
+	List<ProductDTO> selectLikeAllProduct(Map<String, String> paraMap) throws SQLException;
+
 
 }

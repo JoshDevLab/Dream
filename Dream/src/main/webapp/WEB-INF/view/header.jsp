@@ -22,9 +22,16 @@
   <link href="<%= ctxPath%>/images/titleicon.png" rel="shortcut icon" type="image/x-icon">
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/header.css" />
+  
   <%-- Optional JavaScript --%>
   <script type="text/javascript" src="<%= ctxPath%>/jquery3.6.0/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
+  <!-- sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+   <!-- toastr css라이브러리 -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+  <!-- toastr cdn 라이브러리 둘다 제이쿼리 밑에 있어야함 -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
 
   <%-- JqueryUI JS,CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
@@ -40,6 +47,7 @@
       <div id="slide_menu">
         <div id="menu_close"><i type="button" id="btn_menu_close" class="fas fa-light fa-x"></i></div>
         <ul id="menu_list">
+          <li class="border-bottom"><a href="<%=ctxPath %>/product/like.dream">LIKE</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/product/shop.dream">SHOP</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/qna.dream">자주묻는질문</a></li>
           <li class="border-bottom"><a href="<%=ctxPath %>/notice/notice.dream">공지사항</a></li>
@@ -74,8 +82,9 @@
         </div>
         <ul class="header_main_list list-unstyled">
           <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/product/shop.dream'">SHOP</li>
-          <li class="header_main_list" type="button" onclick="location.href='<%=ctxPath %>/about.dream'">ABOUT</li>
-          <li class="header_main_list bg-white" type="button" onclick="location.href='<%=ctxPath %>/product/searchProduct.dream'"><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
+          <li class="header_main_list ml-3" type="button" onclick="location.href='<%=ctxPath %>/product/like.dream'">LIKE</li>
+          <li class="header_main_list ml-3" type="button" onclick="location.href='<%=ctxPath %>/about.dream'">ABOUT</li>
+          <li class="header_main_list ml-3 bg-white" type="button" onclick="location.href='<%=ctxPath %>/product/searchProduct.dream'"><i class="fas fa-xl fa-thin fa-magnifying-glass"></i></li>
         </ul>
         <%-- 768px 이하일때 나타날 아이콘 --%>
         <ul class="hidden_main_list list-unstyled">
@@ -88,29 +97,11 @@
     <div id="header_box">
 	</div>
 	
-	
-	<%-- 물결 --%>
-  		<a type="button" id="btn_scroll_top">
-            <div class="wrap">
-              <div class="circle">
-                <!-- wave -->
-                <div class="wave-one"></div>
-                <div class="wave-two"></div>
-                <div class="wave-three"></div>
-                <div class="wave-four"></div>
-                
-                <!-- moon -->
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-moon blur"></i>
-                
-                <!-- star -->
-                <div class="star">
-                  <i class="fas fa-asterisk star1"></i>
-                  <i class="fas fa-asterisk star2"></i>
-                  <i class="fas fa-asterisk star3"></i>
-                  <i class="fas fa-asterisk star4"></i>
-                  <i class="fas fa-asterisk star5"></i>
-                </div>
-              </div>
-            </div>   
-  		</a>
+	<%-- scrollTop button 시작 --%>
+	<div id='scroll-to-top'>
+	    <span class='fa-stack fa-lg'>
+	        <i class='fa fa-circle fa-stack-2x circle'></i>
+	        <i class='fa fa-angle-double-up fa-stack-1x fa-inverse up-arrow'></i>
+	    </span>
+	</div>
+	<%-- scrollTop button 끝 --%>
