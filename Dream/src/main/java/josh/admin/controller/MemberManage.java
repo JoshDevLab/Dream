@@ -151,13 +151,13 @@ public class MemberManage extends AbstractController{
 			}
 			else { // admin 계정으로 진입한게 아닐때
 				String message = "관리자 이외는 접근이 불가합니다.";
-	            String loc = "javascript:history.back()";
+	            String loc = request.getContextPath()+"/index.dream";
 	            
 	            request.setAttribute("message", message);
 	            request.setAttribute("loc", loc);
 	            
 	            super.setRedirect(false);
-	            super.setViewPage("/WEB-INF/joshJsonview.jsp");
+	            super.setViewPage("/WEB-INF/msg.jsp");
 			}
 			
 		}

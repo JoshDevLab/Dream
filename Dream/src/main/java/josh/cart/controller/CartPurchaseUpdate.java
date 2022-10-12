@@ -91,7 +91,14 @@ public class CartPurchaseUpdate extends AbstractController {
 			 super.setViewPage("/WEB-INF/joshJsonview.jsp");
 		}
 		else {
+			String message = "비정상적인 경로로 들어왔습니다.";
+			String loc = request.getContextPath()+"/login/login.dream";
 			
+			request.setAttribute("message", message);
+			request.setAttribute("loc", loc);
+			
+			// super.setRedirect(false);
+			super.setViewPage("/WEB-INF/msg.jsp");
 		}
 	}
 
