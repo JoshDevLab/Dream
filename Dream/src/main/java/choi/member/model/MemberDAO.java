@@ -176,4 +176,33 @@ public class MemberDAO implements InterMemberDAO{
 				
 				return userid;
 			}
+			
+			
+			// 회원 아이피를 파라미터로 받아서, 회원테이블에서 유저이름를 검색해오는 메소드
+			@Override
+			public String select_username(String userid) throws SQLException {
+				String username = ""; 
+				
+				try {
+					
+					conn = ds.getConnection();
+					
+					String sql = " select username "
+							   + " from tbl_member"
+							   + " where userid = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, userid);
+					
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						username = rs.getString("username");
+					}
+					
+				} finally {
+					close();
+				}
+				
+				return username;
+			}
 }

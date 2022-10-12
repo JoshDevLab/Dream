@@ -44,5 +44,8 @@ public interface InterProductDAO {
 	// 유저아이디를 입력받아서 좋아요한 상품들 리스트를 알아오는 메소드
 	List<ProductDTO> selectLikeAllProduct(Map<String, String> paraMap) throws SQLException;
 
+	// 유저아이디를 입력받아서 회원맞춤 검색어 리스트를 알아오는 메소드
+	List<String> selectpersonalizedKeyword(String userid) throws SQLException;
+
 
 }

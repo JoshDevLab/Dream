@@ -35,6 +35,15 @@ $(document).ready(function(){
 	 $("button#btn_search").trigger("click");	//검색버튼 클릭
   });
   
+  //맞춤검색어 클릭시 이벤트처리
+  $("div.personalized_keyword").click(e=>{
+	 const target = $(e.currentTarget);
+	 const recommend_keyword = target.children().text();
+	 
+	 $("input#keyword").val(recommend_keyword);	//검색창에 값을 넣고,
+	 $("button#btn_search").trigger("click");	//검색버튼 클릭
+  });
+  
   //인기검색어 기준 날짜 새로고침 클릭시 이벤트처리하기
   $("span#reload").click(()=>{
 	window.location.reload();

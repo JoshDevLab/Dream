@@ -86,12 +86,23 @@ div.recommend_keyword{
 }
 span.recommend_keyword{
 	font-size:small;
-	
 }
 div.recommend_keyword:hover{
 	background-color:black;
 	color:white;
 	cursor:pointer;
+}
+div.personalized_keyword{
+	height:30px;
+	background-color:white;
+}
+div.personalized_keyword:hover{
+	background-color:black;
+	color:white;
+	cursor:pointer;
+}
+span.personalized_keyword{
+	font-size:small;
 }
 i#icon_plus{
 	font-weight:bold;

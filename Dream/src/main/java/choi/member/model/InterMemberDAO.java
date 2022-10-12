@@ -16,6 +16,10 @@ public interface InterMemberDAO {
 
 	// 회원 아이피를 파라미터로 받아서, 로그인기록테이블에서 유저아이디를 검색해오는 메소드
 	String select_ip(String ipAddress) throws SQLException;
+
+	
+	// 회원 아이피를 파라미터로 받아서, 회원테이블에서 유저이름를 검색해오는 메소드
+	String select_username(String userid) throws SQLException;
 	
 }
 

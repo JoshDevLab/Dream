@@ -63,7 +63,11 @@
 			         </div>
 			       </div>
 			    </div>
+			    <div id="result_cnt" class="d-flex m-auto justify-content-end">
+			  	  <strong>검색결과 : ${requestScope.total_cnt}건</strong>
+				</div>
 			</div>
+			
 			<%-- 검색부분 끝 --%>
 	      </c:if>
 	      <div id="btn_category">
