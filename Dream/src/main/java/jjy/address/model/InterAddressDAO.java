@@ -32,4 +32,7 @@ public interface InterAddressDAO {
 	// 기본배송지가 없다면 기본배송지로 배송지 추가를 해주는 메소드
 	int registerBasicAddress(AddressDTO address1) throws SQLException;
 
+	/** 주문자 아이디, 주문일련번호를 Map으로 전달받아 아이디, 받는사람명,전화번호,주소,상세주소,우편번호를 조회하는 메소드 */
+	AddressDTO getOrderInfo(Map<String, String> paraMap) throws SQLException;
+
 }

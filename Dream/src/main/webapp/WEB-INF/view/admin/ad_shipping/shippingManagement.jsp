@@ -33,6 +33,25 @@
    $(document).ready(function(){
 	    $("div#shipping_cnt_left").trigger("click");
    });// end of $(document).ready(function()----------------------------------
+		   
+// === 구매자 상세 정보 보기 === //
+function viewShippingInfo(userid,order_num) {
+	
+	//alert("확인용 팝업창 띄우기");
+	   
+	// 나의정보 수정하기 팝업창 띄우기
+	const url = "<%=request.getContextPath()%>/admin/shippingInfo.dream?userid="+userid+"&ordernum="+order_num;
+	
+	const pop_width = 400;
+	const pop_height = 400; 
+	const pop_left = Math.ceil((window.screen.width - pop_width)/2);   /*<!-- 정수로 만듦 -->*/
+	const pop_top = Math.ceil((window.screen.height - pop_height)/2);  /*<!-- 정수로 만듦 --> */                           
+	
+	window.open(url, "memberEdit",
+				"left="+pop_left+", top="+pop_top+", width="+pop_width+", height="+pop_height);
+	
+}// end of function viewShippingInfo()-------------------	   
+		   
 </script>
 
 		<%-- 구매내역 시작  --%>

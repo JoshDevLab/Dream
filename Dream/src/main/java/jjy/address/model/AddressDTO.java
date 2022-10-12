@@ -9,15 +9,18 @@ public class AddressDTO {
     private String address;                // 주소 
     private String address_num;            // 주소번호
 	private String detail_address;         // 상세주소 
+	private String userid;				   // 아이디
 	
     
     
-    // 불러오기용 전화번호 나누기
-    String first_mobile;
-	String second_mobile; 
-	String third_mobile;
     
-	
+
+
+	// 불러오기용 전화번호 나누기
+	private String first_mobile;
+	private String second_mobile; 
+	private String third_mobile;
+    
     
     public AddressDTO() {}
     
@@ -131,6 +134,15 @@ public class AddressDTO {
 
 	private void setThird_mobile(String third_mobile) {
 		this.third_mobile = third_mobile;
+	}
+	
+	public String getUserid() {
+		return userid;
+	}
+
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	
 	

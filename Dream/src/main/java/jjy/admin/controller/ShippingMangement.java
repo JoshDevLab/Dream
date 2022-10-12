@@ -44,7 +44,6 @@ public class ShippingMangement extends AbstractController {
 				String end_date = request.getParameter("end_date");
 				String input_shipping = request.getParameter("input_shipping");
 				String sort = request.getParameter("sort");
-				String currentShowPageNo = request.getParameter("currentShowPageNo");
 
 				// 기본값 지정 //=================================================
 				if (start_date == null || start_date == "") {

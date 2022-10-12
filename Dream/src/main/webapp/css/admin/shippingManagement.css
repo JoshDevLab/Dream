@@ -234,7 +234,7 @@ button#btnMoreHIT {
 
 /* 반복문으로 생성되는 구매내역 정보 css */
 span#shipping_pname, .item_name{
-	width: 200px;
+	width: 150px;
 }
 span#shipping_onum , .order_num{
 	width: 100px;
@@ -356,7 +356,7 @@ a.purchaseDetail:active {
 	}
 	div.item_name, div.purchase_cnt, div.purchase_status, div.purchase_date,
 		span.purchase_status, span.purchase_date {
-		font-size: 13px;
+		font-size: 12px;
 		font-weight: bold;
 	}
 }

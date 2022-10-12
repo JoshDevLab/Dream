@@ -39,7 +39,6 @@ public class LoginController extends AbstractController {
 			userinfoMap.put("passwd", passwd);
 			userinfoMap.put("client_ip", client_ip);
 			
-			
 			boolean isFirstLogin = false;        // 첫 로그인 여부 
 			boolean isSecession = false;        // 탈퇴 회원 여부
 			boolean isRestMember = false;       // 휴면 회원 여부
@@ -86,7 +85,9 @@ public class LoginController extends AbstractController {
 	
 				if (loginuser != null) { // 로그인 사용자 정보가 있는 경우
 					isUserExists = true;
-	
+					
+					isFirstLogin = logindao.checkFirstLogin(userid);
+					
 					InterMemberDAO mdao = new MemberDAO();
 					MemberDTO mdto = new MemberDTO();
 					// System.out.println("확인용 userinfoMap: " + userinfoMap);
@@ -192,8 +193,11 @@ public class LoginController extends AbstractController {
 					// 제이슨 객체생성
 					JSONObject jsonObj = new JSONObject();
 					
+					// System.out.println("확인용 isFirstLogin "+isFirstLogin);
+					
 					// 제이슨에 값 담기
 					jsonObj.put("userid", userid);
+					jsonObj.put("isFirstLogin", isFirstLogin); // json으로 전달할 첫 로그인 여부
 					jsonObj.put("isSecession", isSecession); // json으로 전달할 탈퇴 회원 여부
 					jsonObj.put("isMembership", isMembership); // json으로 전달할 멤버십 가입 여부
 					jsonObj.put("isMembershipGap", isMembershipGap); // json으로 전달할 멤버십 기간 1달 초과 여부
