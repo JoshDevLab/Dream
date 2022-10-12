@@ -4,32 +4,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <%
-	String ctxPath = request.getContextPath();
-	//
+   String ctxPath = request.getContextPath();
+   //
 %>
 
 
 <style type="text/css">
 div.modal-footer>button {
-	width: 70px;
-	border: none;
-	height: 40px;
-	border-radius: 10px;
-	background-color: black;
-	color:white;
+   width: 70px;
+   border: none;
+   height: 40px;
+   border-radius: 10px;
+   background-color: black;
+   color:white;
 }
 
 div.modal-content {
-	border-radius: 10px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	width:30%;
+   border-radius: 10px;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   -webkit-transform: translate(-50%, -50%);
+   -moz-transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   -o-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+   width: 500px;
+    height: 500px;
 }
 
 td#icon {
@@ -47,78 +48,120 @@ cursor: pointer;
 
 
 }
+
+
+:checked {
+	 accent-color: black;
+}
+
+input#contents {
+  word-break:break-all;
+}
 </style>
     
 <jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/admin/memberManage.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/message.css" />
 
 <%-- 직접만든 javascript --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/admin/memberManage.js" ></script>
+<script type="text/javascript" src="<%= ctxPath%>/js/message.js" ></script>
 
 <script type="text/javascript">
 
-	$(document).ready(function() {
-		
-		 $("#date_button").hide();
-		
+   $(document).ready(function() {
+      
+       $("#date_button").hide();
+      
          $("select#searchType").val("${requestScope.searchType}");
          $("input#searchWord").val("${requestScope.searchWord}"); 
-	    
-		
-		if("${requestScope.searchType}" == "joindate" ) {
-			$("#start_date").val("${requestScope.start_date}");
-			$("#end_date").val("${requestScope.end_date}");
-			$("#date_button").show();
-		}
-		
-		if("${requestScope.searchType}" == "secession" || "${requestScope.searchType}" == "rest_member" 
-		  || "${requestScope.searchType}" == "membership" ) {
-			$("input#searchWord").css({'placeholder':'찾으시는 회원ID 입력'});
-		}
-		
-		
-		$("#searchType").change(function() {
-			const searchType = $("#searchType").val();
-			
-			if(searchType == 'joindate') {
-				$("#end_date").val(new Date().toISOString().substring(0, 10));
-				$("#date_button").show();
-			}
-			else {
-				$("#date_button").hide();
-			}
-		});
-		
-	});
-	
-	function goSearch() {
-		
-		const searchType = $("#searchType").val();
-		
-		if(searchType == 'joindate') {
-			if( $("#start_date").val() == '' || $("#end_date").val() == '' ) {
-				alert("시작날짜와 마지막날짜는 둘다 입력해야 합니다.");
-				return;
-			}
-			if($("#start_date").val() > new Date().toISOString().substring(0, 10)) {
-				alert("시작날짜가 오늘날짜보다 작아야 합니다.");
-				$("#start_date").val('');
-				$("#start_date").focus();
-				return;
-			}
-			if($("#start_date").val() > $("#end_date").val()) {
-				alert("마지막 날짜가 시작날짜보다 빠를 수 없습니다.");
-				return;
-			}
-		}
-		
-		const frm = document.memberFrm;
-		frm.action = "memberManage.dream";
-		frm.method = "GET";
-		frm.submit();
-	}
+       
+      
+      if("${requestScope.searchType}" == "joindate" ) {
+         $("#start_date").val("${requestScope.start_date}");
+         $("#end_date").val("${requestScope.end_date}");
+         $("#date_button").show();
+      }
+      
+      if("${requestScope.searchType}" == "secession" || "${requestScope.searchType}" == "rest_member" 
+        || "${requestScope.searchType}" == "membership" ) {
+         $("input#searchWord").css({'placeholder':'찾으시는 회원ID 입력'});
+      }
+      
+      
+      $("#searchType").change(function() {
+         const searchType = $("#searchType").val();
+         
+         if(searchType == 'joindate') {
+            $("#end_date").val(new Date().toISOString().substring(0, 10));
+            $("#date_button").show();
+         }
+         else {
+            $("#date_button").hide();
+         }
+      });
+      
+      
+      
+      const check_length = $("input:checkbox[name='sub_check']").length;
+      const Checkbox = $("input:checkbox[name='sub_check']");
+      
+      
+      // 전체체크버튼 클릭
+      $("input#checkAll").click(function (e) {
+        
+        const bool = $(e.target).prop("checked");
+        Checkbox.prop("checked",bool);
+        const checked_length = $("input:checkbox[name='sub_check']:checked").length;
+
+        console.log(check_length);
+        if(checked_length==check_length) {
+         
+          
+        }
+        else{
+          
+        }
+      });
+      
+      
+      
+   // 그냥 버튼 체크시
+      $("input#sub_check").click(function (e) {
+   	   
+        const checked_length = $("input:checkbox[name='sub_check']:checked").length;
+               
+        
+        if(checked_length<check_length) {
+          $("input#checkAll").prop("checked",false);
+          
+        }
+        else if(checked_length==check_length) {
+          $("input#checkAll").prop("checked",true);
+          
+        }
+      });
+   
+   
+   
+      
+      
+   });// end of $(document).ready(function()------------------------
+		   
+		   
+   function message_info(messageno,title,contents) {
+	   	  
+	   
+	   $("p#title").text("제목 : " + title);
+	   $("p#contents").text("내용 : " + contents);	   
+	   
+	   
+   }
+   
+   
+   
+   
+
 
 </script>
 
@@ -130,7 +173,7 @@ cursor: pointer;
 <div class="container  d-flex">
 
    <jsp:include page="/WEB-INF/view/sidebar.jsp" />
-
+   <div style="width:100%">
   <table class="table table-hover">
   
   
@@ -140,49 +183,114 @@ cursor: pointer;
          <th colspan="7"><h4 style="font-weight:bold; margin-top: 12px;">받은메세지 목록</h4></th>
        </tr>
        <tr class="bg-dark">
-          <td id="title_check"><input type="checkbox"/></td>
+          <td id="title_check"><input type="checkbox" id="checkAll"/></td>
            <td id="icon">
-	 	 <!-- 자리맞추기용 td 자리  -->
-	 	 </td>
-          <td id="title"  style="margin-right: 40px;">제목</td>
+        <!-- 자리맞추기용 td 자리  -->
+        </td>
+          <td id="title"  colspan="7" style="margin-right: 40px;">제목</td>
          
-          <td >받은날짜</td>
+          <td >받은날짜 </td>
          
           
        </tr>
      </thead>
      <tbody>
     
-	 
-	 	<tr>
-	 	 <td id="list_check" style="width:30px;">
-	 	 <input type="checkbox"  style="margin-right: 10px;"/>	 	 
-	 	 </td>
-	 	 <td id="icon">
-	 	  <!-- 아이콘 들어올 자리 --> 아이콘
-	 	 </td>
-	 	 
-	 	 <td colspan="7" style=" font-weight: bold"  data-toggle="modal" data-target="#message_modal" data-dismiss="modal">조건에 맞는 회원이 없습니다.	 	   
-	 	</td>
-	 	 </tr>
-	 
+   <c:forEach var = "mvo"  items ="${printmessageList}"> 
+    
+        
+        
+        
+        <tr>
+        <td id="list_check" style="width:30px;">
+        <input type="checkbox" id="sub_check" name="sub_check" style="margin-right: 10px;"/>        
+        </td>
+        <td id="icon" style="width: 30px;">
+           <c:if test="${mvo.read_check==0}">
+              <i class="fa-solid fa-envelope"></i>
+           </c:if>
+           
+           <c:if test="${mvo.read_check==1}">
+              <i class="fa-solid fa-envelope-open"></i>
+           </c:if>
+       
+        </td>
+        
+        <td colspan="7" style=" font-weight: bold"  data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${mvo.messageno}','${mvo.title}','${mvo.contents}');">
+           ${mvo.title}         
+          </td>
+          <td>
+             ${mvo.shipping}
+             <input type="text" id="load_messageno" name="load_messageno" value="${mvo.messageno}"/> 
+             <input type="text" id="load_fk_sender_userid" name="load_fk_sender_userid" value="${mvo.fk_sender_userid}"/>   
+             
+            
+          </td>
+       </tr>
+     </c:forEach>
+    
      </tbody>
   </table>
   
   
   
 <%------------------------ 페이지바 시작 ------------------------%>
-  <nav aria-label="..." class="m-auto pt-2" id="section_page_bar">
-	  <div style="display: flex; width: 80%">
-		 <ul class="pagination" style="margin: auto">${requestScope.pageBar}</ul>
-	  </div>
-  </nav>
+  <c:if test="${not empty requestScope.printmessageList}">
+               
+        <nav aria-label="...">
+          <ul class="my pagination pagination-md justify-content-center mt-5">
+             <%-- 첫페이지로 이동버튼 --%>
+             <c:if test="${requestScope.page > requestScope.display_page}">
+             <li class="page-item">
+               <a class="page-link" onclick = "goPage(1)">
+                  <i class="fa-solid fa-angles-left"></i>
+               </a>
+             </li>
+             
+             
+             <%-- 전페이지로 이동버튼 --%>
+             <li class="page-item">
+               <a class="page-link"  onclick = "goPage(${requestScope.startPage-1})">
+                  <i class="fa-solid fa-angle-left"></i>
+               </a>
+             </li>
+             </c:if>
+             
+             <%-- 페이지번호 시작--%>
+             <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+                <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
+                <li class="page-item active" aria-current="page">
+                <a id = "firstPage" class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})" >${requestScope.startPage+i.count-1}</a>
+             </li>
+                </c:if>
+                
+                <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
+                <li class="page-item">
+                <a class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})">${requestScope.startPage+i.count-1}</a>
+             </li>
+                </c:if>
+                </c:forEach>
+                <%-- 페이지번호 끝 --%>
+                
+                
+                
+             <%-- 다음페이지로 이동버튼 --%>
+             <c:if test="${!(requestScope.last_display_page)}">
+             <li class="page-item">
+               <a class="page-link" onclick = "goPage(${requestScope.startPage+requestScope.display_page})"><i class="fa-solid fa-angle-right"></i></a>
+             </li>
+             <%-- 맨 끝페이지로 이동버튼 --%>
+             <li class="page-item">
+               <a class="page-link" onclick = "goPage(${requestScope.totalPage})"><i class="fas fa-solid fa-angles-right"></i></a>
+             </li>
+             </c:if>
+           </ul>
+      </nav>
+      
+      
+      </c:if>   
 <%------------------------ 페이지바 끝 ------------------------%>
-
-
- 
-  
-  <%-- 검색부분 끝 --%>
+</div>
 </div>
 <%-- 회원관리페이지 코드 끝 --%>
 
@@ -205,11 +313,12 @@ cursor: pointer;
         
         <!-- Modal body -->
         <div class="modal-body">
-          <div id="basic_check">
-          	 제목 : 김진석 그는 신인가 ...<br><br>
-          	 내용 : 김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!
-          	 김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!
-          </div>
+          <div id="message_title">
+              <p id="title" name="title" type="text" autocomplete="off"	class="input_txt" style="border:none; padding-bottom: 10px;"> </p>
+          </div>  
+          <div id="message_body">                 
+              <p id="contents" name="contents" type="text" autocomplete="off" class="input_txt" style="border:none; " ></p>           
+         </div>
         </div>
         
         <!-- Modal footer -->

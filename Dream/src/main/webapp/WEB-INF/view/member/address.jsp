@@ -13,6 +13,7 @@ String ctxPath = request.getContextPath();
   
 %>
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 
 
@@ -81,7 +82,7 @@ String ctxPath = request.getContextPath();
 								
 								<div class="address_info">
 									<div class="name_box">
-										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
+										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>
 										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
 										<span class="mark">기본 배송지</span>
 									</div>
@@ -132,7 +133,7 @@ String ctxPath = request.getContextPath();
 						  
 								<div class="address_info">
 									<div class="name_box">
-									<input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>${adao.address_num}
+									<input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>
 									    <%-- <span type="" name="address_num" value="${adao.address_num}"></span> --%>
 										<span id="basic_text" class="name">${adao.order_name}</span>
 										
@@ -374,7 +375,7 @@ String ctxPath = request.getContextPath();
  <jsp:include page="/WEB-INF/view/footer.jsp" />
  
  
- 
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" /> 
  
  
  

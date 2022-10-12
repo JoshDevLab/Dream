@@ -244,6 +244,8 @@ $(document).ready(function(){
     
     
     
+    
+    
      // 기본배송지 아닌 수정버튼 클릭 이벤트
     $("a#edit").click( (event)=>{ 
 	

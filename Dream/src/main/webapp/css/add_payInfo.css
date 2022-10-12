@@ -123,7 +123,7 @@ div.empty_area {
 a#add_btn:link {
 	color: black;
 	text-decoration: none;
-	background-color: black;
+	
 }
 
 a#add_btn:visited {
@@ -141,6 +141,7 @@ a#add_btn:active {
 	color: white;
 	text-decoration: none;
 }
+
 
 /* 버튼 호버시 효과를 없애주는 css 끝 */
 
@@ -493,8 +494,12 @@ span#pay_mark {
 }
 
 
-
-    
+/* 
+ @media (min-width: 768px) {
+	#myPageFooter {
+		display: none;
+	}
+}    */
      
      
         
@@ -754,6 +759,9 @@ input[type="checkbox"] {
 }
 
 /* 페이지바 css 끝 */
+
+
+
 
 
 
