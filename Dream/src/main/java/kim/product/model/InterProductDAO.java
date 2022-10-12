@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import kim.member.controller.MessageVO;
 import kim.member.model.MemberVO;
 
 public interface InterProductDAO {
@@ -19,8 +20,10 @@ public interface InterProductDAO {
 	/** 제품 업데이트 */
 	int UpdateProduct(Map<String, String> paraMap) throws SQLException;
 
-	/** uesrid 랑 제품번호로 내가 이미 관심등록 했는지 여부 확인! 
-	 * @throws SQLException */
+	/** uesrid 랑 제품번호로 내가 이미 관심등록 했는지 여부 확인!*/
 	int ilikethis(String productnum, String loginuserid) throws SQLException;
+
+	/** userid 넣으면 보낸메일 목록, 받은메일 목록List 를 ArrayList 에 담아옴 */
+	Map<String, Object> getAllMessage(String loginuserid, String type) throws SQLException;
 
 }

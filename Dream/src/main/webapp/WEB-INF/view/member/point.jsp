@@ -170,10 +170,10 @@
                 </div>
                 <div class="layer_content">
                   <ul class="description_list">
-                    <li class="description">• 1,000P 이상부터 구매금액 제한 없이 사용하실 수 있습니다.</li>
-                    <li class="description">• 입찰 삭제, 거래 취소 시 사용한 포인트는 환불됩니다.</li>
-                    <li class="description">• 먼저 적립된 포인트부터 순서대로 사용되며, 사용하지 않으실 경우 유효기간이 지나면 자동 소멸됩니다. </li>
-                    <li class="description">• 유효기간이 지난 후 환불받은 포인트는 다시 사용하실 수 없습니다.</li>
+                    <li class="description">• 1P 이상부터 구매금액 제한 없이 사용하실 수 있습니다.</li>
+                    <li class="description">• 구매 취소 시 사용한 포인트는 환불됩니다.</li>
+                    <li class="description">• 포인트는 별도의 유효기간이 존재하지 않습니다. </li>
+                    <li class="description">• 제품 구매시 멤버쉽 회원은 물건가격의 10%, 일반 회원은 물건가격의 5%를 적립받습니다.</li>
                   </ul>
                   
                 </div>
@@ -197,7 +197,7 @@
             </div>
         </div>
 
-        <p class="description"> 포인트 유효기간은 적립일로부터 최대 1년까지이며, 유형에 따라 달라질 수 있습니다. </p>
+        <p class="description"> 포인트 유효기간은 존재하지 않으며, 제품 구매시 적립, 사용 가능합니다. </p>
 
         <table class="point_history_table">
           <thead >
