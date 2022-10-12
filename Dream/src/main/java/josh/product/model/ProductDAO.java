@@ -80,9 +80,13 @@ public class ProductDAO implements InterProductDAO {
 			totalDiscount = rs.getInt(1);
 			
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
+		
 		
 		return totalDiscount;
 	}
@@ -134,9 +138,13 @@ public class ProductDAO implements InterProductDAO {
 				discountList.add(pdto);
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
+		
 		
 		return discountList;
 	}
@@ -220,9 +228,12 @@ public class ProductDAO implements InterProductDAO {
 			
 			result = pstmt.executeUpdate();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
 		
 		return result;
 	}

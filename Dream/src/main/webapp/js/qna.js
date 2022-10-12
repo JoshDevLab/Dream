@@ -19,16 +19,9 @@ $(document).ready(function(){
     });
     
     $("button#btn_delete").click(function(e){
-	  let result = faq_delete();
 	  const target = $(e.currentTarget);
       const faq_num = target.next().text();
-	  
-	  if(result){	//컨펌창 확인 눌렀을 때
-	    
-	  	location.href=getContextPath()+"/admin/faqDelete.dream?num="+faq_num;
-		return; 
-	  }
-	
+	  faq_delete(faq_num);
 	});
 	
 	
@@ -37,9 +30,22 @@ $(document).ready(function(){
       
   // Function Declaration
   
-  function faq_delete(){
-	
-	let result = confirm("정말로 삭제하시겠습니까?");
-	
-	return result;
-  }
+  
+  function faq_delete(faq_num){
+	Swal.fire({
+	  title: '글을 삭제하시겠습니까?',
+	  text: "삭제하시면 다시 복구시킬 수 없습니다.",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: 'dark',
+	  confirmButtonText: '삭제',
+	  cancelButtonText: '취소'
+	}).then((result) => {
+	  if (result.value) {
+        location.href=getContextPath()+"/admin/faqDelete.dream?num="+faq_num;
+		return;
+	  }
+	  
+	})
+}

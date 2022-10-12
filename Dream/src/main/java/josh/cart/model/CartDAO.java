@@ -103,6 +103,8 @@ public class CartDAO implements InterCartDAO{
 				
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
@@ -127,9 +129,12 @@ public class CartDAO implements InterCartDAO{
 			
 			n = pstmt.executeUpdate();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
 		
 		return n;
 	}

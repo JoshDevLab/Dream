@@ -13,6 +13,7 @@
    <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/join.js"></script>
   
+  
     <div id="Main" class="">
       <div class="login_form">
         <div class="title d-flex justify-content-center align-items-center pt-5">
@@ -115,7 +116,7 @@
 				<span id="send_guide" class="mt-2"></span>
 				<div class="d-flex align-items-center">
 				  <input class="mt-2" type="text" id="emailConfirmCode" name="emailConfirmCode" placeholder="인증번호를 입력해주세요">
-				  <div id="div_email_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;">03:00</div>
+				  <div id="div_email_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;"></div>
 				</div>
 			</div>
        </div>

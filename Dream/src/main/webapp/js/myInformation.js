@@ -494,15 +494,15 @@ $(document).on("click","button.can_modify",function() {
 					console.log(json.isExists);
 			            
 			            if(json.isExists) {
-			                // 입력한 email 이 이미 사용중이라면
-			                alert("이미 사용중인 전화번호입니다.");
+			                // 입력한 전화번호가 이미 사용중이라면
+			                toastr["error"]("이미 사용중인 전화번호 입니다.");
 			                $("input#modify_mobile").val("");
 			                return;
 			            }
 			            
 			            else {
 							
-						    alert("사용가능한 전화번호 입니다. 인증번호를 입력해주세요");
+						    toastr["success"]("사용가능한 전화번호 입니다.");
 						    $("button#mobile_store").prop("disabled",true);
 					        $("input#modify_mobile").css("border-bottom","none");
 					        $("#modify_mobile").prop("disabled",true);
@@ -516,10 +516,10 @@ $(document).on("click","button.can_modify",function() {
 						        async:true,   
 						        success:function(json){
 									if(json.success_count == 1) { // 문자 전송에 성공하였다면
-			                				alert("인증번호를 전송하였습니다. 인증번호를 입력해주세요");
+										toastr["info"]("인증번호를 전송하였습니다.","인증번호를 입력해주세요.");
 			                				setTimer = setInterval(timer,1000);
 			                				certificationCode = json.certificationCode;
-			                				console.log(certificationCode);
+			                				// console.log(certificationCode);
 			                				
 			                				$("button#certification_mobile_btn").prop("disabled",false);
 			                				
@@ -529,10 +529,10 @@ $(document).on("click","button.can_modify",function() {
 											let modify_mobile = $("#modify_mobile").val();
 											
 											if(certification_mobile == "") {
-												alert("인증번호를 입력하세요.");
+												toastr["info"]("인증번호를 입력하세요.");
 											}
 											else {
-												console.log(certificationCode);
+												// console.log(certificationCode);
 												if(certification_mobile == certificationCode) {
 													mobile_store_cnt++;
 													$("#div_modifyMobile").hide();
@@ -545,7 +545,7 @@ $(document).on("click","button.can_modify",function() {
 													time = 180;
 												}
 												else {
-													alert("인증번호가 일치하지 않습니다.");
+													toastr["error"]("인증번호가 일치하지 않습니다.");
 													
 												}
 											}
@@ -553,7 +553,7 @@ $(document).on("click","button.can_modify",function() {
 									   }); // end of $("button#certification_email_btn").click(function() {} -------------------------------------
 			            				}
 			            				else { // 메일 전송에 실패했다면
-										alert("문자전송에 실패하였습니다. 전화번호를 다시 입력해주세요.");
+										toastr["error"]("문자전송에 실패하였습니다.","전화번호를 다시 입력해주세요.");
 										return;
 									}
 								}
@@ -588,7 +588,7 @@ function getContextPath(){
   const timer = function timer(){
   if(time<0){ // 타임이 0보다 작게된다면
       clearInterval(setTimer);
-      alert("입력시간이 초과하였습니다. 핸드폰인증을 다시 진행해주세요");
+      toastr["error"]("입력시간이 초과하였습니다.", "핸드폰인증을 다시 진행해주세요.");
       $("button#mobile_store").attr("disabled",false);
       $("button#mobile_store").text('재전송');
       mobile_ok = false;

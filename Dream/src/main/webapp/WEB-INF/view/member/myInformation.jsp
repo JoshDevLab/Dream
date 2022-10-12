@@ -7,16 +7,38 @@
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/myInformation.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
   
   <script type="text/javascript">
   
+  toastr.options = {
+		  "closeButton": false,
+		  "debug": true,
+		  "newestOnTop": false,
+		  "progressBar": true,
+		  "positionClass": "toast-top-center",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut",
+		  "toastClass": 'toastr'
+		}
   
   $(document).ready(function() {
 	  $('#MemberOut').click(function (){
 			const userid = '${sessionScope.userid}';
-		    alert("바이바이");
+		    //alert("바이바이");
 		    $.ajax({
 		        url : getContextPath()+"/member/memberDelete.dream",
 		        traditional: true,
@@ -25,7 +47,7 @@
 		        dataType:'json',
 		        success: function(json) {
 					if(json.n == 1) {
-						alert("회원탈퇴가 완료되었습니다.");
+						toastr["info"]("회원탈퇴 되었습니다.", "그동안 드림을 이용해주셔서 감사합니다.");
 						location.href = '<%= ctxPath %>/index.dream';
 					}
 				},
@@ -233,8 +255,8 @@
                         </div>
                         <div class="mt-4" id="div_modifyPasswd" style="position: relative; left: -60px;">
                             <p style="color: black; font-size: small;" class="mb-1" id="new_passwd">새로운 비밀번호</p>
-                            <input type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
-                            <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</span>
+                            <input type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="width: 100%; border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
+                            <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함형태의 8 ~ 15자리 이내로 작성하세요</span>
                             <br><br>
                             <button type="button" id="passwd_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
                             <button type="button" id="passwd_store" class="can_modify btn btn-light outline-secondary " style="font-size: 10pt;">저장</button>
@@ -338,4 +360,6 @@
     
     
 <jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
+
+
     

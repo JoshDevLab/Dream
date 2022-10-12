@@ -96,7 +96,6 @@
                        	<input type='file' name='attach1' class='btn btn-default' style="display: block;" /> 
                        	<input type='file' name='attach2' class='btn btn-default' /> 
                        </div>
-                       <input type="hidden" name="attachCount" id="attachCount" value="0"/>  
 		               </td>
 		            </tr>
 		            

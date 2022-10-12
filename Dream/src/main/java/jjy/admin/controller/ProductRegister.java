@@ -57,8 +57,6 @@ public class ProductRegister extends AbstractController{
 					System.out.println("확인용 구해온 카테고리 리스트 " + categoryList.get(i));
 				}
 			*/
-			
-			
 			int pnum = pdao.getPnumOfProduct();
 			
 			
@@ -126,20 +124,16 @@ public class ProductRegister extends AbstractController{
 //			System.out.println("확인용 gender => "+ gender);
 			
 			String detail_category = mtrequest.getParameter("detail_category"); // 소 카테고리 
-			String attachCount = mtrequest.getParameter("attachCount"); // 이미지 파일 개수 
-
-			String product_image = ""; // 이미지 
-									// 0 1 2 
-			for(int i = 0; i<Integer.parseInt(attachCount); i++) {
-				if(i != Integer.parseInt(attachCount)-1) {
+			String product_image = "";
+			for(int i = 0; i<3; i++) {
+				if(mtrequest.getFilesystemName("attach"+i) != null) {
 					product_image +=  mtrequest.getFilesystemName("attach"+i);
 					product_image += ",";
 				}
-				else {
-					product_image += mtrequest.getFilesystemName("attach"+i);
-				}
 			}
 			
+			product_image = product_image.substring(0, product_image.length()-1);
+//			System.out.println("확인용 product_image"+product_image);
 			
 
 			String product_name = mtrequest.getParameter("product_name"); // 수량 
@@ -183,10 +177,11 @@ public class ProductRegister extends AbstractController{
 				productMap.put("size_m", size_m);          // 사이즈 m
 				productMap.put("size_l", size_l);          // 사이즈 l
 				
+				/*
 				System.out.println("확인용 넘어온 값 size_s "+size_s);
 				System.out.println("확인용 넘어온 값 size_m "+size_m);
 				System.out.println("확인용 넘어온 값 size_l "+size_l);
-				
+				*/
 			}
 			else {
 				// 카테고리가 파자마 이외의 경우 수량 한개만 저장
@@ -194,7 +189,7 @@ public class ProductRegister extends AbstractController{
 				productMap.put("product_cnt", product_cnt);          // 제품수량
 				
 				// 넘어온 값 확인 
-				System.out.println("확인용 넘어온 값 product_cnt "+product_cnt);
+//				System.out.println("확인용 넘어온 값 product_cnt "+product_cnt);
 			}
 			
 			
@@ -210,7 +205,6 @@ public class ProductRegister extends AbstractController{
 			System.out.println("확인용 넘어온 값 gender"+gender);
 			System.out.println("확인용 넘어온 값 product_content"+product_content);
 			*/
-			
 			//////////////////////////////////////////////////////////////////////////////////
 			
 			
@@ -231,9 +225,9 @@ public class ProductRegister extends AbstractController{
 				result = pdao.registProduct(productMap);
 				
 				// 제품 재고 테이블에 insert 하는 메소드 
-				int n = pdao.registPqty(productMap);
+			//	int n = pdao.registPqty(productMap);
 				
-				if(n == 1 ) {
+				if(result > 0 ) {
 					System.out.println("제품재고 insert 성공!");
 				}
 				else {
@@ -262,7 +256,7 @@ public class ProductRegister extends AbstractController{
 	        super.setRedirect(false);
 	        super.setViewPage("/WEB-INF/view/msg.jsp");
 			
-		}
+		} // post 방식일때 끝{}---------------------------------------------------------------------------
 		
 	}
 }

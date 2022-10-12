@@ -70,6 +70,9 @@ public class CartPurchaseUpdate extends AbstractController {
 			 String plusPoint = request.getParameter("plusPoint");
 			 String minusPoint = request.getParameter("minusPoint");
 			 
+			 System.out.println("확인용 minusPoint ==> " + minusPoint);
+			 System.out.println("확인용 userid ==> " + userid);
+			 
 			 InterPointDAO pointDao = new PointDAO();
 			 
 			 Map<String, String> paraMap = new HashMap<>();

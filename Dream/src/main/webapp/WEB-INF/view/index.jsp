@@ -102,8 +102,8 @@
 					
 					$("input#countDiscount").val( Number($("input#countDiscount").val()) + json.length );
 					
-					console.log($("input#countDiscount").val())
-					console.log($("input#totalDiscount").val())
+					//console.log($("input#countDiscount").val())
+					//console.log($("input#totalDiscount").val())
 					
 					if( $("input#countDiscount").val() == $("input#totalDiscount").val()) {
 						$("button#more_btn").text("처음으로");
@@ -180,67 +180,77 @@
     <%-- Main > content 시작 --%>
     <div class="content mt-5">
       <div class="shortcut d-flex justify-content-between">
-        <div class="shortcut_item">
+        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=수면용품&detail_category=LED양초'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리LED양초.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">LED양초</p>
         </div>
-        <div class="shortcut_item">
+        
+        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=파자마&detail_category=동물잠옷'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리동물잠옷.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">동물잠옷</p>
         </div>
-        <div class="shortcut_item">
+        
+        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=침구류&detail_category=매트리스'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리매트리스.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">매트리스</p>
         </div>
-        <div class="shortcut_item">
+        
+        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=조명&detail_category=무드등'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리무드등.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">무드등</p>
         </div>
-        <div class="shortcut_item">
+        
+        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=침구류&detail_category=침대'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리침대.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">침대</p>
         </div>
       </div>
       <div class="shortcut d-flex justify-content-between">
-        <div class="shortcut_item mb-2">
+      
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=침구류&detail_category=베개'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리베개.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">베개</p>
         </div>
-        <div class="shortcut_item mb-2">
+        
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=파자마">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리커플파자마.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">파자마</p>
         </div>
-        <div class="shortcut_item mb-2">
+        
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=침구류&detail_category=이불'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리이불.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">이불</p>
         </div>
-        <div class="shortcut_item mb-2">
+        
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=수면용품&detail_category=필로우미스트'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리필로우미스트.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">필로우미스트</p>
         </div>
-        <div class="shortcut_item mb-2">
+        
+        
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=수면용품&detail_category=안대'">
           <div class="shortcut_img">
-            <img src="<%= ctxPath%>/images/추천이미지.PNG" alt="">
+            <img src="<%= ctxPath%>/images/디테일카테고리/카테고리안대.PNG" alt="">
           </div>
-          <p class="text-center">NEW!</p>
+          <p class="category_text text-center" style="font-weight:bold;">안대</p>
         </div>
       </div>
 
@@ -251,146 +261,8 @@
       <div class="productList">
         <div id="card_title" class="font-weight-bold">Discount</div>
         <p id="Released_product">할인상품</p>
-        <%-- 아이템박스 시작 --%>
+        <%-- item_box 시작 --%>
         <div class="item_box row mt-4" id="discountDisplay">
-
-          <%-- 1
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  상품 구분 넣을 곳
-                  <div id="product_division">수면용품</div>
-                  상품이름 넣을 곳
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  상품가격 넣을 곳
-                  <div id="product_price" class="d-flex justify-content-between">
-                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
-                    <span id="product_price">&#8361;5,000원</span>
-
-                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
-                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
-                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                    <div id="discount_mark">
-                      할인율 넣을 곳
-                      <span id="discount_percent">30%</span>
-                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
-                    </div>
-                  </div>
-                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-
-          2
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  상품 구분 넣을 곳
-                  <div id="product_division">수면용품</div>
-                  상품이름 넣을 곳
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  상품가격 넣을 곳
-                  <div id="product_price" class="d-flex justify-content-between">
-                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
-                    <span id="product_price">&#8361;5,000원</span>
-
-                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
-                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
-                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                    <div id="discount_mark">
-                      할인율 넣을 곳
-                      <span id="discount_percent">30%</span>
-                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
-                    </div>
-                  </div>
-                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-          3
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  상품 구분 넣을 곳
-                  <div id="product_division">수면용품</div>
-                  상품이름 넣을 곳
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  상품가격 넣을 곳
-                  <div id="product_price" class="d-flex justify-content-between">
-                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
-                    <span id="product_price">&#8361;5,000원</span>
-
-                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
-                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
-                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                    <div id="discount_mark">
-                      할인율 넣을 곳
-                      <span id="discount_percent">30%</span>
-                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
-                    </div>
-                  </div>
-                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-          4
-          <div class="item col-6 col-md-3 d-flex flex-column py-3">
-            <a id="" class="product" href="#">id값에 제품번호 넣기!!!!***
-              <div class="product">
-                <div class="product_imgbox border">
-                  <img src="<%= ctxPath%>/images/안대상품더미데이터1.PNG">
-                </div>
-                <div id="product_simple_explain">
-                  상품 구분 넣을 곳
-                  <div id="product_division">수면용품</div>
-                  상품이름 넣을 곳
-                  <div id="product_name" class="my-2">쓰면 바로 개꿀잠안대</div>
-                  상품가격 넣을 곳
-                  <div id="product_price" class="d-flex justify-content-between">
-                    if문!!상품자체할인가격이 없다면 아래태그,상품가격
-                    <span id="product_price">&#8361;5,000원</span>
-
-                    if문!!상품자체할인가격이 있다면 아래태그,할인된가격
-                    <span id="product_price" style="text-decoration: line-through;">&#8361;5,000원</span>
-                    상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                    <div id="discount_mark">
-                      할인율 넣을 곳
-                      <span id="discount_percent">30%</span>
-                      <button id="discount" class="rounded"><span id="discount">discount</span></button>
-                    </div>
-                  </div>
-                  상품자체할인 가격 있으면 아래 태그 넣기 태그라이브러리 들어갈 곳
-                  <div id="product_sale_price">&#8361;3,500<span>원</span></div>
-                </div>
-              </div>
-            </a>
-          </div> 
-				--%>
-		
 
 
 

@@ -156,44 +156,6 @@ public class ProductDAO implements InterProductDAO {
 	}
 
 	
-	// Map 으로 상품명,상품이미지,대카테고리,소카테고리,가격,할인율,성별,제품상세설명을 전달받아 제품 등록하는 메소드 (insert) 
-	@Override
-	public int registProduct(Map<String, String> productMap) throws SQLException {
-		
-		int result = 0;
-	      
-	    try {
-	         conn = ds.getConnection();
-	         conn.setAutoCommit(false);
-	         
-	         String sql = " insert into tbl_product(product_num , register_date, product_name, product_image, "
-	         			+ " category, detail_category, price, discount_rate, gender, product_content, bestyn ) "+
-	        		      " values( ? ,sysdate, ? , ? , ? , ? , ? , ? , ? , ?,'N') ";
-	         
-	         // (SEQ_PRODUCT_NUM.nextval,sysdate,'상품명 1' , '상품이미지 2 ', '대카테고리3', '소카테고리4',가격 5 ,할인율6 ,'성별7','제품상세설명8','N');
-	         
-	         pstmt = conn.prepareStatement(sql);
-	         
-	         pstmt.setString(1, productMap.get("pnum"));
-	         pstmt.setString(2, productMap.get("product_name"));
-	         pstmt.setString(3, productMap.get("product_image"));    
-	         pstmt.setString(4, productMap.get("category")); 
-	         pstmt.setString(5, productMap.get("detail_category")); 
-	         pstmt.setInt(6, Integer.parseInt(productMap.get("price")));    
-	         pstmt.setFloat(7, Float.parseFloat(productMap.get("discount_rate")));    
-	         pstmt.setString(8, productMap.get("gender"));    
-	         pstmt.setString(9, productMap.get("product_content"));
-	         
-	         result = pstmt.executeUpdate();
-	         
-	      } finally {
-	         close();
-	      }
-	      
-	      return result;   
-		
-	}
-
 	
 	// 대카테고리 침구류,수면용품,파자마,조명 구해오기 
 	@Override
@@ -280,6 +242,112 @@ public class ProductDAO implements InterProductDAO {
 	
 	
 	
+	// Map 으로 상품명,상품이미지,대카테고리,소카테고리,가격,할인율,성별,제품상세설명을 전달받아 제품 등록하는 메소드 (insert) 
+	@Override
+	public int registProduct(Map<String, String> productMap) throws SQLException {
+		
+		int result = 0;
+	      
+	    try {
+	         conn = ds.getConnection();
+	         conn.setAutoCommit(false);
+	         
+	         String sql = " insert into tbl_product(product_num , register_date, product_name, product_image, "
+	         			+ " category, detail_category, price, discount_rate, gender, product_content, bestyn ) "+
+	        		      " values( ? ,sysdate, ? , ? , ? , ? , ? , ? , ? , ?,'N') ";
+	         
+	         // (SEQ_PRODUCT_NUM.nextval,sysdate,'상품명 1' , '상품이미지 2 ', '대카테고리3', '소카테고리4',가격 5 ,할인율6 ,'성별7','제품상세설명8','N');
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, productMap.get("pnum"));
+	         pstmt.setString(2, productMap.get("product_name"));
+	         pstmt.setString(3, productMap.get("product_image"));    
+	         pstmt.setString(4, productMap.get("category")); 
+	         pstmt.setString(5, productMap.get("detail_category")); 
+	         pstmt.setInt(6, Integer.parseInt(productMap.get("price")));    
+	         pstmt.setFloat(7, Float.parseFloat(productMap.get("discount_rate")));    
+	         pstmt.setString(8, productMap.get("gender"));    
+	         pstmt.setString(9, productMap.get("product_content"));
+	         
+	         result = pstmt.executeUpdate();
+	         
+	         if(result == 1) {
+	        	 if("파자마".equals(productMap.get("category"))) { 
+	    	         
+			         if(!"0".equals(productMap.get("size_s"))) {
+			        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
+				             + " values( ? , 'S', ? ) ";
+			        	 
+			        	 pstmt = conn.prepareStatement(sql);
+				         
+				         pstmt.setString(1, productMap.get("pnum"));
+				         pstmt.setString(2, productMap.get("size_s"));    
+				         
+				         result = pstmt.executeUpdate();
+			        	 
+			         }
+			         
+			         if(!"0".equals(productMap.get("size_m"))) {
+			        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
+			        			 + " values( ? , 'M', ? ) ";
+			        	 
+			        	 pstmt = conn.prepareStatement(sql);
+				         
+				         pstmt.setString(1, productMap.get("pnum"));
+				         pstmt.setString(2, productMap.get("size_m"));    
+				         
+				         result = pstmt.executeUpdate();
+			         }
+			         
+			         if(!"0".equals(productMap.get("size_l"))) {
+			        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
+			        			 + " values( ? , 'L', ? ) ";
+			        	 
+			        	 pstmt = conn.prepareStatement(sql);
+				         
+				         pstmt.setString(1, productMap.get("pnum"));
+				         pstmt.setString(2, productMap.get("size_l"));    
+				         
+				         result = pstmt.executeUpdate();
+				         
+			         }
+			         conn.commit();
+			         conn.setAutoCommit(true);
+			        
+		         }
+		         // 카테고리가 침구류, 조명, 수면용품인 경우 
+		         else {
+		        	 if(!"0".equals(productMap.get(""))) {
+			        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
+			        			 + " values( ? , 'freesize', ? ) ";
+			        	 
+			        	 pstmt = conn.prepareStatement(sql);
+				         
+				         pstmt.setString(1, productMap.get("pnum"));
+				         pstmt.setString(2, productMap.get("product_cnt"));    
+				         
+				         result = pstmt.executeUpdate();
+			         }
+		        	 conn.commit();
+		        	 conn.setAutoCommit(true);
+		         }
+	         }
+	         
+	    	}catch(SQLException e){ 
+
+	    		conn.rollback();
+	    		conn.setAutoCommit(true);
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;   
+		
+	}
+	
+	/*
 	// 제품 재고 테이블에 insert 하는 메소드 	
 	@Override
 	public int registPqty(Map<String, String> productMap) throws SQLException{
@@ -291,60 +359,7 @@ public class ProductDAO implements InterProductDAO {
 	         String sql = "";
 	         
 	         // 카테고리가 파자마인 경우 
-	         if("파자마".equals(productMap.get("category"))) { 
 	         
-		         if(!"0".equals(productMap.get("size_s"))) {
-		        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
-			             + " values( ? , 'S', ? ) ";
-		        	 
-		        	 pstmt = conn.prepareStatement(sql);
-			         
-			         pstmt.setString(1, productMap.get("pnum"));
-			         pstmt.setString(2, productMap.get("size_s"));    
-			         
-			         result = pstmt.executeUpdate();
-		        	 
-		         }
-		         
-		         if(!"0".equals(productMap.get("size_m"))) {
-		        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
-		        			 + " values( ? , 'M', ? ) ";
-		        	 
-		        	 pstmt = conn.prepareStatement(sql);
-			         
-			         pstmt.setString(1, productMap.get("pnum"));
-			         pstmt.setString(2, productMap.get("size_m"));    
-			         
-			         result = pstmt.executeUpdate();
-		         }
-		         
-		         if(!"0".equals(productMap.get("size_l"))) {
-		        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
-		        			 + " values( ? , 'L', ? ) ";
-		        	 
-		        	 pstmt = conn.prepareStatement(sql);
-			         
-			         pstmt.setString(1, productMap.get("pnum"));
-			         pstmt.setString(2, productMap.get("size_l"));    
-			         
-			         result = pstmt.executeUpdate();
-		         }
-	         }
-	         // 카테고리가 침구류, 조명, 수면용품인 경우 
-	         else {
-	        	 if(!"0".equals(productMap.get(""))) {
-		        	 sql = " insert into tbl_product_stock(product_num , product_size, size_cnt) "
-		        			 + " values( ? , 'freesize', ? ) ";
-		        	 
-		        	 pstmt = conn.prepareStatement(sql);
-			         
-			         pstmt.setString(1, productMap.get("pnum"));
-			         pstmt.setString(2, productMap.get("product_cnt"));    
-			         
-			         result = pstmt.executeUpdate();
-		         }
-	        	 
-	         }
 	         
 	      } finally {
 	         close();
@@ -352,6 +367,7 @@ public class ProductDAO implements InterProductDAO {
 		
 		return result;
 	}// end of public int insertPqty(Map<String, String> productMap) {}-----------------------
+	*/
 }
 
 

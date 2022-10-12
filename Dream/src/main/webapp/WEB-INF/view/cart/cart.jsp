@@ -15,12 +15,35 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/cart.css" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/cart.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 
 
 <script type="text/javascript">
+	toastr.options = {
+			  "closeButton": false,
+			  "debug": true,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-top-center",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut",
+			  "toastClass": 'toastr'
+			}
+
 	const membership = "${user.membership}";
 	let fk_address_num = "";
 
@@ -29,7 +52,7 @@
 		$("select#fk_address").change(function () {
 			
 			fk_address_num = $("option:selected").val();
-			console.log("확인용 =>" + fk_address_num);
+			//console.log("확인용 =>" + fk_address_num);
 		});
 		
 	});
@@ -50,17 +73,17 @@
 	    let cart_num = $("#"+classname).parent().parent().parent().find('th#first-child').find('span#cart_num').text();
 	    let halin = $("#"+classname).parent().parent().prev().find(".discount_price").text();
 	    
-	    console.log("확인용 : "+cart_num);
+	    //console.log("확인용 : "+cart_num);
 	    
 	    if(total_cnt == cart_qty) {
-			alert("재고량보다 더 주문할 수 없습니다.");
+			toastr["error"]("재고량보다 더 주문할 수 없습니다.");
 			return;
 		}
 		cart_qty = cart_qty + 1;
 		
 		halin = 	halin * cart_qty;
 		
-		console.log("확인용 =>" + halin)
+		//console.log("확인용 =>" + halin)
 		
 		$.ajax({
 		        url : getContextPath()+"/cart/cartUpdate.dream",
@@ -73,7 +96,7 @@
 		        		const n = json.n;
 		            	
 		        		if(n == 1) {
-						alert("수량이 변경되었습니다.")
+						toastr["success"]("수량이 변경되었습니다.");
 					    $("."+classname).prev().val(cart_qty);
 				
 					    let price = $("."+classname).parent().parent().prev().find('span').text();
@@ -132,7 +155,7 @@
 		
 		halin = 	halin * cart_qty;
 		
-		console.log(" 총 할인가격 "+halin);
+		//console.log(" 총 할인가격 "+halin);
 		
 		$.ajax({
 		        url : getContextPath()+"/cart/cartUpdate.dream",
@@ -146,7 +169,7 @@
 		            	
 		        		if(n == 1) {
 					        $("."+classname).prop("disabled",false);
-					        alert("수량이 변경되었습니다.")
+					        toastr["success"]("수량이 변경되었습니다.");
 					        $("."+classname).next().val(cart_qty);
 					
 					        let price = $("."+classname).parent().parent().prev().find('span').text();
@@ -190,11 +213,18 @@ function goCoinPurchaseEnd() {
 	 
 	 let price = $("span#payment_price").text();
 	 price = price.split(",").join("");
+	 
+	 const address = $("option:selected").val();
 	
 	if(price == 0) {
-		alert("상품을 체크 한 후에 결제버튼을 눌러주세요");
+		toastr["warning"]("상품을 체크 한 후에 결제버튼을 눌러주세요.");
 		return;
 	} 
+	
+	if(typeof address == 'undefined') {
+		toastr["warning"]("배송지를 선택하세요.");
+		return;
+	}
  	
   //여기 링크를 꼭 참고하세용 http://www.iamport.kr/getstarted
   var IMP = window.IMP;     // 생략가능
@@ -239,7 +269,7 @@ function goCoinPurchaseEnd() {
 					           	fk_address_num : $("option:selected").val()
 				        		};
 				 
-				 console.log("안에들어온 주소 확인용 ==>" + $("option:selected").val());
+				 //console.log("안에들어온 주소 확인용 ==>" + $("option:selected").val());
 				 
 				 param.push(data)
 			});
@@ -252,23 +282,23 @@ function goCoinPurchaseEnd() {
 		        type: "POST",
 		        data: {"jsonData" : jsonData, 
 		        		   "plusPoint" : Number( $("span#prd_price").text().split(",").join("") ) * point_percent,
-		        		   "minusPoint" : $("span#point_sale").text() },
+		        		   "minusPoint" : Number($("span#point_sale").text().split(',').join('')) },
 		        dataType:'json',
 		        success: function(json) {
 			        	let pointCount = 1;
 			        	
-			        	if( Number($("span#point_sale").text()) > 0) {
+			        	if( Number($("span#point_sale").text().split(',').join('')) > 0) {
 			        		pointCount = 2;
 			        	}
 		        		const n = json.n;
 		        		const count_n = (param.length*3)+pointCount
 		        			
-		        		console.log("확인용 param.length =>" + param.length);
-		        		console.log("확인용 n =>" + n);
-		        		console.log("확인용 count_n =>" + count_n);
+		        		//console.log("확인용 param.length =>" + param.length);
+		        		//console.log("확인용 n =>" + n);
+		        		//console.log("확인용 count_n =>" + count_n);
 		            	
 		        		if(n == count_n) {
-		        			alert('구매가 완료되었습니다.');
+		        			toastr["success"]("구매가 완료되었습니다.");
 		        			$.ajax({
 		        		        url:getContextPath()+"/cart/purchaseSms.dream",
 		        		        data:{"mobile":'${user.mobile}'},
@@ -277,10 +307,6 @@ function goCoinPurchaseEnd() {
 		        		        async:true,   
 		        		        success:function(json){ 
 		        		        	
-		        			        	if(json.success_count == 1) {
-		        			        		
-		        			        }
-		        			        	
 		        		        }
 		        		        
 		        			});
@@ -299,7 +325,7 @@ function goCoinPurchaseEnd() {
 			
        } else {
            location.href="<%= request.getContextPath()%>/index.dream";
-           alert("결제에 실패하였습니다.");
+           toastr["error"]("결제가 실패하였습니다.");
       }
 
   }); // end of IMP.request_pay()----------------------------
@@ -535,7 +561,7 @@ function goCoinPurchaseEnd() {
 	                <i class="fa-regular fa-circle-question"></i>
 	              </button>
 	              <div class="value_current">
-	                <span class="user_point">${user.point}</span>
+	                <span class="user_point"><fmt:formatNumber value="${user.point}" pattern="###,###"></fmt:formatNumber></span>
 	                <span class="unit">P</span>
 	              </div>
 	            </div>
@@ -549,11 +575,12 @@ function goCoinPurchaseEnd() {
 	      <section class="mb-5" style="padding-left: 0">
 	        <div class="section_title">
 	          <h3 class="title_txt">배송지</h3>
+	          <a style="margin-left: auto;  text-decoration:none; color: gray; " href="<%= ctxPath %>/member/address.dream" >배송지 추가 > </a>
 	        </div>
 	        <div class="section_content">
+	        <c:if test="${not empty requestScope.adList}">
 	           <select name="fk_address" id="fk_address" style="width: 88%; height: 50px">
-		          <c:if test="${not empty requestScope.adList}">
-			          <c:forEach var="adto" items="${requestScope.adList}">
+		          <c:forEach var="adto" items="${requestScope.adList}">
 			          <c:if test="${adto.basic_address == 1}">
 			          		<option selected value="${adto.address_num}" style="font-size: 15pt">
 			          			${adto.address}
@@ -573,9 +600,14 @@ function goCoinPurchaseEnd() {
 			          			${adto.mobile}
 			          		</option>
 			          </c:if>		
-			          </c:forEach>
-		          </c:if>
-	           </select> 
+		          </c:forEach>
+	           </select>
+	          </c:if> 
+	           <c:if test="${empty requestScope.adList}">
+	           <div style="display: flex">
+	          	  <h3 class="text-muted text-center">등록된 주소가 없습니다.</h3>
+		       </div>
+		       </c:if>
 	        </div>
 	      </section>
 	      

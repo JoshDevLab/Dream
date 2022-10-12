@@ -1,5 +1,24 @@
+toastr.options = {
+	  "closeButton": false,
+	  "debug": false,
+	  "newestOnTop": false,
+	  "progressBar": true,
+	  "positionClass": "toast-top-center",
+	  "preventDuplicates": false,
+	  "onclick": null,
+	  "showDuration": "300",
+	  "hideDuration": "1000",
+	  "timeOut": "1500",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut",
+	  "toastClass": 'toastr'
+}
+
+
 $("document").ready(function(){
-	  $("a#btn_scroll_top").hide();
       // 변수선언
       const menu = $("div#slide_menu");
       const mask = $("div#mask");
@@ -30,19 +49,17 @@ $("document").ready(function(){
         let scrollTop = $(window).scrollTop();
         if (scrollTop == 0) { //스크롤이 맨 위일때
           $("div.header").css("border","");
-          $("a#btn_scroll_top").fadeOut();
+          $("#scroll-to-top").hide();
         }
-        else if (scrollTop > 200){
-			$("a#btn_scroll_top").fadeIn();
-		} 
         else {  //스크롤을 한다면
+          $("#scroll-to-top").fadeIn();
           $("div.header").css("border-bottom","solid 1px #DEE2E6");
         }
       });// end of window.addEventListener('scroll', function(){}----
       
       
       //스크롤을 맨위로 올리는 버튼을 클릭한다면 스크롤을 맨위로 올려주는 함수
-      $("a#btn_scroll_top").click(function(){
+      $("#scroll-to-top").click(function(){
 		$( 'html, body' ).animate( { scrollTop : 0 }, 400 );
 		return false;
 	  });

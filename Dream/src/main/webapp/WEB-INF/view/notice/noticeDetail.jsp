@@ -13,6 +13,7 @@
   <c:if test="${sessionScope.userid == 'admin'}">
 	<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
   </c:if>
+  
   <%-- 직접 만든 CSS --%>
   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/noticeDetail.css" />
   <%-- 직접만든 javascript --%>
@@ -24,23 +25,9 @@
   <div class="Main d-flex">
   
   
-    <%---------------------------------------- 사이드 바 시작 -----------------------------------------%>
-    <div class="sidebar ml-5 mt-3">
-      <div>
-          <h4 class="mb-4" style="font-weight:bold;">고객센터</h4>
-      </div>    
-      <div class="category-section mb-5">
-          <ul class="nav flex-column">
-              <li class="nav-item">
-                  <a class="nav-link pl-0 text-muted" href="#">공지사항</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link pl-0 text-muted" href="#">자주 묻는 질문</a>
-              </li>
-          </ul>
-      </div>
-    </div>
-    <%---------------------------------------- 사이드 바 끝 -----------------------------------------%>
+    <%-- 사이드 바 시작 --%>
+    <jsp:include page="/WEB-INF/view/notice/notice_sidebar.jsp" />
+    <%-- 사이드 바 끝 --%>
 	
 	
 	
@@ -72,7 +59,7 @@
           <td class="d-flex justify-content-center">
             <c:if test="${sessionScope.userid == 'admin'}">
             <button type="button" id="btn_update" class="btn btn-white border mx-1" onclick="location.href='<%= ctxPath%>/admin/noticeUpdate.dream?num=${requestScope.notice_num }'" style="cursor:pointer">수정</button>
-            <button type="button" id="btn_delete" class="btn btn-white border mx-1" onclick="location.href='<%= ctxPath%>/admin/noticeDelete.dream?num=${requestScope.notice_num }'" style="cursor:pointer">삭제</button>
+            <button type="button" id="btn_delete" class="btn btn-white border mx-1" onclick="deleteBoard(${requestScope.notice_num })" style="cursor:pointer">삭제</button>
             </c:if>
             <button type="button" id="btn_close" class="btn btn-white border mx-1" onclick="location.href='<%= ctxPath%>/notice/notice.dream'" style="cursor:pointer">목록보기</button>
           </td>

@@ -134,21 +134,21 @@ $(document).ready(function () {
 		const length = $("input:checkbox[name='prd_check']:checked").length;
 		
 		if(length == 0) {
-			alert("제품을 먼저 선택하시고 포인트를 입력하세요");
+			toastr["warning"]("제품을 먼저 선택하시고 포인트를 입력하세요");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
 		}
 		
 		if( Number($(".user_point").text()) < $("input#point").val() ) {
-			alert("보유포인트가 적습니다.");
+			toastr["warning"]("보유포인트가 적습니다.");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
 		}
 		
 		if(Number($("span#prd_price").text().split(",").join("")) < $("input#point").val()) {
-			alert("구매가격보다 높은 포인트는 사용할 수 없습니다.");
+			toastr["warning"]("구매가격보다 높은 포인트는 사용할 수 없습니다.");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
@@ -161,7 +161,7 @@ $(document).ready(function () {
 		}
 		
 	
-		$("span.sale_point").text( $("input#point").val() );
+		$("span.sale_point").text( Number($("input#point").val()).toLocaleString('en') );
 		$(".payment_price").text( (Number($("span#prd_price").text().split(",").join("")) - Number($("input#point").val())).toLocaleString('en') )
 	
 	  });
@@ -185,6 +185,9 @@ $(document).ready(function () {
 		            	
 		        		if(n == 1) {
 		        			 $("."+remove_div).remove();
+		        			 $(".sale_point").text('0');
+		        			 $(".payment_price").text('0');
+		        			 $("#point").val('');
 					     prd_check_length = $("table input:checkbox[name='prd_check']").length
 					     
 					     let count = 1;
@@ -248,6 +251,9 @@ $(document).ready(function () {
 		        		
 		            	
 		        		if(n == count_n) {
+						$(".sale_point").text('0');
+		        			$(".payment_price").text('0');
+		        			$("#point").val('');
 		        			$("input:checkbox[name='prd_check']:checked").parent().parent().parent().remove();
 				        if($("input:checkbox[name='prd_check']").length == 0) {
 				            $("input#chk_all").prop("checked",false);
