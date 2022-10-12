@@ -66,7 +66,8 @@ public class ProductRegister extends AbstractController{
 			MultipartRequest mtrequest = null;
 			
 			ServletContext svlCtx =  session.getServletContext();
-			String uploadFileDir = svlCtx.getRealPath("/images/제품이미지");
+//			String uploadFileDir = svlCtx.getRealPath("/images/제품이미지");
+			String uploadFileDir = "C:\\Users\\sist\\git\\Dream\\Dream\\src\\main\\webapp\\images\\제품이미지";
 			
 			System.out.println("확인용 주소 uploadFileDir => "+uploadFileDir);
 			

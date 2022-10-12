@@ -416,5 +416,8 @@
     <%-- 혜택 모달 끝========================================================================== --%>
 
 
-<%--footer 호출 --%>
+<%-- footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+
+<%-- My Info footer 호출 --%>
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
