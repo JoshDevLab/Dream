@@ -20,34 +20,26 @@
 
   <div class="container">
 
-    <div class="content">
+ 
 
       <%-- 제품 이미지 + 상품 디테일 --%>
       <div class="product_info_area">
+      <section>
         <div class="product_info">
           <div class="product">
           	      <%-- 물결 --%>
 		      <div class="wrap">
-		  		<div class="circle">
-				    <!-- wave -->
-				    <div class="wave-one"></div>
-				    <div class="wave-two"></div>
-				    <div class="wave-three"></div>
-				    <div class="wave-four"></div>
-				    
-				    <!-- moon -->
-				    <i class="fas fa-moon"></i>
-				    <i class="fas fa-moon blur"></i>
-				    
-				    <!-- star -->
-				    <div class="star">
-				      <i class="fas fa-asterisk star1"></i>
-				      <i class="fas fa-asterisk star2"></i>
-				      <i class="fas fa-asterisk star3"></i>
-				      <i class="fas fa-asterisk star4"></i>
-				      <i class="fas fa-asterisk star5"></i>
-				    </div>
-				  </div>
+		  		
+				   <c:forEach var="imgvo" items="${product.product_image_array}" varStatus="status">	
+					<c:if test="${status.index==0}">
+						<div id = "modalImage">
+							<img src="<%= ctxPath%>/images/제품이미지/${imgvo}"
+							 alt="제품이미지를<br>등록해주세요">
+							
+						</div>
+					</c:if>	
+				
+				</c:forEach>
 				</div>	
             
           </div>
@@ -56,28 +48,34 @@
             <p class="model_title">${product.product_name}</p>
             <p class="model_ko">${product.product_name}</p>
             <div class="model_desc">
-            	<ul id="option_box">
-            	<c:forEach var="size" items="${product.order_product_size}" varStatus="status">
-			        
-				
-			          	
-			          	<li id="SeletedOption">
-			          	 		<p class="size_txt">${size}</p>
-			          	 		<p class="size_txt">${product.order_product_cnt[status.index]}</p>
-			  			</li>
-				
-		    	</c:forEach>
+            	
+            	<table class="table">
+				 
+				  <tbody>
+				   <c:forEach var="size" items="${product.order_product_size}" varStatus="status">
+				    <tr>
+				      <td>${size}</td>
+				      <td>${product.order_product_cnt[status.index]}</td>
+				      <td>${product.order_product_cnt[status.index]*discountPrice}</td>
+				    </tr>
+				   
+		    		</c:forEach>
+            	</tbody>
+          		</table>  	
             
             
-              </ul>
             </div>
           </div>
         </div>  
-      </div>
+      </section>
 
 
       <%-- 제품 주소 && 배송 섹션--%>
-      <section>
+      <section style="padding:32px">
+      <div class="section_title">
+            <h3 class="title_txt">배송지 선택</h3>
+          </div>
+      
         <div class="section_unit">
           <c:if test="${empty requestScope.basic_mobile}">
 			<div class="empty_area" id="no_add_area">
@@ -98,7 +96,7 @@
                 <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 시작 -------------------------------------------------------------%>
                 <c:if test="${not empty requestScope.basic_mobile}">
                 <div class="my_list " id="yes_add_area">
-                     		<div class="basic adressOption" id="div${requestScope.basic_adto.address_num}">
+                     		<div class="basic adressOption selectedAddress" id="div${requestScope.basic_adto.address_num}">
 						<div class="my_item" default-mark="기본 배송지">
 							<div class="info_bind">
 								
@@ -276,6 +274,9 @@
             
           </div>
         </div>
+       </section>
+       <section>
+       
         <div class="section_unit">
           <div class="section_title">
             <h3 class="title_txt">배송 방법</h3>
@@ -291,9 +292,9 @@
                   <div class="way_desc">
                     <p class="company">
                       <span class="badge_title">일반배송 </span>
-                      <span class="title">3,000원</span>
+                      <span class="title">무료</span>
                     </p>
-                    <p class="sub_text">검수 후 배송 ・ 5-7일 내 도착 예정</p>
+                    <p class="sub_text">배송 ・ 1-3일 내 도착 예정</p>
                   </div>
                 </div>
               </div>
@@ -346,15 +347,15 @@
            <ul>
               <li>
                  <span class="product_price" >상품금액</span>
-                 <span style="font-weight: 700;">-</span>
+                 <span class = "payment" id="payment_price" style="font-weight: 700;">${requestScope.fullPrice}</span>
               </li>
               <li>
                  <span id="span_point" class="span_title">포인트</span>
-                 <span id = "span_point_amount">-</span>
+                 <span class = "payment" id = "span_point_amount">-</span>
               </li>
               <li>
                  <span id="span_ship_price" class="span_title">배송비</span>
-                 <span>-</span>
+                 <span class = "payment" >0</span>
               </li>
            </ul>
         </div>
@@ -384,7 +385,7 @@
               <input class = "aaaa" name="li_check" id="checkbox_3" type="checkbox" />
            </li>
            <li>
-              <span class="total_amount">총결제금액</span><span>${requestScope.fullPrice}</span>
+              <span class="total_amount">총결제금액</span><span id="final_price">${requestScope.fullPrice}</span>
            </li>
            <li>
               <a id="payment">결제하기</a>
@@ -413,7 +414,12 @@
 <form id= "goUpdate" name="goUpdate">
 	<input type="hidden" id="userid" name="userid" value="${user.userid}"  />
     <input type="hidden" id="productNum" name="productNum" value="${product.product_num}"  />
-	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}"  />
+    <c:if test="${user.membership == 0}">
+    	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.05}" />	
+    </c:if>
+    <c:if test="${user.membership == 1}">
+    	<input type="hidden" id="PointPlus" name="PointPlus" value="${requestScope.fullPrice*0.1}" />	
+    </c:if>
 	<input type="hidden" id="PointMinus" name="PointMinus" value="0"/>
 	<input type="hidden" id="selected_address_num" name="address_num" value=""  />
 	
@@ -539,7 +545,7 @@
                </div>
               
             
-              
+         </div>     
             
             
             <%------------------------------------------------------------------ 모달 끝  --------------------------------------------------------------------%>

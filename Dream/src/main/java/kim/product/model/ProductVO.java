@@ -166,11 +166,6 @@ public class ProductVO {
 		else {
 			resultList = new ArrayList(Arrays.asList(product_image.split(","))); 
 			 
-			for(int i=0;i<resultList.size();i++)
-				
-			{
-			    System.out.println(" -->"+resultList.get(i));
-			}
 			return resultList;
 		}
 		

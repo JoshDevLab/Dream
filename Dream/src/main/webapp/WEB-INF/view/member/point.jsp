@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
    String ctxPath = request.getContextPath();
@@ -79,7 +79,7 @@
                 <input type="h4" id="pointCode" placeholder="쿠폰 코드를 입력하세요." autocomplete="off" class="input_txt">
               </div>
             </div>
-            <p class="description"> • 유효기간이 지난 쿠폰 코드는 등록이 불가합니다.<br data-v-6d9a7a00="" data-v-1f7c6d3f=""> • 쿠폰에 따라 발급 수량 및 계정당 사용 횟수가 제한될 수 있습니다. </p> 
+            <p class="description"> • 유효기간이 지난 쿠폰 코드는 등록이 불가합니다.<br> • 쿠폰에 따라 발급 수량 및 계정당 사용 횟수가 제한될 수 있습니다. </p> 
           </div>
           <div class="layer_btn">
             <button data-dismiss="modal" type="button" class="btn outlinegrey medium">취소</button>
@@ -127,7 +127,8 @@
           <div class="point_info">
             <p class="title">사용 가능한 포인트</p>
             <p  class="point">
-              <b >${totalPoint}P</b>
+              <b ><fmt:formatNumber value="${totalPoint}" pattern="#,###" />P</b>
+              
             </p>
           </div>
           <div class="divider">
@@ -169,10 +170,10 @@
                 </div>
                 <div class="layer_content">
                   <ul class="description_list">
-                    <li class="description">• 1,000P 이상부터 구매금액 제한 없이 사용하실 수 있습니다.</li>
-                    <li class="description">• 입찰 삭제, 거래 취소 시 사용한 포인트는 환불됩니다.</li>
-                    <li class="description">• 먼저 적립된 포인트부터 순서대로 사용되며, 사용하지 않으실 경우 유효기간이 지나면 자동 소멸됩니다. </li>
-                    <li class="description">• 유효기간이 지난 후 환불받은 포인트는 다시 사용하실 수 없습니다.</li>
+                    <li class="description">• 1P 이상부터 구매금액 제한 없이 사용하실 수 있습니다.</li>
+                    <li class="description">• 구매 취소 시 사용한 포인트는 환불됩니다.</li>
+                    <li class="description">• 포인트는 별도의 유효기간이 존재하지 않습니다. </li>
+                    <li class="description">• 제품 구매시 멤버쉽 회원은 물건가격의 10%, 일반 회원은 물건가격의 5%를 적립받습니다.</li>
                   </ul>
                   
                 </div>
@@ -196,7 +197,7 @@
             </div>
         </div>
 
-        <p class="description"> 포인트 유효기간은 적립일로부터 최대 1년까지이며, 유형에 따라 달라질 수 있습니다. </p>
+        <p class="description"> 포인트 유효기간은 존재하지 않으며, 제품 구매시 적립, 사용 가능합니다. </p>
 
         <table class="point_history_table">
           <thead >
@@ -230,17 +231,15 @@
                       </div>
                       <div class="point_change_explain">
                         ${pointObj.event_type} 적립
-                        
                       </div>
-                      <div class="point_date">
-                        .
-                      </div>
+                    
 
                     </div>
                     <div class="point_amount">
                       <!-- plus 면 + 아니면 - 가 span 의 값이 되도록 -->
                       <span class="plus-minus">+</span>
-                      ${pointObj.point_amount}
+                      
+                      <fmt:formatNumber value="${pointObj.point_amount}" pattern="#,###" />P
                     </div>
                   </div>
               	</c:if>
@@ -259,20 +258,15 @@
                       </div>
                       <div class="point_change_explain">
                         <!-- 얘는 위의  point_circle 의 클래스가 plus 면 포인트적립 minus면 구매 시 사용-->
-                        ${pointObj.event_type} 시 사용<br> 주문번호:
-                        <!-- 나중에 포인트 내역 테이블 제작지 포인트 적립방법, 어떤 이벤트인지 기록해야될듯 -->
-                        <!--  point_circle 의 클래스가 minus 이므로 주문번호가 들어가야함-->
-                        9494994945
+                        ${pointObj.event_type} 시 사용<br>
                       </div>
-                      <div class="point_date">
-                        .
-                      </div>
+              
 
                     </div>
                     <div class="point_amount">
                       <!-- plus 면 + 아니면 - 가 span 의 값이 되도록 -->
                       <span class="plus-minus">-</span>
-                      ${pointObj.point_amount}
+                      <fmt:formatNumber value="${pointObj.point_amount}" pattern="#,###" />P
                     </div>
                   </div>
               	</c:if>

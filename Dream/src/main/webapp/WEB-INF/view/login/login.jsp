@@ -9,8 +9,8 @@
  <%--
 	session.setAttribute("member_mid", "5235268");
 	response.sendRedirect("http://localhost:9090/Dream/index.dream");
-
  --%>
+ <%-- 충돌 테스트 --%>
   <%--header 호출 --%>
   <jsp:include page="/WEB-INF/view/header.jsp" />
   <%-- 직접 만든 CSS --%>

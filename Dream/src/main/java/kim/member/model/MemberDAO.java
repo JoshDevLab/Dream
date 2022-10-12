@@ -414,6 +414,109 @@ public class MemberDAO implements InterMemberDAO {
 		}
 	}
 
+	@Override
+	public int reply(Map<String, String> paraMap) throws SQLException {
+		int result = 0;
+		conn = ds.getConnection();
+		int n = -1;
+		try {
+		
+			String sql = " insert into tbl_message (messageno, fk_sender_userid, fk_Recipient_userid, title, Contents) "+
+					" values(seq_message_num.nextval , ? ,?,?, ?) ";
+				
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("fk_sender_userid")); 
+			pstmt.setString(2, paraMap.get("fk_Recipient_userid")); 
+			pstmt.setString(3, paraMap.get("title")); 
+			pstmt.setString(4, paraMap.get("contents")); 
+			
+			
+			result = pstmt.executeUpdate();
+				
+			
+			return result;
+		}finally{
+			close();
+			
+		}
+	}
 
+	@Override
+	public int deletemessage(String messageno, String whoami) throws SQLException {
+		
+		int result = 0;
+		conn = ds.getConnection();
+		
+		String set = "RECIPIENT_DELETE";
+		if(whoami.equalsIgnoreCase("SENDER")) {
+			set = "SENDER_DELETE";
+		}
+		
+		try {
+		
+			String sql = " update tbl_message set  "+ set +" = 1 "+
+					" where MESSAGENO in (122, 124, 126) ";
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messageno); 
+			 
+			
+			
+			result = pstmt.executeUpdate();
+				
+			
+			return result;
+			// 여기선 처리된 행 개수 반환만 해준다
+		}finally{
+			close();
+			
+		}
+		
+		
+	}
+	
+	
+	
+	@Override
+	public int readmessage(String messageno) throws SQLException {
+		
+		int result = 0;
+		conn = ds.getConnection();
+		
+
+		
+		try {
+		
+			String sql = " update tbl_message set  read_check = 1 "+
+					" where MESSAGENO = ? ";
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messageno); 
+			 
+			
+			
+			result = pstmt.executeUpdate();
+			
+			if(result != 1) {
+				System.out.println("메시지가 읽음처리 되지않았습니다.");
+				result = 0;
+			}
+				
+			
+			return result;
+			
+		}finally{
+			close();
+			
+		}
+		
+		
+	}
+	
 
 }
