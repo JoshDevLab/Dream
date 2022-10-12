@@ -25,15 +25,6 @@ $(document).ready(function () {
 	});
 	
 
-	
-	   // 페이징처리 post 타입으로 이악물고 하기
-   $("a.page-link").click(function(e){
-	
-		
-		
-	
-	});
-   
 
 
 
@@ -54,12 +45,11 @@ function callAjax() {
    		url: getContextPath()+"/member/message.dream",
    		type: "GET",
    		data: {"type": type,
-   			   "p": p,
-   			   },
+   			   "p": p },
    		dataType: "json",
    		success: function(json) {
    	
-   			
+   			console.log(json.cnt);
    			let html =" ";
    			
    			// 조회결과가 있는 경우 
