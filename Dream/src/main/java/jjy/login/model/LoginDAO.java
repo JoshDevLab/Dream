@@ -120,28 +120,28 @@ public class LoginDAO implements InterLoginDAO {
    // 연락처(mobile), 이메일(email)을 Map에 담아 일치하는 사용자가 있으면 true, 없으면 false 를 반환하는 메소드 (select) 
    @Override
    public boolean checkMobileEmail(Map<String, String> findPwdMap)throws SQLException {
-      boolean isExistUser = false;
-      try {
-      
-      conn = ds.getConnection();
-      
-      String sql = " select * "
-               + " from tbl_member "
-               + " where mobile = ? and userid =? ";
-      pstmt = conn.prepareStatement(sql);
-      
-      pstmt.setString(1, findPwdMap.get("mobile") );
-      pstmt.setString(2, findPwdMap.get("userid") );
-      
-      rs = pstmt.executeQuery();
-      
-      isExistUser =rs.next();
-
-   } finally {
-      close();
-   }
-      
-   return isExistUser;
+	      boolean isExistUser = false;
+	      try {
+	      
+	      conn = ds.getConnection();
+	      
+	      String sql = " select * "
+	               + " from tbl_member "
+	               + " where mobile = ? and userid =? ";
+	      pstmt = conn.prepareStatement(sql);
+	      
+	      pstmt.setString(1, findPwdMap.get("mobile") );
+	      pstmt.setString(2, findPwdMap.get("userid") );
+	      
+	      rs = pstmt.executeQuery();
+	      
+	      isExistUser =rs.next();
+	
+	   } finally {
+	      close();
+	   }
+	      
+	   return isExistUser;
    }// end of public boolean checkMobileEmail(Map<String, String> findPwdMap){}-------------
    
    
@@ -341,4 +341,35 @@ public class LoginDAO implements InterLoginDAO {
       return isAdmin;
       
    }// end of public LoginDTO selectAdmin(Map<String, String> userinfoMap) throws SQLException {}-------------------
+
+   
+    /** 사용자 아이디를 입력받아 로그인 기록이 있는지 조회하는 메소드 (있을경우 return 1 없을경우 return 0) */
+	@Override
+	public boolean checkFirstLogin(String userid) throws SQLException {
+		
+		boolean ckFristLogin = false;
+		
+		try {
+		      
+		      conn = ds.getConnection();
+		      
+		      String sql = " select login_num "
+		      		     + " from tbl_login_record "
+		      		     + " where userid = ? ";
+		      pstmt = conn.prepareStatement(sql);
+		      
+		      pstmt.setString(1,userid);
+		      
+		      rs = pstmt.executeQuery();
+		      
+		      ckFristLogin = rs.next();
+
+		   } finally {
+		      close();
+		   }
+		
+		return ckFristLogin;
+		
+		
+	}
 }

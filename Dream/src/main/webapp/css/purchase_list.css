@@ -225,6 +225,18 @@ a.purchaseDetail:active {
 
 
 
+div#shipping_cnt_left:hover{
+	cursor: pointer;
+}
+
+
+
+div#shipping_cnt_right:hover{
+	cursor: pointer;
+}
+
+
+
 @media screen and (max-width: 958px) {
 	/* 기간 입력 input 태그 숨기기 */
 	div.input_date {

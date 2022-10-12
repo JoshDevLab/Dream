@@ -152,8 +152,8 @@ $(document).ready(function() {
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("0");
 		
-		$("div.div_postSend").show();
-		$("div.div_postEnd").show();
+		$(".div_postSend").show();
+		$(".div_postEnd").show();
 		
 		
 		// goSearch();
@@ -184,8 +184,8 @@ $(document).ready(function() {
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("1");
 		
- 		$("div.div_postSend").hide();
- 		$("div.div_postEnd").show();
+ 		$(".div_postSend").hide();
+ 		$(".div_postEnd").show();
 		
 		// goSearch();
 		callAjax(start);
@@ -217,9 +217,8 @@ $(document).ready(function() {
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("2");
 		
-		$("div.div_postSend").hide();
-		$("div.div_postEnd").hide();
-		
+		$(".div_postSend").hide();
+		$(".div_postEnd").hide();
 		// goSearch();
 		callAjax(start);
 
@@ -382,7 +381,7 @@ function updateShipping() {
 		}
 	}
 
-	console.log("확인용" + ordernum_arr);
+	// console.log("확인용" + ordernum_arr);
 
 	// 결과 값 찍어주는 ajax
 	$.ajax({
@@ -418,7 +417,7 @@ function updateShippingEnd(){
 		}
 	}  
 	
-	    console.log("확인용"+ordernum_arr);
+	    //console.log("확인용"+ordernum_arr);
 	  
    	// 결과 값 찍어주는 ajax
    	$.ajax({
@@ -496,15 +495,17 @@ function callAjax(start) {
 	   		                        "<div class = 'div_shipping_status'>"+
 	   		                           "<span class='purchase_status'>"+item.shipping+"</span>"+ 
 	   		                        "</div>"+
-	   		                        	"<div class='checkboxAndlabel div_postSend'>"+
-											"<input value='"+item.order_num+"' id='send"+index+"' class='postSend' type='checkbox' name='send' />"+
-										/*	"<input id='send"+index+"' class='postSend' type='checkbox' name='send"+index+"' onclick='checkedSend()' />"+*/
-											"<label class='textMiddle' for='send"+index+"'>배송하기</label>"+
-										"</div>"+
-										"<div class='checkboxAndlabel div_postEnd'>"+
-											"<input value='"+item.order_num+"' id='end"+index+"' class='postEnd' type='checkbox' name='end' onclick='checkedEnd()' />"+
-											"<label class='textMiddle' for='end"+index+"'>배송완료</label>"+
-										"</div>"+
+	   		                        
+   		                        	"<div class='checkboxAndlabel div_postSend'>"+
+										"<input value='"+item.order_num+"' id='send"+index+"' class='postSend' type='checkbox' name='send' />"+
+									/*	"<input id='send"+index+"' class='postSend' type='checkbox' name='send"+index+"' onclick='checkedSend()' />"+*/
+										"<label class='textMiddle' for='send"+index+"'>배송하기</label>"+
+									"</div>"+
+									
+									"<div class='checkboxAndlabel div_postEnd'>"+
+										"<input value='"+item.order_num+"' id='end"+index+"' class='postEnd' type='checkbox' name='end' onclick='checkedEnd()' />"+
+										"<label class='textMiddle' for='end"+index+"'>배송완료</label>"+
+									"</div>"+
 										"<input type='hidden' id='jsonLength' value='"+json.length+"'/>"+
 	   		                        
 		   		                     "<div class = 'div_purchase_date'>"+

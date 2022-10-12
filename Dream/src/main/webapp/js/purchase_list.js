@@ -17,7 +17,7 @@ $(document).ready(function() {
 	
 	// 화면인식 480px 사이즈 조절
 	const mediaViewContent = window.matchMedia(`(max-width: 480px)`)	
-	console.log(mediaViewContent);
+	//console.log(mediaViewContent);
     
     const viewChangeHandler = (mediaViewContent) => {  					
     	// alert("확인용 max-width : 480px");

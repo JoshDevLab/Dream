@@ -34,5 +34,8 @@ public interface InterLoginDAO {
 	/** 관리자 아이디, 비밀번호를 map 으로 전달받아 일치하는 관리자가 있는지 조회하는 메소드  */
 	boolean selectAdmin(Map<String, String> userinfoMap) throws SQLException;
 
+	/** 사용자 아이디를 입력받아 로그인 기록이 있는지 조회하는 메소드 (있을경우 return true 없을경우 return false) */
+	boolean checkFirstLogin(String userid) throws SQLException;
+
 
 }

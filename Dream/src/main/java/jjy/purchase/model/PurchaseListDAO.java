@@ -344,7 +344,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			
 			String sql = " SELECT order_num, address_num , address, detail_address , order_name , mobile , A.userid "
 					   + "       , B.product_num, buy_cnt , buy_date, shipping, fk_address_num "
-					   + "       , product_image, product_name, price, discount_rate "
+					   + "       , product_image, product_name, price, discount_rate, post_code "
 					   + " FROM tbl_address A "
 					   + " join tbl_buylist B "
 					   + " ON A.address_num = b.fk_address_num "
@@ -383,6 +383,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 				addrDTO.setMobile(rs.getString("mobile"));                 // 휴대폰번호
 				addrDTO.setAddress(rs.getString("address"));  			   // 주소 
 				addrDTO.setDetail_address(rs.getString("detail_address")); // 상세주소 
+				addrDTO.setPost_code(rs.getString("post_code"));      // 우편번호 
 				
 				purchaseListDTO.setAddressDTO(addrDTO);
 			}
@@ -546,6 +547,35 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			return result;
 			
 		}// public int updateShipping(String shipping, String[] orderNumList) throws SQLException {}-----------------
+
+		
+		// 주문번호를 전달받아 주문자의 아이디를 알아오는 메소드 
+		@Override
+		public String getOrderUserid(String order_num) throws SQLException {
+				
+			String orderUserid = "";
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = " select userid "
+						   + " from tbl_buylist "
+						   + " where order_num = ? ";
+						   
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, order_num);
+				
+				rs = pstmt.executeQuery();
+				rs.next();
+				orderUserid = rs.getString(1);
+
+			} finally {
+				close();
+			}
+			
+			return orderUserid;
+			
+		}// end of public String getOrderUserid(String order_num) throws SQLException {}---------------------------
 
 	
 	
