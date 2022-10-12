@@ -296,7 +296,6 @@ a.purchaseDetail {
 	background-color: transparent;
 	text-decoration: none;
 }
-
 a.purchaseDetail:link {
 	color: #222222;
 	background-color: transparent;
@@ -317,6 +316,7 @@ a.purchaseDetail:active {
 	background-color: transparent;
 	text-decoration: none;
 } /* 클릭했을 때 링크 상태 */
+
 
 
 

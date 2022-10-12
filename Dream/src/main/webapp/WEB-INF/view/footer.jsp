@@ -72,7 +72,7 @@
          </ul>
 
          <div id="social_icons">
-            <a class="color_black" href="https://www.instagram.com/"><i class="fa-brands fa-instagram s24"></i></a>
+            <a class="color_black" href="https://www.instagram.com/dream_kr_official/"><i class="fa-brands fa-instagram s24"></i></a>
             <a class="color_black" href="https://www.facebook.com/"><i class="fa-brands fa-square-facebook s24"></i></a>
             <a class="color_black" href="https://twitter.com/i/flow/login"><i class="fa-brands fa-square-twitter s24"></i></a>
             <button type="button" class="btn_company_info" onclick="func_show_business_info()" >사업자 정보 <i id="btn_b_info" class="fa-solid fa-chevron-down"></i></button>

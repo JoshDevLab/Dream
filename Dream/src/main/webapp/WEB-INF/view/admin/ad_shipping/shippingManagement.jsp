@@ -144,10 +144,10 @@ function viewShippingInfo(userid,order_num) {
 					<th style="width:100px;">주문총액</th>
 					<th style="width:120px;">포인트</th>
 					<th></th>
-					<th>배송상태</th>
-					<th style="width:250px;"></th>
+					<th style="width:100px;">배송상태</th>
+					<th style="width:230px;"></th>
 					<th></th>
-					<th >거래일자</th>
+					<th style="width:100px;">거래일자</th>
 				</table>
 
 				<hr style="background-color: #ebebeb; margin-bottom:0px;">
@@ -203,12 +203,10 @@ function viewShippingInfo(userid,order_num) {
 			
 			
 			
-			
 		<%-- 더보기 버튼 넣기 시작  --%>
 			<button type="button" id="btnMoreHIT" value="">더보기</button>
 			<span id="totalHITCount"></span>
             <span id="countHIT"></span>
-
 		</div>
 		<%-- 구매내역 끝  --%>
 </div>
