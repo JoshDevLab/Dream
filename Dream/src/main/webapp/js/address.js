@@ -5,8 +5,7 @@ let b_flag_zipcodeSearch_click = false;
 
 
 $(document).ready(function(){
-	
-	
+		 
 	
 	 $("input#basic_address").hide();
      $("label#basic_label").hide();
@@ -20,8 +19,8 @@ $(document).ready(function(){
 		$("span.mobile_error").hide();
 	    $('input#recipient_name').trigger('focus');
 	    
-	    
-    
+	    $("#name").css("color","black");
+        $("#recipient_name").css("border-bottom","solid 1px #ebebeb");
 	    
 	    
 	    /*
@@ -245,6 +244,8 @@ $(document).ready(function(){
     
     
     
+    
+    
      // 기본배송지 아닌 수정버튼 클릭 이벤트
     $("a#edit").click( (event)=>{ 
 	
@@ -319,17 +320,21 @@ $(document).ready(function(){
       
  });  
 
+
+
+
+
+
     
 
 });	// end of $(document).ready(function(){} -----------------------------------	
-		
-		
 
-		
-		
+
+
 
 /* 새 배송지 추가 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
-function new_add() {
+function new_add() {	
+	
 	
 	$("input#basic_address").show();
     $("label#basic_label").show();
@@ -337,7 +342,8 @@ function new_add() {
 	$("a#add_edit").hide();	
 	$("a#add_save").show();
 	
-	$('#add_address').modal('show');
+    $('#add_address').modal('show');
+
 
     $("h2.title2").hide();
     $("h2.title1").show();	
@@ -353,17 +359,21 @@ function new_add() {
 	
 	$("input#basic_address").prop('checked', false);
 	
+	
+	
 }// end of function new_add() {}-----------------------
 	
 
 /* 수정 버튼을 클릭시 모달창에있는 내용들을 초기화 해주는 기능  */
 function Revise_add() {
 
+
+    $('#add_address').modal('show');
 	
 	$("a#add_save").hide();	
 	$("a#add_edit").show();
 	
-	$('#add_address').modal('show');
+	
 
     $("h2.title1").hide();	
     $("h2.title2").show();
@@ -389,6 +399,13 @@ function Revise_add() {
 
 
 }// end of function Revise_add() {}------------------------	
+
+		
+		
+
+		
+		
+
 
 
 

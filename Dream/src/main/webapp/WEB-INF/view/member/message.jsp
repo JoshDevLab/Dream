@@ -29,7 +29,8 @@ div.modal-content {
    -ms-transform: translate(-50%, -50%);
    -o-transform: translate(-50%, -50%);
    transform: translate(-50%, -50%);
-   width:30%;
+   width: 500px;
+    height: 500px;
 }
 
 td#icon {
@@ -46,6 +47,15 @@ height: 20px; /*Desired height*/
 cursor: pointer;
 
 
+}
+
+
+:checked {
+	 accent-color: black;
+}
+
+input#contents {
+  word-break:break-all;
 }
 </style>
     
@@ -118,7 +128,7 @@ cursor: pointer;
       
    // 그냥 버튼 체크시
       $("input#sub_check").click(function (e) {
-         
+   	   
         const checked_length = $("input:checkbox[name='sub_check']:checked").length;
                
         
@@ -131,14 +141,22 @@ cursor: pointer;
           
         }
       });
+   
+   
+   
       
-   });
-   
-   
-   
-   
-   
-   
+      
+   });// end of $(document).ready(function()------------------------
+		   
+		   
+   function message_info(messageno,title,contents) {
+	   	  
+	   
+	   $("p#title").text("제목 : " + title);
+	   $("p#contents").text("내용 : " + contents);	   
+	   
+	   
+   }
    
    
    
@@ -198,14 +216,15 @@ cursor: pointer;
        
         </td>
         
-        <td colspan="7" style=" font-weight: bold"  data-toggle="modal" data-target="#message_modal" data-dismiss="modal">
+        <td colspan="7" style=" font-weight: bold"  data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${mvo.messageno}','${mvo.title}','${mvo.contents}');">
            ${mvo.title}         
           </td>
           <td>
              ${mvo.shipping}
-             <input type="text" id="messageno" name="messageno" value="${mvo.messageno}"/> 
-             <input type="text" id="fk_sender_userid" name="fk_sender_userid" value="${mvo.fk_sender_userid}"/>   
-             <input type="text" id="fk_Recipient_userid" name="fk_Recipient_userid" value="${mvo.fk_Recipient_userid}"/>   
+             <input type="text" id="load_messageno" name="load_messageno" value="${mvo.messageno}"/> 
+             <input type="text" id="load_fk_sender_userid" name="load_fk_sender_userid" value="${mvo.fk_sender_userid}"/>   
+             
+            
           </td>
        </tr>
      </c:forEach>
@@ -219,61 +238,59 @@ cursor: pointer;
   <c:if test="${not empty requestScope.printmessageList}">
                
         <nav aria-label="...">
-		    <ul class="my pagination pagination-md justify-content-center mt-5">
-		    	<%-- 첫페이지로 이동버튼 --%>
-		    	<c:if test="${requestScope.page > requestScope.display_page}">
-		    	<li class="page-item">
-			      <a class="page-link" onclick = "goPage(1)">
-			      	<i class="fa-solid fa-angles-left"></i>
-			      </a>
-			    </li>
-			    
-			    
-			    <%-- 전페이지로 이동버튼 --%>
-			    <li class="page-item">
-			      <a class="page-link"  onclick = "goPage(${requestScope.startPage-1})">
-			      	<i class="fa-solid fa-angle-left"></i>
-			      </a>
-			    </li>
-			    </c:if>
-			    
-			    <%-- 페이지번호 시작--%>
-			    <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+          <ul class="my pagination pagination-md justify-content-center mt-5">
+             <%-- 첫페이지로 이동버튼 --%>
+             <c:if test="${requestScope.page > requestScope.display_page}">
+             <li class="page-item">
+               <a class="page-link" onclick = "goPage(1)">
+                  <i class="fa-solid fa-angles-left"></i>
+               </a>
+             </li>
+             
+             
+             <%-- 전페이지로 이동버튼 --%>
+             <li class="page-item">
+               <a class="page-link"  onclick = "goPage(${requestScope.startPage-1})">
+                  <i class="fa-solid fa-angle-left"></i>
+               </a>
+             </li>
+             </c:if>
+             
+             <%-- 페이지번호 시작--%>
+             <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
                 <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
                 <li class="page-item active" aria-current="page">
-			    	<a id = "firstPage" class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})" >${requestScope.startPage+i.count-1}</a>
-			    </li>
+                <a id = "firstPage" class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})" >${requestScope.startPage+i.count-1}</a>
+             </li>
                 </c:if>
                 
                 <c:if test="${requestScope.page != (requestScope.startPage+i.count-1)}">
                 <li class="page-item">
-			    	<a class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})">${requestScope.startPage+i.count-1}</a>
-			    </li>
+                <a class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})">${requestScope.startPage+i.count-1}</a>
+             </li>
                 </c:if>
                 </c:forEach>
                 <%-- 페이지번호 끝 --%>
                 
                 
                 
-			    <%-- 다음페이지로 이동버튼 --%>
-			    <c:if test="${!(requestScope.last_display_page)}">
-			    <li class="page-item">
-			      <a class="page-link" onclick = "goPage(${requestScope.startPage+requestScope.display_page})"><i class="fa-solid fa-angle-right"></i></a>
-			    </li>
-			    <%-- 맨 끝페이지로 이동버튼 --%>
-			    <li class="page-item">
-			      <a class="page-link" onclick = "goPage(${requestScope.totalPage})"><i class="fas fa-solid fa-angles-right"></i></a>
-			    </li>
-			    </c:if>
-		  	</ul>
-		</nav>
-		
-		
-		</c:if>	
+             <%-- 다음페이지로 이동버튼 --%>
+             <c:if test="${!(requestScope.last_display_page)}">
+             <li class="page-item">
+               <a class="page-link" onclick = "goPage(${requestScope.startPage+requestScope.display_page})"><i class="fa-solid fa-angle-right"></i></a>
+             </li>
+             <%-- 맨 끝페이지로 이동버튼 --%>
+             <li class="page-item">
+               <a class="page-link" onclick = "goPage(${requestScope.totalPage})"><i class="fas fa-solid fa-angles-right"></i></a>
+             </li>
+             </c:if>
+           </ul>
+      </nav>
+      
+      
+      </c:if>   
 <%------------------------ 페이지바 끝 ------------------------%>
 </div>
-
-             
 </div>
 <%-- 회원관리페이지 코드 끝 --%>
 
@@ -296,11 +313,12 @@ cursor: pointer;
         
         <!-- Modal body -->
         <div class="modal-body">
-          <div id="basic_check">
-              제목 : 김진석 그는 신인가 ...<br><br>
-              내용 : 김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!
-              김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!김진석은 신이야!!!
-          </div>
+          <div id="message_title">
+              <p id="title" name="title" type="text" autocomplete="off"	class="input_txt" style="border:none; padding-bottom: 10px;"> </p>
+          </div>  
+          <div id="message_body">                 
+              <p id="contents" name="contents" type="text" autocomplete="off" class="input_txt" style="border:none; " ></p>           
+         </div>
         </div>
         
         <!-- Modal footer -->
