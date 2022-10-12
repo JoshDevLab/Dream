@@ -85,4 +85,3 @@ public class FaqUpdate extends AbstractController{
 		}//end of try=catch--
 	}
 }
-

@@ -1,5 +1,6 @@
 package hgb.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import common.controller.AbstractController;
 import hgb.member.model.InterMemberDAO;
 import hgb.member.model.MemberDAO;
 import hgb.member.model.MemberDTO;
+import jjy.purchase.model.PurchaseListDTO;
+import kim.member.model.PointVO;
 
 
 public class MemberDetail extends AbstractController{
@@ -30,17 +33,21 @@ public class MemberDetail extends AbstractController{
 				
 				userid = request.getParameter("userid");
 				InterMemberDAO mdao = new MemberDAO();
+				// 유저 정보 가져와서 member 객체로 저장
 				MemberDTO mdto = mdao.memberOneDetail(userid);
+				request.setAttribute("mdto", mdto);							
 				
-				request.setAttribute("mdto", mdto);
+				// 유저의 id 로 그 유저의 구매리스트를 가져오기			
+				ArrayList<PurchaseListDTO> plist= new ArrayList<>();
+				plist = mdao.memberOneBuyDetail(userid);
+				request.setAttribute("plist", plist);
 				
-				// *** 현재 페이지를 돌아갈 페이지(goBackURL)로 주소 지정하기 *** //
-				String goBackURL = request.getParameter("goBackURL");
-			//	System.out.println("~~~ 확인용 goBackURL => : " + goBackURL);
-	     	//  ~~~ 확인용 goBackURL => : /member/memberList.up?sizePerPage=10 currentShowPageNo=8 searchType=name searchWord=정
+				// 유저의 id 로 그 유저의 포인트내역을 가져오기
+				ArrayList<PointVO> pointlist= new ArrayList<>();
+				pointlist = mdao.memberOnePointDetail(userid);
+				request.setAttribute("pointlist", pointlist);	
 				
-				request.setAttribute("goBackURL", goBackURL);
-				
+
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/admin/ad_member/memberDetail.jsp");
 			     

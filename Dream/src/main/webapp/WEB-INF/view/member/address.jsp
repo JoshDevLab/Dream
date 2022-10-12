@@ -13,6 +13,7 @@ String ctxPath = request.getContextPath();
   
 %>
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 
 
@@ -27,57 +28,24 @@ String ctxPath = request.getContextPath();
 <%-- 다음 주소검색  --%>
 <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
- 
 
 
 <%-- 컨테이너 시작  --%>
-<div class="container">
+<div class="container d-flex">
 
 
-
-<%--------------------------------------------------- 사이드바 시작 ---------------------------------------------------%>
-		<div class="sidebar mr-5" style="width: 180px;">
-			<div>
-				<h4 class="mb-4" style="font-weight: bold;">마이 페이지</h4>
-			</div>
-			<div class="category-section mb-5">
-				<h5 class="category-title font-weight-bold">쇼핑 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">구매 내역</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">관심 상품</a></li>
-				</ul>
-			</div>
-
-			<div class="category-section">
-				<h5 class="category-title font-weight-bold">내 정보</h5>
-				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">프로필 정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">주소록</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">결제정보</a></li>
-					<li class="nav-item"><a class="nav-link pl-0 text-muted"
-						href="#">포인트</a></li>
-				</ul>
-			</div>
-		</div>
-<%--------------------------------------------------- 사이드바 끝 ---------------------------------------------------%>
-
-
+<jsp:include page="/WEB-INF/view/sidebar.jsp" />
 
 
 <%--------------------------------------------------- 메인컨텐츠 시작 ---------------------------------------------------%>
-<div class="content_area">
+<div class="content_area" style="margin-top: 21px;">
     <div class="my_addressbook">
       <div class="content_title">
 					<div class="title">
 						<h3>주소록</h3>						
 					</div>
 					 <div class="btn_box">
-						<a href="#" data-toggle="modal" data-target="#add_address" id="add_btn" class="btn_add" onclick="new_add()">							
+						<a href="#"  id="add_btn" class="btn_add" onclick="new_add()">							
 							<span class="btn_txt" id="add_btn3"  >+ 새 배송지 추가</span>
 						</a>
 					</div>
@@ -93,7 +61,7 @@ String ctxPath = request.getContextPath();
 						<p class="desc">
 							배송지 정보가 없습니다.<br />새 배송지를 등록해주세요
 						</p>
-						<span href="#" id="add_btn2" class="btn_btn_add2" data-toggle="modal" data-target="#add_address" onclick="new_add()">새 배송지 추가 </span>
+						<span href="#" id="add_btn2" class="btn_btn_add2"  onclick="new_add()">새 배송지 추가 </span>
 					</div>
 				</c:if>
 				
@@ -114,7 +82,7 @@ String ctxPath = request.getContextPath();
 								
 								<div class="address_info">
 									<div class="name_box">
-										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>${requestScope.basic_adto.address_num}
+										<input type="hidden" id="address_num" name="address_num" value="${requestScope.basic_adto.address_num}"/>
 										<span id="basic_text" class="name">${requestScope.basic_adto.order_name} </span>
 										<span class="mark">기본 배송지</span>
 									</div>
@@ -130,7 +98,7 @@ String ctxPath = request.getContextPath();
 							</div>
 							<div  class="btn_bind">
 								<%----%>
-								<a data-toggle="modal" data-target="#add_address" href="#"
+								<a href="#"
 									class="btn_outlinegrey_small"  onclick="Revise_add()" id ="edit2"> 수정 </a><a
 								    href="#"  class="btn_outlinegrey_small" id="basic_delete">
 									삭제 </a>
@@ -165,7 +133,7 @@ String ctxPath = request.getContextPath();
 						  
 								<div class="address_info">
 									<div class="name_box">
-									<input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>${adao.address_num}
+									<input type="hidden" id="address_num" name="address_num" value="${adao.address_num}"/>
 									    <%-- <span type="" name="address_num" value="${adao.address_num}"></span> --%>
 										<span id="basic_text" class="name">${adao.order_name}</span>
 										
@@ -183,7 +151,7 @@ String ctxPath = request.getContextPath();
 							 	 
 								<div id="basic_text" class="btn_bind">
 									<a href="#" class="btn_outlinegrey_small" id="go_basic"> 기본 배송지 </a>
-										<a id ="edit" data-toggle="modal" data-target="#add_address" href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
+										<a id ="edit"  href="#" class="btn_outlinegrey_small" onclick="Revise_add()"> 수정 </a>
 										<a href="#"  id="delete" class="btn_outlinegrey_small" > 삭제 </a>
 								</div>																
 									
@@ -276,15 +244,13 @@ String ctxPath = request.getContextPath();
 <%------------------------------------------------------------- 주소정보가 있을때 출력되는 부분 끝 -------------------------------------------------------------%>			
  
  
-              
-
-  <%-------------------------------------------------------------- 모달 시작 -----------------------------------------------------------%>
+    <%-------------------------------------------------------------- 모달 시작 -----------------------------------------------------------%>
         
 
 
  
              
-				<div class="modal modal_box layer lg " id="add_address" >
+				<div class="modal modal_box layer lg "  id="add_address">
 				     
 					<div class="layer_container" >
 					  
@@ -381,7 +347,9 @@ String ctxPath = request.getContextPath();
 				
 				
 				<%------------------------------------------------------------------ 모달 끝  --------------------------------------------------------------------%>
-				            
+				                       
+
+ 
               
 
 
@@ -405,6 +373,12 @@ String ctxPath = request.getContextPath();
 
 <%--footer 호출 --%>
  <jsp:include page="/WEB-INF/view/footer.jsp" />
+ 
+ 
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" /> 
+ 
+ 
+ 
  
  
 

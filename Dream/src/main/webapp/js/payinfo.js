@@ -20,4 +20,12 @@ $("a#basic_delete").click( (event)=>{
 });
 
 });	// end of $(document).ready(function(){} -------------------------------
+
+
+
+function show_modal() {
+	
+	$('#pay_modal').modal('show');
+	
+}
 		
