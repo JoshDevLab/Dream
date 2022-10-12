@@ -14,8 +14,11 @@
   <c:if test="${sessionScope.userid == 'admin'}">
 	<jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
   </c:if>
-  <%-- 직접 만든 CSS --%>
-  <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/shop.css" />
+   <%-- 직접 만든 CSS --%>
+   <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/shop.css" />
+   
+  
+   
   
   <script type="text/javascript">
   if("${requestScope.currentURL}" != "") {
@@ -30,18 +33,9 @@
 	sessionStorage.setItem("end_price",'${requestScope.end_price}');
 	sessionStorage.setItem("page",'${requestScope.page}');
 	sessionStorage.setItem("keyword",'${requestScope.keyword}');
-	<%-- 
-	sessionStorage.setItem("display_cnt", '${requestScope.display_cnt}');
-	sessionStorage.setItem("display_page", '${requestScope.display_page}');
-	sessionStorage.setItem("page", '${requestScope.page}');
-	sessionStorage.setItem("total_cnt", '${requestScope.total_cnt}');	
-	sessionStorage.setItem("totalPage", '${requestScope.totalPage}');	
-	sessionStorage.setItem("startPage", '${requestScope.startPage)}';	
-	sessionStorage.setItem("endPage", '${requestScope.endPage}');
-	sessionStorage.setItem("last_display_page",'${requestScope.last_display_page}');
-	--%>
   }
   </script>
+
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/shop.js" ></script>
   
@@ -209,7 +203,7 @@
 	        <form id="price_toggle"class="togglebox">
 	          <div class="d-flex flex-column mt-3">
 	            <div>
-	              <p id="price_search_info" style="font-size:13px;"><i class="fa-solid fa-circle-info mr-1"></i>  가격대를 입력해주세요<br><span style="font-size:8px; color:darkgray">※ 전체가격대 검색시<br>&nbsp&nbsp&nbsp칸을 비워주세요</span></p>
+	              <p id="price_search_info" style="font-size:13px;"><i class="fa-solid fa-circle-info mr-1"></i>  가격대를 입력해주세요<br><span style="font-size:8px; color:darkgray">※ 전체가격대 검색시<br>&nbsp;&nbsp;&nbsp;칸을 비워주세요</span></p>
 	            </div>
 	            <div>
 	              <input type="text" name="start_price" id="start_price" placeholder="최저가격(숫자만입력)">
@@ -263,8 +257,18 @@
 			  
 	          <%-- 관리자로 로그인한 경우 상품등록버튼 --%>
 	          <c:if test="${sessionScope.userid == 'admin'}">
-	            <div class="item col-6 col-lg-3 d-flex flex-column px-3 py-3 px-lg-4" onclick="location.href='<%=ctxPath %>/admin/productRegister.dream'" style="cursor:pointer;">
-	          	  상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정상품등록하기 추후 css로 꾸밀 예정
+	            <div id="frame" class="col-6 col-lg-3" onclick="location.href='<%=ctxPath %>/admin/productRegister.dream'" style="cursor:pointer;">
+	              
+	                <div class="img-wrapper d-flex justify-content-center align-items-center">
+	                  <div id="text">상품등록</div>
+				      <div class="darkness"></div>
+				      <div class="btn_plus d-flex justify-content-center align-items-center">
+				        <span draggable="false">+</span>
+				      </div>
+				      
+				      
+				    </div>
+				    
 	            </div>
 	          </c:if>
 	          
@@ -440,6 +444,11 @@
 		
     </div>
     <%-- container 끝 --%>
+    
+    
   
 <%--footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+
+
+

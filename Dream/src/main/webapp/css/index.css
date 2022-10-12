@@ -64,11 +64,21 @@ div.content > div.shortcut > div.shortcut_item{
   width:18%;
   height:22vh;
   min-height: 120px;
+  cursor:pointer;
+  user-select:none;
+}
+
+
+div.content > div.shortcut> div.shortcut_item > p.text-center{
+	font-size:medium;
+	position:relative;
+    top:5%;
 }
 div.content > div.shortcut > div.shortcut_item > div.shortcut_img{
   height:80%;
 }
 div.content > div.shortcut> div.shortcut_item > div.shortcut_img > img{
+  user-select:none;
   width:100%;
   height: 100%;
   border-radius: 10px;
@@ -88,17 +98,19 @@ div.content > div.shortcut> div.shortcut_item > div.shortcut_img > img{
     position:relative;
     padding-bottom: 100%;
   }
-  div.content > div.shortcut> div.shortcut_item > p.text-center{
-    position:relative;
-    top:5%;
-    font-size:medium;
-  }
 }
+
+
 @media screen and (max-width: 600px){
   div.content > div.shortcut> div.shortcut_item{
     height:90px;
     margin-bottom:2%;
     width:19%;
+  }
+}
+@media screen and (max-width: 550px){
+  div.content > div.shortcut> div.shortcut_item > p.text-center{
+    font-size:x-small;
   }
 }
 

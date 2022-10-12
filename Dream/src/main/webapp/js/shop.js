@@ -78,6 +78,9 @@ if(sessionStorage.getItem("page").trim() != ""){
 }
 //URL관련 변수선언 끝
 
+	
+
+
 $("document").ready(function(){
 	
       // 변수선언
@@ -611,6 +614,7 @@ $("document").ready(function(){
 					success:function(json){	
 						if(json.deleteLikeSuccess){ //좋아요 테이블에 delete가 성공시
 							target.css("color","black");
+							toastr["error"](productNum+"번 상품이 관심상품에서 <br>삭제되었습니다.");
 						}
 						else{ //좋아요 테이블에 delete가 실패시
 						  alert("좋아요 버튼클릭 실패! 다시 시도해주세요");
@@ -637,9 +641,11 @@ $("document").ready(function(){
 					success:function(json){	
 					  if(json.insertLikeSuccess){	//좋아요 테이블에 insert가 성공시
 						target.css("color","pink");
+						toastr["success"](productNum+"번 상품이 관심상품에 <br>추가되었습니다.");
 					  }
 					  else{	//좋아요 테이블에 insert가 실패시
 						alert("좋아요 버튼클릭 실패! 다시 시도해주세요");
+						
 					  }
 					},//end of success
 					//success 대신 error가 발생하면 실행될 코드 

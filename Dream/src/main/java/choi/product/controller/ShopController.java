@@ -154,10 +154,6 @@ public class ShopController extends AbstractController{
 				request.setAttribute("currentURL", currentURL);
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/product/shop.jsp");
-			}catch(SQLException e) {	//SQL오류가 떳을 경우
-				e.printStackTrace();
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath()+"/product/shop.dream");	//shop.dream 페이지로 redirect
 			}catch(Exception e) {	//URL에있는 page번호로 장난했을 경우
 				e.printStackTrace();
 				super.setRedirect(true);

@@ -456,6 +456,76 @@ i.fa-heart{
   top:5px;
 }
 
+div#frame{
+  position:relative;
+  border-radius:20px;
+  background-image:url('../images/디테일카테고리/카테고리커플파자마.PNG');
+  
+}
+div#frame:hover{
+  border-radius:20px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+}
+
+div.img-wrapper{
+  border-radius:20px;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  font-size:20px;
+}
+div.img-wrapper > div#text{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:white;
+  font-size:x-large;
+  font-weight:bold;
+}
+
+div.darkness {
+  border-radius:20px;
+  position:absolute;
+  top:0;
+  left:0;
+  width:inherit;
+  height:inherit;
+  background:#000000;
+  opacity:0;
+  transition:all .6s linear;
+}
+
+div.btn_plus {
+  width:60px;
+  height:60px;
+  background:red;
+  border-radius:50%;
+  opacity:0;
+  transform:scale(2);
+  transition:all .3s linear;
+}
+div.btn_plus span {
+  font-size:2.3em;
+  color:#ffffff;
+  user-select:none;
+}
+
+.img-wrapper:hover .darkness{
+  opacity:0.4;
+}
+
+.img-wrapper:hover .btn_plus {
+  opacity:1;
+  transform:scale(1);
+}
+
+
+
+
+
 
 
 

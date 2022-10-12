@@ -14,7 +14,6 @@ let setTimer = "";
 let cnt_mobile_check = 0;
 let cnt_email_check = 0;
 $(document).ready(function(){
-      
 	  
       $("button#btn_join").attr("disabled",true);
       $("button#btn_join").css("background","#EBEBEB");

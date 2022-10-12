@@ -553,4 +553,126 @@ public class ProductDAO implements InterProductDAO{
 		}
 		return n;
 	}
+
+	
+	
+	// 유저아이디를 입력받아서 좋아요한 상품들 갯수를 알아오는 메소드
+	@Override
+	public int cntLikeAllProduct(String userid) throws SQLException {
+		int total_cnt = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select count(*) "
+					    + " from tbl_product P"
+					    + " left join "
+					    + " tbl_like L"
+					    + " on P.product_num = L.product_num "
+					    + " where userid = ? ";
+								
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total_cnt = rs.getInt(1);
+			}
+			
+		} finally {
+			close();
+		}
+		return total_cnt;
+	}
+
+	
+	
+	// 유저아이디를 입력받아서 좋아요한 상품들 리스트를 알아오는 메소드
+	@Override
+	public List<ProductDTO> selectLikeAllProduct(Map<String, String> paraMap) throws SQLException{
+		
+		List<ProductDTO> productList = new ArrayList<>();
+		String userid = paraMap.get("userid");
+		try {
+			conn = ds.getConnection();
+			String sql = " select *  "
+					   + " from  "
+					   + " (  "
+					   + " select V.*"
+					   + "      , rownum R "
+					   + " from  "
+					   + " ( "
+					   + " select C.*"
+			  		   + "     ,  nvl(D.product_like_cnt,0) product_like_cnt"
+					   + " from "
+			  		   + " ( "
+					   + " select A.*"
+					   + "      , nvl(B.like_cnt,0) like_cnt "
+					   + " from   "
+					   + " (  "
+					   + " select product_num     "
+					   + "      , register_date    "
+					   + "      , product_name "
+					   + "      , product_image    "
+					   + "      , category   "
+					   + "      , detail_category   "
+					   + "      , price 	"
+					   + "      , (discount_rate*100) discount_rate    "
+					   + "      , price - (price * discount_rate) real_price   "
+					   + "      , gender    "
+					   + "      , bestyn "
+					   + " from tbl_product  "
+					   + " ) A  "
+					   + " join "
+					   + " ( "
+					   + " select product_num    "
+					   + "      , count(*) as like_cnt "
+					   + " from tbl_like"
+					   + " where userid= ? "
+					   + " group by product_num "
+					   + " ) B  "
+					   + " on A.product_num = B.product_num "
+					   + " ) C  "
+					   + " left join  "
+					   + " ( "
+					   + " select product_num   "
+					   + "      , count(*) as product_like_cnt "
+					   + " from tbl_like "
+					   + " group by product_num  "
+					   + " ) D "
+					   + " on C.product_num = D.product_num  "
+					   + " order by like_cnt desc"
+					   + " ) V  "
+					   + " ) T  "
+					   + " where R between (?*?)-(?-1) and (?*?)  ";
+//					   (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userid);
+			pstmt.setInt(2,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(3,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(4,Integer.parseInt(paraMap.get("display_cnt")));
+			pstmt.setInt(5,Integer.parseInt(paraMap.get("page")));
+			pstmt.setInt(6,Integer.parseInt(paraMap.get("display_cnt")));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductDTO pdto = new ProductDTO();	//dto 하나 생성
+				pdto.setProduct_num(rs.getInt("product_num") );  
+				pdto.setRegister_date(rs.getString("register_date") );  
+				pdto.setProduct_name(rs.getString("product_name") );   
+				pdto.setProduct_image(rs.getString("product_image") );
+				pdto.setCategory(rs.getString("category") );
+				pdto.setDetail_category(rs.getString("detail_category") );
+				pdto.setPrice(rs.getInt("price") );
+				pdto.setDiscount_rate(rs.getInt("discount_rate") );
+				pdto.setReal_price(rs.getInt("real_price") );
+				pdto.setProduct_like_cnt(rs.getInt("product_like_cnt"));
+				
+				productList.add(pdto);	//NoticeDTO들만 들어갈 수 있는 리스트에 담기
+			}
+		} finally {
+			close();
+		}
+		return productList;
+	}
 }
