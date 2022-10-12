@@ -99,23 +99,67 @@
 	 
 		
       	$("input#point").blur(function(){
-			if(Number($(this).val()) >  Number($("span.point").text())){
+			if(Number($(this).val()) >  Number($("span.point").text()))
+			{
 				alert("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
 				$(this).val('');
-			}			
+				const final_price = (Number($("span#payment_price").text()));
+				console.log("final_price"+final_price);
+				$("#span_point_amount").text('-');
+				$("span#final_price").text(final_price);
+				$("input#point").val("");
+				return false;
+			}		
+			if(Number($(this).val()) >  Number($("span#payment_price").text()))	{
+				alert("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
+				
+				const final_price = (Number($("span#payment_price").text()));
+				console.log("final_price"+final_price);
+				$("#span_point_amount").text('-');
+				$("input#point").val("");
+				$("span#final_price").text(final_price);
+				return false;
+			}
 			
-			/*if(Number($(this).val() != null && Number($(this).val()) != 0){
+			if(Number($(this).val() != null && Number($(this).val()) != 0)){
 				$("#span_point_amount").text($(this).val());
+				const final_price = (Number($("span#payment_price").text()))-(Number($("span#span_point_amount").text()));
+				console.log("final_price"+final_price);
+				
+				$("span#final_price").text(final_price);
 			}
 			else{
 				$("#span_point_amount").text('-');
-			}*/
+				const final_price = (Number($("span#payment_price").text()));
+				console.log("final_price"+final_price);
+				$("#span_point_amount").text('-');
+				$("span#final_price").text(final_price);
+				$("input#point").val("");
+			}
 			
 		});
 	
 		$("button#pointAlluse").click(function(){
+			
 			$("input#point").val($("span.point").text());
-			$("#span_point_amount").text($("input#point").val());
+			if(Number($("input#point").val()) >  Number($("span#payment_price").text()))	{
+				alert("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
+				
+				const final_price = (Number($("span#payment_price").text()));
+				console.log("final_price"+final_price);
+				$("#span_point_amount").text('-');
+				$("span#final_price").text(final_price);
+				$("input#point").val(0);
+				return false;
+			}
+			else{
+				$("#span_point_amount").text($("input#point").val());
+				const final_price = (Number($("span#payment_price").text()))-(Number($("span#span_point_amount").text()));
+				console.log("final_price"+final_price);
+			
+				$("span#final_price").text(final_price);
+			}
+				
 		});
 
 
@@ -159,13 +203,16 @@
 		// 그냥 purchase controller 에서 넘어온값은 그대로 넣어놨고 추가할 값만 여기서 넣어줌
 		
 		const frm = document.goUpdate;
-		if( $("input#span_point_amount").text() == '-'){
-			frm.PointMinus.value = $("input#span_point_amount").text();	
+		if( $("span#span_point_amount").text() != "-"){
+			frm.PointMinus.value = $("span#span_point_amount").text();	
+			console.log($("input#PointMinus").val());
 		}
 		else{
 			frm.PointMinus.value = 0;
 		}
-		let length = $("div#SeletedOption").length;
+		
+		let length = $("li#SeletedOption").length;
+		console.log("length"+length);
 		frm.length.value = length;// 반복할 횟수 가져가줌
 		// 여기서 이벤트타입 분기점 생기면 여기서 나눠서 올리면 된다. 난 몰루겠음 구매말곤
 		let event_type = "구매"; 
@@ -366,10 +413,12 @@ $(document).ready(function(){
 	
     
 
+
+	
+	
 });   // end of $(document).ready(function(){} -------------------------------   
       
-      
-
+    
       
       
 

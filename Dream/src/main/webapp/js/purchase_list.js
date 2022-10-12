@@ -17,7 +17,7 @@ $(document).ready(function() {
 	
 	// 화면인식 480px 사이즈 조절
 	const mediaViewContent = window.matchMedia(`(max-width: 480px)`)	
-	console.log(mediaViewContent);
+	//console.log(mediaViewContent);
     
     const viewChangeHandler = (mediaViewContent) => {  					
     	// alert("확인용 max-width : 480px");
@@ -235,13 +235,13 @@ $(document).ready(function() {
 	});
 
 
-	/* 사이드바 script 시작 */
+	/* 사이드바 script 시작 
 	$("div.category-section > ul > li").click(function(e) {
 		//  클릭할 경우 글자 css 변경
 		alert("클릭됨.");
 		$("div.category-section > ul > li > a").css({ "font-weight": "", "color": "" });
 		$(e.target).css({ "font-weight": "700", "color": "black" });
-	});
+	});*/
 	/* 사이드바 script 끝  */
 
 

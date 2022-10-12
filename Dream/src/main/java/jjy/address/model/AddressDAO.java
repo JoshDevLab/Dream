@@ -1,7 +1,6 @@
 package jjy.address.model;
 
 import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -141,7 +140,6 @@ public class AddressDAO implements InterAddressDAO {
 
 	
 	// 기본배송지를 셀렉트 해오는 메소드
-
 	@Override
 	public AddressDTO select_basic_address(String userid) throws SQLException {
 
@@ -150,7 +148,8 @@ public class AddressDAO implements InterAddressDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = " select * from tbl_address " + " where userid = ? and basic_address = 1 ";
+			String sql = " select * from tbl_address " 
+					   + " where userid = ? and basic_address = 1 ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -399,7 +398,50 @@ public class AddressDAO implements InterAddressDAO {
 		return check_basic_address;
 		
 	}//end of public boolean check_basic(String userid) throws SQLException {}------------------------------------------
+
+
 	
+	/** 주문자 아이디, 주문일련번호를 Map으로 전달받아 아이디, 받는사람명,전화번호,주소,상세주소,우편번호를 조회하는 메소드 */
+	@Override
+	public AddressDTO getOrderInfo(Map<String, String> paraMap) throws SQLException {
+
+		AddressDTO adto = null;
+		
+		try {
+				
+			conn = ds.getConnection();
+			
+			String sql = " SELECT address_num, A.userid, address,detail_address, post_code, order_name, mobile "
+					   + " FROM tbl_address A JOIN tbl_buylist B "
+					   + " ON A.address_num  = B.fk_address_num "
+					   + " WHERE A.userid = ? AND order_num = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("odruserid"));
+			pstmt.setString(2, paraMap.get("ordernum"));
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				adto = new AddressDTO();
+				
+				adto.setUserid(rs.getString("userid"));
+				adto.setAddress(rs.getString("address"));
+				adto.setDetail_address(rs.getString("detail_address"));
+				adto.setPost_code(rs.getString("post_code"));
+				adto.setOrder_name(rs.getString("order_name"));
+				adto.setMobile(rs.getString("mobile"));
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return adto;
+		
+	}// end of public AddressDTO getOrderInfo(Map<String, String> paraMap) throws SQLException {}--------------
 	
 	
 

@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import kim.member.controller.MessageVO;
 import kim.member.model.MemberVO;
 import util.security.AES256;
 import util.security.SecretMyKey;
@@ -184,7 +185,7 @@ public class ProductDAO implements InterProductDAO {
 	@Override
 	public int nocartPurchaseUpdate(Map<String, String> paraMap) throws SQLException {
 	   	int n = 0;
-
+	   	int result = 0;
 		      try {
 	    	  
 	    		
@@ -195,9 +196,12 @@ public class ProductDAO implements InterProductDAO {
 		         // 재고테이블에서 (update) 수량삭제 ==> 필요한 것(product_num+size 복합키)
 		         // 반복문 돌려야한다람쥐
 		         int length = Integer.parseInt(paraMap.get("length"));
-		         
+		         System.out.println("length"+length);
 		         String sql = "";
-		         int sum = 0;
+		         if(length == 0) {
+		        	 OK= false;
+		         }
+		         
 		         for(int i=0; i<length; i++) {
 		        	 sql = "   update tbl_product_stock set size_cnt = size_cnt- ? "+
 		        		   "   where product_num = ? and PRODUCT_SIZE = ? ";
@@ -206,7 +210,6 @@ public class ProductDAO implements InterProductDAO {
 		 		         pstmt.setString(1, paraMap.get("cnt"+i));
 		 		         pstmt.setString(2, paraMap.get("productNum"));
 		 		         pstmt.setString(3, paraMap.get("size"+i));
-		 		         sum += Integer.parseInt(paraMap.get("cnt"+i));
 		 		         n = pstmt.executeUpdate(); 
 		 		         if(n!=1) {// 0개행 업데이트
 		 		        	 System.out.println("조져따리");
@@ -221,9 +224,9 @@ public class ProductDAO implements InterProductDAO {
 		         for(int i=0; i<length; i++) {
 				         
 			         // 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
-			        sql = "insert into tbl_buylist "+
-			        		 "(order_num, userid, product_num, buy_cnt, shipping,fk_address_num,product_size) \n"+
-			        		 "values(seq_buylist.nextval,?,?,?,0,?,?) ";
+			        sql = " insert into tbl_buylist "+
+			        		 " (order_num, userid, product_num, buy_cnt, shipping,fk_address_num,product_size) \n "+
+			        		 " values(seq_buylist.nextval,?,?,?,0,?,?) ";
 			         pstmt = conn.prepareStatement(sql);
 	
 			         pstmt.setString(1, paraMap.get("userid"));
@@ -241,13 +244,13 @@ public class ProductDAO implements InterProductDAO {
 	 		         }
 			         
 		         }
-		         if(!paraMap.get("PointMinus").equalsIgnoreCase("0")) {	        
+		         if(!(paraMap.get("PointMinus").equalsIgnoreCase("0"))) {	        
 			         // 포인트 사용
 			         
 			         sql = " insert into tbl_point (point_num, userid, point_amount , status,  event_type,event_date) "+
 			        	   " values(seq_point_num.nextval , ?,?, '차감',?,sysdate) ";
 			         pstmt = conn.prepareStatement(sql);
-	
+			         System.out.println("pointMinus" + paraMap.get("PointMinus"));
 			         pstmt.setString(1, paraMap.get("userid"));
 			         pstmt.setString(2, paraMap.get("PointMinus"));
 			         pstmt.setString(3, paraMap.get("event_type"));
@@ -280,10 +283,11 @@ public class ProductDAO implements InterProductDAO {
 		         // 여기까지 왔는데도 OK 가  true 면 전부 1행씩 잘 진행된 것 
 		         if(OK) {
 		        	 conn.commit(); // 커밋함
-		        	 n = 1; // n=1 맞춰줌 사실 안맞춰도 1인데 대충
+		        	 result = 1; // n=1 맞춰줌 사실 안맞춰도 1인데 대충
 		    	 }
 		         else {
 		        	 System.out.println("환자발생!");
+		        	 result=-1;
 		        	 conn.rollback();
 		         }
 
@@ -297,7 +301,7 @@ public class ProductDAO implements InterProductDAO {
 		      }
 		      
 		      
-		      return n;
+		      return result;
 
 		
 		
@@ -356,6 +360,87 @@ public class ProductDAO implements InterProductDAO {
 	      return n;
 
 
+	}
+
+	@Override
+	public int ilikethis(String productnum, String loginuserid) throws SQLException {
+		int result = 0;
+
+		try {
+			conn = ds.getConnection();
+			String sql = " select * from tbl_like "+
+					" where userid= ? and product_num= ? ";
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1 , loginuserid);
+			 pstmt.setString(2 , productnum);
+			 
+			 rs = pstmt.executeQuery();
+			 if(rs.next()) {
+				result = 1;
+			 }
+			 
+		
+			 return result;
+		} finally {
+			
+			close();
+		}
+	}
+
+	@Override
+	public Map<String, Object> getAllMessage(String loginuserid, String type) throws SQLException {
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		ArrayList<MessageVO> messageList = new ArrayList<MessageVO>();
+
+		
+		try {
+			conn = ds.getConnection();
+			// receive_list 채우기
+			String where = "fk_Recipient_userid";
+			String where2 = "Recipient_delete";
+			
+			if(type != "receieve") {
+				where = "fk_sender_userid";		
+				where2 = "sender_delete";
+			}
+			
+			
+			String sql = " select messageno, fk_sender_userid, fk_Recipient_userid, title, Contents, Shipping, read_check, sender_delete, Recipient_delete "+
+					" from tbl_message "+
+					" where  "+ where + " = '"+loginuserid +"' and "+where2+" = 0 "
+				  + " order by messageno desc ";
+			 pstmt = conn.prepareStatement(sql);
+			
+			 System.out.println(sql);
+			 
+			 rs = pstmt.executeQuery();
+			 while(rs.next()) {
+				MessageVO mvo = new MessageVO();
+				mvo.setMessageno(rs.getString(1));
+				mvo.setFk_sender_userid(rs.getString(2));
+				mvo.setFk_Recipient_userid(rs.getString(3));
+				mvo.setTitle(rs.getString(4));
+				mvo.setContents(rs.getString(5));
+				mvo.setShipping(rs.getString(6));
+				mvo.setRead_check(rs.getString(7));
+				mvo.setSender_delete(rs.getString(8));
+				mvo.setRecipient_delete(rs.getString(9));
+				
+				messageList.add(mvo);
+			 }
+			 
+		paraMap.put("messageList", messageList);	 
+			 
+			 		
+		return paraMap;
+		
+		
+		
+		} finally {
+			
+			close();
+		}
 	}
 
 }

@@ -45,11 +45,13 @@ public class CartPurchaseUpdate extends AbstractController {
 				String cart_num = (String) jsonObj.get("cart_num");
 				String product_size = (String) jsonObj.get("product_size");
 				String cart_cnt = (String) jsonObj.get("cart_cnt");
+				String fk_address_num = (String) jsonObj.get("fk_address_num");
 				
 				// System.out.println("확인용 product_num => " + product_num);
 				// System.out.println("확인용 cart_num => " + cart_num);
 				// System.out.println("확인용 product_size => " + product_size);
 				// System.out.println("확인용 cart_cnt => " + cart_cnt);
+				System.out.println("확인용 fk_address => " + fk_address_num);
 				 
 				Map<String, String> paraMap = new HashMap<>();
 				paraMap.put("product_num", product_num);
@@ -57,6 +59,7 @@ public class CartPurchaseUpdate extends AbstractController {
 				paraMap.put("product_size", product_size);
 				paraMap.put("cart_cnt", cart_cnt);
 				paraMap.put("userid", userid);
+				paraMap.put("fk_address_num", fk_address_num);
 				
 				InterProductDAO pdao = new ProductDAO();
 				 
@@ -66,6 +69,9 @@ public class CartPurchaseUpdate extends AbstractController {
 			
 			 String plusPoint = request.getParameter("plusPoint");
 			 String minusPoint = request.getParameter("minusPoint");
+			 
+			 System.out.println("확인용 minusPoint ==> " + minusPoint);
+			 System.out.println("확인용 userid ==> " + userid);
 			 
 			 InterPointDAO pointDao = new PointDAO();
 			 

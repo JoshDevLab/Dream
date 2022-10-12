@@ -83,6 +83,8 @@ public class MemberDAO implements InterMemberDAO{
 			isExists = rs.next(); // 행이 있으면(중복된 email) true ,
 			                      // 행이 없으면(사용가능한 email) false 
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
@@ -307,9 +309,13 @@ public class MemberDAO implements InterMemberDAO{
             }
          
          
+      } catch (Exception e) {
+    	  	  e.printStackTrace();
       } finally {
-         close();
-      }
+          close();
+       }
+      
+      
       
       return mvo;
       
@@ -486,6 +492,37 @@ public class MemberDAO implements InterMemberDAO{
 		}
 		
 		return memberList;
+	}
+
+	
+	// 회원탈퇴하는 메소드
+	@Override
+	public int deleteMember(String userid) throws SQLException {
+		int result = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_member_login set secession = 1 "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		
+		
+		
+		return result;
 	}
 		
 		

@@ -26,6 +26,9 @@ th {
    .sidebar {
       display: none;
    }
+   #footer {
+   	  display: none;
+   }
 }
 
 @media (max-width: 991px) {
@@ -42,8 +45,14 @@ th {
 @media (min-width: 991px) {
    .mobile_cart {
       display: none;
-   } 
-  
+   }
+}
+
+@media (min-width: 1200px) {
+   #myPageFooter {
+      display: none;
+   }
+
 }
 
 section{
@@ -114,6 +123,10 @@ section .section_title .title_txt{
     padding: 5px 10px;
     background: #333;
     color: #fff;
+}
+
+option {
+	height: 40px;
 }
 
  

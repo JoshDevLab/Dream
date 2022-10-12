@@ -182,14 +182,16 @@ button#btnMoreHIT {
 	width: 200px;
 	height: 50px;
 	border-radius: 10px;
-	color: white;
-	background-color: #c2c2c2;
 	font-weight: 600;
+	background-color:black;
+	color:white;
 	font-size: 15px;
-	border: none;
 	margin: 20px auto 0px auto;
 	display: block;
 }
+
+
+
 
 a.purchaseDetail{
     color: #222222; 
@@ -220,6 +222,18 @@ a.purchaseDetail:active {
     background-color: transparent;
     text-decoration: none;
 } /* 클릭했을 때 링크 상태 */
+
+
+
+div#shipping_cnt_left:hover{
+	cursor: pointer;
+}
+
+
+
+div#shipping_cnt_right:hover{
+	cursor: pointer;
+}
 
 
 

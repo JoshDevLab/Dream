@@ -31,5 +31,8 @@ public interface InterMemberDAO {
 	// 회원목록 관리자 페이지에서 회원들의 리스트
 	List<MemberDTO> selectAllMember(Map<String, String> paraMap) throws SQLException;
 
+	// 회원탈퇴하는 메소드
+	int deleteMember(String userid) throws SQLException;
+
 
 }

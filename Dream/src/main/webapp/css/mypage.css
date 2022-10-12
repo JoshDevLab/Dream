@@ -2,10 +2,25 @@
 	.sidebar {
 		display: none;
 	}
+	#footer {
+		display: none;
+	}
 }
 
 @media (max-width: 500px) {
 	.out {
         display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	#myPageFooter {
+		display: none;
+	}
+}
+
+@media (max-width: 510px) {
+	.fifth {
+        width: 50px;
 	}
 }

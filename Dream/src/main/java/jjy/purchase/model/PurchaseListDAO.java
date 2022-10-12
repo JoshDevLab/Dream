@@ -181,7 +181,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 					     " from "+
 					     " ( "+
 					     "     select order_num, userid, B.product_num as product_num, buy_cnt , buy_date , shipping, product_name, product_image,"+
-					     " row_number() over(order by order_num "+ purchaseMap.get("sort") +") as rno "+
+					     "     row_number() over(order by order_num "+ purchaseMap.get("sort") +") as rno "+
 					     "     from tbl_buylist B left join tbl_product P "+
 					     "     on B.product_num = P.product_num "+
 					     "     where userid = ? ";
@@ -193,7 +193,8 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 							   sql += " and shipping = 2 ";
 						 }
 					     
-					     sql +="     and buy_date between TO_DATE( ? , 'YYYY/MM/DD') AND TO_DATE( ? , 'YYYY/MM/DD') "+
+//					     sql +="     and buy_date between TO_DATE( ? , 'YYYY/MM/DD HH24') AND TO_DATE( ? , 'YYYY/MM/DD') "+
+			    		 sql +="     and buy_date between TO_DATE( ? , 'YYYY/MM/DD HH24') AND TO_DATE(' "+purchaseMap.get("start_date")+" 23:59' , 'YYYY/MM/DD hh24:mi:ss') "+
 					     " )v "+
 					     " where rno between ? and ? ";
 					     /* + " order by order_num "+purchaseMap.get("sort");*/
@@ -210,9 +211,9 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			 pstmt.setString(1, purchaseMap.get("userid") );
 //			 pstmt.setString(2, purchaseMap.get("input_shipping") );
 			 pstmt.setString(2, purchaseMap.get("end_date") );
-			 pstmt.setString(3, purchaseMap.get("start_date") );
-			 pstmt.setString(4, purchaseMap.get("start") );
-			 pstmt.setString(5, purchaseMap.get("end") );
+//			 pstmt.setString(3, purchaseMap.get("start_date") );
+			 pstmt.setString(3, purchaseMap.get("start") );
+			 pstmt.setString(4, purchaseMap.get("end") );
 			 
 			 rs = pstmt.executeQuery();
 			 
@@ -332,7 +333,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 	}// end of public Map<String, String> getOrderCnt(String loginedUserid) {}-------------------------------------------------------------
 
 	
-	//사용자 아이디, 주문번호를 Map 으로 전달받아 해당 주문번호에 해당하는 주문내역을 구해오는 메소드 
+	//주문번호 으로 전달받아 해당 주문번호에 해당하는 주문내역을 구해오는 메소드 
 	@Override
 	public PurchaseListDTO getDetailPurchaseList(String order_num) throws SQLException {
 		
@@ -343,7 +344,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			
 			String sql = " SELECT order_num, address_num , address, detail_address , order_name , mobile , A.userid "
 					   + "       , B.product_num, buy_cnt , buy_date, shipping, fk_address_num "
-					   + "       , product_image, product_name, price, discount_rate "
+					   + "       , product_image, product_name, price, discount_rate, post_code "
 					   + " FROM tbl_address A "
 					   + " join tbl_buylist B "
 					   + " ON A.address_num = b.fk_address_num "
@@ -363,6 +364,8 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 				purchaseListDTO.setShipping(rs.getInt("shipping"));    // 배송진행 상황
 				purchaseListDTO.setBuy_date(rs.getString("buy_date")); // 거래일시 
 				
+				System.out.println("확인용 buy_cnt"+purchaseListDTO.getBuy_cnt());
+				
 				ProductDTO prodDTO = new ProductDTO();
 				prodDTO.setProduct_num(rs.getInt("product_num"));  // 제품번호
 				prodDTO.setProduct_name(rs.getString("product_name"));  // 제품이름
@@ -380,6 +383,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 				addrDTO.setMobile(rs.getString("mobile"));                 // 휴대폰번호
 				addrDTO.setAddress(rs.getString("address"));  			   // 주소 
 				addrDTO.setDetail_address(rs.getString("detail_address")); // 상세주소 
+				addrDTO.setPost_code(rs.getString("post_code"));      // 우편번호 
 				
 				purchaseListDTO.setAddressDTO(addrDTO);
 			}
@@ -543,6 +547,35 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 			return result;
 			
 		}// public int updateShipping(String shipping, String[] orderNumList) throws SQLException {}-----------------
+
+		
+		// 주문번호를 전달받아 주문자의 아이디를 알아오는 메소드 
+		@Override
+		public String getOrderUserid(String order_num) throws SQLException {
+				
+			String orderUserid = "";
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = " select userid "
+						   + " from tbl_buylist "
+						   + " where order_num = ? ";
+						   
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, order_num);
+				
+				rs = pstmt.executeQuery();
+				rs.next();
+				orderUserid = rs.getString(1);
+
+			} finally {
+				close();
+			}
+			
+			return orderUserid;
+			
+		}// end of public String getOrderUserid(String order_num) throws SQLException {}---------------------------
 
 	
 	

@@ -114,7 +114,7 @@ String ctxPath = request.getContextPath();
 				<div class="main_title">
 					<a href="#" class="brand"></a>
 					<p id = "product_name" class="title">${product.product_name}</p>
-					<p class="sub_title"><%=request.getAttribute("pdName")%></p>
+					<p class="sub_title">${product.category} > ${product.detail_category} > ${product.product_name}</p>
 				</div>
 				<div class="product_figure">
 					<div class="detail_size">
@@ -170,7 +170,8 @@ String ctxPath = request.getContextPath();
 						</div>
 						<div class="price">
 							<div class="amount">
-								<span id= "price"class="num"><fmt:formatNumber value="${product.price}" pattern="#,###" /> 원</span>
+								<span id= "price"class="num"><fmt:formatNumber value="${product.price}" pattern="#,###" />
+								 원</span>
 								
 								<%-- 나중에는 데이터 받아와야해서 나눠둠 --%>
 								<span class="won">원</span>
@@ -207,7 +208,13 @@ String ctxPath = request.getContextPath();
 
 					<a onclick="likeCheck()" href="javascript:void(0)"
 						id="column2_btn_wish" class="btn btn_wish" aria-label="관심상품">
-						<img style="height: 20px; width: 20px;" /> <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
+						<c:if test="${like==1}">
+							<i id = "likeicon" class="fa-solid fa-heart pink"></i> <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
+						</c:if>
+						
+						<c:if test="${like==0}">
+							<i id = "likeicon"  class="fa-solid fa-heart"></i> <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
+						</c:if>
 						<span class="btn_text" type="button">관심상품</span> <span
 						class="wish_count_num">${product.likeCnt}</span> <%-- 여기 숫자는 제품 관심상품 등록된 횟수 카운트해줘야하니 나중에 제품자체에 관심등록 칼럼 추가해줘서 관리하는게 편할듯 --%>
 					</a>
@@ -230,14 +237,7 @@ String ctxPath = request.getContextPath();
 								<dt class="product_title">출시일</dt>
 								<dd class="product_info">${product.register_date}</dd>
 							</div>
-							<div class="detail_box">
-								<dt class="product_title">컬러</dt>
-								<dd class="product_info">여기 뭘로 하지</dd>
-							</div>
-							<div class="detail_box">
-								<dt class="product_title">컬러랑 합치고</dt>
-								<dd class="product_info">상세설명?</dd>
-							</div>
+							
 						</dl>
 					</div>
 				</div>
@@ -276,7 +276,7 @@ String ctxPath = request.getContextPath();
 				<div class="confirm_wrap" style="padding-top: 39px;">
 
 
-					<h3 class="confirm_title">구매 전 꼭 확인해주세요! 현우 게시판에서 훔쳐올 예정</h3>
+					<h3 class="confirm_title">구매 전 꼭 확인해주세요!</h3>
 					<%-- 기능, 모양 전부 동일하게 가져다 써도 될거같음 --%>
 
 				</div>
@@ -287,7 +287,7 @@ String ctxPath = request.getContextPath();
 					<ul class="guide_list">
 						<li class="guide_item">
 							<div class="thumb_area">
-								<img src="images/Koala.jpg" alt="" class="img">
+								<i class="fa-sharp fa-solid fa-circle-check ft40"></i>
 							</div>
 							<div class="text_area">
 								<strong class="title">100% 정품 보증</strong>
@@ -296,7 +296,7 @@ String ctxPath = request.getContextPath();
 						</li>
 						<li class="guide_item">
 							<div class="thumb_area">
-								<img src="images/Koala.jpg" alt="" class="img">
+								<i class="fa-solid fa-magnifying-glass ft40"></i>
 							</div>
 							<div class="text_area">
 								<strong class="title">엄격한 다중 검수</strong>
@@ -306,7 +306,7 @@ String ctxPath = request.getContextPath();
 						</li>
 						<li class="guide_item">
 							<div class="thumb_area">
-								<img src="images/Koala.jpg" alt="" class="img">
+								<i class="fa-solid fa-box ft40"></i>
 							</div>
 							<div class="text_area">
 								<strong class="title">정품 인증 패키지</strong>

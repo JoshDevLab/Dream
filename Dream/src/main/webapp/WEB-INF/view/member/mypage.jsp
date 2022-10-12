@@ -39,8 +39,7 @@
                         <div id="user-email" style="font-size:10pt;">
                             <p>${requestScope.mdto.userid}</p> <%-- 데이터베이스에서 값 가져옴  --%>
                         </div>  
-                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">프로필 수정</button>
-                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;">내 스타일</button>
+                        <button type="button" class="btn btn-light outline-secondary btn-sm" style="font-size: 9pt;" onClick="location.href='/Dream/member/myInfo.dream'">프로필 수정</button>
                     </div>
                 </div>
                 <div id="user-membership-detail" style="margin-left: auto; display: flex; width: 200px;">
@@ -65,7 +64,7 @@
                         <p style="font-size: 10pt; text-align: center;">${requestScope.map.shipping_ready + requestScope.map.shipping_now + requestScope.map.shipping_end}</p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
-                        <div class="font-weight-bold text-center">배송 준비중</div>
+                        <div class="font-weight-bold text-center fifth">배송 준비중</div>
                         <p style="font-size: 10pt; text-align: center;">
 	                        <c:choose>
 	                        		<c:when test="${empty requestScope.map.shipping_ready}">0</c:when>
@@ -74,7 +73,7 @@
                         </p> <%-- 데이터베이스에서 값 가져옴  --%>
                     </div>
                     <div class="col-3">
-                        <div class="font-weight-bold text-center">배송 진행중</div>
+                        <div class="font-weight-bold text-center fifth">배송 진행중</div>
                         <p style="font-size: 10pt; text-align: center;">
 						<c:choose>
 	                        		<c:when test="${empty requestScope.map.shipping_now}">0</c:when>
@@ -100,6 +99,8 @@
     
     
    <%--footer 호출 --%>
-<jsp:include page="/WEB-INF/view/footer.jsp" />
+<jsp:include page="/WEB-INF/view/footer.jsp" />   
+   
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
   
-  
+  s

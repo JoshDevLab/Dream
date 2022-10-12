@@ -279,7 +279,7 @@ text-align: center;
 .detail_title.info_title{
   padding-bottom: 13px;
 }
-.detail_title {
+.detail_title, .confirm_title {
   line-height: 22px;
   padding: 39px 0 0 0;
   font-size: 18px;
@@ -321,7 +321,7 @@ text-align: center;
 /* 반응형때 자연스럽게 아래로 글자 줄넘김 */
   line-height: 17px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .delivery_way_wrap.detail_title {
@@ -723,11 +723,6 @@ a.dropdown-item{
 }
 
 
-#added_option>:last-child{
-	margin-left: 30%;
-	
-}
-
 /* 모달 css */
 
 .modal-header {
@@ -825,6 +820,13 @@ button.ximage {
 .hide{
 	display:none !important;
 }
+i#likeicon.pink{
+	color:pink;
+}
+
+i.fa-solid.ft40{
+	font-size: 40px;
+}
 
 
 /* 포인트 적립 modal css */
@@ -882,7 +884,11 @@ div.border-rounded{
     border-radius: 10px;
     padding: 20px 0;
 }
-
+div#footer {
+    word-spacing: 0;
+    display: inline-block;
+    width:100%;
+}
 
 
 
@@ -933,6 +939,9 @@ div.border-rounded{
           
           border-left: solid 1px #ebebeb;
           border-right: solid 1px #ebebeb;
+        }
+        .productImage{
+        	padding-top:  0;
         }
       }
 

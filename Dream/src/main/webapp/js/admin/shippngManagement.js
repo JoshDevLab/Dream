@@ -35,7 +35,7 @@ function checkedSend(){
          if(!bFlag) {
             $("#allCheckSend").prop("checked",true);
          }
-}
+}// end of function checkedSend(){}-----------------------------------
 
 function checkedEnd(){
          let bFlag = false;
@@ -51,8 +51,8 @@ function checkedEnd(){
          if(!bFlag) {
             $("#allCheckEnd").prop("checked",true);
          }
-	
-}
+}// end of function checkedEnd(){}-----------------------------------
+
 
 $(document).ready(function() {
 	
@@ -115,8 +115,6 @@ $(document).ready(function() {
 		, monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip 텍스트
 		, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 부분 텍스트
 		, dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
-		// ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-		// ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
 	});
 
 
@@ -129,9 +127,9 @@ $(document).ready(function() {
 	$('input#end_date').datepicker('setDate', 'today');
 	// DatePicker 한글, 기타 속성 끝
 
-
+	
 	// 진행중 클릭시 테두리, 글자 속성 변경 
-	$("div#shipping_cnt_left").click(function(e) {
+	$("div#shipping_cnt_left").on("click",function(e) {
 		
 		$("div#show_shipping").empty();           // append 된 상품들 삭제 
         $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
@@ -154,13 +152,17 @@ $(document).ready(function() {
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("0");
 		
+		$(".div_postSend").show();
+		$(".div_postEnd").show();
+		
+		
 		// goSearch();
 		callAjax(start);
 	});
 	
 	
-	
-	$("div#shipping_cnt_middle").click(function(e) {
+	// 배송중 클릭시 
+	$("div#shipping_cnt_middle").on("click",function(e) {
 		
 		$("div#show_shipping").empty();           // append 된 상품들 삭제 
         $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
@@ -182,6 +184,9 @@ $(document).ready(function() {
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("1");
 		
+ 		$(".div_postSend").hide();
+ 		$(".div_postEnd").show();
+		
 		// goSearch();
 		callAjax(start);
 	});
@@ -190,7 +195,7 @@ $(document).ready(function() {
 	
 
 	// 종료 클릭시 테두리, 글자 속성 변경 
-	$("div#shipping_cnt_right").click(function(e) {
+	$("div#shipping_cnt_right").on("click",function(e) {
 		
 		$("div#show_shipping").empty();           // append 된 상품들 삭제 
         $("div#show_shipping_completed").empty(); // append 된 상품들 삭제 
@@ -212,6 +217,8 @@ $(document).ready(function() {
 		// div가 클릭되면 select 해오기 위해 사용되는 배송중 상태를 input태그(type="hidden")에 값 넣기
 		$("div#status_button> input#input_shipping").val("2");
 		
+		$(".div_postSend").hide();
+		$(".div_postEnd").hide();
 		// goSearch();
 		callAjax(start);
 
@@ -374,7 +381,7 @@ function updateShipping() {
 		}
 	}
 
-	console.log("확인용" + ordernum_arr);
+	// console.log("확인용" + ordernum_arr);
 
 	// 결과 값 찍어주는 ajax
 	$.ajax({
@@ -410,7 +417,7 @@ function updateShippingEnd(){
 		}
 	}  
 	
-	    console.log("확인용"+ordernum_arr);
+	    //console.log("확인용"+ordernum_arr);
 	  
    	// 결과 값 찍어주는 ajax
    	$.ajax({
@@ -464,7 +471,7 @@ function callAjax(start) {
    			}
    			// 조회결과가 있는 경우 
    			else if(json.length > 0){
-   				
+   				$("div#show_shipping").empty();
    				$("button#btnMoreHIT").show();
    				
    				$("div#no_result").html("");
@@ -479,24 +486,29 @@ function callAjax(start) {
 	   		                        "<div id = 'name_cnt'>"+
 	   		                           "<div class='item_name'>"+item.product_name+" </div>"+
 	   		                        "</div>"+
-	   		                         "<div class='order_num'> 주문번호 : "+item.order_num+" </div>"+
-	   		                         "<div class='purchase_cnt'> 구매수량 : "+item.buy_cnt+" </div>"+
-	   		                        "<div class='totalPrice' >주문총액 : "+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
-	   		                        "<div class='totalPrice' >적립 포인트 : "+(item.point).toLocaleString("en")+" 포인트</div>"+
+	   		                         "<a href='javascript:void(0);' onclick='viewShippingInfo(`"+item.userid+"`,`"+item.order_num+"`);'><div class='order_num'>[ D - "+item.order_num+" ]</div></a>"+
+	   		                         "<div class='purchase_cnt' style='width:50px;'>"+item.buy_cnt+" 개 </div>"+
+	   		                        "<div class='totalPrice' >"+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
+	   		                        "<div class='totalPoint' >"+(item.point).toLocaleString("en")+" p</div>"+
    		                     "</div>"+
    		                     "<div id='date_status'>"+
-	   		                        "<div>"+
+	   		                        "<div class = 'div_shipping_status'>"+
 	   		                           "<span class='purchase_status'>"+item.shipping+"</span>"+ 
 	   		                        "</div>"+
 	   		                        
+   		                        	"<div class='checkboxAndlabel div_postSend'>"+
 										"<input value='"+item.order_num+"' id='send"+index+"' class='postSend' type='checkbox' name='send' />"+
 									/*	"<input id='send"+index+"' class='postSend' type='checkbox' name='send"+index+"' onclick='checkedSend()' />"+*/
-										"<label for='send"+index+"'>배송하기</label>"+
+										"<label class='textMiddle' for='send"+index+"'>배송하기</label>"+
+									"</div>"+
+									
+									"<div class='checkboxAndlabel div_postEnd'>"+
 										"<input value='"+item.order_num+"' id='end"+index+"' class='postEnd' type='checkbox' name='end' onclick='checkedEnd()' />"+
-										"<label for='end"+index+"'>배송완료</label>"+
-										"<input id='jsonLength' value='"+json.length+"'/>"+
+										"<label class='textMiddle' for='end"+index+"'>배송완료</label>"+
+									"</div>"+
+										"<input type='hidden' id='jsonLength' value='"+json.length+"'/>"+
 	   		                        
-		   		                     "<div>"+
+		   		                     "<div class = 'div_purchase_date'>"+
 			                           "<span class='purchase_date'>"+item.buy_date+"</span><br>"+
 			                         "</div>"+
    		                     "</div>"+

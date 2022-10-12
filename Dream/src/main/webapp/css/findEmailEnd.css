@@ -63,6 +63,9 @@ a.btn_find{
    margin: 0 4px;
    
 }
+a.btn_find:hover{
+	cursor: pointer;
+}
 
 h2#find_email_title{
    font-size: 24px;

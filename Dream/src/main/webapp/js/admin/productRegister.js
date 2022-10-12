@@ -98,7 +98,7 @@ $(document).ready(function() {
 		if(!regExp.test($(e.target).val())){
 			// alert("부적합");
 			$(e.target).val("1");
-			console.log("$(e.target).val()"+$(e.target).val());
+			// console.log("$(e.target).val()"+$(e.target).val());
 		}
 	});
 
@@ -170,8 +170,6 @@ $(document).ready(function() {
 	
 	
 	
-	
-	
 	// 상품 이미지 css
 
      $("input#spinnerImgQty").bind("spinstop", function(){
@@ -185,7 +183,7 @@ $(document).ready(function() {
          
          for(let i=0; i< Number(cnt); i++){
             html += "<br>";
-            html += "<input type='file' name='attach"+i+"' class='btn btn-default infoData' /> <span class='error'>필수입력</span>";
+            html += "<input type='file' name='attach"+i+"' id='attach"+i+"' class='btn btn-default infoData' /> <span class='error'>필수입력</span>";
          }// end of for---------------------------------------
          
          $("div#divfileattach").html(html);

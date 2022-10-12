@@ -85,10 +85,13 @@ $(document).ready(function () {
     $("input:checkbox[name='prd_check']").change(function () {
         // 체크된 상품들의 total price들을 가져와서 합계를 구한것을 아래 html에 넣어주기
         let total_price = 0;
+        let halin = 0;
         $("table input:checkbox[name='prd_check']:checked").each(function (index,item) {
             total_price += parseInt( $(item).parent().siblings().find("span.total_price").text().split(",").join("") );
+            // halin += Number($(item).parent().next().next().find('.discount_price').text()*$(item).parent().next().next().next().find(".cart_qty").val());
         }); // end of $("input:checkbox[name='prd_check']:checked").each(function (index,item)
-
+		
+		$("span#halin").text(halin.toLocaleString('en'));
         $("span#prd_price").text(total_price.toLocaleString('en'));
         $("span.payment_price").text( (total_price - Number($("input#point").val())).toLocaleString('en') );
         
@@ -131,21 +134,21 @@ $(document).ready(function () {
 		const length = $("input:checkbox[name='prd_check']:checked").length;
 		
 		if(length == 0) {
-			alert("제품을 먼저 선택하시고 포인트를 입력하세요");
+			toastr["warning"]("제품을 먼저 선택하시고 포인트를 입력하세요");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
 		}
 		
 		if( Number($(".user_point").text()) < $("input#point").val() ) {
-			alert("보유포인트가 적습니다.");
+			toastr["warning"]("보유포인트가 적습니다.");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
 		}
 		
 		if(Number($("span#prd_price").text().split(",").join("")) < $("input#point").val()) {
-			alert("구매가격보다 높은 포인트는 사용할 수 없습니다.");
+			toastr["warning"]("구매가격보다 높은 포인트는 사용할 수 없습니다.");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
@@ -158,7 +161,7 @@ $(document).ready(function () {
 		}
 		
 	
-		$("span.sale_point").text( $("input#point").val() );
+		$("span.sale_point").text( Number($("input#point").val()).toLocaleString('en') );
 		$(".payment_price").text( (Number($("span#prd_price").text().split(",").join("")) - Number($("input#point").val())).toLocaleString('en') )
 	
 	  });
@@ -167,12 +170,13 @@ $(document).ready(function () {
 	  $("button.remove_cart_list").click(function(e) { // 삭제하기 버튼
 
 	        const target = $(e.target);
+	        const remove_div = target.parent().parent().parent().attr("class");
 
 	        const cart_num = target.parent().parent().find('span#cart_num').text()
 
 	        $.ajax({
 		        url : getContextPath()+"/cart/cartDelete.dream",
-		        type: "GET",
+		        type: "post",
 		        data: {"cart_num" : cart_num},
 		        dataType:'json',
 		        success: function(json) {
@@ -180,7 +184,29 @@ $(document).ready(function () {
 		        		const n = json.n;
 		            	
 		        		if(n == 1) {
-		        			location.reload();
+		        			 $("."+remove_div).remove();
+		        			 $(".sale_point").text('0');
+		        			 $(".payment_price").text('0');
+		        			 $("#point").val('');
+					     prd_check_length = $("table input:checkbox[name='prd_check']").length
+					     
+					     let count = 1;
+					     $("table input:checkbox[name='prd_check']").each(function(index,item){
+							$(item).parent().prev().find("#cart_number").text(count);
+							count++;
+						 });
+					     
+					     if(prd_check_length == 0) {
+							$(".table_div").empty();
+							$(".table_div").html("<h4 class='text-muted text-center mt-5'>장바구니 구매 내역이 없습니다.</h4>");
+							$(".table_div").append("<hr class='my-5' style='border: solid 2px black; background-color: black;'>");
+							$(".mobile_cart").empty();
+							$(".mobile_cart").html("<h4 class='text-muted text-center mt-5'>장바구니 구매 내역이 없습니다.</h4>");
+							$(".mobile_cart").append("<hr class='my-5' style='border: solid 2px black; background-color: black;'>");
+						}
+						else {
+							$(".total_cnt").html(prd_check_length);
+						}
 		        		}
 		        		else {
 		        			alert('백엔드 에러 잡아라');
@@ -215,7 +241,7 @@ $(document).ready(function () {
 	        $.ajax({
 		        url : getContextPath()+"/cart/cartSelectDelete.dream",
 		        traditional: true,
-		        type: "GET",
+		        type: "post",
 		        data: {"jsonData" : jsonData},
 		        dataType:'json',
 		        success: function(json) {
@@ -223,11 +249,38 @@ $(document).ready(function () {
 		        		const n = json.n;
 		        		const count_n = param.length
 		        		
-		        		console.log("확인용 n => " + n);
-		        		console.log("확인용 count_n => " + count_n);
 		            	
 		        		if(n == count_n) {
-		        			location.reload();
+						$(".sale_point").text('0');
+		        			$(".payment_price").text('0');
+		        			$("#point").val('');
+		        			$("input:checkbox[name='prd_check']:checked").parent().parent().parent().remove();
+				        if($("input:checkbox[name='prd_check']").length == 0) {
+				            $("input#chk_all").prop("checked",false);
+				            $("button#remove_check").hide();
+				        }
+				        else {
+				            $("button#remove_check").show();
+				        }
+				        prd_check_length = $("table input:checkbox[name='prd_check']").length
+				        
+				        let count = 1;
+					     $("table input:checkbox[name='prd_check']").each(function(index,item){
+							$(item).parent().prev().find("#cart_number").text(count);
+							count++;
+						 });
+		        			
+		        			if(prd_check_length == 0) {
+							$(".table_div").empty();
+							$(".table_div").html("<h4 class='text-muted text-center mt-5'>장바구니 구매 내역이 없습니다.</h4>");
+							$(".table_div").append("<hr class='my-5' style='border: solid 2px black; background-color: black;'>");
+							$(".mobile_cart").empty();
+							$(".mobile_cart").html("<h4 class='text-muted text-center mt-5'>장바구니 구매 내역이 없습니다.</h4>");
+							$(".mobile_cart").append("<hr class='my-5' style='border: solid 2px black; background-color: black;'>");
+						}
+						else {
+							$(".total_cnt").html(prd_check_length);
+						}
 		        		}
 		        		else {
 		        			alert('백엔드 에러 잡아라');

@@ -3,25 +3,57 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
 <%
    String ctxPath = request.getContextPath();
 %>
 
-
 <%--header 호출 --%>
 <jsp:include page="/WEB-INF/view/header.jsp" />
+
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/cart.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/cart.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 
+
 <script type="text/javascript">
+	toastr.options = {
+			  "closeButton": false,
+			  "debug": true,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-top-center",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut",
+			  "toastClass": 'toastr'
+			}
+
 	const membership = "${user.membership}";
+	let fk_address_num = "";
 
 	$(document).ready(function() {
 		
+		$("select#fk_address").change(function () {
+			
+			fk_address_num = $("option:selected").val();
+			//console.log("확인용 =>" + fk_address_num);
+		});
 		
 	});
 	
@@ -39,14 +71,19 @@
 	    let total_cnt = $("."+classname).parent().parent().parent().find("span#size_cnt").text();
 	    let cart_qty = parseInt($("."+classname).parent().find("input").val());
 	    let cart_num = $("#"+classname).parent().parent().parent().find('th#first-child').find('span#cart_num').text();
+	    let halin = $("#"+classname).parent().parent().prev().find(".discount_price").text();
 	    
-	    console.log("확인용 : "+cart_num);
+	    //console.log("확인용 : "+cart_num);
 	    
 	    if(total_cnt == cart_qty) {
-			alert("재고량보다 더 주문할 수 없습니다.");
+			toastr["error"]("재고량보다 더 주문할 수 없습니다.");
 			return;
 		}
 		cart_qty = cart_qty + 1;
+		
+		halin = 	halin * cart_qty;
+		
+		//console.log("확인용 =>" + halin)
 		
 		$.ajax({
 		        url : getContextPath()+"/cart/cartUpdate.dream",
@@ -59,7 +96,7 @@
 		        		const n = json.n;
 		            	
 		        		if(n == 1) {
-						alert("수량이 변경되었습니다.")
+						toastr["success"]("수량이 변경되었습니다.");
 					    $("."+classname).prev().val(cart_qty);
 				
 					    let price = $("."+classname).parent().parent().prev().find('span').text();
@@ -69,11 +106,11 @@
 					    
 					    const add_point = total_price*point_percent;
 					    
-					    $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en')+"P");
+					    $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en'));
 					    
 					    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en')+"원");
 					    
-					    $("."+classname).parent().parent().parent().siblings().find(".mobile_point").text(add_point.toLocaleString('en')+"P");
+					    $("."+classname).parent().parent().parent().siblings().find(".mobile_point").text(add_point.toLocaleString('en'));
 					    
 					    $("."+classname).parent().parent().parent().siblings().find(".mobile_price").text(total_price.toLocaleString('en')+"원");
 					    
@@ -109,12 +146,16 @@
 	    
 	    let cart_qty = parseInt($("."+classname).parent().find("input").val());
 	    let cart_num = $("#"+classname).parent().parent().parent().find('th#first-child').find('span#cart_num').text();
+	    let halin = $("#"+classname).parent().parent().prev().find(".discount_price").text();
 	    
 	    if(cart_qty>1) {
 			$("."+classname).prop("disabled",false);
-		
 	    
 		cart_qty = cart_qty - 1;
+		
+		halin = 	halin * cart_qty;
+		
+		//console.log(" 총 할인가격 "+halin);
 		
 		$.ajax({
 		        url : getContextPath()+"/cart/cartUpdate.dream",
@@ -128,7 +169,7 @@
 		            	
 		        		if(n == 1) {
 					        $("."+classname).prop("disabled",false);
-					        alert("수량이 변경되었습니다.")
+					        toastr["success"]("수량이 변경되었습니다.");
 					        $("."+classname).next().val(cart_qty);
 					
 					        let price = $("."+classname).parent().parent().prev().find('span').text();
@@ -138,18 +179,15 @@
 					        
 					        const add_point = total_price*point_percent;
 					        
-					        $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en')+"P");
+					        $("."+classname).parent().parent().parent().find('td#last-child').find('span.plus_point').text(add_point.toLocaleString('en'));
 						    
 						    $("."+classname).parent().parent().siblings().find(".total_price").text(total_price.toLocaleString('en')+"원");
 						    
-						    $("."+classname).parent().parent().parent().siblings().find(".mobile_point").text(add_point.toLocaleString('en')+"P");
+						    $("."+classname).parent().parent().parent().siblings().find(".mobile_point").text(add_point.toLocaleString('en'));
 						    
 						    $("."+classname).parent().parent().parent().siblings().find(".mobile_price").text(total_price.toLocaleString('en')+"원");
-						    
-						    const discount_rate = $("."+classname).find('span.discount_rate').text();
-						    const discount_price = total_price * Number(discount_rate);
-						    const discount = total_price - discount_price;
-						    
+							
+						    $("#halin").text(halin.toLocaleString());
 					}
 					    
 		        		else {
@@ -175,11 +213,18 @@ function goCoinPurchaseEnd() {
 	 
 	 let price = $("span#payment_price").text();
 	 price = price.split(",").join("");
+	 
+	 const address = $("option:selected").val();
 	
 	if(price == 0) {
-		alert("상품을 체크 한 후에 결제버튼을 눌러주세요");
+		toastr["warning"]("상품을 체크 한 후에 결제버튼을 눌러주세요.");
 		return;
 	} 
+	
+	if(typeof address == 'undefined') {
+		toastr["warning"]("배송지를 선택하세요.");
+		return;
+	}
  	
   //여기 링크를 꼭 참고하세용 http://www.iamport.kr/getstarted
   var IMP = window.IMP;     // 생략가능
@@ -215,12 +260,16 @@ function goCoinPurchaseEnd() {
 			
 			$("input:checkbox[id='purchase_check']:checked").each(function(index,item) {
 				
+				
 				 let data = {
 					            product_num : $(item).parent().parent().find('span#product_num').text(),
 					            cart_num : $(item).parent().parent().find('span#cart_num').text(),
 					            product_size : $(item).parent().parent().find('span#product_size').text(),
-					            cart_cnt : $(item).parent().parent().find("input[name='cart_qty']").val()
+					            cart_cnt : $(item).parent().parent().find("input[name='cart_qty']").val(),
+					           	fk_address_num : $("option:selected").val()
 				        		};
+				 
+				 //console.log("안에들어온 주소 확인용 ==>" + $("option:selected").val());
 				 
 				 param.push(data)
 			});
@@ -233,23 +282,23 @@ function goCoinPurchaseEnd() {
 		        type: "POST",
 		        data: {"jsonData" : jsonData, 
 		        		   "plusPoint" : Number( $("span#prd_price").text().split(",").join("") ) * point_percent,
-		        		   "minusPoint" : $("span#point_sale").text() },
+		        		   "minusPoint" : Number($("span#point_sale").text().split(',').join('')) },
 		        dataType:'json',
 		        success: function(json) {
 			        	let pointCount = 1;
 			        	
-			        	if( Number($("span#point_sale").text()) > 0) {
+			        	if( Number($("span#point_sale").text().split(',').join('')) > 0) {
 			        		pointCount = 2;
 			        	}
 		        		const n = json.n;
 		        		const count_n = (param.length*3)+pointCount
 		        			
-		        		console.log("확인용 param.length =>" + param.length);
-		        		console.log("확인용 n =>" + n);
-		        		console.log("확인용 count_n =>" + count_n);
+		        		//console.log("확인용 param.length =>" + param.length);
+		        		//console.log("확인용 n =>" + n);
+		        		//console.log("확인용 count_n =>" + count_n);
 		            	
 		        		if(n == count_n) {
-		        			alert('구매가 완료되었습니다.');
+		        			toastr["success"]("구매가 완료되었습니다.");
 		        			$.ajax({
 		        		        url:getContextPath()+"/cart/purchaseSms.dream",
 		        		        data:{"mobile":'${user.mobile}'},
@@ -258,10 +307,6 @@ function goCoinPurchaseEnd() {
 		        		        async:true,   
 		        		        success:function(json){ 
 		        		        	
-		        			        	if(json.success_count == 1) {
-		        			        		
-		        			        }
-		        			        	
 		        		        }
 		        		        
 		        			});
@@ -280,7 +325,7 @@ function goCoinPurchaseEnd() {
 			
        } else {
            location.href="<%= request.getContextPath()%>/index.dream";
-           alert("결제에 실패하였습니다.");
+           toastr["error"]("결제가 실패하였습니다.");
       }
 
   }); // end of IMP.request_pay()----------------------------
@@ -320,7 +365,8 @@ function goCoinPurchaseEnd() {
 	                    <c:forEach var="cartList" items="${requestScope.cartList}" varStatus="status">
 	                    		<tbody class="cart_list_${status.index}">
 	                    			<tr>
-	                                <th scope="row" style ='vertical-align : middle; text-align: center;' id="first-child">${status.count}
+	                                <th scope="row" style ='vertical-align : middle; text-align: center;' id="first-child">
+	                                		<span id="cart_number">${status.count}</span>
 	                                		<span id="product_num" style="display: none">${cartList.product_num}</span>
 	                                		<span id="cart_num" style="display: none">${cartList.cart_num}</span>
 	                                		<span id="discount_rate" style="display: none">${cartList.discount_rate}</span>
@@ -346,16 +392,17 @@ function goCoinPurchaseEnd() {
 	                                    </div>
 	                                </td>
 	                                <td style ='vertical-align : middle; text-align: center;' class="price_td">
-		                                <span class="price">
+		                                
 			                                <c:choose>
 				                                <c:when test="${cartList.discount_rate == 0}">
-				                                		<fmt:formatNumber value="${cartList.price}" pattern="#,###"/>
+				                                		<span class="price"><fmt:formatNumber value="${cartList.price}" pattern="#,###"/>원</span>
 				                                </c:when>
 				                                	<c:otherwise>
-				                                		<fmt:formatNumber value="${cartList.discount_price}" pattern="#,###"/>
+				                                		<span class="price" style="text-decoration: line-through;"><fmt:formatNumber value="${cartList.price}" pattern="#,###"/>원</span>
+				                                		<div class="halin_price"><fmt:formatNumber value="${cartList.discount_price}" pattern="#,###"/>원</div>
 				                                	</c:otherwise>
 				                            </c:choose>
-		                                	원</span>
+		                                	
 										<div style="font-weight: bold" class="discount_rate">		                                	
 			                                	<c:choose>
 					                                <c:when test="${cartList.discount_rate == 0}">
@@ -366,6 +413,7 @@ function goCoinPurchaseEnd() {
 					                                	</c:otherwise>
 					                         </c:choose>
 				                         </div>
+				                         <span class="discount_price" style="display: none">${cartList.price - cartList.discount_price}</span>
 	                                	</td>
 	                                <td style ='vertical-align : middle; text-align: center;'>
 	                                    <div class="prd_count" style="display: flex; text-align: center">
@@ -380,39 +428,32 @@ function goCoinPurchaseEnd() {
 	                                    </div>
 	                                </td>
 	                                <td style ='vertical-align : middle; text-align: center;' id="last-child">
-	                                <span class="total_price">
-		                                <c:choose>
-			                                <c:when test="${cartList.discount_rate == 0}">
-			                                		<fmt:formatNumber value="${cartList.price*cartList.cart_cnt}" pattern="#,###"/>
-			                                </c:when>
-			                                <c:otherwise>
-			                                		<fmt:formatNumber value="${cartList.discount_price*cartList.cart_cnt}" pattern="#,###"/>
-			                                </c:otherwise>
-		                                </c:choose>
-	                                원</span>
-	                                <br>(
-	                                <span class="plus_point" style="font-weight: bold;">
-		                                <c:choose>
-			                                <c:when test="${user.membership == 0}">
-			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.05}" pattern="#,###"/>
-			                                </c:when>
-			                                <c:otherwise>
-			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
-			                                </c:otherwise>
-		                                </c:choose>
-	                                </span>
-		                                p)
+		                                <span class="total_price">
+			                                <c:choose>
+				                                <c:when test="${cartList.discount_rate == 0}">
+				                                		<fmt:formatNumber value="${cartList.price*cartList.cart_cnt}" pattern="#,###"/>
+				                                </c:when>
+				                                <c:otherwise>
+				                                		<fmt:formatNumber value="${cartList.discount_price*cartList.cart_cnt}" pattern="#,###"/>
+				                                </c:otherwise>
+			                                </c:choose>
+		                                원</span>
+		                                <br>(
+		                                <span class="plus_point" style="font-weight: bold;">
+			                                <c:choose>
+				                                <c:when test="${user.membership == 0}">
+				                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.05}" pattern="#,###"/>
+				                                </c:when>
+				                                <c:otherwise>
+				                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
+				                                </c:otherwise>
+			                                </c:choose>
+		                                </span>
+		                                P)
 	                                </td> <%-- 반복문으로 넣을때 db에서 받아온 수량이랑 가격 곱해서 넣음 --%>
 	                                <td style ='vertical-align : middle; text-align: center;'>
 	                                    <button class="remove_cart_list btn btn-outline-dark outline-secondary btn-sm" style="font-size: 10pt; margin-left: auto;">삭제하기</button>
 	                                </td>
-	                                <!-- <td style ='vertical-align : middle; text-align: center;'>
-	                                    택배배송
-	                                    <br>
-	                                    <span>배송비무료</span>
-	                                    <br>
-	                                    0원 이상 무료
-	                                </td> -->
 	                            </tr>
 	                        </tbody>
 	                        
@@ -469,7 +510,8 @@ function goCoinPurchaseEnd() {
 			                                		<fmt:formatNumber value="${(cartList.price*cartList.cart_cnt)*0.1}" pattern="#,###"/>
 			                                </c:otherwise>
 		                             </c:choose>
-								p</span> <!-- span 태그에 할인금액 받아와서 넣을것 -->
+								</span>
+								&nbsp;P <!-- span 태그에 할인금액 받아와서 넣을것 -->
 	                        </div>
 	                        <div style="display: flex;">
 	                            <p>결제 금액</p>
@@ -502,7 +544,7 @@ function goCoinPurchaseEnd() {
 		</c:if>
 		
 		  <%-- 포인트 섹션 --%>
-	      <section class="mb-5" style="padding-left: 0">
+	      <section class="mb-3" style="padding-left: 0">
 	        <div class="section_title">
 	          <h3 class="title_txt">포인트</h3>
 	        </div>
@@ -519,13 +561,59 @@ function goCoinPurchaseEnd() {
 	                <i class="fa-regular fa-circle-question"></i>
 	              </button>
 	              <div class="value_current">
-	                <span class="user_point">${user.point}</span>
+	                <span class="user_point"><fmt:formatNumber value="${user.point}" pattern="###,###"></fmt:formatNumber></span>
 	                <span class="unit">P</span>
 	              </div>
 	            </div>
 	          </div>
 	        </div>
 	      </section>
+	      
+	      
+	      
+	      <%-- 배송지 섹션 --%>
+	      <section class="mb-5" style="padding-left: 0">
+	        <div class="section_title">
+	          <h3 class="title_txt">배송지</h3>
+	          <a style="margin-left: auto;  text-decoration:none; color: gray; " href="<%= ctxPath %>/member/address.dream" >배송지 추가 > </a>
+	        </div>
+	        <div class="section_content">
+	        <c:if test="${not empty requestScope.adList}">
+	           <select name="fk_address" id="fk_address" style="width: 88%; height: 50px">
+		          <c:forEach var="adto" items="${requestScope.adList}">
+			          <c:if test="${adto.basic_address == 1}">
+			          		<option selected value="${adto.address_num}" style="font-size: 15pt">
+			          			${adto.address}
+			          			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			          			${adto.detail_address}
+			          			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			          			${fn:substring(adto.mobile, 0, 3)}-${fn:substring(adto.mobile, 3, 7)}-${fn:substring(adto.mobile, 7, 11)}
+			          			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [기본배송지]
+			          		</option>
+			          </c:if>
+			          <c:if test="${adto.basic_address != 1}">
+			          		<option value="${adto.address_num}" style="font-size: 15pt">
+			          			${adto.address}
+			          			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			          			${adto.detail_address}
+			          			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			          			${adto.mobile}
+			          		</option>
+			          </c:if>		
+		          </c:forEach>
+	           </select>
+	          </c:if> 
+	           <c:if test="${empty requestScope.adList}">
+	           <div style="display: flex">
+	          	  <h3 class="text-muted text-center">등록된 주소가 없습니다.</h3>
+		       </div>
+		       </c:if>
+	        </div>
+	      </section>
+	      
+	      
+	      
+	      
 		
             <div id="discount_div" style="width: 100%;"> <%-- 쿠폰할인 테이블 시작 --%>
 
@@ -540,12 +628,12 @@ function goCoinPurchaseEnd() {
                         <td>포인트할인</td>
                         <td><span class="sale_point" id="point_sale">0</span>원</td>
                       </tr>
-                      <tr>
-                        <td>쿠폰 할인</td>
+                      <%-- <tr>
+                        <td>상품 할인</td>
                         <td>
-                            <button class="btn btn-outline-secondary btn-sm">쿠폰조회 및 적용</button>
+                            <span class="halin" id="halin">0</span>원
                         </td>
-                      </tr>
+                      </tr>--%>
                       <tr>
                         <td>할인합계</td>
                         <td><span class="sale_point">0</span>원</td>
@@ -580,3 +668,5 @@ function goCoinPurchaseEnd() {
     
   <%--footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
+

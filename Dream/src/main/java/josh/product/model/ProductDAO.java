@@ -80,9 +80,13 @@ public class ProductDAO implements InterProductDAO {
 			totalDiscount = rs.getInt(1);
 			
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
+		
 		
 		return totalDiscount;
 	}
@@ -96,14 +100,19 @@ public class ProductDAO implements InterProductDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = " select product_num, product_name, product_content, product_image, price, discount_rate, category "
-					+ "from "
-					+ "( "
-					+ "select row_number() over(order by product_num desc) AS rno, discount_rate, product_num, product_name, product_content, product_image, price, category  "
-					+ "from tbl_product "
-					+ "where discount_rate > 0 "
-					+ ") "
-					+ "where rno between ? and ? ";
+			String sql =  " select product_num, product_name, product_content, product_image, price, discount_rate, category"
+					    + " from "
+					    + " ( "
+					    + " select rownum rno, product_num, product_name, product_content, product_image, price, discount_rate, category "
+						+ " from "
+						+ " ( "
+						+ " select discount_rate, product_num, product_name, product_content, product_image, price, category  "
+						+ " from tbl_product "
+						+ " where discount_rate > 0 "
+						+ " order by discount_rate desc "
+						+ " ) V "
+						+ " ) T "
+						+ " where rno between ? and ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -129,9 +138,13 @@ public class ProductDAO implements InterProductDAO {
 				discountList.add(pdto);
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
+		
 		
 		return discountList;
 	}
@@ -168,13 +181,15 @@ public class ProductDAO implements InterProductDAO {
 			n += pstmt.executeUpdate();
 			
 			// 구매내역 테이블 insert (상품마다 insert 해야됨) product_num + size
-			sql = " insert into tbl_buylist(order_num, userid, product_num, buy_cnt, shipping) values(seq_buylist.nextval,?,?,?,0) ";
+			sql = " insert into tbl_buylist(order_num, userid, product_num, buy_cnt, shipping, fk_address_num, product_size) values(seq_buylist.nextval,?,?,?,0,?,?) ";
 			
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, paraMap.get("userid"));
 			pstmt.setString(2, paraMap.get("product_num"));
 			pstmt.setString(3, paraMap.get("cart_cnt"));
+			pstmt.setString(4, paraMap.get("fk_address_num"));
+			pstmt.setString(5, paraMap.get("product_size"));
 			
 			n += pstmt.executeUpdate();
 			
@@ -213,9 +228,12 @@ public class ProductDAO implements InterProductDAO {
 			
 			result = pstmt.executeUpdate();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
+		
 		
 		return result;
 	}
