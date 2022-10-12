@@ -50,10 +50,10 @@
             <div id="center">
                <strong>고객지원</strong>
                <ul class="menu_list footer_ul">
-                  <li class="menu_item footer_li"><a class="color_gray" href="공지사항.jsp">공지사항</a></li>
-                  <li class="menu_item footer_li"><a class="color_gray" href="서비스소개.jsp">서비스 소개</a></li>
-                  <li class="menu_item footer_li"><a class="color_gray" href="쇼룸안내.jsp">쇼룸 안내</a></li>
-                  <li class="menu_item footer_li"><a class="color_gray" href="판매자방문접수.jsp">판매자 방문접수</a></li>
+                  <li class="menu_item footer_li"><a class="color_gray" href="/Dream/notice/notice.dream">공지사항</a></li>
+                  <li class="menu_item footer_li"><a class="color_gray" href="/Dream/about.dream">서비스 소개</a></li>
+                  <li class="menu_item footer_li"><a class="color_gray" href="/Dream/about.dream">쇼룸 안내</a></li>
+                  <li class="menu_item footer_li"><a class="color_gray" href="/Dream/about.dream">판매자 방문접수</a></li>
                </ul>
             </div>
          </div>
@@ -64,11 +64,11 @@
       <%-- <div id="company_info_list"> start --%>
       <div id="company_info_list">
          <ul class="bottom_ul footer_ul">
-            <li class="bottom_li footer_li"><a class="color_black" href="회사소개.jsp">회사소개</a></li>
-            <li class="bottom_li footer_li"><a class="color_black" href="인재채용.jsp">인재채용</a></li>
-            <li class="bottom_li footer_li"><a class="color_black" href="제휴제안.jsp">제휴제안</a></li>
+            <li class="bottom_li footer_li"><a class="color_black" href="/Dream/about.dream">회사소개</a></li>
+            <li class="bottom_li footer_li"><a class="color_black" href="/Dream/about.dream">인재채용</a></li>
+            <li class="bottom_li footer_li"><a class="color_black" href="/Dream/about.dream">제휴제안</a></li>
             <li class="bottom_li footer_li"><a class="color_black" href="#modal_term" href="#modal_penalty"  data-toggle="modal">이용약관</a></li>
-            <li class="bottom_li footer_li"><a class="color_black" href="개인정보처리방침.jsp" style="font-weight: 700;" >개인정보처리방침</a></li>
+            <li class="bottom_li footer_li"><a class="color_black" href="/Dream/about.dream" style="font-weight: 700;" >개인정보처리방침</a></li>
          </ul>
 
          <div id="social_icons">
