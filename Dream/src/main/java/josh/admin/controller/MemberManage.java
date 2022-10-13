@@ -62,7 +62,7 @@ public class MemberManage extends AbstractController{
 	            
 	            int totalPage = mdao.getTotalPage(paraMap);
 	            
-	            System.out.println("totalPage =>" + totalPage);
+	            // System.out.println("totalPage =>" + totalPage);
 	            
 	            
 	            if( Integer.parseInt(currentShowPageNo) > totalPage ) {
