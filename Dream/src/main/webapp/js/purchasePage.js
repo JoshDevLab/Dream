@@ -106,7 +106,7 @@
 				const final_price = (Number($("span#payment_price").text()));
 				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
-				$("span#final_price").text(final_price);
+				$("span#final_price").text(final_price.toLocaleString("'ko-KR'"));
 				$("input#point").val("");
 				return false;
 			}		
@@ -117,23 +117,23 @@
 				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
 				$("input#point").val("");
-				$("span#final_price").text(final_price);
+				$("span#final_price").text(final_price.toLocaleString("'ko-KR'"));
 				return false;
 			}
 			
 			if(Number($(this).val() != null && Number($(this).val()) != 0)){
 				$("#span_point_amount").text($(this).val());
-				const final_price = (Number($("span#payment_price").text()))-(Number($("span#span_point_amount").text()));
-				// console.log("final_price"+final_price);
+				const final_price = (Number($("span#payment_price").text()))-(Number($("input#span_point_amount").text()));
+				console.log("final_price"+final_price);
 				
-				$("span#final_price").text(final_price);
+				$("span#final_price").text(final_price.toLocaleString("'ko-KR'"));
 			}
 			else{
 				$("#span_point_amount").text('-');
 				const final_price = (Number($("span#payment_price").text()));
 				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
-				$("span#final_price").text(final_price);
+				$("span#final_price").text(final_price.toLocaleString("'ko-KR'"));
 				$("input#point").val("");
 			}
 			
@@ -150,7 +150,7 @@
 				const final_price = (Number($("span#payment_price").text()));
 				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
-				$("span#final_price").text(final_price);
+				$("span#final_price").text(final_price.toLocaleString("'ko-KR'"));
 				$("input#point").val(0);
 				return false;
 			}

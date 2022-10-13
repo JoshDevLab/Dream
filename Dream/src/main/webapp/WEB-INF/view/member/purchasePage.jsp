@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
 <%@ page import="jjy.purchase.model.*" %>
 <%-- 다음 주소검색  --%>
@@ -347,7 +348,8 @@
            <ul>
               <li>
                  <span class="product_price" >상품금액</span>
-                 <span class = "payment" id="payment_price" style="font-weight: 700;">${requestScope.fullPrice}</span>
+                 <span class = "payment" id="payment_price" style="font-weight: 700;"><fmt:formatNumber value="${requestScope.fullPrice}" pattern="#,###" />원
+</span>
               </li>
               <li>
                  <span id="span_point" class="span_title">포인트</span>
@@ -385,7 +387,8 @@
               <input class = "aaaa" name="li_check" id="checkbox_3" type="checkbox" />
            </li>
            <li>
-              <span class="total_amount">총결제금액</span><span id="final_price">${requestScope.fullPrice}</span>
+              <span class="total_amount">총결제금액</span><span id="final_price"><fmt:formatNumber value="${requestScope.fullPrice}" pattern="#,###" />원
+              </span>
            </li>
            <li>
               <a id="payment">결제하기</a>
