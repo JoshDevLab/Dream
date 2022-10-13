@@ -26,7 +26,7 @@ public class CartUpdate extends AbstractController{
             request.setAttribute("loc", loc);
             
        //   super.setRedirect(false);
-            super.setViewPage("/WEB-INF/msg.jsp");
+            super.setViewPage("/WEB-INF/joshmsg.jsp");
 		}
 		
 		else if("POST".equalsIgnoreCase(method) && super.checkLogin(request)) {

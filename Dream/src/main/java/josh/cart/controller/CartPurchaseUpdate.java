@@ -51,7 +51,7 @@ public class CartPurchaseUpdate extends AbstractController {
 				// System.out.println("확인용 cart_num => " + cart_num);
 				// System.out.println("확인용 product_size => " + product_size);
 				// System.out.println("확인용 cart_cnt => " + cart_cnt);
-				System.out.println("확인용 fk_address => " + fk_address_num);
+				// System.out.println("확인용 fk_address => " + fk_address_num);
 				 
 				Map<String, String> paraMap = new HashMap<>();
 				paraMap.put("product_num", product_num);
@@ -70,8 +70,8 @@ public class CartPurchaseUpdate extends AbstractController {
 			 String plusPoint = request.getParameter("plusPoint");
 			 String minusPoint = request.getParameter("minusPoint");
 			 
-			 System.out.println("확인용 minusPoint ==> " + minusPoint);
-			 System.out.println("확인용 userid ==> " + userid);
+			 //System.out.println("확인용 minusPoint ==> " + minusPoint);
+			 //System.out.println("확인용 userid ==> " + userid);
 			 
 			 InterPointDAO pointDao = new PointDAO();
 			 
@@ -98,7 +98,7 @@ public class CartPurchaseUpdate extends AbstractController {
 			request.setAttribute("loc", loc);
 			
 			// super.setRedirect(false);
-			super.setViewPage("/WEB-INF/msg.jsp");
+			super.setViewPage("/WEB-INF/joshmsg.jsp");
 		}
 	}
 

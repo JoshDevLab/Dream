@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+  
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
   
@@ -37,25 +40,49 @@
   
   $(document).ready(function() {
 	  $('#MemberOut').click(function (){
-			const userid = '${sessionScope.userid}';
-		    //alert("바이바이");
-		    $.ajax({
-		        url : getContextPath()+"/member/memberDelete.dream",
-		        traditional: true,
-		        type: "post",
-		        data: {"userid" : userid },
-		        dataType:'json',
-		        success: function(json) {
-					if(json.n == 1) {
-						toastr["info"]("회원탈퇴 되었습니다.", "그동안 드림을 이용해주셔서 감사합니다.");
-						location.href = '<%= ctxPath %>/index.dream';
-					}
-				},
-		        error: function(request, status, error){
-		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-		        }
-		    });
-		  });
+		  	
+		  Swal.fire({
+			   title: '정말로 탈퇴 하시겠습니까?',
+			   text: '다시 되돌릴 수 없습니다. 신중하세요.',
+			   icon: 'warning',
+			   
+			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			   confirmButtonText: '탈퇴', // confirm 버튼 텍스트 지정
+			   cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+			   
+			   reverseButtons: true, // 버튼 순서 거꾸로
+			   
+			}).then(result => {
+			   // 만약 Promise리턴을 받으면,
+			   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+			   
+				   const userid = '${sessionScope.userid}';
+				   
+				    $.ajax({
+				        url : getContextPath()+"/member/memberDelete.dream",
+				        traditional: true,
+				        type: "post",
+				        data: {"userid" : userid },
+				        dataType:'json',
+				        success: function(json) {
+							if(json.n == 1) {
+								Swal.fire('회원탈퇴 되었습니다.', '그동안 드림을 이용해주셔서 감사합니다.', 'success');
+								setTimeout("location.href = '<%= ctxPath %>/index.dream'",2000);
+							}
+						},
+				        error: function(request, status, error){
+				            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				        }
+						
+				    });// end of $.ajax({}) ------------------------------------------------------------
+				   
+			   }// end of if (result.isConfirmed) {} ---------------------------------------------------
+			   
+			});// end of Swal.fire({}) ------------------------------------------------------------------	
+		    
+	  });// end of $('#MemberOut').click(function () ----------------------------------------------------
   });
 	  
 	   function myInfoEdit() {

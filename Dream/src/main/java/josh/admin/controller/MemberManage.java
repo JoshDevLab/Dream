@@ -157,7 +157,7 @@ public class MemberManage extends AbstractController{
 	            request.setAttribute("loc", loc);
 	            
 	            super.setRedirect(false);
-	            super.setViewPage("/WEB-INF/msg.jsp");
+	            super.setViewPage("/WEB-INF/joshmsg.jsp");
 			}
 			
 		}
