@@ -69,7 +69,7 @@
 						                "</div>"+
 						                "<div id='product_simple_explain' class='pl-2'>"+
 						                  <%-- 상품 카테고리 넣을 곳 --%>
-						                  "<div id='product_division' class='mt-2'>"+item.product_category+"</div>"+
+						                  "<div id='product_division' class='mt-2'>"+item.category+"</div>"+
 						                  <%-- 상품이름 넣을 곳 --%>
 						                  "<div id='product_name' class='my-2'>"+item.product_name+"</div>"+
 						                  <%-- 상품가격 넣을 곳 --%>
@@ -224,7 +224,7 @@
           <p class="category_text text-center" style="font-weight:bold;">베개</p>
         </div>
         
-        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=파자마">
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=파자마'">
           <div class="shortcut_img">
             <img src="<%= ctxPath%>/images/디테일카테고리/카테고리커플파자마.PNG" alt="">
           </div>

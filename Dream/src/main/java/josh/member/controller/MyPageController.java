@@ -16,6 +16,8 @@ public class MyPageController extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		super.goBackURL(request);
+		
 		if(super.checkLogin(request)) {
 			HttpSession session = request.getSession();
 			String userid = (String) session.getAttribute("userid");

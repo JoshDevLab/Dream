@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import josh.member.model.MemberDTO;
+import my.util.MyUtil;
 
 public abstract class AbstractController implements InterCommand {
 
@@ -67,6 +68,17 @@ public abstract class AbstractController implements InterCommand {
 		}
 	}
 	
+	// == 로그인 또는 로그아웃을 하면 시작페이지로 가는 것이 아니라 방금 보았던 그 페이지로 그대로 가기 위한 것임. == //
+	public void goBackURL(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("goBackURL");
+		session.setAttribute("goBackURL", MyUtil.getCurrentURL(request));// 현재 URL 을 얻어온다음 session에 넣어둔다.
+		
+//			System.out.println( MyUtil.getCurrentURL(request) );
+		
+	}
+
 	
 	
 }

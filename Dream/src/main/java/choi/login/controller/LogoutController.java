@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import common.controller.AbstractController;
 
 public class LogoutController extends AbstractController{
-
+    
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod(); 

@@ -97,6 +97,7 @@
     <div id="header_box">
 	</div>
 	
+	
 	<%-- scrollTop button 시작 --%>
 	<div id='scroll-to-top'>
 	    <span class='fa-stack fa-lg'>

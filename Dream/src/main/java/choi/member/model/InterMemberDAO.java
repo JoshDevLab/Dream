@@ -20,6 +20,9 @@ public interface InterMemberDAO {
 	
 	// 회원 아이피를 파라미터로 받아서, 회원테이블에서 유저이름를 검색해오는 메소드
 	String select_username(String userid) throws SQLException;
+
+	// mobile 중복검사 (tbl_member 테이블에서 mobile이 존재하면 true를 리턴해주고, mobile 가 존재하지 않으면 false를 리턴한다)
+	boolean mobileDuplicateCheck(String mobile) throws SQLException;
 	
 }
 

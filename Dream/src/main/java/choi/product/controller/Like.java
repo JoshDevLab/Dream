@@ -1,6 +1,5 @@
 package choi.product.controller;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,8 @@ public class Like extends AbstractController{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-String method = request.getMethod();
+		super.goBackURL(request);
+		String method = request.getMethod();
 		
 		if("GET".equalsIgnoreCase(method)) { //요청방식이 "GET"일 때 
 			try {

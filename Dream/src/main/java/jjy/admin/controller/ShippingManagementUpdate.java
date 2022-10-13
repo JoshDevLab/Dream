@@ -27,17 +27,17 @@ public class ShippingManagementUpdate extends AbstractController {
 				String shipping = request.getParameter("shipping");
 				String orderNum = request.getParameter("ordernum");
 				
-				System.out.println("확인용 +++ shipping" + shipping);
+//				System.out.println("확인용 +++ shipping" + shipping);
 				orderNum = orderNum.replace("]", "");
 				orderNum = orderNum.replace("[", "");
 				orderNum = orderNum.replaceAll("\"", "");
 				orderNum = orderNum.replaceAll("null", "");
 				
-				System.out.println("확인용 +++ ordernum" + orderNum);
+//				System.out.println("확인용 +++ ordernum" + orderNum);
 				
 				
 				String[] orderNumList = orderNum.split(",");
-				System.out.println(orderNumList.length);
+//				System.out.println(orderNumList.length);
 				
 				InterPurchaseListDAO pdao = new PurchaseListDAO();
 				

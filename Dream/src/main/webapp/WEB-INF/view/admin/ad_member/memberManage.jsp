@@ -10,36 +10,10 @@
     
 <jsp:include page="/WEB-INF/view/admin/ad_header.jsp" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
-
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/admin/memberManage.css" />
 
-<%-- 직접만든 javascript --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/admin/memberManage.js" ></script>
-
 <script type="text/javascript">
-
-toastr.options = {
-		  "closeButton": false,
-		  "debug": true,
-		  "newestOnTop": false,
-		  "progressBar": true,
-		  "positionClass": "toast-top-center",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "5000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut",
-		  "toastClass": 'toastr'
-		}
 
 	$(document).ready(function() {
 		
@@ -77,6 +51,11 @@ toastr.options = {
 	function goSearch() {
 		
 		const searchType = $("#searchType").val();
+		
+		if(searchType == "" && $("input#searchWord").val().length > 0) {
+			toastr["warning"]("검색어를 입력하세요");
+			return;
+		}
 		
 		if(searchType == 'joindate') {
 			if( $("#start_date").val() == '' || $("#end_date").val() == '' ) {

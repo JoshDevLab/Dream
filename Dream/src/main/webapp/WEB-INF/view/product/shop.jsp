@@ -70,7 +70,7 @@
 			
 			<%-- 검색부분 끝 --%>
 	      </c:if>
-	      <div id="btn_category">
+	      <div id="btn_category" class="mt-2">
 	        <button id="btn_fillter_all" type="button" class="btn_fillter btn rounded-pill border">전체</button>
 	        <button id="btn_fillter_bedding" type="button" class="btn_fillter btn rounded-pill border">침구류</button>
 	        <button id="btn_fillter_light" type="button" class="btn_fillter btn rounded-pill border">조명</button>
@@ -267,7 +267,7 @@
 	                  <div id="text">상품등록</div>
 				      <div class="darkness"></div>
 				      <div class="btn_plus d-flex justify-content-center align-items-center">
-				        <span draggable="false">+</span>
+				        <span draggable="false" class="mb-2">+</span>
 				      </div>
 				      
 				      
@@ -290,7 +290,7 @@
 		                </div>
 		                <div id="product_simple_explain" class="pl-2">
 		                  <%-- 상품 카테고리 넣을 곳 --%>
-		                  <div id="product_division" class="mt-2">${product.category}</div>
+		                  <div id="product_division" class="mt-2">${product.category} - ${product.detail_category}</div>
 		                  <%-- 상품이름 넣을 곳 --%>
 		                  <div id="product_name" class="my-2">${product.product_name }</div>
 		                  <%-- 상품가격 넣을 곳 --%>

@@ -446,6 +446,10 @@ input#checkbox_3{
      
 }
 
+input#checkbox_3{
+	left:3px;
+}
+
 .check_content{
 	padding-top: 16px;
 }
@@ -528,139 +532,6 @@ input#checkbox_3{
     transform: rotate(360deg);
   }
 }
-
-
-/* moon css & animation */
-.fa-moon {
-  position: absolute;
-  top: 19%;
-  left: 33%;
-  font-size: 10%;
-  color: rgba(255,255,255,0.8);
-  animation: moon-rotation 4s infinite linear;
-}
-
-.blur {
-  filter: blur(10px);
-  -webkit-filter: blur(10px);
-}
-
-@keyframes moon-rotation {
-  0%, 100% {
-    transform: rotate(0deg);
-   }
-  50% {
-    transform: rotate(-20deg);
-  }
-}
-
-
-
-/* star css & animation */
-.fa-asterisk {
-  position: absolute;
-  font-size: 13px;
-}
-
-.star1 {
-  color:#fff;
-  top: 9%;
-  left: 5%;
-  animation: star-one 1.2s infinite;
-}
-      
-.star2 {
-	color:#fff;
-  top: 5%;
-  right: 12%;
-  animation: star-two 1.7s infinite;
-}
-      
-.star3 {
-	color:#fff;
-  top: 30%;
-  left: 4%;
-  animation: star-three 1.5s infinite;
-}
-      
-.star4 {
-	color:#fff;
-  top: 20%;
-  right: 7%;
-  font-size: 5px;
-  animation: star-five 1.9s infinite;
-}
-
-.star5 {
-	color:#fff;
-  top: 32%;
-  right: 15%;
-  font-size: 0.5px;
-  animation: star-five 2s infinite;
-}
-
-
-@keyframes star-one {
-  0%, 100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-    
-@keyframes star-two {
-  0%, 100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-    
-@keyframes star-three {
-  0%, 100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-#zipcodeSearch{
-	color:#222;
-}
-    
-@keyframes star-four {
-  0%, 100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes star-five {
-  0%, 100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-
-
 
 
 

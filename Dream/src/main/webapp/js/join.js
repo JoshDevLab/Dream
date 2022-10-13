@@ -272,7 +272,7 @@ $(document).ready(function(){
 	        $("label[for='passwd']").css("color","");  //라벨 빨간색 없애기
 	        $("p#passwd_error").css("display","none");  //에러문구 없애기
 	        passwd_ok = true;
-	        agree_check();
+	        passwd_check();
 	    }
 	  }
 	  
@@ -331,18 +331,50 @@ $(document).ready(function(){
       //mobile에 숫자 11자가 채워지지 않으면 
       $("input#mobile").keyup(function(){
 		if($("input#mobile").val().length != 11){	//11자리 이하일 시
+		  $("input#mobile").css("border-bottom","solid 1px red");
+		  $("label[for='mobile']").css("color","red");
 		  $("p#mobile_ok").css("display","none");
+		  $("p#mobile_duplicate").css("display","none");
 		  $("p#mobile_error").css("display","block");
 		  $("button#btn_mobile_check").css("color","white");
 		  $("button#btn_mobile_check").css("background-color","#EBEBEB");
 		  $("button#btn_mobile_check").attr("disabled",true);
 		}
-		else{	//11자리를 다 채웠을 시
-		  $("p#mobile_error").css("display","none");
-		  $("p#mobile_ok").css("display","block");
-		  $("button#btn_mobile_check").css("background-color","");
-		  $("button#btn_mobile_check").css("color","");
-		  $("button#btn_mobile_check").attr("disabled",false);
+		else{	//11자리를 다 채웠을 시 ajax로 핸드폰번호 중복검사를 한다.
+		  const mobile = $("input#mobile").val();
+		  $.ajax({ 
+			url:getContextPath()+"/member/mobileCheck.dream", 
+			data:{"mobile": mobile},
+			type:"post",
+			dataType:"json",
+			success:function(json){
+			  if(json.isExists) { //입력한 핸드폰번호가 이미 있다면
+			    $("input#mobile").css("border-bottom","solid 1px red");
+			    $("p#mobile_error").css("display","none");
+			    $("p#mobile_ok").css("display","none");
+			    $("p#mobile_duplicate").css("display","block");  //에러문구
+	        	$("label[for='mobile']").css("color","red");  	//라벨 빨간색
+	        	$("button#btn_mobile_check").css("color","white");
+		  		$("button#btn_mobile_check").css("background-color","#EBEBEB");
+		  		$("button#btn_mobile_check").attr("disabled",true);
+			  }
+			  else{	//입력한 핸드폰번호가 사용할 수 있는 번호라면
+			    $("input#mobile").css("border-bottom","");
+			    $("label[for='mobile']").css("color","");  		//라벨 빨간색 지우기
+				$("p#mobile_error").css("display","none");
+			  	$("p#mobile_duplicate").css("display","none");
+			  	$("p#mobile_ok").css("display","block");
+			  	$("button#btn_mobile_check").css("background-color","");
+				$("button#btn_mobile_check").css("color","");
+				$("button#btn_mobile_check").attr("disabled",false);
+			  }
+			},//end of success
+			//success 대신 error가 발생하면 실행될 코드 
+			error: function(request,status,error){
+				toastr["error"]("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		  });//end of $.ajax({})---
+		  
 		}
       });
       

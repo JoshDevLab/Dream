@@ -205,4 +205,32 @@ public class MemberDAO implements InterMemberDAO{
 				
 				return username;
 			}
+			
+			// mobile 중복검사 (tbl_member 테이블에서 mobile이 존재하면 true를 리턴해주고, mobile 가 존재하지 않으면 false를 리턴한다)
+			@Override
+			public boolean mobileDuplicateCheck(String mobile) throws SQLException {
+				boolean isExists = false;
+				
+				try {
+					
+					conn = ds.getConnection();
+					
+					String sql = " select mobile "
+							   + " from tbl_member "
+							   + " where mobile = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, mobile);
+					
+					rs = pstmt.executeQuery();
+					
+					isExists = rs.next(); // 행이 있으면 (중복된 userid) true, 
+										  // 행이 없으면 (사용가능한 userid) false  
+					
+				} finally {
+					close();
+				}
+				
+				return isExists;
+			}
 }
