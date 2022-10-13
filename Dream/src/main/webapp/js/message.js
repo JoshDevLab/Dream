@@ -1,4 +1,3 @@
-
 function getContextPath(){
   let hostIndex = location.href.indexOf(location.host) + location.host.length;
   let contextPath = location.href.substring(hostIndex, location.href.indexOf('/',hostIndex+1));
@@ -25,8 +24,6 @@ $(document).ready(function () {
 	
 	}); // emd of document
 	
-
-
 
 function goRead(read_check, messageno){
 		
@@ -159,6 +156,7 @@ function callAjax() {
 				            
 			          </td>
 			       </tr>`;
+
 
 				})
 				$("tbody").append(html);

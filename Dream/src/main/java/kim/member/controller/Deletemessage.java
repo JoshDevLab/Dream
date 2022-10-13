@@ -21,8 +21,6 @@ public class Deletemessage extends AbstractController {
 		String method = request.getMethod(); // "GET" 또는 "POST"
 		HttpSession session = request.getSession();
 		String fk_sender_userid = (String) session.getAttribute("userid");
-
-
 		if("GET".equalsIgnoreCase(method)) {
 			
 	
