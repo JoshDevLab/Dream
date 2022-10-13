@@ -67,6 +67,42 @@ a.btn_find:hover{
 	cursor: pointer;
 }
 
+a#btn_find{
+    text-decoration: none;
+}
+
+/* a태그 css  */
+a.btn_find:link {
+    text-decoration: none;
+}/*방문 전 링크 상태 */
+
+a.btn_find:visited {
+    text-decoration: none;
+}/* 방문 후 링크 상태 */
+
+a.btn_find:hover {
+    text-decoration: none;
+    cursor: pointer;
+} /* 마우스 오버했을 때 링크 상태 */
+a#findPwd:hover {
+    text-decoration: none;
+    cursor: pointer;
+   	color: black;
+} /* 마우스 오버했을 때 링크 상태 */
+
+a#findPwd {
+    text-decoration: none;
+    cursor: pointer;
+   	color: black;
+} /* 마우스 오버했을 때 링크 상태 */
+
+a.btn_find:active {
+    text-decoration: none;
+} /* 클릭했을 때 링크 상태 */
+/* a태그 css  */
+
+
+
 h2#find_email_title{
    font-size: 24px;
    font-weight: 700;
