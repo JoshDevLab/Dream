@@ -14,9 +14,8 @@ $("a#delete").click( (event)=>{
 
 
 $("a#basic_delete").click( (event)=>{ 
-
-    alert("다른 카드를 기본 결제로 변경 후, 삭제할 수 있습니다.");
-		
+    
+	toastr["error"]("다른 주소를 기본 배송지로 <br>변경 후, 삭제할 수 있습니다.");	
 });
 
 });	// end of $(document).ready(function(){} -------------------------------
