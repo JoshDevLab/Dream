@@ -203,8 +203,8 @@ function viewShippingInfo(userid,order_num) {
 			
 			
 			
-		<%-- 더보기 버튼 넣기 시작  --%>
-			<button type="button" id="btnMoreHIT" value="">더보기</button>
+		<%-- 더보기 버튼 넣기 시작  
+			<button type="button" id="btnMoreHIT" value="">더보기</button>--%>
 			<span id="totalHITCount"></span>
             <span id="countHIT"></span>
 		</div>

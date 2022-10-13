@@ -79,8 +79,8 @@ $(document).ready(function() {
 	
       
       
-	//$("span#totalHITCount").hide();
-	// $("span#countHIT").hide();
+	$("span#totalHITCount").hide();
+    $("span#countHIT").hide();
 	
 	// callAjax(start); // 맨 처음 8개를 출력
 	

@@ -64,12 +64,24 @@ public class LoginController extends AbstractController {
 				jsonObj.put("isRestMember", false);       // json으로 전달할 휴면사용자 여부
 				jsonObj.put("isUserExists", isAdmin);     // 아이디 비밀번호 일치하는 경우 
 				
+				HttpSession session = request.getSession();
+				
+				String goBackURL = (String)session.getAttribute("goBackURL");
+				if(goBackURL != null) {
+				    jsonObj.put("goBackURL", goBackURL); // 아이디 비밀번호 일치하는 경우 
+				}
+				else { // 인덱스페이지 또는 home 인경우 
+					   // 시작페이지로 이동
+					goBackURL = "/index.dream"; // 시작 홈페이지로 이동
+			    	jsonObj.put("goBackURL", goBackURL); // 아이디 비밀번호 일치하는 경우 
+				}
+				
+				
 				String json = jsonObj.toString();
 				request.setAttribute("json", json);
 				logindao.updateLoginDate(userinfoMap);// 로그인 기록
 				
 				if(isAdmin) {
-					HttpSession session = request.getSession();
 					session.setAttribute("userid", "admin");
 //					System.out.println("확인용 관리자 로그인 session에 저장된 값 : "+ session.getAttribute("userid"));
 				}
