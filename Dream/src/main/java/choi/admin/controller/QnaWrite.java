@@ -29,9 +29,6 @@ public class QnaWrite extends AbstractController{
 				String faq_title = request.getParameter("faq_title");
 				String faq_subject = request.getParameter("faq_subject");
 				String faq_content = request.getParameter("faq_content");
-				System.out.println(faq_title);
-				System.out.println(faq_subject);
-				System.out.println(faq_content);
 				Map<String,String> paraMap = new HashMap<>();
 				paraMap.put("faq_title", faq_title);
 				paraMap.put("faq_subject", faq_subject);

@@ -17,7 +17,8 @@ public class ProductDTO {
 	private int real_price;			//계산된 가격
 	
 	// select용
-	private int product_like_cnt;	//로그인한 사람이 좋아요를 눌렀는지 알아내기위한 컬럼(0 아니면 1)
+	private int product_like_cnt;	//로그인한 사람이 좋아요를 눌렀는지 알아내기위한 컬럼(0 아니면 1);
+	private int like_cnt;	//로그인한 사람이 좋아요를 눌렀는지 알아내기위한 컬럼(0 아니면 1);
 	
 	//method
 	public String getRegister_date() {
@@ -95,6 +96,12 @@ public class ProductDTO {
 	}
 	public void setProduct_like_cnt(int product_like_cnt) {
 		this.product_like_cnt = product_like_cnt;
+	}
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
 	}
 	
 }

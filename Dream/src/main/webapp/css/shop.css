@@ -431,6 +431,9 @@ button.price:hover{
 #btn_like:hover{
   color:pink;
 }
+div.like_cnt{
+	color:black;
+}
 #sale_mark{
    width:20%;
    height:10%;

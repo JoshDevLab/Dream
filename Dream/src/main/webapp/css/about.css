@@ -55,7 +55,7 @@ div#develop_reason_section{
 
 /* section3 시작 */
 div#develop_reason_section2{
-	background-color:#bfbfbf;
+	background-color:#f2f2f2;
 }
 /* section3 끝 */
 
@@ -71,7 +71,7 @@ div#developer_introduce_section{
 
 /* section5 시작 */
 div#hyunwoo{
-	background-color:#ffd9b3;
+	background-color:#f2f2f2;
 }
 div.profile_image{
 	display:flex;
