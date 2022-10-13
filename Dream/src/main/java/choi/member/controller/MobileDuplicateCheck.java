@@ -13,7 +13,6 @@ public class MobileDuplicateCheck extends AbstractController{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		super.goBackURL(request);
 		String method = request.getMethod(); 
 		
 		if("post".equalsIgnoreCase(method)) { // post 방식일경우만 id 중복검사 진행 
