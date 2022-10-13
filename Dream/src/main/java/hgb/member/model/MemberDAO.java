@@ -161,8 +161,7 @@ public class MemberDAO implements InterMemberDAO{
 				pdto.setBuy_date(rs.getString(4));
 				pdto.setShipping(Integer.parseInt(rs.getString(5)));
 				cnt++;
-				System.out.println("cnt"+cnt);
-				System.out.println(Integer.parseInt(rs.getString(1)));
+				
 				plist.add(pdto);
 			}
 			

@@ -55,6 +55,9 @@ public class AddressGoBasicController extends AbstractController {
      				super.setRedirect(true);
      				super.setViewPage(request.getContextPath()+"/member/address.dream"); 
      				
+     				
+     				
+	     			
 	        	 }
 	        	 
 	         } catch(SQLException e) {

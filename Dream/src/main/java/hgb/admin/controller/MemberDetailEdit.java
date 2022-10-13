@@ -68,7 +68,9 @@ String method = request.getMethod();
 	         
 	         if(n == 1) {
 	        	 // 정보 수정 성공
-	        	
+	        	 
+	        	 
+	        	 	        	 
 	        	 
 	        	 String message = "정보가 성공적으로 수정되었습니다";
 	             String loc = "javascript:location.href = document.referrer";
@@ -84,6 +86,8 @@ String method = request.getMethod();
 	         else {
 	        	 // 정보 수정 실패
 	        	 
+	        	 
+	        	 	        	 
 	        	 
 	        	 String message = "정보가 수정에 실패하였습니다";
 	             String loc = "javascript:location.href = document.referrer";

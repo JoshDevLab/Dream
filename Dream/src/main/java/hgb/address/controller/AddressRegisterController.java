@@ -47,7 +47,11 @@ public class AddressRegisterController extends AbstractController{
 	        	 basic_address = "off";
 	         }
 	        
-	        
+	         
+	         
+	         
+
+	         
 	         
 	         HttpSession session = request.getSession();	//로그인중인 userid값 가져오기위한 session 객체생성
 			 //로그인 중인 사람의 userid 값 가져오기

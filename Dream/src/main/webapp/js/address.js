@@ -483,7 +483,14 @@ function goRegister() {
 	    $("input:text[name='mobile']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
     }
-
+    
+    const detailAddress_length = $("input:text[name='detail_address']").val().trim().length;
+	if(detailAddress_length < 1) {
+	    alert("상세주소를 입력하셔야 합니다.");
+	    $("input:text[name='detailAddress']").val("").focus();
+	    return false; // submit 을 하지 않고 종료한다.
+    }
+    
 	// "우편번호찾기" 을 클릭했는지 여부 알아오기 
     if(!b_flag_zipcodeSearch_click) { 
     	// "우편번호찾기" 을 클릭 안 했을 경우 
@@ -542,7 +549,13 @@ function goEdit() {
 	    $("input:text[name='mobile']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
     }
-	
+    
+    const detailAddress_length = $("input:text[name='detail_address']").val().trim().length;
+	if(detailAddress_length < 1) {
+	    alert("상세주소를 입력하셔야 합니다.");
+	    $("input:text[name='detailAddress']").val("").focus();
+	    return false; // submit 을 하지 않고 종료한다.
+	}
 	
     const frm = document.registerFrm;    
     
