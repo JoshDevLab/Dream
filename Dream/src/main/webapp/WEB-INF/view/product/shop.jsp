@@ -70,7 +70,7 @@
 			
 			<%-- 검색부분 끝 --%>
 	      </c:if>
-	      <div id="btn_category">
+	      <div id="btn_category" class="mt-2">
 	        <button id="btn_fillter_all" type="button" class="btn_fillter btn rounded-pill border">전체</button>
 	        <button id="btn_fillter_bedding" type="button" class="btn_fillter btn rounded-pill border">침구류</button>
 	        <button id="btn_fillter_light" type="button" class="btn_fillter btn rounded-pill border">조명</button>
