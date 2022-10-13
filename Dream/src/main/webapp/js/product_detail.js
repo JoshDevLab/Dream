@@ -412,7 +412,7 @@ function calcbutton(objNo){
 		Selected = $(`button#plus${count}`).parent().children("#optionAmount");
 		
 		SelectedAmount = parseInt(Selected.text())+1;
-		Selected.text(SelectedAmount);		
+		Selected.text(SelectedAmount.toLocaleString('ko-KR'));		
 		// 금액 변경 반영	
 		HowMuchIsit();
 	});
@@ -653,7 +653,7 @@ function goPurchasePage(){
 		let price = sum * discount_price;
 		$("input#fullPrice").val(price);
 		
-		$("em.num").text(price);
+		$("em.num").text(price.toLocaleString('ko-KR')+"원");
 		
 	};
 	

@@ -177,7 +177,7 @@ String ctxPath = request.getContextPath();
 								<span class="won">원</span>
 							</div>
 							<div class="fluctuation">
-								<p id="discount_price">${product.discountPrice}원
+								<p id="discount_price"><fmt:formatNumber value="${product.discountPrice}" pattern="#,###" />원
 									( <fmt:formatNumber type="number" maxFractionDigits="0" value="${product.discount_rate * 100}" />% )</p>
 									
 							</div>
@@ -187,7 +187,7 @@ String ctxPath = request.getContextPath();
 						<a href="javascript:void(0)" class="btn_buy"
 							onclick="goPurchasePage()"> <strong class="title">구매</strong>
 							<div class="price">
-								<span class="amount"> <em class="num">${product.discountPrice}</em>
+								<span class="amount"> <em class="num"><fmt:formatNumber value="${product.discountPrice}" pattern="#,###" />원</em>
 									<span class="won">원</span>
 								</span> <span class="desc">즉시 구매가</span>
 							</div>
@@ -346,9 +346,9 @@ String ctxPath = request.getContextPath();
 					 <span class="wish_count_num">${product.likeCnt}</span>
 				</a>
 				<div class="division_btn_box">
-					<a href="#" class="btn_buy"> <strong class="title">구매</strong>
+					<a href="#" class="btn_buy" onclick="goPurchasePage()"> <strong class="title">구매</strong>
 						<div class="price">
-							<span class="amount"> <em class="num">${product.discountPrice}</em>
+							<span class="amount"> <em class="num"><fmt:formatNumber value="${product.discountPrice}" pattern="#,###" /></em>
 								<span class="won">원</span>
 							</span> <span class="desc">즉시 구매가</span>
 						</div>
