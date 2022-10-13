@@ -33,21 +33,25 @@ public class FindPwdController extends AbstractController {
 			Random rnd = new Random();
 			char randchar = ' ';
 			
+			String tempPwd = "";
+			
 			for(int i=0; i<4; i++) {
 				randchar = (char) (rnd.nextInt('z' - 'a' + 1) + 'a');
-				smsContent += randchar;
+				tempPwd += randchar;
 			}// end of for--------------------------
 			
 			int randnum = 0;
 			for(int i=0; i<4; i++) {
 				randnum = rnd.nextInt(9 - 0 + 1) + 0;
-				smsContent += randnum;
+				tempPwd += randnum;
 			}// end of for--------------------------
 			
 			final char[] passwordTable =  { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' };
-			smsContent += passwordTable[rnd.nextInt(passwordTable.length)];
+			tempPwd += passwordTable[rnd.nextInt(passwordTable.length)];
+			smsContent += tempPwd; 
 			smsContent += " ]입니다."; 
 //			System.out.println("확인용 발급된 임시 비밀번호 => "+ smsContent);
+//			System.out.println("확인용 발급된 임시 (findPwdMap.get(\"tempPwd\") => "+ tempPwd);
 			///////////////////////////////////////////////////////////////////////////////////////////
 			
 			String userid = request.getParameter("email");
@@ -59,6 +63,7 @@ public class FindPwdController extends AbstractController {
 			HashMap<String, String> findPwdMap = new HashMap<>();
 			findPwdMap.put("mobile", mobile);
 			findPwdMap.put("userid", userid);
+			findPwdMap.put("tempPwd",tempPwd);
 			findPwdMap.put("smsContent",smsContent);
 			
 			InterLoginDAO logindao = new LoginDAO();
