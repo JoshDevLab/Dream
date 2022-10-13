@@ -242,7 +242,7 @@ input#contents {
 <%------------------------ 페이지바 시작 ------------------------%>
   <c:if test="${not empty requestScope.printmessageList}">
                
-        <nav aria-label="..." style="margin-top: 70px;">
+        <nav id="pgbar" aria-label="..." style="margin-top: 70px;">
           <ul class="my pagination pagination-md justify-content-center mt-5">
              <%-- 첫페이지로 이동버튼 --%>
              <c:if test="${requestScope.page > requestScope.display_page}">

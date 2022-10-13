@@ -123,12 +123,13 @@ function callAjax() {
    	
    			
    			let html =" ";
+   			let html2 =" ";
    			
    			// 조회결과가 있는 경우 
    			if(json.cnt > 0){
 				console.log(json.cnt);
    				$("tbody").empty();
-   				
+   				$("nav#pgbar").empty();
    			
    				$.each(json.printmessageList,function(index, item){	
 				
@@ -161,7 +162,71 @@ function callAjax() {
 
 				})
 				$("tbody").append(html);
-			}
+				}
+				if(json.printmessageList != null){
+					html2 += `<ul class="my pagination pagination-md justify-content-center mt-5">`;
+			             
+			             if (json.page > json.display_page){
+						html += `<li class="page-item">
+			               <a class="page-link" onclick = "goPage(1)">
+			                  <i class="fa-solid fa-angles-left"></i>
+			               </a>
+			             </li>
+			             
+			             
+			            
+			             <li class="page-item">
+			               <a class="page-link"  onclick = "goPage(${json.startPage-1})">
+			                  <i class="fa-solid fa-angle-left"></i>
+			               </a>
+			             </li>`;
+						}
+			             
+			             
+			             
+			             for(let i=json.startPage-1 ; i<= json.endPage-1;i++){
+							if(json.page == (json.startPage+i.count-1)){
+								html2 += `<li class="page-item active" aria-current="page">
+			                <a id = "firstPage" class="page-link" onclick = "goPage(${json.startPage+i.count-1})" >${json.startPage+i.count-1}</a>
+			             	</li>`;
+							}
+							if(json.page != (json.startPage+i.count-1)){
+								html2 += `<li class="page-item">
+			                <a class="page-link" onclick = "goPage(${json.startPage+i.count-1})">${json.startPage+i.count-1}</a>
+			            	 </li>`;
+							}
+						}
+			      
+			         
+			             if (!(json.last_display_page)){
+							html2 += ` <li class="page-item">
+			               <a class="page-link" onclick = "goPage(${json.startPage+json.display_page})"><i class="fa-solid fa-angle-right"></i></a>
+			             </li>
+			       
+			             <li class="page-item">
+			               <a class="page-link" onclick = "goPage(${json.totalPage})"><i class="fas fa-solid fa-angles-right"></i></a>
+			             </li>
+			             </ul>`;
+						}
+			            
+			          
+			           
+					
+					
+					
+					
+				$("nav#pgbar").append(html2);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+}	
    			
    		}, // end of success
    		 error: function(request, status, error){
