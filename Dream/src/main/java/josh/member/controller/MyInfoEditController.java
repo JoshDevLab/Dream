@@ -69,7 +69,13 @@ public class MyInfoEditController extends AbstractController {
 			else {
 				// GET 방식으로 접근할 경우
 			}
+		
 		}// end of if( super.checkLogin(request) )
+		
+		else {
+			super.setRedirect(true);
+			super.setViewPage(request.getContextPath()+"/login/login.dream");
+		}
 
 	}// end of public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception
 

@@ -15,9 +15,6 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/cart.css" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
 
 <%-- 직접만든 javascript --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/cart.js" ></script>
@@ -25,24 +22,6 @@
 
 
 <script type="text/javascript">
-	toastr.options = {
-			  "closeButton": false,
-			  "debug": true,
-			  "newestOnTop": false,
-			  "progressBar": true,
-			  "positionClass": "toast-top-center",
-			  "preventDuplicates": false,
-			  "onclick": null,
-			  "showDuration": "300",
-			  "hideDuration": "1000",
-			  "timeOut": "5000",
-			  "extendedTimeOut": "1000",
-			  "showEasing": "swing",
-			  "hideEasing": "linear",
-			  "showMethod": "fadeIn",
-			  "hideMethod": "fadeOut",
-			  "toastClass": 'toastr'
-			}
 
 	const membership = "${user.membership}";
 	let fk_address_num = "";
@@ -298,19 +277,22 @@ function goCoinPurchaseEnd() {
 		        		//console.log("확인용 count_n =>" + count_n);
 		            	
 		        		if(n == count_n) {
+		        			
 		        			toastr["success"]("구매가 완료되었습니다.");
+		        			
 		        			$.ajax({
 		        		        url:getContextPath()+"/cart/purchaseSms.dream",
 		        		        data:{"mobile":'${user.mobile}'},
-		        		        type:"get",
+		        		        type:"POST",
 		        		        dataType:"json",
 		        		        async:true,   
 		        		        success:function(json){ 
-		        		        	
+		        		        		
 		        		        }
 		        		        
 		        			});
-		        			location.reload();
+		        			
+		        			setTimeout('window.location.reload(true)',2000)
 		        		}
 		        		else {
 		        			alert('백엔드 에러 잡아라');
@@ -326,6 +308,7 @@ function goCoinPurchaseEnd() {
        } else {
            location.href="<%= request.getContextPath()%>/index.dream";
            toastr["error"]("결제가 실패하였습니다.");
+           return;
       }
 
   }); // end of IMP.request_pay()----------------------------
@@ -337,7 +320,7 @@ function goCoinPurchaseEnd() {
 	
 	<jsp:include page="../sidebar.jsp"/>
         
-        <div id="right-content" style="width: 100%;" class="mt-4">
+        <div id="right-content" style="width: 90%;" class="mt-4">
             <div id="content_title border">
                 <h4 class="mb-4 pb-3" style="font-weight:bold; border-bottom: solid 3px black;">장바구니</h4>
             </div>
@@ -347,7 +330,7 @@ function goCoinPurchaseEnd() {
                     <thead>
                         <tr>
                             <th scope="col">전체<span class="total_cnt"></span>개</th> <%-- span 태그안에 전체갯수 넣기 --%>
-                            <th scope="col" style="cursor:pointer">
+                            <th scope="col" style="cursor:pointer" class="text-center">
                                 <input type="checkbox" id="chk_all" name="chk_all" class="chk_all" title="전체 상품 선택"> 
                             </th>
                             <th scope="col" style="width:35%; text-align: center;">상품명(옵션)</th>
@@ -416,10 +399,10 @@ function goCoinPurchaseEnd() {
 				                         <span class="discount_price" style="display: none">${cartList.price - cartList.discount_price}</span>
 	                                	</td>
 	                                <td style ='vertical-align : middle; text-align: center;'>
-	                                    <div class="prd_count" style="display: flex; text-align: center">
+	                                    <div class="prd_count" style="display: flex; padding-left: 30px">
 	                                    <c:if test="${cartList.size_cnt > 0}">
 	                                        <button class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')" id="minus${status.index}">-</button> <%-- 클래스뒤에 index --%>
-	                                        <input name="cart_qty" class="text cart_qty" size="1" value="${cartList.cart_cnt}" readonly/> <%-- value 로 DB에 있는 수량들어가기 --%> 
+	                                        <input name="cart_qty" class="text cart_qty text-center" size="1" value="${cartList.cart_cnt}" readonly/> <%-- value 로 DB에 있는 수량들어가기 --%> 
 	                                        <button class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')" id="plus${status.index}">+</button> <%-- 클래스뒤에 index --%>
 	                                    </c:if>
 	                                    <c:if test="${cartList.size_cnt <= 0}">
@@ -486,12 +469,12 @@ function goCoinPurchaseEnd() {
 	                            <c:choose>
 		                            <c:when test="${cartList.cart_cnt>cartList.size_cnt}">
 		                                <button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
-		                                	<input type="text" size="1" value="${cartList.size_cnt}" class="cart_qty" readonly/> 
+		                                	<input type="text" size="1" value="${cartList.size_cnt}" class="cart_qty text-center" readonly/> 
 		                                <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
 		                            </c:when>
 		                            <c:otherwise>
 		                            		<button type="button" class="btn btn-outline-secondary btn-sm minus${status.index}" onclick="minus('minus${status.index}')">-</button>
-		                                	<input type="text" size="1" value="${cartList.cart_cnt}" class="cart_qty" readonly/> 
+		                                	<input type="text" size="1" value="${cartList.cart_cnt}" class="cart_qty text-center" readonly/> 
 		                                 <button type ="button" class="btn btn-outline-secondary btn-sm plus${status.index}" onclick="plus('plus${status.index}')">+</button>
 		                            </c:otherwise>
 	                            </c:choose>

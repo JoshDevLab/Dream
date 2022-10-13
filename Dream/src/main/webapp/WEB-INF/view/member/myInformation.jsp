@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+  
   <%-- 직접만든 javascript --%>
   <script type="text/javascript" src="<%= ctxPath%>/js/myInformation.js" ></script>
   
@@ -37,25 +40,49 @@
   
   $(document).ready(function() {
 	  $('#MemberOut').click(function (){
-			const userid = '${sessionScope.userid}';
-		    //alert("바이바이");
-		    $.ajax({
-		        url : getContextPath()+"/member/memberDelete.dream",
-		        traditional: true,
-		        type: "post",
-		        data: {"userid" : userid },
-		        dataType:'json',
-		        success: function(json) {
-					if(json.n == 1) {
-						toastr["info"]("회원탈퇴 되었습니다.", "그동안 드림을 이용해주셔서 감사합니다.");
-						location.href = '<%= ctxPath %>/index.dream';
-					}
-				},
-		        error: function(request, status, error){
-		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-		        }
-		    });
-		  });
+		  	
+		  Swal.fire({
+			   title: '정말로 탈퇴 하시겠습니까?',
+			   text: '다시 되돌릴 수 없습니다. 신중하세요.',
+			   icon: 'warning',
+			   
+			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			   confirmButtonText: '탈퇴', // confirm 버튼 텍스트 지정
+			   cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+			   
+			   reverseButtons: true, // 버튼 순서 거꾸로
+			   
+			}).then(result => {
+			   // 만약 Promise리턴을 받으면,
+			   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+			   
+				   const userid = '${sessionScope.userid}';
+				   
+				    $.ajax({
+				        url : getContextPath()+"/member/memberDelete.dream",
+				        traditional: true,
+				        type: "post",
+				        data: {"userid" : userid },
+				        dataType:'json',
+				        success: function(json) {
+							if(json.n == 1) {
+								Swal.fire('회원탈퇴 되었습니다.', '그동안 드림을 이용해주셔서 감사합니다.', 'success');
+								setTimeout("location.href = '<%= ctxPath %>/index.dream'",2000);
+							}
+						},
+				        error: function(request, status, error){
+				            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				        }
+						
+				    });// end of $.ajax({}) ------------------------------------------------------------
+				   
+			   }// end of if (result.isConfirmed) {} ---------------------------------------------------
+			   
+			});// end of Swal.fire({}) ------------------------------------------------------------------	
+		    
+	  });// end of $('#MemberOut').click(function () ----------------------------------------------------
   });
 	  
 	   function myInfoEdit() {
@@ -198,7 +225,7 @@
         
         
         
-        <div style="width: 100%">
+        <div style="width: 80%">
         <form id="right-content" class="mt-4" name="myEdit">
             <div id="content_title border">
                 <h4 class="mb-4 pb-3" style="font-weight:bold; border-bottom: solid 3px black;">프로필 정보</h4>
@@ -248,14 +275,14 @@
                     </div>
                     <div id="login_information_pwd" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
-                            <p style="color: gray; font-size: small; width: 60px;" class="mb-1">비밀번호</p>
+                            <p style="color: gray; font-size: small; width: 60px;" class="my-2">비밀번호</p>
                             <div id="user_passwd" style="color: gray;">숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내로 작성하세요</div>
                             <input type="hidden" value="${requestScope.mdto.passwd}" name="passwd"/>
                             <input type="hidden" value="" name="passwd_store_cnt"/>
                         </div>
                         <div class="mt-4" id="div_modifyPasswd" style="position: relative; left: -60px;">
-                            <p style="color: black; font-size: small;" class="mb-1" id="new_passwd">새로운 비밀번호</p>
-                            <input type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="width: 100%; border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
+                            <p style="color: black; font-size: small;" class="my-2" id="new_passwd">새로운 비밀번호</p>
+                            <input class="my-2" type="password" id="modify_passwd" placeholder="숫자/문자/특수문자 포함 형태의 8 ~ 15자리 이내" style="width: 100%; border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_passwd_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">숫자/문자/특수문자 포함형태의 8 ~ 15자리 이내로 작성하세요</span>
                             <br><br>
                             <button type="button" id="passwd_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
@@ -268,13 +295,13 @@
                     <h5 class="category-title font-weight-bold">개인정보</h5>
                     <div id="login_information_name" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
-                            <p style="color: gray; font-size: small; width: 26px;" class="mb-1">이름</p>
+                            <p style="color: gray; font-size: small; width: 26px;" class="my-2">이름</p>
                             <div id="user_name" style="color: gray;"><span id="name">${requestScope.mdto.username}</span></div>
                             <input type="hidden" value="${requestScope.mdto.username}" name="username" />
                         </div>
                         <div class="mt-4" id="div_modifyName" style="position: relative; left: -27px;">
-                            <p style="color: black; font-size: small;" class="mb-1" id="new_name">새로운 이름</p>
-                            <input type="text" id="modify_name" placeholder="고객님의 이름" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
+                            <p style="color: black; font-size: small;" class="my-2" id="new_name">새로운 이름</p>
+                            <input class="my-2" type="text" id="modify_name" placeholder="고객님의 이름" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
                             <span id="input_name_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 이름을 입력해주세요. (2-50자)</span>
                             <br><br>
                             <button type="button" id="name_cancle" class="btn btn-light outline-secondary mr-3" style="font-size: 10pt;">취소</button>
@@ -284,17 +311,17 @@
                     </div>
                     <div id="login_information_phone" class="mt-4 border-bottom pb-4" style="display: flex;">
                         <div>
-                            <p style="color: gray; font-size: small; width: 96.74px;" class="mb-1">휴대폰 번호</p>
-                            <div id="user_mobile" style="color: gray;"><span id="mobile">${requestScope.mdto.mobile}</span></div>
+                            <p style="color: gray; font-size: small; width: 96.74px;" class="my-2">휴대폰 번호</p>
+                            <div id="user_mobile" class="my-2" style="color: gray;"><span id="mobile">${requestScope.mdto.mobile}</span></div>
                             <input type="hidden" value="${requestScope.mdto.mobile}" name="mobile" />
                             <input type="hidden" value="" name="mobile_store_cnt"/>
                         </div>
                         <div class="mt-4" id="div_modifyMobile" style="position: relative; left:-96.74px;">
-                            <p id="new_mobile" style="color: black; font-size: small;" class="mb-1">새로운 전화번호</p>
-                            <input type="text" id="modify_mobile" placeholder="고객님의 전화번호" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50 /><br>
+                            <p id="new_mobile" style="color: black; font-size: small;" class="my-2">새로운 전화번호</p>
+                            <input type="text" id="modify_mobile" placeholder="고객님의 전화번호" style="border:0 solid black; outline: none; " autocomplete="off" size=50 maxlength=50  class="my-2" /><br>
                             <span id="input_mobile_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 전화번호 양식으로 입력하세요</span>
                             <div id="mobile_certification" style="display: flex;">
-                              <input class="mt-2" type="text" name="certification_mobile" id="certification_mobile"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 />
+                              <input class="mt-2" type="text" name="certification_mobile" id="certification_mobile"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 style="outline: none;" />
                               <button type="button" id="certification_mobile_btn" class="can_modify btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
                               <div id="div_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;"></div>
                             </div>

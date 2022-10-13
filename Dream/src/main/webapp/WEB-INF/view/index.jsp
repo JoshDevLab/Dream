@@ -271,7 +271,7 @@
       </div>
       <%-- productList 끝 --%>
       <%-- 더보기버튼 시작 --%>
-      <div id="more_btn">
+      <div id="more_btn" class="mt-4">
         <button id="more_btn" type="button" class="border rounded" value="">더보기</button>
         <input type="hidden" id="totalDiscount" value="${requestScope.totalDiscount}" />
         <input type="hidden" id="countDiscount" value="" />

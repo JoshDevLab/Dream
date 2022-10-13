@@ -99,7 +99,7 @@ $(document).ready(function(){
         $("button#emailConfirmComplete").css("color","");
         
 		if($("button#btn_send_email").text() == '재전송'){
-			alert("이메일 인증코드를 재전송하였습니다.");
+			toastr["info"]("이메일 인증코드를 재전송하였습니다.");
 			clearInterval(email_setTimer);
 			email_time = 180;
 		}
@@ -126,7 +126,7 @@ $(document).ready(function(){
 			
 			//success 대신 error가 발생하면 실행될 코드 
 			error: function(request,status,error){
-				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				toastr["error"]("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
 		  });//end of $.ajax({})---
 	  });
@@ -144,7 +144,7 @@ $(document).ready(function(){
 		  frm.submit();
 		}
 		else{
-			alert("이메일인증코드가 다릅니다!!!!!!");	
+			toastr["error"]("이메일인증코드가 다릅니다!");	
 		}
 	  });
 	  
@@ -166,7 +166,7 @@ $(document).ready(function(){
       const timer = function timer(){
 		if(time<0){ // 타임이 0보다 작게된다면
           clearInterval(setTimer);
-          alert("입력시간이 초과하였습니다. 핸드폰인증을 다시 진행해주세요");
+          toastr["error"]("입력시간이 초과하였습니다. 핸드폰인증을 다시 진행해주세요");
           $("button#btn_mobile_check_complete").attr("disabled",true);
           $("button#btn_mobile_check_complete").css("background-color","#EBEBEB");
           $("button#btn_mobile_check_complete").css("color","white");
@@ -189,7 +189,7 @@ $(document).ready(function(){
       const email_timer = function timer(){
 		if(email_time<0){ // 타임이 0보다 작게된다면
           clearInterval(email_setTimer);
-          alert("입력시간이 초과하였습니다. 이메일인증을 다시 진행해주세요");
+          toastr["error"]("입력시간이 초과하였습니다. 이메일인증을 다시 진행해주세요");
           $("button#emailConfirmComplete").attr("disabled",true);
           $("button#emailConfirmComplete").css("background-color","#EBEBEB");
           $("button#emailConfirmComplete").css("color","white");
@@ -250,7 +250,7 @@ $(document).ready(function(){
 			
 			//success 대신 error가 발생하면 실행될 코드 
 			error: function(request,status,error){
-				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				toastr["error"]("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
 		  });//end of $.ajax({})---
 		}//end of else--
@@ -303,8 +303,8 @@ $(document).ready(function(){
 	  //체크박스 체크했는지 알아내기
 	  function agree_check(){
 	  	if(id_ok  && passwd_ok && passwd_check_ok && mobile_ok){	//회원가입 입력 조건이 갖춰지면
-		  const chkbox_agree_age = $("input:checkbox[name='agree_age']:checked").length
-		  	if(chkbox_agree_age == 0){	//이용약관 여부를 검사하고.
+		  const chkbox_agree_age = $("input:checkbox[class='agree_required']:checked").length
+		  	if(chkbox_agree_age != 2){	//이용약관 여부를 검사하기
 				$("button#join").attr("disabled",true);
       			$("button#btn_join").css("background","#EBEBEB");
 				return;
@@ -366,7 +366,7 @@ $(document).ready(function(){
 			success:function(json){
 			  if(json.success_count == 1) { // 문자 전송에 성공하였다면
 			    const input_mobile = $("input#mobile").val();
-			    alert("입력하신번호 "+input_mobile+"번호로 인증번호를 전송하였습니다. 인증번호를 입력해주세요");
+			    toastr["info"]("입력하신번호 "+input_mobile+" 로<br>인증번호를 전송하였습니다. <br>인증번호를 입력해주세요");
 			    $("button#btn_mobile_check_complete").attr("disabled",false);
           		$("button#btn_mobile_check_complete").css("background-color","");
           		$("button#btn_mobile_check_complete").css("color","");
@@ -375,13 +375,13 @@ $(document).ready(function(){
 			    mobile_ok = false;
 			  }
 			  else{	//문자 전송에 실패했다면
-				alert("문자전송에 실패했습니다. 입력하신 전화번호를 확인해주세요");
+				toastr["error"]("문자전송에 실패했습니다. 입력하신 전화번호를 확인해주세요");
 				mobile_ok = false;
 			  }
 			},//end of success
 			//success 대신 error가 발생하면 실행될 코드 
 			error: function(request,status,error){
-				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				toastr["error"]("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
 		  });//end of $.ajax({})---	
 		  cnt_mobile_check++;
@@ -394,13 +394,13 @@ $(document).ready(function(){
 	  $("button#btn_mobile_check_complete").click(function(){
 		const input_mobileConfirmCode = $("input#mobileConfirm").val();
 		if(mobileConfirmCode!=input_mobileConfirmCode){	//사용자가 입력한 값과 인증번호가 다르다면
-			alert("인증실패! 인증번호를 다시 확인해주세요");
+			toastr["error"]("인증실패! 인증번호를 다시 확인해주세요");
 			mobile_ok = false;
 			agree_check();
 		}
 		else{	//핸드폰인증번호를 같게 입력하였다면
 			clearInterval(setTimer);
-			alert("인증성공");
+			toastr["success"]("인증성공");
 			mobile_ok = true;
 			agree_check();
 		}

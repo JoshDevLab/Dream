@@ -35,7 +35,9 @@ public class QnaController extends AbstractController{
 			int display_page = 5;					                  //한번에 보여줄 페이지번호의 갯수 int형
 			float display_pagef = 5f;								  //한번에 보여줄 페이지번호의 갯수 float형
 			int totalPage = (int)Math.ceil(total_cnt/ display_cntf); //총 게시물수 / 한페이지당 보여줄 게시물 수 를 올림
-			
+			if(totalPage == 0) {	//총페이지가 0이라면
+				totalPage = 1;
+			}
 			if(page<=1) {	//페이지가 1보다 작다면
 		    	page = 1;
 		    }

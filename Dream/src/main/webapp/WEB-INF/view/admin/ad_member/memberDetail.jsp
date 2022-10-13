@@ -101,7 +101,16 @@
           <td class="text-center">${pdto.product_num}</td>
           <td class="text-center">${pdto.buy_cnt}</td>
           <td class="text-center">${pdto.buy_date}</td>
-          <td class="text-center">${pdto.shipping}</td>
+          
+          <c:if test="${pdto.shipping==0}">
+        	 <td class="text-center">배송준비중</td>
+         </c:if>
+         <c:if test="${pdto.shipping==1}">
+        	 <td class="text-center">배송중</td>
+         </c:if>
+         <c:if test="${pdto.shipping==2}">
+        	 <td class="text-center">배송완료</td>
+         </c:if>
        </tr>
        <%-- 반복문 부분 --%>
        

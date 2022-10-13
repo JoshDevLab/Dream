@@ -65,6 +65,21 @@
   
   <%-- 추천검색어 끝 --%>
   
+  <c:if test="${not empty sessionScope.userid}">
+  <br>
+  <br>
+  <p class="title">${requestScope.username}님 맞춤검색어</p>
+  <%-- 맞춤검색어 시작 --%>
+  <div id="personalized" class="d-flex align-items-center">
+    <c:forEach var="personalizedKeyword" items="${requestScope.personalizedList}" varStatus="status">
+    <div class="personalized_keyword mx-2 px-2 border rounded">
+      <span class="personalized_keyword">${personalizedKeyword}</span>
+    </div>
+    </c:forEach>
+  </div>
+  </c:if>
+  <%-- 맞춤검색어 끝 --%>
+  
   <br>
   <br>
   

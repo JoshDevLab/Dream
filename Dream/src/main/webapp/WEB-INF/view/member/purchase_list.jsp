@@ -163,7 +163,7 @@ String ctxPath = request.getContextPath();
 	<div id="purchase" style="display: flex;">
 
 		<div style="width: 100%;">
-			<form name="purchaseFrm">
+			<form id="purchaseFrm" name="purchaseFrm">
 				<div id="content_title">
 					<strong style="font-size: 24px;">구매 내역</strong>
 				</div>
@@ -281,3 +281,8 @@ String ctxPath = request.getContextPath();
 
 <%--footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+
+
+<%-- My Info footer 호출 --%>
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
+

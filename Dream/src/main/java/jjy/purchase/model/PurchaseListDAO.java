@@ -364,7 +364,7 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 				purchaseListDTO.setShipping(rs.getInt("shipping"));    // 배송진행 상황
 				purchaseListDTO.setBuy_date(rs.getString("buy_date")); // 거래일시 
 				
-				System.out.println("확인용 buy_cnt"+purchaseListDTO.getBuy_cnt());
+				// System.out.println("확인용 buy_cnt"+purchaseListDTO.getBuy_cnt());
 				
 				ProductDTO prodDTO = new ProductDTO();
 				prodDTO.setProduct_num(rs.getInt("product_num"));  // 제품번호

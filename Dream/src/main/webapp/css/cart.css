@@ -1,3 +1,10 @@
+select {width: 200px; padding: .8em .5em; border: 1px solid #999;font-family: inherit;  background: url('arrow.jpg') no-repeat 95% 50%; border-radius: 0px; -webkit-appearance: none; -moz-appearance: none;appearance: none;}
+select::-ms-expand {display: none;}
+
+:checked {
+    accent-color: black;
+}
+
 .image_box {
     width:62px;
     height:75px;

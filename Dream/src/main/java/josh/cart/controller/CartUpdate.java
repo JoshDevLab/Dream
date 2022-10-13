@@ -20,7 +20,7 @@ public class CartUpdate extends AbstractController{
 		if(!"POST".equalsIgnoreCase(method)) {
 			// GET 방식이라면
 			String message = "비정상적인 경로로 들어왔습니다.";
-            String loc = "javascript:history.back()";
+            String loc = request.getContextPath()+"/index.dream";
             
             request.setAttribute("message", message);
             request.setAttribute("loc", loc);

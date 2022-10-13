@@ -11,6 +11,10 @@ h1 { /* html 파일의 h1을 꾸며준다.*/
 }
 
 
+
+
+
+
 /* ---------------------------------------------------------- */
 
 
@@ -508,6 +512,17 @@ span#pay_mark {
 /* 태블릿화면 이상으로 커지면 p.notice 를 감춰준다  */
 @media screen and (min-width: 769px) {
 	p.notice {
+		display: none;
+	}
+	#myPageFooter{
+		display: none;
+	}
+	
+}
+
+
+@media screen and (max-width: 768px) {
+	#footer{
 		display: none;
 	}
 }

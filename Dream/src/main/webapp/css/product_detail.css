@@ -985,3 +985,27 @@ div#footer {
 	  bottom:0;
 	}
   }
+  
+  
+  
+  
+  
+  @media (max-width: 768px) {
+	.sidebar {
+		display: none;
+	}
+	form#right-content {
+		width: 100%;
+	}
+	#footer {
+   	  display: none;
+   }
+}
+
+
+@media (min-width: 768px) {
+   #myPageFooter {
+      display: none;
+   } 
+  
+}

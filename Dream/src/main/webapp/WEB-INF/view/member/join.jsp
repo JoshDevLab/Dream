@@ -66,10 +66,18 @@
               <div class="login_agreement d-flex flex-column mt-5">
                 <div class="login_checkbox d-flex justify-content-between">
                   <div>
-                    <input type="checkbox" id="agree_age" name="agree_age"/></input>
+                    <input type="checkbox" id="agree_age" name="agree_age" class="agree_required"/></input>
                     <label for="agree_age">[필수] 만 14세 이상이며 모두 동의합니다.</label>
                   </div>
-                  <a type="button" onclick="">자세히</a>
+                  <a type="button" data-toggle="modal" data-target="#agree_age_modal" data-dismiss="modal">자세히</a>
+                </div>
+                
+                <div class="login_checkbox d-flex justify-content-between">
+                  <div>
+                    <input type="checkbox" id="agree_info" name="agree_info" class="agree_required"/></input>
+                    <label for="agree_info">[필수] 개인정보 수집 및 이용 동의</label>
+                  </div>
+                  <a type="button" data-toggle="modal" data-target="#agree_info_modal" data-dismiss="modal">자세히</a>
                 </div>
 
                 <div class="login_checkbox d-flex justify-content-between">
@@ -77,7 +85,6 @@
                     <input type="checkbox" id="agree_message" name="agree_message"/>
                     <label for="agree_message">[선택] 광고성 정보 수신에 모두 동의합니다.</label>
                   </div>
-                  <a type="button" onclick="">자세히</a>
                 </div>
               </div>
             </fieldset>
@@ -91,6 +98,61 @@
     
 <%--footer 호출 --%>
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+
+
+
+<%-- [필수]이용약관 agree_age modal --%>
+<div class="modal fade" id="agree_age_modal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+     
+       <!-- Modal header -->
+       <div class="modal-header">
+         <h4 class="modal-title" style="font-weight:bold">이용약관</h4>
+         <button type="button" class="close agree_age" data-dismiss="modal">&times;</button>
+       </div>
+       
+       <!-- Modal body -->
+       <div class="modal-body px-5">
+     		<span id="agree_age_content">
+     		  <%-- 이용약관 호출 --%>
+     		  <jsp:include page="/WEB-INF/view/member/agree_age.jsp" />
+     		</span>
+       </div>
+     </div>
+   </div>
+ </div>
+ <%-- [필수]이용약관 modal 끝--%>
+ 
+ 
+ 
+ 
+ <%-- [필수]이용약관 agree_info_modal --%>
+<div class="modal fade" id="agree_info_modal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+     
+       <!-- Modal header -->
+       <div class="modal-header">
+         <h4 class="modal-title" style="font-weight:bold">개인정보 수집 및 이용 동의</h4>
+         <button type="button" class="close agree_info" data-dismiss="modal">&times;</button>
+       </div>
+       
+       <!-- Modal body -->
+       <div class="modal-body">
+       		<span id="agree_info_content">
+       		  <%-- 이용약관 호출 --%>
+       		  <jsp:include page="/WEB-INF/view/member/agree_info.jsp" />
+       		</span>
+       </div>
+     </div>
+   </div>
+ </div>
+ <%-- [필수]이용약관 agree_info_modal--%>
+ 
+ 
+ 
+
 
 
 

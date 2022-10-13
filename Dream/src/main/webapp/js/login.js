@@ -168,7 +168,6 @@ function goLogin() {
 //	console.log(input_userid);
 //	console.log(input_passwd);
 	
-	
 	// ajax 시작 
 	
 	$.ajax({
@@ -176,7 +175,7 @@ function goLogin() {
 			 data:{"userid":input_userid,
 			 	   "passwd":input_passwd }, 
 			 type:"POST",    
-			 dataType:"json",
+			 dataType:"JSON",
 		//	 async:true,      // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
 			                  // async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.  
 			 success:function(json){ 
@@ -199,7 +198,7 @@ function goLogin() {
 				 
 				 if(!json.isUserExists) {
 					alert("아이디 또는 비밀번호가 틀립니다.");
-					
+					// toastr["warning"]("아이디 또는 비밀번호가 틀립니다.");
 					
 					$("span#email_warning").css("display","none");   //에러문구
 					$("div#div_userid>label").css("color", "");      //이메일주소 문구 빨간색
@@ -208,8 +207,6 @@ function goLogin() {
 					$("input#input_userid").css({ "border": "", "border-bottom": "" });
 					$("span#pwd_warning").css("display","none"); 
 					$("div#div_passwd>label").css("color", "");  
-					
-					
 					
 					// $("input#input_userid").val("");
 					// $("input#input_userid").focus();
@@ -220,36 +217,46 @@ function goLogin() {
 				 }
 				 
 				 if(json.isSecession) {
-					alert("탈퇴한 회원입니다.");
+					// alert("탈퇴한 회원입니다.");
+					toastr["error"]("탈퇴한 회원입니다.");
+					return false;
 					// => login 화면 또는 index 로 이동 
-					// location.href=getContextPath()+"/login/login.dream";
 				 }
 				 
 				 if(json.isRestMember) {
-					alert("휴면처리된 회원입니다.");
-					// => login 화면 또는 index 로 이동 
+					// alert("휴면처리된 회원입니다.");
+					toastr["error"]("휴면처리된 회원입니다.");
 					// location.href=getContextPath()+"/login/login.dream";
+					return false;
+					// => login 화면 또는 index 로 이동 
 				 }
 				 
 				 if(json.isRequirePwdChange){
+					// toastr["warning"]("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
 					alert("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
 				 	// location.href=getContextPath()+"/index.dream";
 				 }
 				 
 				 if(json.isMembershipGap){
 					alert("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
+					// toastr["warning"]("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
 				}
 				 
 				 if(json.isUserExists){
 					if(json.userid =="admin"){
 						alert("관리자로 로그인되었습니다");
+						// toastr["info"]("관리자로 로그인되었습니다");
 					}
 					if(!json.isFirstLogin && json.userid != "admin") {
 						alert("신규회원 전용 포인트 2000P가 지급되었습니다!");
+						// toastr["info"]("신규회원 전용 포인트 2000P가 지급되었습니다!");
 				 	}
 					
+					// location.href=getContextPath()+"/login/login.dream";
 					location.href=getContextPath()+"/index.dream";
+					return;
 				}
+					location.href=getContextPath()+"/login/login.dream";
 				 
 			 },
 			 
