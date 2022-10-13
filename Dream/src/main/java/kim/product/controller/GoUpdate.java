@@ -67,9 +67,12 @@ public class GoUpdate extends AbstractController {
 				
 				paraMap.put("event_type",event_type);
 				
+				System.out.println(sizeArr);
+				System.out.println(cntArr);
+				
 				InterProductDAO pdao = new ProductDAO();
 				int n = pdao.nocartPurchaseUpdate(paraMap);
-				
+				System.out.println(n);
 				if(n ==1 ) {// 안전하게 결제 다 끝나고 업데이트도 다 된 상태
 					String message = "구매가 성공적으로 완료되었습니다!!";
 					String loc = "javascript:history.back()";

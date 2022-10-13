@@ -154,7 +154,8 @@ $(document).ready(function() {
 				
 				if(item == ProductOption){
 				// 
-					alert("이미 선택한 옵션입니다. 고르신 옵션의 수량을 1 추가하였습니다.");
+					toastr["success"]("이미 선택한 옵션입니다. 고르신 옵션의 수량을 1 추가하였습니다.");
+			
 					Selected = $(`div#optionSelected`).children().eq(index);
 					
 					SelectedAmount = parseInt(Selected.find("span#optionAmount").text())+1;
@@ -262,7 +263,8 @@ $(document).ready(function() {
 			
 		}
 		else{// 갯수가 1개 이하
-			alert("최소 1개의 이미지는 가지고 있어야 합니다.")
+			
+			toastr["success"]("최소 1개의 이미지는 가지고 있어야 합니다.");
 			
 		}
 
@@ -419,7 +421,8 @@ function calcbutton(objNo){
 		
 		SelectedAmount = parseInt(Selected.text())-1;
 		if(SelectedAmount <= 0){
-			alert("0개 이하로 줄일 수 없습니다.")
+			toastr["success"]("0개 이하로 줄일 수 없습니다.");
+			
 		}	
 		else{
 			Selected.text(SelectedAmount);	
@@ -453,7 +456,7 @@ function likeCheck() {
 	
 	const userid = $("input#userid").val();
 	if(userid == ""){
-		alert("로그인을 해주세요!!");
+		location.href =getContextPath() +"/login/login.dream";
 		return false;
 	}
 	
@@ -471,11 +474,12 @@ function likeCheck() {
         	
         	if(json.resultSuccess=="true") {
         		if(json.resultType == "add"){
-					alert("관심상품으로 등록되었습니다!");
+					toastr["success"]("상품 좋아요 성공하였습니다.", "좋아요 성공");
 					$("span.wish_count_num").text(json.count);
 					$("i#likeicon").addClass('pink');
 				}else{
-					alert("관심상품 등록이 해제되었습니다!");
+					toastr["success"]("상품 좋아요 해제하였습니다.", "좋아요 해제");
+					
 					$("span.wish_count_num").text(json.count);
 					$("i#likeicon").removeClass('pink');
 				}
@@ -503,7 +507,8 @@ function goPurchasePage(){
 		let length = $("div#added_option").length;
 		
 		if(length == 0){
-			alert("옵션을 선택해주세요!");
+			toastr["success"]("옵션을 선택해주세요!");
+		
 			return false;
 		}
 		let added_optionName = document.getElementsByName("optionName");
@@ -554,9 +559,10 @@ function goPurchasePage(){
 							count++;
 							// console.log(option_size+"의 재고는"+json.cnt[n]+"개 입니다.")
 							if(option_cnt > Number(json.cnt[n])){
-								alert(option_size + "의 주문수량은"+option_cnt);
+								
 								isitOkay = false;
-								alert(option_size+"의 재고는"+json.cnt[n]+"개 입니다. 그 이하로 주문해주세요.")
+								toastr["success"](option_size+"의 재고는"+json.cnt[n]+"개 입니다. 그 이하로 주문해주세요.");
+								
 									
 								break outer; 
 							}
@@ -570,7 +576,8 @@ function goPurchasePage(){
 					// 옵션의 갯수만큼 체크하지 않았다면 확인
 					// console.log("!!!");
 					isitOkay = false;
-					alert("데이터를 확인하는 중 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
+					toastr["success"]("데이터를 확인하는 중 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
+					
 				}
 				
 				if(isitOkay){
@@ -614,7 +621,7 @@ function goPurchasePage(){
 
 	}
 	else{
-		alert("로그인을 해주세요!");
+		location.href =getContextPath() +"/login/login.dream";
 	}
 
 	
@@ -656,12 +663,12 @@ function goPurchasePage(){
 	const userid = $("input#userid").val();
 
 	if(userid!= ""){
-
+		
 		let length = $("div#added_option").length;
 		
 
 		if(length == 0){
-			alert("옵션을 선택해주세요!");
+			toastr["success"]("옵션을 선택해주세요!");
 			return false;
 		}
 		let added_optionName = document.getElementsByName("optionName");
@@ -712,11 +719,10 @@ function goPurchasePage(){
 	        success:function(json){
 				
 				if(json.isItOk){
-					
-					alert("선택하신 제품이 장바구니에 추가되었습니다!");
+					toastr["success"]("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.");
 				}
 				else{
-					alert("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.")
+					toastr["success"]("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.");
 				}
 	        }// end of succes
 	        ,error: function(request, status, error){
@@ -726,7 +732,7 @@ function goPurchasePage(){
 		
 	}// end of if(userid != null)
 	else{ // 로그인 안한 사람
-		alert("로그인을 해주세요!");
+		location.href =getContextPath() +"/login/login.dream";
 	}
 	
 }
@@ -749,7 +755,8 @@ function goUpdateProduct(){
 		if($("input#product_name").val() == "" && $("input#price").val() == "" && $("input#discount_rate").val() == "" && $("input#product_content").val()==""
 			&& length == real_length && $("input#attachCount").val() ==0)
 		{// 변경점 없고 추가이미지도 없으며 기존 이미지를 삭제하지도 않는다면
-			alert("변경 사항이 존재하지 않습니다");
+			toastr["success"]("변경 사항이 존재하지 않습니다");
+	
 		}
 		else{
 			let html="";
@@ -806,7 +813,8 @@ function goUpdateProduct(){
 		}
 	}
 	else{
-		alert("조건에 맞는 값을 입력해주세요!");
+		toastr["success"]("조건에 맞는 값을 입력해주세요!");
+		
 	}
 	
 	

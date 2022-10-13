@@ -197,6 +197,7 @@ public class ProductDAO implements InterProductDAO {
                // 반복문 돌려야한다람쥐
                int length = Integer.parseInt(paraMap.get("length"));
                // system.out.println("length"+length);
+               System.out.println("length"+length);
                String sql = "";
                if(length == 0) {
                   OK= false;
@@ -213,6 +214,7 @@ public class ProductDAO implements InterProductDAO {
                       n = pstmt.executeUpdate(); 
                       if(n!=1) {// 0개행 업데이트
                          // system.out.println("조져따리");
+                    	  System.out.println("x");
                          OK = false;
                       }
                }
@@ -240,6 +242,7 @@ public class ProductDAO implements InterProductDAO {
                   n = pstmt.executeUpdate();
                   if(n!=1) {// 실패
                       // system.out.println("조져따리");
+                	  System.out.println("x");
                       OK = false;
                    }
                   
@@ -257,7 +260,8 @@ public class ProductDAO implements InterProductDAO {
                   
                   n = pstmt.executeUpdate();
                   if(n!=1) {// 실패
-                      // system.out.println("조져따리");
+                	  System.out.println("x");
+                      
                       OK = false;
                    }
                }
@@ -275,6 +279,7 @@ public class ProductDAO implements InterProductDAO {
                   n = pstmt.executeUpdate();
                   if(n!=1) {// 실패
                       // system.out.println("조져따리");
+                	  System.out.println("x");
                       OK = false;
                    }
 

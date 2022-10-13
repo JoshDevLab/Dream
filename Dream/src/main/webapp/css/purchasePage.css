@@ -382,6 +382,9 @@ a:visited {
   color : white;
   text-decoration: none;
 }
+a#zipcodeSearch{
+	color : black;
+}
 a:hover {
   color : white;
   text-decoration: none;

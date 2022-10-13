@@ -53,7 +53,7 @@
 				 
 				  <tbody>
 				   <c:forEach var="size" items="${product.order_product_size}" varStatus="status">
-				    <tr>
+				    <tr id="SeletedOption">
 				      <td>${size}</td>
 				      <td>${product.order_product_cnt[status.index]}</td>
 				      <td>${product.order_product_cnt[status.index]*discountPrice}</td>
