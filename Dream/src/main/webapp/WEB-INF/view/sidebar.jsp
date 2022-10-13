@@ -6,6 +6,13 @@
    String ctxPath = request.getContextPath();
 %>
 
+<!-- <style>
+
+	a#mypagelink:link { color: red; text-decoration: none;} 
+	a#mypagelink:visited { color: black; text-decoration: none;} 
+	a#mypagelink:hover { color: blue; text-decoration: underline;}
+
+</style> -->
 
 <script>
    $(document).ready(function(){
@@ -70,6 +77,9 @@
 	
 	} 
      
+    $("a#mypagelink").hover(function () {
+		$(this).css("color","black");
+	});
       
 
    });// end of $(document).ready(function()----------------------------------
@@ -85,7 +95,7 @@
    <!-- 사이드바 시작 -->
    <div id="sidebar" class="sidebar" style="width: 180px; justify-content:space-between; margin-top: 22px">
       <div>
-         <h4 class="mb-4" style="font-weight:bold;"><a href="<%= ctxPath%>/member/mypage.dream">마이 페이지</a></h4>
+         <h4 class="mb-4" style="font-weight:bold; padding-left: 0"><a id="mypagelink" href="<%= ctxPath%>/member/mypage.dream" style="text-decoration: none;">마이페이지</a></h4>
             
       </div>    
 
@@ -93,7 +103,7 @@
          <h5 class="category-title font-weight-bold">쇼핑 정보</h5>
          <ul class="nav flex-column">
             <li class="nav-item">
-                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/buylist.dream" id="buylist_page">구매 내역</a>
+                  <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/member/buylist.dream" id="buylist_page">구매내역</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link pl-0 color_gray" href="<%= ctxPath%>/cart/cart.dream" id="cart_page">장바구니</a>

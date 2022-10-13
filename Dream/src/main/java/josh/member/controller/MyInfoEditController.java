@@ -55,7 +55,7 @@ public class MyInfoEditController extends AbstractController {
 					message = "회원정보 수정 실패!!";
 				}
 				
-				String loc = "javascript:history.back()";
+				String loc = request.getContextPath()+"/member/myInfo.dream";
 				
 				request.setAttribute("message", message);
 				request.setAttribute("loc", loc);

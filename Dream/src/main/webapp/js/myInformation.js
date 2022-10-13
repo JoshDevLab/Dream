@@ -200,19 +200,6 @@ $(document).ready(function () {
    }); // end of $("#change_mobile_btn").click(function (e) {}
 
 
-   $(document).on("click","button#mobile_cancle",function(e){ // 이메일 변경 취소 버튼 클릭이벤트 
-
-       $("#div_modifyMobile").hide();
-       $("#change_mobile_btn").show();
-       $("#user_mobile").show();
-       $("#mobile_certification").hide();
-       $("input#modify_mobile").css("border-bottom","none");  //빨간색 밑줄
-       $("#input_mobile_error").hide();
-       $("#new_mobile").css("color","black");  //라벨 빨간색
-       
-   });// end of $(document).on("click","button#mobile_cancle",function(e){}
-
-
 
 
    $(document).on("keyup","input#modify_mobile",function(e) { // 이메일 유효성 처리
@@ -518,6 +505,22 @@ $(document).on("click","button.can_modify",function() {
 						        async:true,   
 						        success:function(json){
 									if(json.success_count == 1) { // 문자 전송에 성공하였다면
+									
+										$(document).on("click","button#mobile_cancle",function(e){ // 모바일 변경 취소 버튼 클릭이벤트 
+
+									       $("#div_modifyMobile").hide();
+									       $("#change_mobile_btn").show();
+									       $("#user_mobile").show();
+									       $("#mobile_certification").hide();
+									       $("input#modify_mobile").css("border-bottom","none");  //빨간색 밑줄
+									       $("#input_mobile_error").hide();
+									       $("#new_mobile").css("color","black");  //라벨 빨간색
+									       clearInterval(setTimer);
+										   time = 180;
+									       return;
+									       
+									   });// end of $(document).on("click","button#mobile_cancle",function(e){}
+									
 										toastr["info"]("인증번호를 전송하였습니다.","인증번호를 입력해주세요.");
 			                				setTimer = setInterval(timer,1000);
 			                				certificationCode = json.certificationCode;

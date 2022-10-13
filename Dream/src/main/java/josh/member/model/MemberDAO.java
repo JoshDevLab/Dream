@@ -101,10 +101,10 @@ public class MemberDAO implements InterMemberDAO{
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select A.userid, mobile, username, passwd, point, membership "
+			String sql = " select A.userid, mobile, username, passwd, membership "
 					    + " from "
 					    + " ( "
-						+ " select userid, mobile, username, point, membership "
+						+ " select userid, mobile, username, membership "
 						+ " from tbl_member "
 						+ " )A "
 						+ " join "
@@ -126,8 +126,7 @@ public class MemberDAO implements InterMemberDAO{
 				mdto.setMobile(rs.getString(2));
 				mdto.setUsername(rs.getString(3));
 				mdto.setPasswd(rs.getString(4));
-				mdto.setPoint(rs.getInt(5));
-				mdto.setMembership(rs.getInt(6));
+				mdto.setMembership(rs.getInt(5));
 			}
 			
 		} catch (Exception e) {
