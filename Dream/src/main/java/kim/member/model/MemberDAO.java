@@ -107,7 +107,7 @@ public class MemberDAO implements InterMemberDAO {
 				// 추가하려는 만큼 다 insert 성공했다면
 				conn.commit(); 
 				result = count;
-				System.out.println(result+"개 행 insert 성공!");
+				// system.out.println(result+"개 행 insert 성공!");
 				
 			}
 			else {
@@ -171,7 +171,7 @@ public class MemberDAO implements InterMemberDAO {
 				
 				sql = " delete from tbl_like "+
 						" where userid = ?  and product_num = ? ";
-//				System.out.println("좋아요있음");
+//				// system.out.println("좋아요있음");
 				
 				pstmt = conn.prepareStatement(sql); 
 				pstmt.setString(1, userid); 
@@ -179,13 +179,13 @@ public class MemberDAO implements InterMemberDAO {
 
 				n = pstmt.executeUpdate();
 				if(n==1) {
-//					System.out.println("좋아요삭제성공");
+//					// system.out.println("좋아요삭제성공");
 					resultType = "remove";
 					resultSuccess = "true";
 					
 				}
 				else {
-//					System.out.println("좋아요삭제실패");
+//					// system.out.println("좋아요삭제실패");
 					resultType = "remove";
 					resultSuccess = "false";
 				}
@@ -193,7 +193,7 @@ public class MemberDAO implements InterMemberDAO {
 		
 			}
 			 else {
-//				 System.out.println("좋아요 없음");
+//				 // system.out.println("좋아요 없음");
 				 sql = " insert into tbl_like(userid, product_num) "+
 					   " values( ? , ?) ";
  
@@ -204,13 +204,13 @@ public class MemberDAO implements InterMemberDAO {
 					 
 					n = pstmt.executeUpdate();
 					if(n==1) {
-//						System.out.println("좋아요등록성공");
+//						// system.out.println("좋아요등록성공");
 						resultType = "add";
 						resultSuccess = "true";
 					
 					}
 					else {
-//						System.out.println("좋아요등록실패");
+//						// system.out.println("좋아요등록실패");
 						resultType = "add";
 						resultSuccess = "false";
 					}
@@ -232,7 +232,7 @@ public class MemberDAO implements InterMemberDAO {
 			pstmt.setString(1, productNum );
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-//				System.out.println("count" + rs.getString(1));
+//				// system.out.println("count" + rs.getString(1));
 				resultMap.put("count", rs.getString(1));
 			}
 			else { //없는경우
@@ -500,7 +500,7 @@ public class MemberDAO implements InterMemberDAO {
 			result = pstmt.executeUpdate();
 			
 			if(result != 1) {
-				System.out.println("메시지가 읽음처리 되지않았습니다.");
+				// system.out.println("메시지가 읽음처리 되지않았습니다.");
 				result = 0;
 			}
 				

@@ -205,7 +205,63 @@ $("button#edit_info").click( (event)=>{
 
 
 
-
+function delete_confirm(userid){
+	
+	
+   const username = $("td#username").text();
+    
+     
+   Swal.fire({		 
+	
+     title: username+' 님을 회원에서 삭제하시겠습니까?',
+     icon: 'info',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: 'dark',
+     confirmButtonText: '삭제',
+     cancelButtonText: '취소'
+   }).then((result) => {
+     if (result.value) {
+        $.ajax({
+           url:getContextPath()+"/admin/memberDelete.dream",
+           type: "POST",
+           data:{"userid":userid},
+           dataType:"JSON",
+           success:function(json) {
+              // {n:1}
+              if(json.n == 1) {
+               Swal.fire({
+		   	   title: '회원삭제에 성공하였습니다.',
+		       icon: 'info',     
+		       confirmButtonColor: '#3085d6',
+		       cancelButtonColor: 'dark',     
+		       confirmButtonText: '확인'		       
+		       }).then((result) => {
+			if (result.value) {
+				location.href=document.referrer;
+			}
+		     })
+              
+               }
+              
+           },
+           error: function(request, status, error){
+                  alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+             }
+        });
+            return; 
+     }
+     else  {
+	 Swal.fire({
+     title: '회원삭제를 취소하셨습니다.',
+     icon: 'info',     
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: 'dark',     
+     confirmButtonText: '확인'
+     })
+      }
+   });
+}
   
     
 
@@ -277,8 +333,19 @@ function goEditfrm() {
 	}
 	
 	if(!isItChange){
-		// 변한게 하나도 없다면
-		alert("변경된 점이 하나도 없습니다."); 
+		/*// 변한게 하나도 없다면
+		alert("변경된 점이 하나도 없습니다."); */
+		
+		Swal.fire({		 
+	
+     title: ' 변경된 점이 하나도 없습니다. ',
+     icon: 'info',     
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: 'dark',
+     confirmButtonText: '확인',
+     
+   })
+   
 	}
 	else{
 		
@@ -291,13 +358,67 @@ function goEditfrm() {
 		
 		
 		
-		const frm = document.editFrm;
+		const frm = $("#editFrm").serialize();
 		
-		frm.action = "memberDetailEdit.dream";
-		frm.method = "post";
-		frm.submit();
+		Swal.fire({		 
+	
+     title: origin_name+' 님의 정보를 수정하시겠습니까?',
+     icon: 'info',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: 'dark',
+     confirmButtonText: '수정',
+     cancelButtonText: '취소'
+   }).then((result) => {
+     if (result.value) {
+        $.ajax({
+           url:getContextPath()+"/admin/memberDetailEdit.dream",
+           type: "POST",
+           data:frm,
+           dataType:"JSON",
+           success:function(json) {
+              // {n:1}
+              if(json.n == 1) {
+               Swal.fire({
+		   	   title: '회원정보 수정에 성공하였습니다.',
+		       icon: 'info',     
+		       confirmButtonColor: '#3085d6',
+		       cancelButtonColor: 'dark',     
+		       confirmButtonText: '확인'		       
+		       }).then((result) => {
+			if (result.value) {
+				location.href=document.referrer;
+
+			}
+			
+		     })
+              
+               }
+             
+           },
+           error: function(request, status, error){
+                  alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+             }
+        });
+            return; 
+     }
+     else  {
+	 Swal.fire({
+     title: '회원수정을 취소하셨습니다.',
+     icon: 'info',     
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: 'dark',     
+     confirmButtonText: '확인'
+     })
+      }
+   });
+   
+   $('#info_edit').modal('hide');
+   
+   }
 		
-		$('#info_edit').modal('hide');
+		
+		
 		
 		
 		
@@ -307,8 +428,6 @@ function goEditfrm() {
 	
 	
 	
-}
-
 
 
 
@@ -322,7 +441,7 @@ function goEditfrm() {
 
 
 
-
+/*
 // === 회원삭제하기 === //
    function delete_confirm(userid) {      
    
@@ -357,7 +476,7 @@ function goEditfrm() {
       
    }// end of function delete_confirm(userid)-------------------------------------------
 
-
+*/
 
 
 

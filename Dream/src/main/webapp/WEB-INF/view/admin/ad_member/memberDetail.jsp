@@ -202,7 +202,7 @@
 			
 			<div class="layer_content">
 			   <div class="delivery_bind">
-			      <form name="editFrm" class="delivery_input">	
+			      <form name="editFrm" class="delivery_input" id="editFrm">	
 			      														
 				     <div class="input_box">														
 					    <input type="hidden" id = "userid_modal" name="userid" value="${requestScope.mdto.userid}"/>

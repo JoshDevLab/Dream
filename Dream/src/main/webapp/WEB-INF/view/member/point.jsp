@@ -138,11 +138,11 @@
           </div>
          
         </div>
-
+		<!-- 
         <div class="register">
           <button type="button" class="btn solid medium" data-toggle="modal" data-target="#ModalPoint_insert"> + 포인트 적립하기 </button>
         </div>
-
+ -->
 
       </div>
 
@@ -203,7 +203,7 @@
           <thead >
             <tr >
               <th class="point_history_header">상세 내역</th>
-              <th class="point_history_header">적립/사용</th>
+              <th class="point_history_header">적립/사용P</th>
             </tr>
           </thead>
           <tbody>

@@ -22,16 +22,16 @@ public class GoPurchase extends AbstractController {
 			
 			HttpSession session = request.getSession();
 			String loginuserid = (String) session.getAttribute("userid");
-			System.out.println(userid);
+			// system.out.println(userid);
 			
-			System.out.println(loginuserid);
+			// system.out.println(loginuserid);
 			if( loginuserid.equals(userid) ) {
 				// 로그인한 사용자가 자기거 결제하는 경우 
 			
 				
 				String productName = request.getParameter("productName"); //"새우깡";
 				String fullPrice = request.getParameter("fullPrice"); 
-				System.out.println("fullPrice"+fullPrice);
+				// system.out.println("fullPrice"+fullPrice);
 				
 				
 				MemberVO user = new MemberVO();

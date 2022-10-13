@@ -26,7 +26,7 @@ public class DetailProductController extends AbstractController {
 		
 		String method = request.getMethod();
 		
-		System.out.println(method);
+		// System.out.println(method);
 		
 		if("GET".equalsIgnoreCase(method)) {	//method가 "GET" 일 때
 			InterProductDAO pdao = new ProductDAO();

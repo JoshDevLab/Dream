@@ -31,11 +31,11 @@ public class UpdateCart extends AbstractController {
 			// form 으로 보내준 userid 와 현재 로그인한 session 의 userid 값이 동일한지 확인해야댐
 			if( loginuserid.equals(userid) ) {
 				
-				
+				/*
 				System.out.println(request.getParameter("sizeArray"));
 				System.out.println(request.getParameter("cntArray"));
 				System.out.println("cartupdate 넘어온 값 확인!");
-				
+				*/
 				Map<String, String> paraMap = new HashMap<>();
 				 
 				int length = Integer.parseInt(request.getParameter("length")); 
@@ -48,7 +48,7 @@ public class UpdateCart extends AbstractController {
 				JSONArray sizeArray = new JSONArray(request.getParameter("sizeArray"));
 				JSONArray cntArray = new JSONArray(request.getParameter("cntArray"));  
 				
-				System.out.println(sizeArray);
+				//System.out.println(sizeArray);
 				
 				for (int i=0; i < sizeArray.length(); i++) {
 					 sizeArr.add(sizeArray.getString(i)); 
@@ -56,9 +56,10 @@ public class UpdateCart extends AbstractController {
 				for (int i=0; i < cntArray.length(); i++) {
 					cntArr.add(cntArray.getString(i)); 
 				}
+				/*
 				System.out.println("sizeArr"+sizeArr);
 				System.out.println("cntArr"+cntArr);
-
+			 	*/
 				for(int i=0; i<length ;i++) {
 					paraMap.put("size"+i, sizeArr.get(i));
 					paraMap.put("cnt"+i, cntArr.get(i));
@@ -82,7 +83,7 @@ public class UpdateCart extends AbstractController {
 				outer:
 				for(int i=0; i<length ;i++) {
 					String sizeOption = sizeArr.get(i);
-					System.out.println(sizeOption+"sizeOption");
+					// System.out.println(sizeOption+"sizeOption");
 					int cntOption = Integer.parseInt(cntArr.get(i));
 					for(int n=0; n<stockSizeArr.size();n++) {
 						// 사이즈 옵션과 같은 사이즈가 나올때의 인덱스를 구할거임
@@ -91,7 +92,7 @@ public class UpdateCart extends AbstractController {
 							if(cntOption > Integer.parseInt(stockCntArr.get(n))){
 								// 주문량이 더 많다면
 								isItOk = false;
-								System.out.println("주문량이 더 많아서 주문이 안됩니다!!");
+								// System.out.println("주문량이 더 많아서 주문이 안됩니다!!");
 								break outer;
 							}	
 						}	
@@ -102,9 +103,9 @@ public class UpdateCart extends AbstractController {
 					// 재고가 확인 되었다면 카트에 추가해주자
 					
 					InterMemberDAO mdao = new MemberDAO();
-					System.out.println("들어간다");
+					// System.out.println("들어간다");
 					int n = mdao.updateCart(paraMap);
-					System.out.println("나온다");
+					// System.out.println("나온다");
 					if(n == -1) {
 						// 실패했다면
 						isItOk = false;
@@ -118,7 +119,7 @@ public class UpdateCart extends AbstractController {
 				String json = jsonObj.toString(); 
 				request.setAttribute("json", json);
 				
-				System.out.println(json);
+			//	System.out.println(json);
 				
 		   //	super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/jsonview.jsp");

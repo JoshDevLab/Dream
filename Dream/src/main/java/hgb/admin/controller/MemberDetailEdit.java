@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import common.controller.AbstractController;
 import hgb.address.model.AddressDAO;
 import hgb.address.model.AddressDTO;
@@ -66,21 +68,23 @@ String method = request.getMethod();
 	         
 	         int n = mdao.editmember(paraMap);
 	         
+	         
+	         
 	         if(n == 1) {
 	        	 // 정보 수정 성공
 	        	 
 	        	 
 	        	 	        	 
 	        	 
-	        	 String message = "정보가 성공적으로 수정되었습니다";
-	             String loc = "javascript:location.href = document.referrer";
-	               
-	               request.setAttribute("message", message);
-	               request.setAttribute("loc", loc);
-	               
-	            // super.setRedirect(false);
-	               super.setViewPage("/WEB-INF/view/msg.jsp");
-	               return;
+	        	 JSONObject jsobj = new JSONObject(); // {}
+	 			jsobj.put("n", n); // {n:1}
+	 			
+	 			String json = jsobj.toString(); // "{n:1}"
+	 			
+	 			request.setAttribute("json", json);
+	 			
+	 			super.setRedirect(false);
+	 			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 	        	 
 	         }
 	         else {

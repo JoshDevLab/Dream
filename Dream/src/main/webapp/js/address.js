@@ -472,21 +472,51 @@ function goRegister() {
 	
 	const name_length = $("input:text[name='order_name']").val().trim().length;
 	      if(name_length < 2) {
-	    	  alert("이름 형식에 맞지 않습니다!!");
-	    	  $("input:text[name='order_name']").val("").focus();
+	    	  Swal.fire({		 
+	
+			     title: '이름 형식에 맞지 않습니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',			     			     			  
+			
+		     }).then((result) => {
+            if (result.isConfirmed) {
+                 $("input:text[name='order_name']").val("").focus();
+            }
+              
+            });
+	    	  
 	    	  return false; // submit 을 하지 않고 종료한다.
+	    	  
 	}
 	      
     const mobile_length = $("input:text[name='mobile']").val().trim().length;
     if(mobile_length < 11) {
-	    alert("전화번호 형식에 맞지않습니다 !!");
+	    Swal.fire({		 
+	
+			     title: '전화번호 형식에 맞지않습니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
 	    $("input:text[name='mobile']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
     }
     
     const detailAddress_length = $("input:text[name='detail_address']").val().trim().length;
 	if(detailAddress_length < 1) {
-	    alert("상세주소를 입력하셔야 합니다.");
+	    Swal.fire({		 
+	
+			     title: ' 상세주소를 입력하셔야 합니다.',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
 	    $("input:text[name='detailAddress']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
     }
@@ -494,8 +524,16 @@ function goRegister() {
 	// "우편번호찾기" 을 클릭했는지 여부 알아오기 
     if(!b_flag_zipcodeSearch_click) { 
     	// "우편번호찾기" 을 클릭 안 했을 경우 
-    	alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
     	
+    	Swal.fire({		 
+	
+			     title: '우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
     	return; // 종료
     }
     else {
@@ -510,8 +548,16 @@ function goRegister() {
             
             const bool = regExp.test(postcode);
             
-            if(!bool) {
-            	alert("우편번호 형식에 맞지 않습니다.");
+            if(!bool) {            	
+            	Swal.fire({		 
+	
+			     title: '우편번호 형식에 맞지 않습니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
             	$("input:text[id='postcode']").val("");
             	b_flag_zipcodeSearch_click = false;
             	return; // 종료
@@ -537,22 +583,47 @@ function goRegister() {
 function goEdit() {
 	
 	const name_length = $("input:text[name='order_name']").val().trim().length;
-	      if(name_length < 2) {
-	    	  alert("이름 형식에 맞지 않습니다!!");
+	      if(name_length < 2) {	    	  
+	    	  Swal.fire({		 
+	
+			     title: '이름 형식에 맞지 않습니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
 	    	  $("input:text[name='order_name']").val("").focus();
 	    	  return false; // submit 을 하지 않고 종료한다.
 	}
 	      
     const mobile_length = $("input:text[name='mobile']").val().trim().length;
     if(mobile_length < 11) {
-	    alert("전화번호 형식에 맞지않습니다 !!");
+	    
+	    Swal.fire({		 
+	
+			     title: '전화번호 형식에 맞지않습니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
 	    $("input:text[name='mobile']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
     }
     
     const detailAddress_length = $("input:text[name='detail_address']").val().trim().length;
-	if(detailAddress_length < 1) {
-	    alert("상세주소를 입력하셔야 합니다.");
+	if(detailAddress_length < 1) {	   
+	    Swal.fire({		 
+	
+			     title: ' 상세주소를 입력하셔야 합니다.',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
 	    $("input:text[name='detailAddress']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
 	}
