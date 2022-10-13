@@ -23,28 +23,89 @@ $(document).ready(function () {
 
 	
 	
-	});
+	}); // emd of document
 	
 
-	
-	   // 페이징처리 post 타입으로 이악물고 하기
-   $("a.page-link").click(function(e){
-	
+
+
+function goRead(read_check, messageno){
 		
-		
+	if(read_check == 0 ){
 	
-	});
-   
+			$.ajax({
+   		url: getContextPath()+"/member/readmessage.dream",
+   		type: "GET",
+   		data: {"messageno": messageno},
+   		dataType: "json",
+   		success: function(json) {
+	
+			if(json.success == 1){// 1개 읽음처리
+			
+				$("td#icon"+messageno).empty();
+				
+				$("td#icon"+messageno).append(`<i class="fa-solid fa-envelope-open"></i>`);
+				
+			}
+   			
+   			
+   		}, // end of success
+   		 error: function(request, status, error){
+			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		}
+   	});// end of ajax(){};===========================================================
+ 			 
+		
+	}
+
+}// end
 
 
 
 function goPage(page){
 		
-		console.log(page);
-		p = page;
+	console.log("page"+page);
+	p = page;
+	
+	callAjax();
+}// end
+
+
+
+function deleteAll(){
 		
-		callAjax();
-}
+	 let param = "";
+	 let messageno ;
+	        
+    $("input:checkbox[id='sub_check']:checked").each(function(index,item) {
+    	
+
+       messageno = $(item).parent().attr('asd');
+       param += messageno + ",";
+        	
+    });
+    	param=param.substring(0, param.length-1);
+    	console.log("param"+param);
+    	console.log("type"+type);
+    $.ajax({
+   		url: getContextPath()+"/member/deletemessage.dream",
+   		type: "GET",
+   		data: {"messageno":param,
+   				"type":type},
+   		dataType: "json",
+   		success: function(json) {
+	
+			callAjax(); // 삭제후 페이징 처리 새로!
+   			
+   			
+   		}, // end of success
+   		 error: function(request, status, error){
+			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		}
+   	});// end of ajax(){};===========================================================
+ 			 
+    
+
+}// end
 
 
 function callAjax() {
@@ -66,8 +127,40 @@ function callAjax() {
    			// 조회결과가 있는 경우 
    			if(json.cnt > 0){
 				console.log(json.cnt);
-   				$("tbody").remove();
+   				$("tbody").empty();
+   				
+   			
+   				$.each(json.printmessageList,function(index, item){	
+				
+					html+=
+					`<tr>
+				        <td id="list_check" asd="${item.messageno}" style="width:30px;" >
+				        <input type="checkbox" id="sub_check" name="sub_check" style="margin-right: 10px;"/>        
+				        </td>
+				        <td id="icon${item.messageno}" style="width: 30px;" data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${item.messageno}','${item.title}','${item.contents}','${item.read_check}');"> ` ;  
+		            if(item.read_check==0){
+						html+= `<i class="fa-solid fa-envelope"></i>`;
+					 }	
+					 if(item.read_check==1){
+						html+= `<i class="fa-solid fa-envelope-open"></i>`;
+					 }
+					 html+=
+					`</td>
+				        
+			           <td colspan="7" style=" font-weight: bold"  data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${item.messageno}','${item.title}','${item.contents}','${item.read_check}');">
+				           ${item.title}         
+			          </td>
+			          <td  data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${item.messageno}','${item.title}','${item.contents}','${item.read_check}');">
+				             ${item.shipping}
+				             <input type="text" id="load_messageno" name="load_messageno" value="${item.messageno}"/> 
+				             <input type="text" id="load_fk_sender_userid" name="load_fk_sender_userid" value="${item.fk_sender_userid}"/>   
+				             
+				            
+			          </td>
+			       </tr>`;
 
+				})
+				$("tbody").append(html);
 			}
    			
    		}, // end of success

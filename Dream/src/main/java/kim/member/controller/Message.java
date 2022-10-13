@@ -46,8 +46,7 @@ public class Message extends AbstractController {
                if(request.getParameter("p")!=null && request.getParameter("p").trim() != "") {      //파라미터 page가 not empty라면!
                   page = Integer.parseInt(request.getParameter("p").trim());
                }
-               
-                     
+              
                
                Map<String, Object> paraMap = new HashMap<String, Object>();
             
@@ -98,19 +97,19 @@ public class Message extends AbstractController {
                 //  (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수);
                 
                 // 여기서 페이징 처리
-                int position = page*display_cnt - (display_cnt-1);
+                int position = page*display_cnt - (display_cnt);
                 List<MessageVO> printmessageList = new ArrayList<MessageVO>();
-                int toIndex = total_cnt-1;
+                int lastIndex = total_cnt;
                 System.out.println(total_cnt);
-                System.out.println(toIndex);
-                if(position+9 > toIndex) {// 총 게시글 보다 많은 수추출해야되면
-                   System.out.println("toIndex"+toIndex);
-                  printmessageList = messageList.subList(position, toIndex);                          
+                System.out.println(lastIndex);
+                if(position+9 > lastIndex) {// 총 게시글 보다 많은 수추출해야되면
+                   System.out.println("lastIndex"+lastIndex);
+                  printmessageList = messageList.subList(position, lastIndex);                          
                 }
                 else {
                    printmessageList = messageList.subList(position, position+10);        
                 }
-                System.out.println(printmessageList);
+                System.out.println("printmessageList"+printmessageList);
                 
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("현재보고있는 페이지 : "+ page);

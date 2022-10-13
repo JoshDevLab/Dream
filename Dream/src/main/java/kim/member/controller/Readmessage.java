@@ -13,7 +13,7 @@ import common.controller.AbstractController;
 import kim.member.model.InterMemberDAO;
 import kim.member.model.MemberDAO;
 
-public class deletemessage extends AbstractController {
+public class Readmessage extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,22 +22,19 @@ public class deletemessage extends AbstractController {
 		HttpSession session = request.getSession();
 		String fk_sender_userid = (String) session.getAttribute("userid");
 
-		if("POST".equalsIgnoreCase(method)) {
+		if("GET".equalsIgnoreCase(method)) {
 			
 	
 			String messageno = request.getParameter("messageno");
-			// messageno 는 받을때부터 0 , 1, 2, 이런식으로 받을 예정
+			// messageno 는 하나씩 들어옴
 			
-			String whoami = request.getParameter("whoami");
-			// 받은메시지 삭제인지 보낸메시지 삭제인지 확인
-			
-			
-			
+			System.out.println("messageno"+messageno);
+
 			
 			InterMemberDAO mdao = new MemberDAO();
 			
-			int n = mdao.deletemessage(messageno, whoami);
-			
+			int n = mdao.readmessage(messageno);
+			System.out.println("n"+n);
 			JSONObject jsonObj = new JSONObject();
 			
 			// 꼬우면 그냥 msg 띄우고 성공! 실패! 하고 다시 원래페이지로 보내도 되긴함

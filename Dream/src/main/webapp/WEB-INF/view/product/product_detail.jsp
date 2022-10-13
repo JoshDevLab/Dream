@@ -482,8 +482,12 @@ String ctxPath = request.getContextPath();
        
   </div>
 </div>
-               
-
-
+ </div>              
 
 <jsp:include page="/WEB-INF/view/footer.jsp" />
+</body>
+
+
+
+
+

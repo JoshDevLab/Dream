@@ -400,7 +400,7 @@ public class ProductDAO implements InterProductDAO {
          String where = "fk_Recipient_userid";
          String where2 = "Recipient_delete";
          
-         if(type != "receieve") {
+         if(!(type.equalsIgnoreCase("receieve"))) {
             where = "fk_sender_userid";      
             where2 = "sender_delete";
          }

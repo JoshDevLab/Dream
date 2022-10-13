@@ -51,7 +51,7 @@ cursor: pointer;
 
 
 :checked {
-	 accent-color: black;
+    accent-color: black;
 }
 
 input#contents {
@@ -128,7 +128,7 @@ input#contents {
       
    // 그냥 버튼 체크시
       $("input#sub_check").click(function (e) {
-   	   
+         
         const checked_length = $("input:checkbox[name='sub_check']:checked").length;
                
         
@@ -147,15 +147,16 @@ input#contents {
       
       
    });// end of $(document).ready(function()------------------------
-		   
-		   
-   function message_info(messageno,title,contents) {
-	   	  
-	   
-	   $("p#title").text("제목 : " + title);
-	   $("p#contents").text("내용 : " + contents);	   
-	   
-	   
+         
+         
+   function message_info(messageno,title,contents,read_check) {
+           
+      
+      $("p#title").text("제목 : " + title);
+      $("p#contents").text("내용 : " + contents);      
+      
+      
+      goRead(read_check, messageno);
    }
    
    
@@ -180,10 +181,12 @@ input#contents {
   
      <thead>
        <tr>
-         <th colspan="7"><h4 style="font-weight:bold; margin-top: 12px;">받은메세지 목록</h4></th>
-       </tr>
+         <th colspan="9"><h4 style="font-weight:bold; margin-top: 12px;">받은메세지 목록</h4></th>         
+         <th colspan="5"><h4 style="font-weight:bold; margin-top: 12px;">보낸메세지 목록</h4></th>
+       </tr>       
        <tr class="bg-dark">
           <td id="title_check"><input type="checkbox" id="checkAll"/></td>
+          
            <td id="icon">
         <!-- 자리맞추기용 td 자리  -->
         </td>
@@ -202,10 +205,10 @@ input#contents {
         
         
         <tr>
-        <td id="list_check" style="width:30px;">
+        <td id="list_check" style="width:30px;" asd="${mvo.messageno}">
         <input type="checkbox" id="sub_check" name="sub_check" style="margin-right: 10px;"/>        
         </td>
-        <td id="icon" style="width: 30px;">
+        <td id="icon" style="width: 30px; padding-top:1.5%; ">
            <c:if test="${mvo.read_check==0}">
               <i class="fa-solid fa-envelope"></i>
            </c:if>
@@ -219,7 +222,7 @@ input#contents {
         <td colspan="7" style=" font-weight: bold"  data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${mvo.messageno}','${mvo.title}','${mvo.contents}');">
            ${mvo.title}         
           </td>
-          <td>
+          <td data-toggle="modal" data-target="#message_modal" data-dismiss="modal" onclick="message_info('${mvo.messageno}','${mvo.title}','${mvo.contents}');">
              ${mvo.shipping}
              <input type="text" id="load_messageno" name="load_messageno" value="${mvo.messageno}"/> 
              <input type="text" id="load_fk_sender_userid" name="load_fk_sender_userid" value="${mvo.fk_sender_userid}"/>   
@@ -232,12 +235,14 @@ input#contents {
      </tbody>
   </table>
   
+  <button onclick="deleteAll()" class= "btn btn-dark float-right" type= "button" style="width:10%;">삭제</button>
+  <button onclick="" class= "btn btn-dark float-right mr-2" type= "button" style="width:10%;" data-toggle="modal" data-target="#message_write_modal" data-dismiss="modal">쓰기</button>
   
   
 <%------------------------ 페이지바 시작 ------------------------%>
   <c:if test="${not empty requestScope.printmessageList}">
                
-        <nav aria-label="...">
+        <nav aria-label="..." style="margin-top: 70px;">
           <ul class="my pagination pagination-md justify-content-center mt-5">
              <%-- 첫페이지로 이동버튼 --%>
              <c:if test="${requestScope.page > requestScope.display_page}">
@@ -257,7 +262,7 @@ input#contents {
              </c:if>
              
              <%-- 페이지번호 시작--%>
-             <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}" varStatus="i">
+             <c:forEach begin="${requestScope.startPage-1}" end="${requestScope.endPage-1}"  varStatus="i">
                 <c:if test="${requestScope.page == (requestScope.startPage+i.count-1)}">
                 <li class="page-item active" aria-current="page">
                 <a id = "firstPage" class="page-link" onclick = "goPage(${requestScope.startPage+i.count-1})" >${requestScope.startPage+i.count-1}</a>
@@ -290,9 +295,13 @@ input#contents {
       
       </c:if>   
 <%------------------------ 페이지바 끝 ------------------------%>
+
+
+
 </div>
+
+
 </div>
-<%-- 회원관리페이지 코드 끝 --%>
 
 
 
@@ -302,6 +311,8 @@ input#contents {
 
 
 
+
+<%-- 메세지 보기 모달 시작 --%>
   <div class="modal" id="message_modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -314,7 +325,7 @@ input#contents {
         <!-- Modal body -->
         <div class="modal-body">
           <div id="message_title">
-              <p id="title" name="title" type="text" autocomplete="off"	class="input_txt" style="border:none; padding-bottom: 10px;"> </p>
+              <p id="title" name="title" type="text" autocomplete="off"   class="input_txt" style="border:none; padding-bottom: 10px;"> </p>
           </div>  
           <div id="message_body">                 
               <p id="contents" name="contents" type="text" autocomplete="off" class="input_txt" style="border:none; " ></p>           
@@ -330,6 +341,50 @@ input#contents {
       
     </div>
   </div>  
+  
+<%-- 메세지 보기 모달 끝 --%>  
+  
+
+
+
+  
+  
+<%-- 메세지 쓰기 모달 시작 --%>  
+   <div class="modal" id="message_write_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal header -->
+        <div class="modal-header">
+          <h4 class="modal-title">메세지 작성</h4>          
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div id="message_title"> 제목:
+              <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" style="margin-left: 31px;">              
+          </div>  
+          <div >받는사람:
+              <input name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" >              
+          </div> 
+          <div id="message_body">                 
+              <textarea name="order_name" class="input_txt" id="recipient_name" type="text" placeholder="수령인의 이름" autocomplete="off" style="width: 100%;
+                height: 90%;"></textarea>      
+         </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer layer_btn" id="pay_button">
+           <button type="button" id="reply"  > 답장 </button>
+           <button type="button" id="bye_modal"  data-dismiss="modal"> 닫기 </button>           
+         </div>
+      </div>
+      
+    </div>
+  </div>
+  
+ <%-- 메세지 보기 모달 끝 --%> 
+  
 
 
 <%--footer 호출 --%>

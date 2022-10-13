@@ -443,25 +443,24 @@ public class MemberDAO implements InterMemberDAO {
 	}
 
 	@Override
-	public int deletemessage(String messageno, String whoami) throws SQLException {
+	public int deletemessage(String messageno, String type) throws SQLException {
 		
 		int result = 0;
 		conn = ds.getConnection();
 		
 		String set = "RECIPIENT_DELETE";
-		if(whoami.equalsIgnoreCase("SENDER")) {
+		if( !type.equalsIgnoreCase("receieve")) {
 			set = "SENDER_DELETE";
 		}
 		
 		try {
 		
 			String sql = " update tbl_message set  "+ set +" = 1 "+
-					" where MESSAGENO in (122, 124, 126) ";
+					" where MESSAGENO in ("+ messageno+ ") ";
 			
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, messageno); 
 			 
 			
 			
@@ -485,9 +484,7 @@ public class MemberDAO implements InterMemberDAO {
 		
 		int result = 0;
 		conn = ds.getConnection();
-		
 
-		
 		try {
 		
 			String sql = " update tbl_message set  read_check = 1 "+
