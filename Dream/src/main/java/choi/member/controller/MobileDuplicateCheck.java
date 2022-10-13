@@ -13,10 +13,11 @@ public class MobileDuplicateCheck extends AbstractController{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		super.goBackURL(request);
 		String method = request.getMethod(); 
 		
 		if("post".equalsIgnoreCase(method)) { // post 방식일경우만 id 중복검사 진행 
-		
+			
 			String mobile = request.getParameter("mobile"); // " " 에는 태그의 name이 (지금은 userid) 들어온다.
 		
 			// json 은 자바스크립트 객체 표기법으로만 해주면 끝난다. { }

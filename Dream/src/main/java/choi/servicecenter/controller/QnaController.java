@@ -15,6 +15,7 @@ import common.controller.AbstractController;
 public class QnaController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		super.goBackURL(request);
 		String method = request.getMethod();
 		
 		if("GET".equalsIgnoreCase(method)) {	//요청이 "GET"라면
