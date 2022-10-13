@@ -20,6 +20,8 @@ public class CartController extends AbstractController{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		super.goBackURL(request);
+		
 		if(super.checkLogin(request)) { // 로그인이 된 상태라면
 			
 			HttpSession session = request.getSession();
