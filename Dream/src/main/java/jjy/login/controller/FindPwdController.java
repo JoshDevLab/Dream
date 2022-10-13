@@ -96,7 +96,7 @@ public class FindPwdController extends AbstractController {
 				jsonObj2.put("isExistUser", isExistUser); // {"isExists":true} 또는 {"isExists":false} 으로 만들어준다.
 				
 				String json = jsonObj2.toString(); // 문자열 형태인 "{"isExists":true}" 또는 "{"isExists":false}" 으로 만들어준다.
-				System.out.println(">> 확인용 json => " + json);
+				// System.out.println(">> 확인용 json => " + json);
 				
 				request.setAttribute("json", json);
 				
