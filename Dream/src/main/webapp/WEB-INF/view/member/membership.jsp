@@ -27,7 +27,7 @@
          <h2 id="membership_title">DREAM CATCHER</h2>
          <p id="membership_date"><span id="membership_year"></span>년 <span id="membership_month">mm</span>월 <span id="membership_date">d</span>일까지 멤버십 혜택이 유지되고, 이후 자동 해지됩니다.</p>
          <button id="regist" type="button">드림캐쳐 신청하기</button>
-         <p style="font-size: 7px; margin-top: 8px;"><a href="" data-toggle="modal" data-target="#modal_membership_policy">드림캐처 맴버십 이용 약관</a>에 동의합니다.(월 39,000원 결제)</p>
+         <p style="font-size: 7px; margin-top: 8px;"><a href="" data-toggle="modal" data-target="#modal_membership_policy">드림캐처 맴버십 이용 약관</a>에 동의합니다.(월 3,900원 결제)</p>
       </div>
          <div id = "membership_info" class="row">
             
@@ -38,7 +38,8 @@
                </a>
 
                <a href="#" id ="benefit_2" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_2">
-                  <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>      
+                  <%-- <i class="fas fa-light fa-truck icon_membership" "></i>   --%> 
+                  <i class="fa-solid fa-p position_bottom" style="margin-right: 5px;"></i> 
                   <div class="benefit_info" style="text-align: left;">포인트 추가적립</div>
                   <i class="fa-solid fa-angle-right icon_membership" ></i>
                </a>
@@ -47,42 +48,43 @@
 
             <a href="#" id ="benefit_3" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_3">
                      <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
-                     <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
+                     
+                     <div class="benefit_info" style="text-align: left;">무료 디퓨저</div>
                <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <a href="#" id ="benefit_4" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_4">
                      <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
-                     <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
+                     <div class="benefit_info" style="text-align: left;">무료 반품</div>
                <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <div class="w-100"></div>
 
             <a href="#" id ="benefit_5" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_5">
-                     <i class="fas fa-light fa-truck" style="margin-right: 5px;"></i>
-                     <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
+                     <i class="fa-solid fa-box position_bottom"></i>
+                     <div class="benefit_info" style="text-align: left;">쿠폰 증정</div>
                <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <a href="#" id ="benefit_6" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_6">
                      <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
-                     <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
+                     <div class="benefit_info" style="text-align: left;">멤버십 전용특가</div>
                <i class="fa-solid fa-angle-right icon_membership" ></i>
+               
             </a>
-
-
+            
             <div class="w-100"></div>
 
             <a href="#" id ="benefit_7" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_7">
                      <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
-                     <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
+                     <div class="benefit_info" style="text-align: left;">낮시간주문 새벽도착</div>
                <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
             <a href="#" id ="benefit_8" class="info col d-flex justify-content-between" data-toggle="modal" data-target="#modal_benefit_8">
                      <i class="fas fa-light fa-truck icon_membership" style="margin-right: 5px;"></i>
-                     <div class="benefit_info" style="text-align: left;">아침주문 저녁도착</div>
+                     <div class="benefit_info" style="text-align: left;">무료 샘플</div>
                <i class="fa-solid fa-angle-right icon_membership" ></i>
             </a>
 
