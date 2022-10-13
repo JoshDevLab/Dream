@@ -2,6 +2,10 @@ $(document).ready(function () {
 
     let prd_check_length = $("table input:checkbox[name='prd_check']").length
     
+	if(prd_check_length == 0) {
+		$("input.chk_all").prop("disabled",true);
+	}
+    
     $(".total_cnt").html(prd_check_length);
 
     $("input#chk_all").click(function () { // 전체선택 버튼을 클릭하였을시 이벤트처리

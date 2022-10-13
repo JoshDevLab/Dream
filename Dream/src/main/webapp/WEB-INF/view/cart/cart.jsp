@@ -458,7 +458,12 @@ function goCoinPurchaseEnd() {
 	                <div class="cart_list_${status.index} card moblie_cart_list border-left-0 border-right-0 py-2 mb-3"> 
 	                    <div class="top_moblie_cart_list" style="display: flex; position: relative;">
 	                        <div class="align-top mr-3">
-	                            <input type="checkbox" class="check_${status.index}" name="prd_check"/>
+	                            <c:if test="${cartList.size_cnt > 0}">
+	                            		<input type="checkbox" id="purchase_check" class="check_${status.index}" name="prd_check"><%-- 반복문 넣을때  class 에 뒤에 index값 넣어주기 --%>
+                                </c:if>
+                                <c:if test="${cartList.size_cnt <= 0}">
+                                    X<%-- 반복문 넣을때  class 에 뒤에 index값 넣어주기 --%>
+                                </c:if>
 	                        </div>
 	                        <img class="product_img" src="<%= ctxPath %>/images/제품이미지/${cartList.product_image}" style="width: 30%; height: 140px;" />
 	                        <div class="card-img-top-font" style="width: 70%; flex-direction: column;">
