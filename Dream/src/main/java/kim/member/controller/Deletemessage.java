@@ -22,37 +22,48 @@ public class Deletemessage extends AbstractController {
 		HttpSession session = request.getSession();
 		String fk_sender_userid = (String) session.getAttribute("userid");
 
-		if("POST".equalsIgnoreCase(method)) {
+		if("GET".equalsIgnoreCase(method)) {
 			
 	
 			String messageno = request.getParameter("messageno");
 			// messageno 는 받을때부터 0 , 1, 2, 이런식으로 받을 예정
 			System.out.println(messageno);
 			
-/*
-			String whoami = request.getParameter("whoami");
-			// 받은메시지 삭제인지 보낸메시지 삭제인지 확인
 			
-			
-			
-			
-			InterMemberDAO mdao = new MemberDAO();
-			
-			int n = mdao.deletemessage(messageno, whoami);
-			
-			JSONObject jsonObj = new JSONObject();
-			
-			// 꼬우면 그냥 msg 띄우고 성공! 실패! 하고 다시 원래페이지로 보내도 되긴함
-			jsonObj.put("success", n);     
-			
-			String json = jsonObj.toString(); 
-			
-			request.setAttribute("json", json);
-			
-			System.out.println(json);
-		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/view/jsonview.jsp");
-	*/	}	
+		    try {
+		    	
+		    	String type = "receieve";
+	            if(request.getParameter("whoami")!=null && request.getParameter("type").trim() != "") {      //파라미터 type가 not empty라면!
+	            	type = request.getParameter("whoami").trim();
+	            }
+
+				
+				
+				
+				InterMemberDAO mdao = new MemberDAO();
+				
+				int n = mdao.deletemessage(messageno, type);
+				
+				JSONObject jsonObj = new JSONObject();
+				
+				// 꼬우면 그냥 msg 띄우고 성공! 실패! 하고 다시 원래페이지로 보내도 되긴함
+				jsonObj.put("success", n);     
+				
+				String json = jsonObj.toString(); 
+				
+				request.setAttribute("json", json);
+				
+				System.out.println(json);
+			//	super.setRedirect(false);
+				super.setViewPage("/WEB-INF/view/jsonview.jsp");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				// TODO: handle exception
+			}
+            
+		}	
+
 	}
 
 }

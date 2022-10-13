@@ -46,11 +46,8 @@ public class Message extends AbstractController {
                if(request.getParameter("p")!=null && request.getParameter("p").trim() != "") {      //파라미터 page가 not empty라면!
                   page = Integer.parseInt(request.getParameter("p").trim());
                }
-               System.out.println("p"+page);
+             
 
-               System.out.println("type"+type);
-               
-                     
                
                Map<String, Object> paraMap = new HashMap<String, Object>();
             

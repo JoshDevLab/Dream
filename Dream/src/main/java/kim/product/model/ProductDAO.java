@@ -395,15 +395,17 @@ public class ProductDAO implements InterProductDAO {
 
       
       try {
-    	  conn = ds.getConnection();
-          // receive_list 채우기
-          String where = "fk_Recipient_userid";
-          String where2 = "Recipient_delete";
-          
-          if(type.equalsIgnoreCase("receieve")) {
-             where = "fk_sender_userid";      
-             where2 = "sender_delete";
-          }
+
+         conn = ds.getConnection();
+         // receive_list 채우기
+         String where = "fk_Recipient_userid";
+         String where2 = "Recipient_delete";
+         
+         if(!(type.equalsIgnoreCase("receieve"))) {
+            where = "fk_sender_userid";      
+            where2 = "sender_delete";
+         }
+
          
          
          String sql = " select messageno, fk_sender_userid, fk_Recipient_userid, title, Contents, Shipping, read_check, sender_delete, Recipient_delete "+

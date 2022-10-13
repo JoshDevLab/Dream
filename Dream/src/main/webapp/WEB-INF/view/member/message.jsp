@@ -51,7 +51,7 @@ cursor: pointer;
 
 
 :checked {
-	 accent-color: black;
+    accent-color: black;
 }
 
 input#contents {
@@ -128,7 +128,7 @@ input#contents {
       
    // 그냥 버튼 체크시
       $("input#sub_check").click(function (e) {
-   	   
+         
         const checked_length = $("input:checkbox[name='sub_check']:checked").length;
                
         
@@ -147,6 +147,18 @@ input#contents {
       
       
    });// end of $(document).ready(function()------------------------
+<<<<<<< HEAD
+         
+         
+   function message_info(messageno,title,contents,read_check) {
+           
+      
+      $("p#title").text("제목 : " + title);
+      $("p#contents").text("내용 : " + contents);      
+      
+      
+      goRead(read_check, messageno);
+=======
 		   
 		   
    function message_info(messageno,title,contents,read_check) {
@@ -157,6 +169,7 @@ input#contents {
 	   
 	   
 	   goRead(read_check, messageno);
+>>>>>>> refs/remotes/origin/main
    }
    
    
@@ -205,7 +218,7 @@ input#contents {
         
         
         <tr>
-        <td id="list_check" style="width:30px;">
+        <td id="list_check" style="width:30px;" asd="${mvo.messageno}">
         <input type="checkbox" id="sub_check" name="sub_check" style="margin-right: 10px;"/>        
         </td>
         <td id="icon" style="width: 30px; padding-top:1.5%; ">
@@ -242,7 +255,11 @@ input#contents {
 <%------------------------ 페이지바 시작 ------------------------%>
   <c:if test="${not empty requestScope.printmessageList}">
                
+<<<<<<< HEAD
+        <nav id="pgbar" aria-label="..." style="margin-top: 70px;">
+=======
         <nav aria-label="..." style="margin-top: 70px;">
+>>>>>>> refs/remotes/origin/main
           <ul class="my pagination pagination-md justify-content-center mt-5">
              <%-- 첫페이지로 이동버튼 --%>
              <c:if test="${requestScope.page > requestScope.display_page}">
@@ -325,7 +342,7 @@ input#contents {
         <!-- Modal body -->
         <div class="modal-body">
           <div id="message_title">
-              <p id="title" name="title" type="text" autocomplete="off"	class="input_txt" style="border:none; padding-bottom: 10px;"> </p>
+              <p id="title" name="title" type="text" autocomplete="off"   class="input_txt" style="border:none; padding-bottom: 10px;"> </p>
           </div>  
           <div id="message_body">                 
               <p id="contents" name="contents" type="text" autocomplete="off" class="input_txt" style="border:none; " ></p>           
