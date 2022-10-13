@@ -26,7 +26,7 @@ public class Deletemessage extends AbstractController {
 	
 			String messageno = request.getParameter("messageno");
 			// messageno 는 받을때부터 0 , 1, 2, 이런식으로 받을 예정
-			System.out.println(messageno);
+			// system.out.println(messageno);
 			
 			
 		    try {
@@ -52,7 +52,7 @@ public class Deletemessage extends AbstractController {
 				
 				request.setAttribute("json", json);
 				
-				System.out.println(json);
+				// system.out.println(json);
 			//	super.setRedirect(false);
 				super.setViewPage("/WEB-INF/view/jsonview.jsp");
 				

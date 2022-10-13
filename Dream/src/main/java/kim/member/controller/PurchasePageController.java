@@ -28,7 +28,7 @@ public class PurchasePageController extends AbstractController {
 		String method = request.getMethod(); 
 		HttpSession session = request.getSession();
 		String loginuserid = (String) session.getAttribute("userid");
-		System.out.println(method);
+		// system.out.println(method);
 		if("GET".equalsIgnoreCase(method)) {
 		// GET 방식이라면   
 				
@@ -36,9 +36,9 @@ public class PurchasePageController extends AbstractController {
 		}
 		else {
 			// 필요한 값들 일단 정리
-			System.out.println("data 도착!");
-			System.out.println(request.getParameter("length"));
-			System.out.println(request.getParameter("productNum"));
+			// system.out.println("data 도착!");
+			// system.out.println(request.getParameter("length"));
+			// system.out.println(request.getParameter("productNum"));
 			int length = Integer.parseInt(request.getParameter("length")); 
 			String productNum = request.getParameter("productNum");
 			ArrayList<String>sizeArr = new ArrayList<String>();
@@ -49,14 +49,14 @@ public class PurchasePageController extends AbstractController {
 				cntArr.add((String)request.getParameter	("cnt"+i)); 
 			}
 			
-			System.out.println("sizeArr"+sizeArr);
-			System.out.println("cntArr"+cntArr);
+			// system.out.println("sizeArr"+sizeArr);
+			// system.out.println("cntArr"+cntArr);
 			
 			request.setAttribute("sizeArr", sizeArr);
 			request.setAttribute("cntArr", cntArr);
 			
 
-			System.out.println(loginuserid);
+			// system.out.println(loginuserid);
 			// memberVO 객체 하나로 드갈 예정
 			InterMemberDAO mdao = new MemberDAO();
 			MemberVO user = new MemberVO();
@@ -67,7 +67,7 @@ public class PurchasePageController extends AbstractController {
 			user = mdao.pointCheck(loginuserid);
 		
 			request.setAttribute("user", user);
-			System.out.println("fullPrice"+request.getParameter("fullPrice"));
+			// system.out.println("fullPrice"+request.getParameter("fullPrice"));
 			request.setAttribute("fullPrice",request.getParameter("fullPrice"));
 			
 			// 선택한 제품의 정보도 가져갈 예정
@@ -77,8 +77,8 @@ public class PurchasePageController extends AbstractController {
 			product.setOrder_product_size(sizeArr);
 			product.setOrder_product_cnt(cntArr);
 			
-			System.out.println(product.getOrder_product_cnt());
-			System.out.println(product.getOrder_product_size());
+			// system.out.println(product.getOrder_product_cnt());
+			// system.out.println(product.getOrder_product_size());
 
 			request.setAttribute("product", product);
 			
@@ -125,9 +125,9 @@ public class PurchasePageController extends AbstractController {
 			    boolean last_display_page = false;								// 보고있는 페이지가 마지막 페이지번호쪽 인지 여부검사
 			    int a = (int)Math.ceil(totalPage / display_pagef);	//총페이지 / 한페이지당 보여줄 페이지 수
 			    int b = (int)Math.ceil(page / display_pagef);		//현재페이지번호 / 한 페이지당 보여줄 페이지 수
-			    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			    System.out.println("a : "+ a);
-			    System.out.println("b : "+ b);
+			    // system.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			    // system.out.println("a : "+ a);
+			    // system.out.println("b : "+ b);
 			    if(a == b) {
 			    	last_display_page = true;
 			    }
@@ -142,16 +142,16 @@ public class PurchasePageController extends AbstractController {
 			    List<AddressDTO> addressList = adao.selectAddress(paraMap);
 				
 				
-			    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			    System.out.println("현재보고있는 페이지 : "+ page);
-			    System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
-			    System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
-			    System.out.println("총 게시물 수 : "+ total_cnt);
-			    System.out.println("총페이지 : "+ totalPage);
-			    System.out.println("아래 시작페이지 : "+ startPage);
-			    System.out.println("아래 끝페이지 : "+ endPage);
-			    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
-			    System.out.println("사이즈 : "+ addressList.size());
+			    // system.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			    // system.out.println("현재보고있는 페이지 : "+ page);
+			    // system.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
+			    // system.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
+			    // system.out.println("총 게시물 수 : "+ total_cnt);
+			    // system.out.println("총페이지 : "+ totalPage);
+			    // system.out.println("아래 시작페이지 : "+ startPage);
+			    // system.out.println("아래 끝페이지 : "+ endPage);
+			    // system.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+			    // system.out.println("사이즈 : "+ addressList.size());
 			    
 				
 				

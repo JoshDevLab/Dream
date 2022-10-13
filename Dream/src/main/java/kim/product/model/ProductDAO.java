@@ -89,7 +89,7 @@ public class ProductDAO implements InterProductDAO {
              pvo.setPrice(rs.getInt(7));
              pvo.setDiscount_rate(rs.getFloat(8));
             
-             System.out.println("할인율" +pvo.getDiscount_rate()); 
+             // system.out.println("할인율" +pvo.getDiscount_rate()); 
              pvo.setGender(rs.getString(9));
              pvo.setProduct_content(rs.getString(10));
              // tbl_product_stock 테이블에서 사이즈, 재고 알아오기
@@ -99,7 +99,7 @@ public class ProductDAO implements InterProductDAO {
              pstmt = conn.prepareStatement(sql2);
              pstmt.setString(1 , product_num);
              
-             System.out.println("product_num"+product_num);
+             // system.out.println("product_num"+product_num);
              
              rs = pstmt.executeQuery();
              List<String> sizeList = new ArrayList<>();
@@ -152,7 +152,7 @@ public class ProductDAO implements InterProductDAO {
       Map<String, ArrayList<String>> result = new HashMap<>();
       ArrayList<String> sizeArray = new ArrayList<>();
       ArrayList<String> cntArray = new ArrayList<>();
-      System.out.println(productNum);
+      // system.out.println(productNum);
       
       try {
          
@@ -196,7 +196,7 @@ public class ProductDAO implements InterProductDAO {
                // 재고테이블에서 (update) 수량삭제 ==> 필요한 것(product_num+size 복합키)
                // 반복문 돌려야한다람쥐
                int length = Integer.parseInt(paraMap.get("length"));
-               System.out.println("length"+length);
+               // system.out.println("length"+length);
                String sql = "";
                if(length == 0) {
                   OK= false;
@@ -212,7 +212,7 @@ public class ProductDAO implements InterProductDAO {
                       pstmt.setString(3, paraMap.get("size"+i));
                       n = pstmt.executeUpdate(); 
                       if(n!=1) {// 0개행 업데이트
-                         System.out.println("조져따리");
+                         // system.out.println("조져따리");
                          OK = false;
                       }
                }
@@ -239,7 +239,7 @@ public class ProductDAO implements InterProductDAO {
                   
                   n = pstmt.executeUpdate();
                   if(n!=1) {// 실패
-                      System.out.println("조져따리");
+                      // system.out.println("조져따리");
                       OK = false;
                    }
                   
@@ -250,14 +250,14 @@ public class ProductDAO implements InterProductDAO {
                   sql = " insert into tbl_point (point_num, userid, point_amount , status,  event_type,event_date) "+
                        " values(seq_point_num.nextval , ?,?, '차감',?,sysdate) ";
                   pstmt = conn.prepareStatement(sql);
-                  System.out.println("pointMinus" + paraMap.get("PointMinus"));
+                  // system.out.println("pointMinus" + paraMap.get("PointMinus"));
                   pstmt.setString(1, paraMap.get("userid"));
                   pstmt.setString(2, paraMap.get("PointMinus"));
                   pstmt.setString(3, paraMap.get("event_type"));
                   
                   n = pstmt.executeUpdate();
                   if(n!=1) {// 실패
-                      System.out.println("조져따리");
+                      // system.out.println("조져따리");
                       OK = false;
                    }
                }
@@ -274,7 +274,7 @@ public class ProductDAO implements InterProductDAO {
                   
                   n = pstmt.executeUpdate();
                   if(n!=1) {// 실패
-                      System.out.println("조져따리");
+                      // system.out.println("조져따리");
                       OK = false;
                    }
 
@@ -286,7 +286,7 @@ public class ProductDAO implements InterProductDAO {
                   result = 1; // n=1 맞춰줌 사실 안맞춰도 1인데 대충
               }
                else {
-                  System.out.println("환자발생!");
+                  // system.out.println("환자발생!");
                   result=-1;
                   conn.rollback();
                }
@@ -338,7 +338,7 @@ public class ProductDAO implements InterProductDAO {
             n = pstmt.executeUpdate(); 
             
             if(n!=1) {// 0개행 업데이트
-               System.out.println("업데이트가 되지 않았습니다.");
+               // system.out.println("업데이트가 되지 않았습니다.");
               
             }
             
@@ -414,7 +414,7 @@ public class ProductDAO implements InterProductDAO {
               + " order by messageno desc ";
           pstmt = conn.prepareStatement(sql);
          
-          System.out.println(sql);
+          // system.out.println(sql);
           
           rs = pstmt.executeQuery();
           while(rs.next()) {

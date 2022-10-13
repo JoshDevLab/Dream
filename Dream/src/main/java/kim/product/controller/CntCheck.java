@@ -43,7 +43,7 @@ public class CntCheck extends AbstractController {
 			
 			request.setAttribute("json", json);
 			
-			System.out.println(json);
+		//	System.out.println(json);
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 		}	
