@@ -129,6 +129,8 @@ $(document).ready(function() {
           
           // == 7 상운 소개 == //
           if(idx == 7) { 				//7번섹션일때
+            const color = 'white';
+            header_color(color);
             $("div#josh_about_me").show();
             $("div#josh_skill").show();
             $("div#josh_contact_me").show();
