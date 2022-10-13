@@ -4,6 +4,18 @@
     width: 100%;
 }
 
+input:focus {
+	outline:none;
+}
+
+input#certification_mobile {
+	border: 0;
+}
+
+::placeholder {
+  font-size: small; 
+}
+
 
 
 /* goobbyeModal css */

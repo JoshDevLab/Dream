@@ -68,6 +68,7 @@ $(document).ready(function () {
         $("#user_name").show();
         $("span#name").text(modify_name)
         $("input:hidden[name='username']").val(modify_name);
+        toastr["success"]("변경사항을 적용하시려면 수정하기 버튼을 눌러주세요.","변경사항이 저장되었습니다.");
         
 
     }); // end of $(document).on("click","button#name_store",function(e){}
@@ -287,6 +288,7 @@ $(document).ready(function () {
        $("span#passwd").text(modify_passwd);
        $("input:hidden[name='passwd']").val(modify_passwd);
        $("input:hidden[name='passwd_store_cnt']").val(passwd_store_cnt);
+       toastr["success"]("변경사항을 적용하시려면 수정하기 버튼을 눌러주세요.","변경사항이 저장되었습니다.");
        
        
    }); // end of $(document).on("click","button#name_store",function(e){}

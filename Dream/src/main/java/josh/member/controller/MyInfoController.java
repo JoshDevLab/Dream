@@ -22,25 +22,18 @@ public class MyInfoController extends AbstractController{
 			InterMemberDAO mdao = new MemberDAO();
 			
 			MemberDTO mdto = mdao.selectOne(userid);
-			System.out.println(mdto.getUserid());
+			// System.out.println(mdto.getUserid());
 			
 			request.setAttribute("mdto", mdto);
+			
+			// super.setRedirect(false);
+			super.setViewPage("/WEB-INF/view/member/myInformation.jsp");
 		}	
 			
 		else {
-			// 로그인한 사용자가 다른 사용자의 정보를 수정하는 경우
-			String message = "다른 사용자의 정보 변경은 불가합니다.!!";
-			String loc = "javascript:history.back()";
-			
-			request.setAttribute("message", message);
-			request.setAttribute("loc", loc);
-			
-		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/msg.jsp");
+			super.setRedirect(true);
+			super.setViewPage(request.getContextPath()+"/login/login.dream");
 		}
-			
 		
-		
-		super.setViewPage("/WEB-INF/view/member/myInformation.jsp");
 	}
 }

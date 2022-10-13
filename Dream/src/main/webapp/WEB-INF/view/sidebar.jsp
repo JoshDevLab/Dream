@@ -7,17 +7,6 @@
 %>
 
 
-<%-- Bootstrap CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/bootstrap-4.6.0-dist/css/bootstrap.min.css" > 
-<%-- Font Awesome 5 Icons --%>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-<%-- title Icon --%>
-<link href="<%= ctxPath%>/images/titleicon.png" rel="shortcut icon" type="image/x-icon">
-<%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/sidebar.css" />
-<%-- Optional JavaScript --%>
-<script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
-
 <script>
    $(document).ready(function(){
       /* 사이드바 script 시작 */

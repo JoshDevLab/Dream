@@ -27,7 +27,19 @@ $(document).ready(function () {
 
 
 
+<<<<<<< HEAD
+=======
 
+function goPage(page){
+      
+      console.log(page);
+      p = page;
+      
+      callAjax();
+}
+>>>>>>> refs/heads/josh2
+
+<<<<<<< HEAD
 function goRead(read_check, messageno){
       
    if(read_check == 0 ){
@@ -213,3 +225,35 @@ function callAjax() {
            
 }  //end of function callAjax() {}-----------------------      
 
+=======
+
+function callAjax() {
+     
+
+      // 결과 값 찍어주는 ajax
+      $.ajax({
+         url: getContextPath()+"/member/message.dream",
+         type: "GET",
+         data: {"type": type,
+               "p": p },
+         dataType: "json",
+         success: function(json) {
+      
+            console.log(json.cnt);
+            let html =" ";
+            
+            // 조회결과가 있는 경우 
+            if(json.cnt > 0){
+            console.log(json.cnt);
+               $("tbody").remove();
+
+         }
+            
+         }, // end of success
+          error: function(request, status, error){
+         alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+      }
+      });// end of ajax(){};===========================================================
+           
+}  //end of function callAjax() {}-----------------------      
+>>>>>>> refs/heads/josh2
