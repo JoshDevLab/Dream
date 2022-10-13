@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import common.controller.AbstractController;
-import choi.member.model.InterMemberDAO;
-import choi.member.model.MemberDAO;
 
 public class EmailCheck extends AbstractController{
 
@@ -58,7 +56,7 @@ public class EmailCheck extends AbstractController{
 					
 //						rnd.nextInt('z'- min + 1) + min;
 					randnum = rnd.nextInt(9 -0 + 1) + 0;
-					certificationCode += randchar;
+					certificationCode += randnum;
 				}//end of for---
 //				System.out.println("확인용 certificationCode => "+certificationCode);
 				
