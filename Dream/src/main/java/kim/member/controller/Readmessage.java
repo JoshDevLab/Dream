@@ -28,13 +28,13 @@ public class Readmessage extends AbstractController {
 			String messageno = request.getParameter("messageno");
 			// messageno 는 하나씩 들어옴
 			
-			System.out.println("messageno"+messageno);
+			// system.out.println("messageno"+messageno);
 
 			
 			InterMemberDAO mdao = new MemberDAO();
 			
 			int n = mdao.readmessage(messageno);
-			System.out.println("n"+n);
+			// system.out.println("n"+n);
 			JSONObject jsonObj = new JSONObject();
 			
 			// 꼬우면 그냥 msg 띄우고 성공! 실패! 하고 다시 원래페이지로 보내도 되긴함
@@ -44,7 +44,7 @@ public class Readmessage extends AbstractController {
 			
 			request.setAttribute("json", json);
 			
-			System.out.println(json);
+			// system.out.println(json);
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 		}	

@@ -146,7 +146,7 @@ String ctxPath = request.getContextPath();
 									</c:if>
 
 									<%-- 사이즈(옵션이) 존재한다면 --%>
-									<c:if test="${fn:length(size) > 1}">
+									<c:if test="${fn:length(size) >= 1}">
 										<c:forEach items="${size}" var="option">
 											<a class="dropdown-item">${option}</a>
 										</c:forEach>
@@ -255,10 +255,10 @@ String ctxPath = request.getContextPath();
 							</div>
 							<div class="way_desc">
 								<p class="company">
-									<span class="badge_title">일반배송 </span> <span class="title">3,000원</span>
+									<span class="badge_title">일반배송(무료)</span> 
 									<%--제품 배송시 일반배송 말고 빠른배송 추가되면 그거 추가될 수 있도록 제품마다 빠른배송 가능여부 체크하는 거 만들어줘야하고 나중에 여기도 반영해줘야하는데 진짜 개빡치네--%>
 								</p>
-								<p class="sub_text">검수 후 배송 ・ 5-7일 내 도착 예정</p>
+								<p class="sub_text">1-3일 내 도착 예정</p>
 							</div>
 						</div>
 						<%----%>
@@ -266,11 +266,7 @@ String ctxPath = request.getContextPath();
 				</div>
 				<%-- 배송방법 보여주기 끝 --%>
 
-				<%-- 배너박스 1.멤버십 가입 페이지로 연결 or 삭제 --%>
-				<div class="banner_box" style="padding-top: 20px;">
-					<img src="images/Koala.jpg" style="width: 100%; height: 80px;" />
-				</div>
-				<%-- 배너박스 끝 --%>
+				
 
 				<%-- 구매 전 꼭 확인해주세요! 배너 시작 --%>
 				<div class="confirm_wrap" style="padding-top: 39px;">
@@ -335,21 +331,19 @@ String ctxPath = request.getContextPath();
 	<%-- 가격, 즐겨찾기 안보이면 나오는 상단 구매탭 시작--%>
 	<div class="floating_price">
 		<div class="inner_box">
-			<div class="product_area">
-				<div class="product_thumb"
-					style="background-color: rgb(244, 244, 244);">
-					<img alt="상품 이미지" src="images/Koala.jpg" class="image">
-				</div>
-				<div class="product_info">
-					<p class="name">${product.product_name}</p>
-					<p class="translated_name">${product.product_name}</p>
-				</div>
-			</div>
+			
 
 			<div class="btn_area">
 				<a onclick="likeCheck()" href="javascript:void(0)"
-					class="btn outlinegrey btn_wish "> <img
-					style="height: 20px; width: 20px;" /> <span class="wish_count_num">${product.likeCnt}</span>
+					class="btn outlinegrey btn_wish "> 
+					<c:if test="${like==1}">
+							<i id = "likeicon" class="fa-solid fa-heart pink"></i> <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
+						</c:if>
+						
+						<c:if test="${like==0}">
+							<i id = "likeicon"  class="fa-solid fa-heart"></i> <%-- 즐겨찾기 아이콘 들어갈 예정 --%>
+						</c:if>
+					 <span class="wish_count_num">${product.likeCnt}</span>
 				</a>
 				<div class="division_btn_box">
 					<a href="#" class="btn_buy"> <strong class="title">구매</strong>
@@ -366,18 +360,6 @@ String ctxPath = request.getContextPath();
 		</div>
 		<%-- 가격, 즐겨찾기 안보이면 나오는 상단 구매탭 끝--%>
 	</div>
-
-	<%-- banner_bottom 시작  --%>
-	<%-- <div class="banner_bottom" style="margin-top: 80px;">
-    <a href="#" class="banner_box">
-      <div class="banner_info">
-        <strong class="info_subtitle">service guide</strong>
-        <p class="info_title">DREAM은 처음이지? <br>서비스 소개를 확인해보세요.</p>
-        <span class="info_txt">서비스 안내</span>
-      </div>
-    </a>
-  </div> --%>
-	<%-- banner_bottom 끝  --%>
 
 
 	<form id="temporaryCart" name="temporaryCart">
@@ -474,6 +456,7 @@ String ctxPath = request.getContextPath();
       </div>
       <div class="modal-footer">
         <button id="x" type="button" class="close" data-dismiss="modal">&times;</button>
+        <a id="goUpdateProduct" href="#" style = "color:red" class="btn btn_save solid medium" onclick="location.href='/Dream/product/deleteProduct.dream'"> 삭제하기 </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <a id="goUpdateProduct" href="#" class="btn btn_save solid medium" onclick="goUpdateProduct()"> 저장하기 </a>
       </div>

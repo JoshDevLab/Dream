@@ -29,18 +29,18 @@ public class PointController extends AbstractController {
 //			if (sessionUserid.equals(userid)) {
 
 				InterMemberDAO pdao = new MemberDAO();
-				System.out.println(userid);
+				// system.out.println(userid);
 
 				List<PointVO> pointList = pdao.allPointList(userid);
 				
 				int n = pdao.getTotalPoint(userid);
-				System.out.println(n);
+				// system.out.println(n);
 				if(n != -1) { // sql 문제없이 결과가 나온경우
 					
 					request.setAttribute("totalPoint", n);
 				}
 				
-				System.out.println("포인트리스트 사이즈"+pointList.size());
+				// system.out.println("포인트리스트 사이즈"+pointList.size());
 				
 				request.setAttribute("pointList", pointList);
 

@@ -16,7 +16,7 @@ function checkVisible( elm, eval ) {
     eval = eval || "object visible";
     var viewportHeight = $(window).height(), // Viewport Height
         scrolltop = $(window).scrollTop(), // Scroll Top
-        y = $(elm).offset().top,
+        y = $(elm).offset().top-112.5,
         elementHeight = $(elm).height();   
     
     if (eval == "object visible") return ((y < (viewportHeight + scrolltop)) && (y > (scrolltop - elementHeight)));
@@ -42,9 +42,8 @@ $.fn.Scrolling = function(obj, tar) {
 // 리사이징 시작       
 $(window).resize(function() {
 $("#productImage").removeClass("fixed");
-isLargerThan960Check ();
+isLargerThan960Check();
 
-console.log(isLargerThan960);
 if(isLargerThan960){
   // 화면 크기가 960 이상일때만
   // console.log(isLargerThan960);
@@ -64,7 +63,7 @@ if($(window).scrollTop() >= end && isLargerThan960){
 } 
 
 
-if (checkVisible($('a#column2_btn_wish'))) {
+if (checkVisible($('a#column2_btn_buy'))) {
   $('div.floating_price').css("display","none");
 }
 else{
@@ -88,8 +87,8 @@ isLargerThan960Check ();
 // console.log(checkVisible($('a#column2_btn_wish')));
 // 관심등록 보이는가 체크용
 
-// column2 의 관심등록버튼이 보이지 않으면 상단에 플로팅바 나오도록
-if (checkVisible($('a#column2_btn_wish'))) {
+// column2 의 구매버튼이 보이지 않으면 상단에 플로팅바 나오도록
+if (checkVisible($('a.btn_buy'))) {
   $('div.floating_price').css("display","none");
 }
 else{
@@ -814,3 +813,5 @@ function goUpdateProduct(){
 	
 
 }
+
+

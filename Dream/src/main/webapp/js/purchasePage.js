@@ -18,7 +18,7 @@
         coinmoney=56789;
         
         checked_length = $('input:checkbox[name="li_check"]:checked').length;
-        /*console.log(checkAll);*/
+        /*// console.log(checkAll);*/
         if((checkAll && addressExist)){
 		//  주소가 존재하고 체크박스가 모두 체크되면 disabled 를 제거한다
 		  
@@ -59,7 +59,7 @@
         // 전부 체크 됐는지 확인
 		
 		checked_length = $('input:checkbox[name="li_check"]:checked').length;
-		/*console.log(checked_length);*/
+		/*// console.log(checked_length);*/
         if(checked_length<check_length) {
           checkAll = false;
         }
@@ -76,9 +76,9 @@
 		/*const userid = "${sessionScope.loginuser.userid}"; */
 		
 		userid = $("form#goPurchase>input#userid").val();
-		console.log(userid);
+		// console.log(userid);
 		fullPrice = $("form#goPurchase>input#fullPrice").val();
-		console.log(fullPrice);
+		// console.log(fullPrice);
 		productName = $("form#goPurchase>input#productName").val();
 
 		//	alert("확인용0 결제할 사용자 아이디 : " + userid);
@@ -104,7 +104,7 @@
 				alert("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
 				$(this).val('');
 				const final_price = (Number($("span#payment_price").text()));
-				console.log("final_price"+final_price);
+				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
 				$("span#final_price").text(final_price);
 				$("input#point").val("");
@@ -114,7 +114,7 @@
 				alert("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
 				
 				const final_price = (Number($("span#payment_price").text()));
-				console.log("final_price"+final_price);
+				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
 				$("input#point").val("");
 				$("span#final_price").text(final_price);
@@ -124,14 +124,14 @@
 			if(Number($(this).val() != null && Number($(this).val()) != 0)){
 				$("#span_point_amount").text($(this).val());
 				const final_price = (Number($("span#payment_price").text()))-(Number($("span#span_point_amount").text()));
-				console.log("final_price"+final_price);
+				// console.log("final_price"+final_price);
 				
 				$("span#final_price").text(final_price);
 			}
 			else{
 				$("#span_point_amount").text('-');
 				const final_price = (Number($("span#payment_price").text()));
-				console.log("final_price"+final_price);
+				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
 				$("span#final_price").text(final_price);
 				$("input#point").val("");
@@ -146,7 +146,7 @@
 				alert("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
 				
 				const final_price = (Number($("span#payment_price").text()));
-				console.log("final_price"+final_price);
+				// console.log("final_price"+final_price);
 				$("#span_point_amount").text('-');
 				$("span#final_price").text(final_price);
 				$("input#point").val(0);
@@ -155,7 +155,7 @@
 			else{
 				$("#span_point_amount").text($("input#point").val());
 				const final_price = (Number($("span#payment_price").text()))-(Number($("span#span_point_amount").text()));
-				console.log("final_price"+final_price);
+				// console.log("final_price"+final_price);
 			
 				$("span#final_price").text(final_price);
 			}
@@ -205,14 +205,14 @@
 		const frm = document.goUpdate;
 		if( $("span#span_point_amount").text() != "-"){
 			frm.PointMinus.value = $("span#span_point_amount").text();	
-			console.log($("input#PointMinus").val());
+			// console.log($("input#PointMinus").val());
 		}
 		else{
 			frm.PointMinus.value = 0;
 		}
 		
 		let length = $("li#SeletedOption").length;
-		console.log("length"+length);
+		// console.log("length"+length);
 		frm.length.value = length;// 반복할 횟수 가져가줌
 		// 여기서 이벤트타입 분기점 생기면 여기서 나눠서 올리면 된다. 난 몰루겠음 구매말곤
 		let event_type = "구매"; 
@@ -386,8 +386,8 @@ $(document).ready(function(){
    // 페이징처리 post 타입으로 이악물고 하기
    $("a.page-link").click(function(e){
 	
-		console.log($(e.target));
-		console.log($(e.target).attr("p"));
+		// console.log($(e.target));
+		// console.log($(e.target).attr("p"));
 		const p = $(e.target).attr("p");
 		$("input#p").val(p);
 		
@@ -400,9 +400,9 @@ $(document).ready(function(){
    	// 주소지 클릭시 hidden input 에 주소넘버 넣어주기
 	$("div.adressOption").click(function(e){
 	  	let $target = $(e.target).parent().parent();
-	  	console.log($target);
+	  	// console.log($target);
 	  	let selectedNumber =  $target.find("input#address_num").val();
-	  	console.log(selectedNumber);
+	  	// console.log(selectedNumber);
 	  
 	   $("input#selected_address_num").val(selectedNumber);
 	
@@ -471,7 +471,7 @@ function Revise_add() {
     
    /*              여기까지                                */
    
-   /* console.log($("span.address").text()); */
+   /* // console.log($("span.address").text()); */
    
    
    

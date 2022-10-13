@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
- 
+ a:hover { text-decoration:none !important }
 
 * {
     margin: 0;
@@ -721,6 +721,14 @@ a.dropdown-item{
 	color: #fff;
 	
 }
+
+li.guide_item{
+	display: flex;
+	align-items: center;
+	padding-bottom: 12px;
+}
+
+
 
 
 /* 모달 css */

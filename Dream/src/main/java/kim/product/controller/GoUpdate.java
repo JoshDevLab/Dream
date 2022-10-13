@@ -28,17 +28,17 @@ public class GoUpdate extends AbstractController {
 			String loginuserid = (String) session.getAttribute("userid");
 			// form 으로 보내준 userid 와 현재 로그인한 session 의 userid 값이 동일한지 확인해야댐
 			if( loginuserid.equals(userid) ) {
-				System.out.println("update 넘어온 값 확인!");
+				// system.out.println("update 넘어온 값 확인!");
 				
 				Map<String, String> paraMap = new HashMap<>();
 				 
 				int length = Integer.parseInt(request.getParameter("length")); 
-				System.out.println("length"+length);
+				// system.out.println("length"+length);
 				String productNum = request.getParameter("productNum");
 				String PointPlus = request.getParameter("PointPlus");
-				System.out.println("PointPlus"+PointPlus);
+				// system.out.println("PointPlus"+PointPlus);
 				String PointMinus = request.getParameter("PointMinus");
-				System.out.println("PointMinus"+PointMinus);
+				// system.out.println("PointMinus"+PointMinus);
 				String event_type = request.getParameter("event_type");
 				String address_num = request.getParameter("address_num");
 				String discountPrice = request.getParameter("discountPrice");

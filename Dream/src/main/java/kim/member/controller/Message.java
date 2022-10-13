@@ -46,16 +46,14 @@ public class Message extends AbstractController {
                if(request.getParameter("p")!=null && request.getParameter("p").trim() != "") {      //파라미터 page가 not empty라면!
                   page = Integer.parseInt(request.getParameter("p").trim());
                }
-             
-
-               
+         
                Map<String, Object> paraMap = new HashMap<String, Object>();
             
                paraMap = pdao.getAllMessage(loginuserid, type);
       
                ArrayList<MessageVO> messageList = (ArrayList<MessageVO>)paraMap.get("messageList"); 
                int total_cnt = messageList.size();
-               System.out.println("total_cnt"+total_cnt);
+               //System.out.println("total_cnt"+total_cnt);
                
                
                float display_cntf = 10f;                                 //한 페이지당 보여줄 게시물 수 float형
@@ -101,15 +99,16 @@ public class Message extends AbstractController {
                 int position = page*display_cnt - (display_cnt);
                 List<MessageVO> printmessageList = new ArrayList<MessageVO>();
                 int lastIndex = total_cnt;
-                System.out.println(total_cnt);
-                System.out.println(lastIndex);
+                //System.out.println(total_cnt);
+                //System.out.println(lastIndex);
                 if(position+9 > lastIndex) {// 총 게시글 보다 많은 수추출해야되면
-                   System.out.println("lastIndex"+lastIndex);
+                   // System.out.println("lastIndex"+lastIndex);
                   printmessageList = messageList.subList(position, lastIndex);                          
                 }
                 else {
                    printmessageList = messageList.subList(position, position+10);        
                 }
+                /*
                 System.out.println("printmessageList"+printmessageList);
                 
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -121,7 +120,7 @@ public class Message extends AbstractController {
                 System.out.println("아래 시작페이지 : "+ startPage);
                 System.out.println("아래 끝페이지 : "+ endPage);
                 System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
-               
+               */
                 
                 
                
@@ -140,7 +139,7 @@ public class Message extends AbstractController {
                 jsonObj.put("last_display_page",last_display_page);
                
                 request.setAttribute("json", jsonObj);
-                System.out.println(jsonObj);
+                //System.out.println(jsonObj);
                
                 
                 if(request.getParameter("p") == null && request.getParameter("type") == null) {
@@ -163,8 +162,7 @@ public class Message extends AbstractController {
                   return;
                   
                }
-                
-               System.out.println("페이징"); 
+       
                super.setRedirect(false);
                super.setViewPage("/WEB-INF/view/jsonview.jsp");
                // super.setViewPage("/WEB-INF/view/jsonview.jsp");

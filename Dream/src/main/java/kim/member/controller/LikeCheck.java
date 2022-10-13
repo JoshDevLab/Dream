@@ -27,7 +27,7 @@ public class LikeCheck extends AbstractController {
 	
 			String userid = request.getParameter("userid");
 			String productNum = request.getParameter("productNum");
-			System.out.println(userid);
+			// system.out.println(userid);
 			Map<String, String> paraMap = new HashMap<>();
 			paraMap.put("userid", userid);
 			paraMap.put("productNum", productNum);
@@ -45,7 +45,7 @@ public class LikeCheck extends AbstractController {
 			
 			request.setAttribute("json", json);
 			
-			System.out.println(json);
+			// system.out.println(json);
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/jsonview.jsp");
 		}	
