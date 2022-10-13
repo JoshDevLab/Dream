@@ -18,10 +18,9 @@ import hgb.address.model.InterAddressDAO;
 
 public class AddressController extends AbstractController{
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String method = request.getMethod();
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {				
 		
-		
+		String method = request.getMethod();		
            
 		
 		if("POST".equalsIgnoreCase(method)) {	//method가 "POST" 일 때
