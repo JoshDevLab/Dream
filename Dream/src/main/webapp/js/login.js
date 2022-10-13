@@ -243,7 +243,7 @@ function goLogin() {
 					
 					// location.href=getContextPath()+"/login/login.dream";
 					
-					setTimeout("location.href='"+getContextPath()+"/index.dream'",500);
+					setTimeout("location.href='"+getContextPath()+json.goBackURL+"'",500);
 					return;
 				}
 					//location.href=getContextPath()+"/login/login.dream";

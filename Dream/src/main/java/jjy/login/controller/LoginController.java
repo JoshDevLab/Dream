@@ -204,6 +204,23 @@ public class LoginController extends AbstractController {
 					jsonObj.put("isRestMember", isRestMember); // json으로 전달할 휴면사용자 여부
 					jsonObj.put("isUserExists", isUserExists); // 아이디 비밀번호 일치하는 경우 
 					
+					HttpSession session = request.getSession();
+					
+					String goBackURL = (String)session.getAttribute("goBackURL");
+				    // /shop/prodView.up?pnum=62 (상품을 본 경우)
+				    // 또는 
+				    // null 
+				  
+				    if(goBackURL != null) {
+				    	jsonObj.put("goBackURL", goBackURL); // 아이디 비밀번호 일치하는 경우 
+				    }
+				    else { // 인덱스페이지 또는 home 인경우 
+					  // 시작페이지로 이동
+				    	goBackURL = "/index.dream"; // 시작 홈페이지로 이동
+				    	jsonObj.put("goBackURL", goBackURL); // 아이디 비밀번호 일치하는 경우 
+				    }
+					
+					
 					String json = jsonObj.toString();
 					request.setAttribute("json", json);
 	
