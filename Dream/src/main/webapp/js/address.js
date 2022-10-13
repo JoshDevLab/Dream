@@ -192,7 +192,7 @@ $(document).ready(function(){
     	
     	address_num = $target.parent().parent().find("#address_num").val();
     	    	  	
-    	console.log(address_num);
+    	
     	
     	$("input#address_num").val(address_num);
     	
@@ -221,7 +221,7 @@ $(document).ready(function(){
     	
     	$("input#address_num").val(address_num);  	  
     	
-    	console.log(address_num); 	  	    	
+    	  	    	
     	
     	const frm = document.delete_add;    
 	    frm.action = "addressgobasic.dream";
@@ -238,8 +238,8 @@ $(document).ready(function(){
     
     $("a#basic_delete").click( (event)=>{ 
 
-        alert("다른 주소를 기본 배송지로 변경 후, 삭제할 수 있습니다.");
-    		
+        /*alert("다른 주소를 기본 배송지로 변경 후, 삭제할 수 있습니다.");*/
+    	toastr["error"]("다른 주소를 기본 배송지로 <br>변경 후, 삭제할 수 있습니다.");	
     });
     
     
@@ -270,7 +270,7 @@ $(document).ready(function(){
     	
     	address_num = target.parent().parent().find("#address_num").val(); 
     	
-    	console.log(detail_address);
+    	
     		
 		$("input#address_num_modal").val(address_num);	 	
 		
@@ -305,7 +305,7 @@ $(document).ready(function(){
     	
     	 address_num = target.parent().parent().find("#address_num").val(); 
     	
-    	console.log(detail_address);
+    	
     		
 		$("input#address_num_modal").val(address_num);	 
 		
@@ -319,10 +319,6 @@ $(document).ready(function(){
       
       
  });  
-
-
-
-
 
 
     
@@ -546,7 +542,6 @@ function goEdit() {
 	    $("input:text[name='mobile']").val("").focus();
 	    return false; // submit 을 하지 않고 종료한다.
     }
-
 	
 	
     const frm = document.registerFrm;    

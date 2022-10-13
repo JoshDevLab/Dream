@@ -240,7 +240,7 @@ public class MemberDAO implements InterMemberDAO{
 			conn = ds.getConnection();
 			conn.setAutoCommit(false);
 			
-			System.out.println("passwd"+paraMap.get("passwd"));
+			
 			if( paraMap.get("passwd") != "없음") {
 				sql = " update tbl_member_login set  passwd = ? , secession = ? , rest_member = ? "
 					   + " where userid = ? "; 

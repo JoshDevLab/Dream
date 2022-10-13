@@ -13,7 +13,7 @@ import common.controller.AbstractController;
 import kim.member.model.InterMemberDAO;
 import kim.member.model.MemberDAO;
 
-public class deletemessage extends AbstractController {
+public class Deletemessage extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -27,7 +27,9 @@ public class deletemessage extends AbstractController {
 	
 			String messageno = request.getParameter("messageno");
 			// messageno 는 받을때부터 0 , 1, 2, 이런식으로 받을 예정
+			System.out.println(messageno);
 			
+/*
 			String whoami = request.getParameter("whoami");
 			// 받은메시지 삭제인지 보낸메시지 삭제인지 확인
 			
@@ -50,7 +52,7 @@ public class deletemessage extends AbstractController {
 			System.out.println(json);
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/view/jsonview.jsp");
-		}	
+	*/	}	
 	}
 
 }

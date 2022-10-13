@@ -47,11 +47,7 @@ public class AddressRegisterController extends AbstractController{
 	        	 basic_address = "off";
 	         }
 	        
-	         
-	         
-	         System.out.println(basic_address);
-
-	         
+	        
 	         
 	         HttpSession session = request.getSession();	//로그인중인 userid값 가져오기위한 session 객체생성
 			 //로그인 중인 사람의 userid 값 가져오기
@@ -74,7 +70,7 @@ public class AddressRegisterController extends AbstractController{
 	        	
 	        	if(basic_address.equalsIgnoreCase("on")){
 	        		n = adao.registerBasicAddress(address1);
-	        		System.out.println(basic_address);
+	        		
 	        	}
 	        	else {
 	        	

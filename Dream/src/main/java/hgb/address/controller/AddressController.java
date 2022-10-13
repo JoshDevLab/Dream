@@ -90,9 +90,7 @@ public class AddressController extends AbstractController{
 			    boolean last_display_page = false;								// 보고있는 페이지가 마지막 페이지번호쪽 인지 여부검사
 			    int a = (int)Math.ceil(totalPage / display_pagef);	//총페이지 / 한페이지당 보여줄 페이지 수
 			    int b = (int)Math.ceil(page / display_pagef);		//현재페이지번호 / 한 페이지당 보여줄 페이지 수
-			    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			    System.out.println("a : "+ a);
-			    System.out.println("b : "+ b);
+			   
 			    if(a == b) {
 			    	last_display_page = true;
 			    }
@@ -109,15 +107,17 @@ public class AddressController extends AbstractController{
 			    List<AddressDTO> addressList = adao.selectAddress(paraMap);
 				
 				
-			    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			    System.out.println("현재보고있는 페이지 : "+ page);
-			    System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
-			    System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
-			    System.out.println("총 게시물 수 : "+ total_cnt);
-			    System.out.println("총페이지 : "+ totalPage);
-			    System.out.println("아래 시작페이지 : "+ startPage);
-			    System.out.println("아래 끝페이지 : "+ endPage);
-			    System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+				/*
+				 * System.out.println(
+				 * "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				 * System.out.println("현재보고있는 페이지 : "+ page);
+				 * System.out.println("한 페이지당 보여줄 게시물 수 : "+ display_cnt);
+				 * System.out.println("한번에 보여줄 페이지번호의 갯수 : "+ display_page);
+				 * System.out.println("총 게시물 수 : "+ total_cnt); System.out.println("총페이지 : "+
+				 * totalPage); System.out.println("아래 시작페이지 : "+ startPage);
+				 * System.out.println("아래 끝페이지 : "+ endPage);
+				 * System.out.println("현재 페이지가 마지막 페이지단인지 여부 : "+ last_display_page);
+				 */
 				
 				
 				request.setAttribute("addressList", addressList);

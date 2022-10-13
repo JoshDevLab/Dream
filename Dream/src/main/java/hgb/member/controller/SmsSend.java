@@ -43,7 +43,7 @@ public class SmsSend extends AbstractController {
 				certificationCode+= Integer.toString(rand.nextInt(9));
 			}
 			
-			System.out.println("확인용 >> "+certificationCode);
+			
 			
 			/*
 			 * HttpSession session = request.getSession();
