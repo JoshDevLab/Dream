@@ -72,6 +72,7 @@ public abstract class AbstractController implements InterCommand {
 	public void goBackURL(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
+		session.removeAttribute("goBackURL");
 		session.setAttribute("goBackURL", MyUtil.getCurrentURL(request));// 현재 URL 을 얻어온다음 session에 넣어둔다.
 		
 //			System.out.println( MyUtil.getCurrentURL(request) );
