@@ -376,7 +376,17 @@ function resetMobile() {
 $(document).on("click","button.can_modify",function() {
 	// alert("ㅎㅎ");
 	$("button#myInfo_modify").prop("disabled",false);
+	
 })
+
+$(document).on("click","#certification_mobile_btn",function() {
+	// alert("ㅎㅎ");
+	if($("input:hidden[name='mobile_store_cnt']").val() > 0) {
+		$("button#myInfo_modify").prop("disabled",false);
+	}
+	
+})
+
 
 
 
@@ -480,7 +490,7 @@ $(document).on("click","button.can_modify",function() {
 			        async:true,   
 			        success:function(json){
 				
-					console.log(json.isExists);
+					// console.log(json.isExists);
 			            
 			            if(json.isExists) {
 			                // 입력한 전화번호가 이미 사용중이라면
@@ -515,6 +525,7 @@ $(document).on("click","button.can_modify",function() {
 									       $("input#modify_mobile").css("border-bottom","none");  //빨간색 밑줄
 									       $("#input_mobile_error").hide();
 									       $("#new_mobile").css("color","black");  //라벨 빨간색
+									       $("div#div_timer").text('');
 									       clearInterval(setTimer);
 										   time = 180;
 									       return;
@@ -546,6 +557,7 @@ $(document).on("click","button.can_modify",function() {
 											        $("span#mobile").text(modify_mobile);
 											        $("input:hidden[name='mobile']").val(modify_mobile);
 											        $("input:hidden[name='mobile_store_cnt']").val(mobile_store_cnt);
+											        $("div#div_timer").text('');
 											        clearInterval(setTimer);
 													time = 180;
 												}

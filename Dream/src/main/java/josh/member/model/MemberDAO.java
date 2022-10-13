@@ -168,7 +168,7 @@ public class MemberDAO implements InterMemberDAO{
 			n = pstmt.executeUpdate();
 			
 			
-			if(passwd_store_cnt > 0 || mobile_store_cnt > 0) {
+			if(passwd_store_cnt > 0) {
 				sql = " update tbl_member_login set passwd = ? "
 					+ " where userid = ? ";
 					

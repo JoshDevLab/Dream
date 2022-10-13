@@ -248,7 +248,7 @@ function goCoinPurchaseEnd() {
 					           	fk_address_num : $("option:selected").val()
 				        		};
 				 
-				 //console.log("안에들어온 주소 확인용 ==>" + $("option:selected").val());
+				 console.log("안에들어온 확인용 ==>" + $(item).parent().parent().find("input[name='cart_qty']").val());
 				 
 				 param.push(data)
 			});
@@ -459,7 +459,7 @@ function goCoinPurchaseEnd() {
 	                    <div class="top_moblie_cart_list" style="display: flex; position: relative;">
 	                        <div class="align-top mr-3">
 	                            <c:if test="${cartList.size_cnt > 0}">
-	                            		<input type="checkbox" id="purchase_check" class="check_${status.index}" name="prd_check"><%-- 반복문 넣을때  class 에 뒤에 index값 넣어주기 --%>
+	                            		<input type="checkbox" class="check_${status.index}" name="prd_check"/>
                                 </c:if>
                                 <c:if test="${cartList.size_cnt <= 0}">
                                     X<%-- 반복문 넣을때  class 에 뒤에 index값 넣어주기 --%>
