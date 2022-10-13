@@ -53,8 +53,9 @@ public class ShippingInfo extends AbstractController {
 				super.setViewPage(request.getContextPath()+"/index.dream");
 			}
 		}catch(Exception e) {
-			super.setRedirect(true);
-			super.setViewPage(request.getContextPath()+"/index.dream");
+			e.printStackTrace();
+	//		super.setRedirect(true);
+//			super.setViewPage(request.getContextPath()+"/index.dream");
 		}
 		
 	}
