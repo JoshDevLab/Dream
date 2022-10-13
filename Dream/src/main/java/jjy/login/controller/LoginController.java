@@ -147,7 +147,6 @@ public class LoginController extends AbstractController {
 						if (secession == 1) { // 탈퇴 회원인 경우
 							isSecession = true; // json으로 전달할 탈퇴 회원
 						} 
-						
 						else { // 탈퇴 회원이 아닌경우
 							if (restMember == 1) { // 휴면 사용자인경우
 	//						System.out.println("##확인용## 로그인 실패 휴면 회원.");
@@ -189,7 +188,7 @@ public class LoginController extends AbstractController {
 					System.out.println("확인용 : isRequirePwdChange" + isRequirePwdChange);
 					System.out.println("확인용 : isRestMember" + isRestMember);
 					System.out.println("확인용 : isUserExists" + isUserExists);
-					 */
+					*/
 					// 제이슨 객체생성
 					JSONObject jsonObj = new JSONObject();
 					

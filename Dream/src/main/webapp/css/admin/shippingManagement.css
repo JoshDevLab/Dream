@@ -1,4 +1,10 @@
 @charset "UTF-8"; /* 진행중, 종료 태그 가운데 정렬 */
+
+:checked {
+    accent-color: black;
+}
+
+
 div#status_button {
 	display: flex;
 	justify-content: center;
@@ -9,6 +15,17 @@ div#status_button {
 div#content_title{
 	width : 100%;
 	text-align:center;
+}
+
+div.div_allcheck{
+	display: flex;
+	margin:auto;
+}
+div.div_allcheck > button.btn_shipping{
+	height : 25px;
+}
+div.div_allcheck > label{
+	margin-bottom:0;
 }
 
 div#allCheckAndButtons{
@@ -49,11 +66,15 @@ div#allCheckAndButtons > label{
 /* 버튼은 px로 고정 */
 div#date_button {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 }
 
 div#date_button>button {
 	font-size: 10pt;
+}
+
+input#allCheckEnd{
+	margin-left:10px;
 }
 
 .square {
@@ -86,7 +107,7 @@ div#result_buttons {
 
 div.purchase_item {
 	display: flex;
-	justify-content: space-between;
+	justify-content: start;
 	height: 120px;
 }
 
@@ -142,8 +163,8 @@ div#sort {
 
 div#date_status {
 	display: flex;
-	justify-content: space-around;
-	width: 50%;
+	justify-content: start;
+	width: 40%;
 }
 
 div#date_status>div {
@@ -244,7 +265,6 @@ span#shipping_ocnt {
 }
 .purchase_cnt{
 	width: 80px;
-	margin-right: 30px;
 }
 span#shipping_tprice, .totalPrice{
 	width : 100px;
@@ -271,13 +291,11 @@ span#shipping_odate{
 
 
 
-
 a.purchaseDetail {
 	color: #222222;
 	background-color: transparent;
 	text-decoration: none;
 }
-
 a.purchaseDetail:link {
 	color: #222222;
 	background-color: transparent;
@@ -298,6 +316,7 @@ a.purchaseDetail:active {
 	background-color: transparent;
 	text-decoration: none;
 } /* 클릭했을 때 링크 상태 */
+
 
 
 

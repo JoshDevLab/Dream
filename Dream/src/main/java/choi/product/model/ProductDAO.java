@@ -221,6 +221,7 @@ public class ProductDAO implements InterProductDAO{
 				pdto.setGender(rs.getString("gender") );
 				pdto.setBestyn(rs.getString("bestyn") );
 				pdto.setReal_price(rs.getInt("real_price") );
+				pdto.setLike_cnt(rs.getInt("like_cnt"));
 				if(userid != null) {
 					pdto.setProduct_like_cnt(rs.getInt("product_like_cnt"));
 				}
@@ -674,5 +675,43 @@ public class ProductDAO implements InterProductDAO{
 			close();
 		}
 		return productList;
+	}
+
+	
+	// 유저아이디를 입력받아서 회원맞춤 검색어 리스트를 알아오는 메소드
+	@Override
+	public List<String> selectpersonalizedKeyword(String userid) throws SQLException {
+		List<String> personalizedList = new ArrayList<>();
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select * "
+					    + " from "
+					    + " ( "
+					    + " select rownum R,V.* "
+					    + " from "
+					    + " ( "
+					    + " select keyword,count(*) "
+					    + " from tbl_search_keyword "
+					    + " where userid= ? "
+					    + " group by keyword "
+					    + " order by count(*) desc "
+					    + " ) V "
+					    + " ) T "
+					    + " where R between 1 and 5 ";
+								
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userid);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				personalizedList.add(rs.getString("keyword"));
+			}
+			
+		} finally {
+			close();
+		}
+		return personalizedList;
 	}
 }

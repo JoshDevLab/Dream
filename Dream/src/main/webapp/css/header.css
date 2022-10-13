@@ -248,6 +248,10 @@ div#menu_close {
     color: #1a1d243f;
 }
 
+:checked {
+    accent-color: black;
+}
+
 
 
 

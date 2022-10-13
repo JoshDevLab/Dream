@@ -1,7 +1,7 @@
 div#content{
    text-align: center;
    width: 35%;
-   margin: 0 auto;   
+   margin: 20px auto 0 auto;   
 }
 
 p#membership_date{
@@ -136,7 +136,25 @@ div#modal_membership_policy div.modal-body > p#policy_date{
    div#membership_header{
       width: 100%;
    }
+   
+   .sidebar {
+		display: none;
+	}
+	form#right-content {
+		width: 100%;
+	}
+	
+	#footer {
+   	  display: none;
+   }
 
+}
+
+@media (min-width: 768px) {
+   #myPageFooter {
+      display: none;
+   } 
+  
 }
 
 @media screen and (max-width: 376px){

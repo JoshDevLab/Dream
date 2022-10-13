@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
-import choi.member.model.InterMemberDAO;
-import choi.member.model.MemberDAO;
 import choi.product.model.InterLikeDAO;
 import choi.product.model.LikeDAO;
 import common.controller.AbstractController;
