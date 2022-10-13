@@ -69,7 +69,7 @@
 						                "</div>"+
 						                "<div id='product_simple_explain' class='pl-2'>"+
 						                  <%-- 상품 카테고리 넣을 곳 --%>
-						                  "<div id='product_division' class='mt-2'>"+item.product_category+"</div>"+
+						                  "<div id='product_division' class='mt-2'>"+item.category+"</div>"+
 						                  <%-- 상품이름 넣을 곳 --%>
 						                  "<div id='product_name' class='my-2'>"+item.product_name+"</div>"+
 						                  <%-- 상품가격 넣을 곳 --%>
