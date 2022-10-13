@@ -17,7 +17,6 @@ public class LikeCheck extends AbstractController{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		super.goBackURL(request);
 		String method = request.getMethod();
 		if("GET".equalsIgnoreCase(method)) {	//"GET"
 			HttpSession session = request.getSession();

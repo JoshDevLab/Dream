@@ -17,7 +17,6 @@ public class LikeInsert extends AbstractController{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		super.goBackURL(request);
 		String method = request.getMethod();
 		
 		if("GET".equalsIgnoreCase(method)) {	//method가 "GET"일 때
