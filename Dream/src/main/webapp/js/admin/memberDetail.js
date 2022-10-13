@@ -270,12 +270,18 @@ function delete_confirm(userid){
 // 모달창에서 수정버튼을 누르면 발생하는 이벤트
 function goEditfrm() {
 	// 기본 정보창에서 가져온 정보 저장(비교용)
+	
+	
+	
+	
 	  	 
 	
 	origin_name = $("td#username").text();
 	origin_secession = $("td#secession").text();
 	origin_rest_member = $("td#rest_member").text();
 	origin_membership = $("td#membership").text();
+	
+	
 	
 	// modal 에 입력한 값
 	let new_name = $("div.input_item>input#username").val();
@@ -348,6 +354,28 @@ function goEditfrm() {
    
 	}
 	else{
+		
+		
+		
+	const regExp = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g);  
+            //  숫자 5자리만 들어오도록 검사해주는 정규표현식 객체 생성 
+            
+            const passwd = $("input:text[id='passwd']").val();
+            
+            const bool = regExp.test(passwd);
+            
+            if(!bool) {            	
+            	Swal.fire({		 
+	
+			     title: '비밀번호 형식에 맞지 않습니다',
+			     icon: 'info',     
+			     confirmButtonColor: '#3085d6',
+			     cancelButtonColor: 'dark',
+			     confirmButtonText: '확인',
+			     
+			   })
+			   return false;
+			  }
 		
 		
 		
