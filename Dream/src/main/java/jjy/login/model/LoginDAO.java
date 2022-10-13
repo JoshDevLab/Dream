@@ -290,13 +290,15 @@ public class LoginDAO implements InterLoginDAO {
          conn = ds.getConnection();
          
          String sql = "  update tbl_member_login set passwd = ? "
-                  + " ,update_passwd_date = sysdate "
-                  + "  where userid = ? ";
+                    + " ,update_passwd_date = sysdate "
+                    + "  where userid = ? ";
          
          pstmt = conn.prepareStatement(sql);
 //         pstmt.setString(1, findPwdMap.get("smsContent"));
 //         암호화 사용시 아래 코드로 교체
-         pstmt.setString(1, Sha256.encrypt((findPwdMap.get("smsContent"))));
+//         System.out.println((findPwdMap.get("tempPwd")));
+         
+         pstmt.setString(1, Sha256.encrypt((findPwdMap.get("tempPwd"))));
          pstmt.setString(2, findPwdMap.get("userid"));
          pstmt.executeUpdate();
          // System.out.println("확인용 암호화된 비밀번호  => "+ Sha256.encrypt((findPwdMap.get("smsContent"))));

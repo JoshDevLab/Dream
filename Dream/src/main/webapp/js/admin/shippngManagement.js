@@ -395,7 +395,9 @@ function updateShipping() {
 		},
 		success: function(json) {
 			if (json.result == 1) {
-				window.location.reload();
+				// window.location.reload();
+				toastr["info"]("배송중으로 상태 변경되었습니다.");
+				callAjax(start);
 			}
 
 			// 조회결과가 있는 경우 
@@ -416,9 +418,6 @@ function updateShippingEnd(){
 			ordernum_arr[i] = $("input:checkbox[name='end']").eq(i).val();
 		}
 	}  
-	
-	    //console.log("확인용"+ordernum_arr);
-	  
    	// 결과 값 찍어주는 ajax
    	$.ajax({
    		url: getContextPath()+"/admin/shippingMangementUpdate.dream",
@@ -430,7 +429,9 @@ function updateShippingEnd(){
    		success: function(json) {
 	
 			if(json.result == 1){
-			   window.location.reload();
+				toastr["info"]("배송완료 처리되었습니다.");
+				callAjax(start);
+			   // window.location.reload();
    			}
    			// 조회결과가 있는 경우 
    		},error: function(request, status, error) {
@@ -486,7 +487,7 @@ function callAjax(start) {
 	   		                        "<div id = 'name_cnt'>"+
 	   		                           "<div class='item_name'>"+item.product_name+" </div>"+
 	   		                        "</div>"+
-	   		                         "<a href='javascript:void(0);' onclick='viewShippingInfo(`"+item.userid+"`,`"+item.order_num+"`);'><div class='order_num'>[ D - "+item.order_num+" ]</div></a>"+
+	   		                         "<a class='purchaseDetail' href='javascript:void(0);' onclick='viewShippingInfo(`"+item.userid+"`,`"+item.order_num+"`);'><div class='order_num'>[ D - "+item.order_num+" ]</div></a>"+
 	   		                         "<div class='purchase_cnt' style='width:50px;'>"+item.buy_cnt+" 개 </div>"+
 	   		                        "<div class='totalPrice' >"+(item.buy_cnt*item.salePrice).toLocaleString("en")+"원</div>"+
 	   		                        "<div class='totalPoint' >"+(item.point).toLocaleString("en")+" p</div>"+
@@ -551,7 +552,6 @@ function callAjax(start) {
    				}
    					*/
    			 // HIT 상품 결과를 출력하기
-		    	// >>> !!! 중요 !!! 더보기... 버튼의 value 속성에 값을 지정하기 <<< //
 				$("button#btnMoreHIT").val( Number(start) + lenHIT);
 				
 				// span#countHIT 에 지금까지 출력된 상품의 개수를 누적해서 기록한다.

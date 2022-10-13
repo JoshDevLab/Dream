@@ -7,6 +7,19 @@ function getContextPath(){
 
 
 $(document).ready(function() {
+	
+		$("input#mobile").bind("keydown", (e)=>{
+		   if(e.keyCode == 13) { // 검색어에서 엔터를 치면 검색하러 가도록 한다.
+			   $("a#btn_findPwd").trigger("click");
+		   }
+	   });
+	   
+	   $("input#email").bind("keydown", (e)=>{
+		   if(e.keyCode == 13) { // 검색어에서 엔터를 치면 검색하러 가도록 한다.
+			   $("a#btn_findPwd").trigger("click");
+		   }
+	   });
+	
 
 	$("div.warning").hide();
 

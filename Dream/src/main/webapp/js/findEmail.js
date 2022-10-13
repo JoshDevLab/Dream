@@ -50,23 +50,14 @@ $(document).ready(function() {
 				 async:true,      // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
 				                  // async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.  
 				 success:function(json){ 
-					 // dataType:"json" 을 생략하면 
-					 // text 는 "{"isExists":true}" 또는 "{"isExists":false}" 되어지는 string 타입이다. 
-
-					 // dataType:"json" 을 생략하지 않고 넣어주면 
-					 // text 는 {"isExists":true} 또는 {"isExists":false} 되어지는 object 타입이다. 
-					 
-					 // const json = JSON.parse(text);
-					 // JSON.parse(text); 은 JSON.parse("{"isExists":true}"); 또는 JSON.parse("{"isExists":false}"); 와 같은 것인데
-					 // 그 결과물은 {"isExists":true} 또는 {"isExists":false} 와 같은 문자열을 자바스크립트 객체로 변환해주는 것이다. 
-					 // 조심할 것은 text 는 반드시 JSON 형식으로 되어진 문자열이어야 한다. 
 					 if(json.existMobile) {
 						 sessionStorage.setItem('userid', json.userid);
 						 location.href=getContextPath()+"/login/findEmailEnd.dream";
 					 }
 					 else {
 						 $("div#notfound_notice").css("display:block");
-						 alert("일치하는 회원정보가 없습니다.");
+						 // alert("일치하는 회원정보가 없습니다.");
+						 toastr["error"]("일치하는 회원정보가 없습니다.");
 					 }
 				 },
 				 

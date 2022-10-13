@@ -46,12 +46,12 @@ public class MembershipRegistController extends AbstractController {
 			}
 			
 			// json 시작 // 
-			System.out.println(b_membership);
+//			System.out.println(b_membership);
 			JSONObject jsonObj = new JSONObject(); // {}
 			jsonObj.put("b_membership", b_membership);     // {"isExists":true} 또는 {"isExists":false} 으로 만들어준다. 
 			
 			String json = jsonObj.toString(); // 문자열 형태인 "{"isExists":true}" 또는 "{"isExists":false}" 으로 만들어준다.
-			System.out.println(">> 확인용 json => " + json);
+			// System.out.println(">> 확인용 json => " + json);
 			
 			request.setAttribute("json", json);
 			
