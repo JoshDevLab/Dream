@@ -109,7 +109,7 @@ public class MemberDAO implements InterMemberDAO {
 			pstmt.setString(1, userid);
 			
 			result = pstmt.executeUpdate();
-			System.out.println("sql 실행 후 result = "+result);
+//			System.out.println("sql 실행 후 result = "+result);
 			
 		} finally {
 			close();

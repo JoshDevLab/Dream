@@ -162,7 +162,7 @@ public class LoginController extends AbstractController {
 									session.setAttribute("userid", userid);
 	
 							//		System.out.println("확인용 로그인된 아이디 : " + loginuser.getUserid());
-									System.out.println("확인용 session에 저장된 아이디 : " + session.getAttribute("userid"));
+									System.out.println("로그인 컨트롤러 확인용 session에 저장된 아이디 : " + session.getAttribute("userid"));
 								} else {
 							//		System.out.println("loginController 에서 출력 ## 확인용 ## 로그인 성공!");
 	

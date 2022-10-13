@@ -47,7 +47,7 @@ public class FindPwdController extends AbstractController {
 			final char[] passwordTable =  { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' };
 			smsContent += passwordTable[rnd.nextInt(passwordTable.length)];
 			smsContent += " ]입니다."; 
-			System.out.println("확인용 발급된 임시 비밀번호 => "+ smsContent);
+//			System.out.println("확인용 발급된 임시 비밀번호 => "+ smsContent);
 			///////////////////////////////////////////////////////////////////////////////////////////
 			
 			String userid = request.getParameter("email");

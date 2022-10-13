@@ -28,7 +28,7 @@ $(document).ready(function() {
 			async: true,      // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
 			// async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.  
 			success: function(json) {
-				console.log(json.b_membership);
+				// console.log(json.b_membership);
 				if (json.b_membership) {
 					alert("이미 멤버십 가입중인 회원입니다.");
 				}
