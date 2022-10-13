@@ -111,6 +111,7 @@ a.btn_find:visited {
 a.btn_find:hover {
    color : white;
    text-decoration: none;
+   cursor: pointer;
 }
 a.btn_find:active {
    color : white;

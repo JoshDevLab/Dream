@@ -28,17 +28,21 @@ $(document).ready(function() {
 			async: true,      // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
 			// async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.  
 			success: function(json) {
-				console.log(json.b_membership);
+				// console.log(json.b_membership);
 				if (json.b_membership) {
-					alert("이미 멤버십 가입중인 회원입니다.");
+					// alert("이미 멤버십 가입중인 회원입니다.");
+					toastr["warning"]("이미 멤버십 가입중인 회원입니다.");
 				}
 				else {
-					alert("멤버십 가입에 성공했습니다.");
+					// alert("멤버십 가입에 성공했습니다.");
+					toastr["success"]("멤버십 가입에 성공했습니다.");
 				}
 			},
 
 			error: function(request, status, error) {
-				alert("에러발생 페이지로 이동");
+				// alert("에러발생 페이지로 이동");
+				toastr["error"]("에러발생 페이지로 이동");
+				location.href=getContextPath()+"/index.dream"
 			}
 
 		});

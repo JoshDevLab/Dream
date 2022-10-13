@@ -455,7 +455,8 @@ public class PurchaseListDAO implements InterPurchaseListDAO {
 					   + "       P.product_num , P.product_name, P.product_image, P.price, P.discount_rate "
 					   + " FROM tbl_buylist B LEFT JOIN tbl_product P "
 					   + " ON B.product_num = P.product_num "
-					   + " where shipping = ? ";
+					   + " where shipping = ? "
+					   + " order by order_num desc ";
 					   
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, input_shipping);

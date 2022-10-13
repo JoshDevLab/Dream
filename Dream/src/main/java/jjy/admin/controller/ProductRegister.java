@@ -72,7 +72,7 @@ public class ProductRegister extends AbstractController{
 	//			String uploadFileDir = svlCtx.getRealPath("/images/제품이미지");
 				String uploadFileDir = "C:\\Users\\sist\\git\\Dream\\Dream\\src\\main\\webapp\\images\\제품이미지";
 				
-				System.out.println("확인용 주소 uploadFileDir => "+uploadFileDir);
+				// System.out.println("확인용 주소 uploadFileDir => "+uploadFileDir);
 				
 				
 				// === 파일을 업로드 해준다. === // 
@@ -230,13 +230,14 @@ public class ProductRegister extends AbstractController{
 					
 					// 제품 재고 테이블에 insert 하는 메소드 
 				//	int n = pdao.registPqty(productMap);
-					
+					/*
 					if(result > 0 ) {
 						System.out.println("제품재고 insert 성공!");
 					}
 					else {
 						System.out.println("제품재고 insert 실패!");
 					}
+					*/
 					
 				}
 				
@@ -244,12 +245,12 @@ public class ProductRegister extends AbstractController{
 				String loc ="";
 				
 				if(result == 1) {
-					System.out.println("확인용 상품등록 성공");
+				//	System.out.println("확인용 상품등록 성공");
 					message = "상품등록 성공";
 					loc = request.getContextPath()+"/product/shop.dream";
 				}
 				else {
-					System.out.println("확인용 상품등록 실패");
+				//	System.out.println("확인용 상품등록 실패");
 					message = "상품등록 실패";
 					loc = request.getContextPath()+"/product/shop.dream";
 				}

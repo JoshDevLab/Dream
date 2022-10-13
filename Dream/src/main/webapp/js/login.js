@@ -176,20 +176,9 @@ function goLogin() {
 			 	   "passwd":input_passwd }, 
 			 type:"POST",    
 			 dataType:"JSON",
-		//	 async:true,      // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
-			                  // async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.  
+		//	 async:true,      //기본값 : 비동기 (async:true)
+		
 			 success:function(json){ 
-				 // dataType:"json" 을 생략하면 
-				 // text 는 "{"isExists":true}" 또는 "{"isExists":false}" 되어지는 string 타입이다. 
-				 
-				 // dataType:"json" 을 생략하지 않고 넣어주면 
-				 // text 는 {"isExists":true} 또는 {"isExists":false} 되어지는 object 타입이다. 
-				 
-				 // const json = JSON.parse(text);
-				 // JSON.parse(text); 은 JSON.parse("{"isExists":true}"); 또는 JSON.parse("{"isExists":false}"); 와 같은 것인데
-				 // 그 결과물은 {"isExists":true} 또는 {"isExists":false} 와 같은 문자열을 자바스크립트 객체로 변환해주는 것이다. 
-				 // 조심할 것은 text 는 반드시 JSON 형식으로 되어진 문자열이어야 한다. 
-				 
 				 
 				/* console.log(json.isSecession);
 				 console.log(json.isRestMember);
@@ -197,8 +186,8 @@ function goLogin() {
 				 console.log(json.isUserExists);*/
 				 
 				 if(!json.isUserExists) {
-					alert("아이디 또는 비밀번호가 틀립니다.");
-					// toastr["warning"]("아이디 또는 비밀번호가 틀립니다.");
+					// alert("아이디 또는 비밀번호가 틀립니다.");
+					toastr["warning"]("아이디 또는 비밀번호가 틀립니다.");
 					
 					$("span#email_warning").css("display","none");   //에러문구
 					$("div#div_userid>label").css("color", "");      //이메일주소 문구 빨간색
@@ -232,31 +221,32 @@ function goLogin() {
 				 }
 				 
 				 if(json.isRequirePwdChange){
-					// toastr["warning"]("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
-					alert("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
+					// alert("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
+					toastr["warning"]("마지막 비밀번호 변경일로부터 3개월이 지났습니다.");
 				 	// location.href=getContextPath()+"/index.dream";
 				 }
 				 
 				 if(json.isMembershipGap){
-					alert("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
-					// toastr["warning"]("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
+					// alert("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
+					toastr["warning"]("멤버십 기간이 만료되어 멤버십 해지되었습니다.");
 				}
 				 
 				 if(json.isUserExists){
 					if(json.userid =="admin"){
-						alert("관리자로 로그인되었습니다");
-						// toastr["info"]("관리자로 로그인되었습니다");
+						// alert("관리자로 로그인되었습니다");
+						toastr["info"]("관리자로 로그인되었습니다");
 					}
 					if(!json.isFirstLogin && json.userid != "admin") {
-						alert("신규회원 전용 포인트 2000P가 지급되었습니다!");
-						// toastr["info"]("신규회원 전용 포인트 2000P가 지급되었습니다!");
+						// alert("신규회원 전용 포인트 2000P가 지급되었습니다!");
+						toastr["info"]("신규회원 전용 포인트 2000P가 지급되었습니다!");
 				 	}
 					
 					// location.href=getContextPath()+"/login/login.dream";
-					location.href=getContextPath()+"/index.dream";
+					
+					setTimeout("location.href='"+getContextPath()+json.goBackURL+"'",500);
 					return;
 				}
-					location.href=getContextPath()+"/login/login.dream";
+					//location.href=getContextPath()+"/login/login.dream";
 				 
 			 },
 			 
