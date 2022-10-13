@@ -101,7 +101,7 @@
       	$("input#point").blur(function(){
 			if(Number($(this).val()) >  Number($("span.point").text()))
 			{
-				alert("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
+				toastr["warning"]("보유한 포인트보다 많은 포인트를 사용하실 수 없습니다. 다시 입력해주세요!");
 				$(this).val('');
 				const final_price = (Number($("span#payment_price").text()));
 				// console.log("final_price"+final_price);
@@ -111,7 +111,7 @@
 				return false;
 			}		
 			if(Number($(this).val()) >  Number($("span#payment_price").text()))	{
-				alert("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
+				toastr["warning"]("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
 				
 				const final_price = (Number($("span#payment_price").text()));
 				// console.log("final_price"+final_price);
@@ -143,7 +143,9 @@
 			
 			$("input#point").val($("span.point").text());
 			if(Number($("input#point").val()) >  Number($("span#payment_price").text()))	{
-				alert("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
+				
+				toastr["warning"]("제품의 금액을 넘는양의 포인트는 사용할 수 없습니다");
+
 				
 				const final_price = (Number($("span#payment_price").text()));
 				// console.log("final_price"+final_price);
@@ -211,8 +213,8 @@
 			frm.PointMinus.value = 0;
 		}
 		
-		let length = $("li#SeletedOption").length;
-		// console.log("length"+length);
+		let length = $("tr#SeletedOption").length;
+		 console.log("length"+length);
 		frm.length.value = length;// 반복할 횟수 가져가줌
 		// 여기서 이벤트타입 분기점 생기면 여기서 나눠서 올리면 된다. 난 몰루겠음 구매말곤
 		let event_type = "구매"; 
@@ -552,14 +554,12 @@ function goRegister() {
    
    const name_length = $("input:text[name='order_name']").val().trim().length;
          if(name_length < 2) {
-            alert("이름 형식에 맞지 않습니다!!");
             $("input:text[name='order_name']").val("").focus();
             return false; // submit 을 하지 않고 종료한다.
    }
          
     const mobile_length = $("input:text[name='mobile']").val().trim().length;
     if(mobile_length < 11) {
-       alert("전화번호 형식에 맞지않습니다 !!");
        $("input:text[name='mobile']").val("").focus();
        return false; // submit 을 하지 않고 종료한다.
     }
@@ -567,7 +567,7 @@ function goRegister() {
    // "우편번호찾기" 을 클릭했는지 여부 알아오기 
     if(!b_flag_zipcodeSearch_click) { 
        // "우편번호찾기" 을 클릭 안 했을 경우 
-       alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
+		toastr["warning"]("우편번호찾기를 클릭해주세요!");
        
        return; // 종료
     }
@@ -584,7 +584,7 @@ function goRegister() {
             const bool = regExp.test(postcode);
             
             if(!bool) {
-               alert("우편번호 형식에 맞지 않습니다.");
+               
                $("input:text[id='postcode']").val("");
                b_flag_zipcodeSearch_click = false;
                return; // 종료
@@ -611,14 +611,14 @@ function goEdit() {
    
    const name_length = $("input:text[name='order_name']").val().trim().length;
          if(name_length < 2) {
-            alert("이름 형식에 맞지 않습니다!!");
+   
             $("input:text[name='order_name']").val("").focus();
             return false; // submit 을 하지 않고 종료한다.
    }
          
     const mobile_length = $("input:text[name='mobile']").val().trim().length;
     if(mobile_length < 11) {
-       alert("전화번호 형식에 맞지않습니다 !!");
+
        $("input:text[name='mobile']").val("").focus();
        return false; // submit 을 하지 않고 종료한다.
     }
@@ -626,7 +626,7 @@ function goEdit() {
    // "우편번호찾기" 을 클릭했는지 여부 알아오기 
     if(!b_flag_zipcodeSearch_click) { 
        // "우편번호찾기" 을 클릭 안 했을 경우 
-       alert("우편번호찿기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
+       toastr["warning"]("우편번호찾기를 클릭해주세요!");
        
        return; // 종료
     }
@@ -643,7 +643,7 @@ function goEdit() {
             const bool = regExp.test(postcode);
             
             if(!bool) {
-               alert("우편번호 형식에 맞지 않습니다.");
+       
                $("input:text[id='postcode']").val("");
                b_flag_zipcodeSearch_click = false;
                return; // 종료
