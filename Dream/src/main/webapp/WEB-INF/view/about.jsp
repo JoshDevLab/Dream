@@ -180,8 +180,18 @@
             <h1 class="project_review_title">Project Review</h1>
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
-          <div class="project_review_content">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+          <div class="project_review_content mt-2">
+            <p>
+			팀원들과 첫 웹프로젝트를 진행하면서 여러가지 시행착오를 많이 겪었는데, 그중 첫번째로는<br>
+			다들 처음으로 Github를 통해 협업을 진행하여서 충돌이 났을때 대처가 많이 미흡하여 해결하는데 시간이 많이 지체되었습니다.
+			또한, 공부할때는 겪을 수 없었던 수많은 문제상황과 직면하였습니다. 예를들어 페이징처리를 먼저 한 뒤에, 상품목록을 가져오는 쿼리문을 작성하였는데
+			페이징처리를 a태그에 직접 링크에 걸어 파라미터를 넘겨주는식으로 로직을 짜버리는바람에 다중필터조건을 걸 때 쿼리문을 전부 수정해야하는 등의 문제상황이 정말 많았습니다.
+			</p>
+			<p>
+			이번 프로젝트는 여러가지 문제상황에 직면하고, 그 상황들을 해결하면서 "문제해결능력"이 많이 향상되었던 프로젝트 였습니다.
+			처음에 목표했던 쿠폰기능이라던지, 채팅기능, 관리자용 대시보드 등등 구현하지 못한부분도 많지만 배운내용을 좀더 확실하게 다지고, 팀장으로서 팀원들과의 소통으로 커뮤니케이션능력의 향상까지
+			이루어낸 값진 "경험"이였습니다. 팀원분들 다들 고생하셨습니다!
+			</p>
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
@@ -269,8 +279,8 @@
             <h1 class="project_review_title">Project Review</h1>
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
-          <div class="project_review_content">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          <div class="project_review_content mt-2">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
@@ -452,8 +462,8 @@
             <h1 class="project_review_title">Project Review</h1>
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
-          <div class="project_review_content">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          <div class="project_review_content mt-2">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
@@ -544,8 +554,8 @@
             <h1 class="project_review_title">Project Review</h1>
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
-          <div class="project_review_content">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+          <div class="project_review_content mt-2">
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>

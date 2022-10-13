@@ -224,7 +224,7 @@
           <p class="category_text text-center" style="font-weight:bold;">베개</p>
         </div>
         
-        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=파자마">
+        <div class="shortcut_item mb-2" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=파자마'">
           <div class="shortcut_img">
             <img src="<%= ctxPath%>/images/디테일카테고리/카테고리커플파자마.PNG" alt="">
           </div>

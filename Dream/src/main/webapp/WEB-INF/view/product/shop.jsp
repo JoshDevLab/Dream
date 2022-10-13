@@ -267,7 +267,7 @@
 	                  <div id="text">상품등록</div>
 				      <div class="darkness"></div>
 				      <div class="btn_plus d-flex justify-content-center align-items-center">
-				        <span draggable="false">+</span>
+				        <span draggable="false" class="mb-2">+</span>
 				      </div>
 				      
 				      
@@ -290,7 +290,7 @@
 		                </div>
 		                <div id="product_simple_explain" class="pl-2">
 		                  <%-- 상품 카테고리 넣을 곳 --%>
-		                  <div id="product_division" class="mt-2">${product.category}</div>
+		                  <div id="product_division" class="mt-2">${product.category} - ${product.detail_category}</div>
 		                  <%-- 상품이름 넣을 곳 --%>
 		                  <div id="product_name" class="my-2">${product.product_name }</div>
 		                  <%-- 상품가격 넣을 곳 --%>
