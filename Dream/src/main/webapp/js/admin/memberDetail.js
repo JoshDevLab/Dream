@@ -356,7 +356,7 @@ function goEditfrm() {
 	else{
 		
 		
-		
+	if( $("div.input_item>input#passwd").val() != ""){	
 	const regExp = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g);  
             //  숫자 5자리만 들어오도록 검사해주는 정규표현식 객체 생성 
             
@@ -374,8 +374,11 @@ function goEditfrm() {
 			     confirmButtonText: '확인',
 			     
 			   })
-			   return false;
+			   return ;
 			  }
+		}	  
+			  
+	   		  
 		
 		
 		
