@@ -108,7 +108,7 @@
             <div class="profile_image_box">
               <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
             </div>
-            <p class="text-center" style="font-size:16pt; font-weight:bold">Hyun Woo</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">Hyun Woo</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -116,7 +116,13 @@
               <h4 style="font-weight:bold">ABOUT ME</h4>
               <%-- 자기소개 내용물 시작 --%>
               <div class="about_me_content pl-4">
-                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+                <p style="font-weight:bold; font-style:italic">"세상에 Hello World를 처음 외치던 순간부터 세상을 바꾸는 개발자를 꿈꾸다"</p>
+				<p>
+				  상상하던 것을 현실로 구현하는 개발자라는 직업에 매력을 느껴 공부하고 있습니다.<br>
+				  컴퓨터가 이해할 수 있는 코드보다, 사람이 보고 이해할수 있는 코드를 짜는 것에 중점을 두며 언제나 <br>
+				  "사용자는 바보다" 라는 전제하에 UX 관점에서 제대로 된 서비스를 기획하고자 노력합니다.
+				  한번 문제에 직면하면 해결할 때 까지 끝을보는성격, 원활한 커뮤니케이션으로 협업하며 저와 함께 개발해요!
+				</p>
               </div>
               <%-- 자기소개 내용물 끝 --%>
             </div>
@@ -175,7 +181,7 @@
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
           <div class="project_review_content">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
@@ -197,7 +203,7 @@
             <div class="profile_image_box">
               <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
             </div>
-            <p class="text-center" style="font-size:16pt; font-weight:bold">Jin Young</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">Jin Young</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -288,7 +294,7 @@
             <div class="profile_image_box">
               <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
             </div>
-            <p class="text-center" style="font-size:16pt; font-weight:bold">Josh</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">Josh</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -380,7 +386,7 @@
             <div class="profile_image_box">
               <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
             </div>
-            <p class="text-center" style="font-size:16pt; font-weight:bold">hgb</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">hgb</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -472,7 +478,7 @@
             <div class="profile_image_box">
               <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
             </div>
-            <p class="text-center" style="font-size:16pt; font-weight:bold">kimjs</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">kimjs</p>
           </div>
           
           <div class="introduct_my_self ml-5">

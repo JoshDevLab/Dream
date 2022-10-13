@@ -615,6 +615,8 @@ $("document").ready(function(){
 						if(json.deleteLikeSuccess){ //좋아요 테이블에 delete가 성공시
 							target.css("color","black");
 							toastr["error"](productNum+"번 상품이 관심상품에서 <br>삭제되었습니다.");
+							const like_cnt = target.children("div.like_cnt").text();
+							target.children("div.like_cnt").text(`${parseInt(like_cnt)-1}`);
 						}
 						else{ //좋아요 테이블에 delete가 실패시
 						  alert("좋아요 버튼클릭 실패! 다시 시도해주세요");
@@ -642,6 +644,8 @@ $("document").ready(function(){
 					  if(json.insertLikeSuccess){	//좋아요 테이블에 insert가 성공시
 						target.css("color","pink");
 						toastr["success"](productNum+"번 상품이 관심상품에 <br>추가되었습니다.");
+						const like_cnt = target.children("div.like_cnt").text();
+						target.children("div.like_cnt").text(`${parseInt(like_cnt)+1}`);
 					  }
 					  else{	//좋아요 테이블에 insert가 실패시
 						alert("좋아요 버튼클릭 실패! 다시 시도해주세요");

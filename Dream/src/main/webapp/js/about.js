@@ -67,6 +67,8 @@ $(document).ready(function() {
           
           // == 5 현우 소개== //
           if(idx == 5) { 				//5번섹션일때
+            const color = 'black';
+            header_color(color);
             $("div#hyunwoo_about_me").show();
             $("div#hyunwoo_skill").show();
             $("div#hyunwoo_contact_me").show();

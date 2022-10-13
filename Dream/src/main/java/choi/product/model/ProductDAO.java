@@ -221,6 +221,7 @@ public class ProductDAO implements InterProductDAO{
 				pdto.setGender(rs.getString("gender") );
 				pdto.setBestyn(rs.getString("bestyn") );
 				pdto.setReal_price(rs.getInt("real_price") );
+				pdto.setLike_cnt(rs.getInt("like_cnt"));
 				if(userid != null) {
 					pdto.setProduct_like_cnt(rs.getInt("product_like_cnt"));
 				}

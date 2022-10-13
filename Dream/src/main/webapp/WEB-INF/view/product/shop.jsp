@@ -317,10 +317,16 @@
 		              </div>
 		            </a>
 		            <c:if test="${empty sessionScope.userid || product.product_like_cnt == 0}">
-		              <div type="button" id="btn_like" class="border rounded text-center"><i class="fa-solid fa-heart"></i></div>
+		              <div type="button" id="btn_like" class="d-flex flex-column justify-content-between border rounded text-center">
+		                <i class="fa-solid fa-heart"></i>
+		                <div class="like_cnt" style="font-size:x-small; font-weight:bold;">${product.like_cnt}</div>
+		              </div>
 		            </c:if>
 		            <c:if test="${not empty sessionScope.userid && product.product_like_cnt != 0}">
-		              <div type="button" id="btn_like" class="border rounded text-center" style="color:pink;"><i class="fa-solid fa-heart"></i></div>
+		              <div type="button" id="btn_like" class="d-flex flex-column justify-content-between border rounded text-center" style="color:pink;">
+		                <i class="fa-solid fa-heart"></i>
+		                <div class="like_cnt" style="font-size:x-small; font-weight:bold;">${product.like_cnt}</div>
+		              </div>
 		            </c:if>
 		          </div>
 	          </c:forEach>
