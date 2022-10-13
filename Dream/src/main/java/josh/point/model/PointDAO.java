@@ -74,7 +74,7 @@ public class PointDAO implements InterPointDAO {
 			
 			if(Integer.parseInt(paraMap.get("minusPoint")) > 0) {
 				
-				System.out.println("포인트 dao에 진입함");
+				// System.out.println("포인트 dao에 진입함");
 				
 				// 결제로 인한 포인트 차감
 				String sql = " insert into tbl_point (point_num, userid, point_amount , status, event_type, event_date) "

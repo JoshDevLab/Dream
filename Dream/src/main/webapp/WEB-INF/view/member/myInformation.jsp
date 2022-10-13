@@ -276,6 +276,7 @@
                             <p style="color: gray; font-size: small; width: 26px;" class="my-2">이름</p>
                             <div id="user_name" style="color: gray;"><span id="name">${requestScope.mdto.username}</span></div>
                             <input type="hidden" value="${requestScope.mdto.username}" name="username" />
+                            <input type="hidden" value="" name="name_store_cnt"/>
                         </div>
                         <div class="mt-4" id="div_modifyName" style="position: relative; left: -27px;">
                             <p style="color: black; font-size: small;" class="my-2" id="new_name">새로운 이름</p>
@@ -300,7 +301,7 @@
                             <span id="input_mobile_error" style="color: red; font-size: xx-small; margin-bottom: 0; display: none;">올바른 전화번호 양식으로 입력하세요</span>
                             <div id="mobile_certification" style="display: flex;">
                               <input class="mt-2" type="text" name="certification_mobile" id="certification_mobile"  placeholder="인증번호" autocomplete="off" size=20 maxlength=20 style="outline: none;" />
-                              <button type="button" id="certification_mobile_btn" class="can_modify btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
+                              <button type="button" id="certification_mobile_btn" class="btn btn-dark outline-secondary btn-sm" style="font-size: 10pt; height: 28px; position: relative; top: 8px">입력</button>
                               <div id="div_timer" class="mt-3 ml-4" style="color:red; font-size:14px; font-weight:bold;"></div>
                             </div>
                             <br><br>
