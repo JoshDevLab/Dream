@@ -314,7 +314,7 @@ String ctxPath = request.getContextPath();
 									<div class="input_box">
 										<h4 class="input_title">상세 주소</h4>
 										<div class="input_item">
-											<input name="detail_address" id="detailAddress" value="" type="text" placeholder="건물, 아파트, 동/호수 입력"	 autocomplete="off" class="input_txt">
+											<input name="detail_address" id="detailAddress" value="ㅇㅇ" type="text" placeholder="건물, 아파트, 동/호수 입력"	 autocomplete="off" class="input_txt">
 										</div>
 									</div>
 									

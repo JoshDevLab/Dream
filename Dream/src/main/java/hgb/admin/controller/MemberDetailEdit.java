@@ -61,9 +61,7 @@ String method = request.getMethod();
 	         InterMemberDAO mdao = new MemberDAO();
 	         
 	         
-	         System.out.println(request.getParameter("secession"));
-		     System.out.println(request.getParameter("rest_member"));
-		     System.out.println(request.getParameter("membership"));
+	         
 	         
 	         
 	         int n = mdao.editmember(paraMap);
@@ -71,7 +69,7 @@ String method = request.getMethod();
 	         if(n == 1) {
 	        	 // 정보 수정 성공
 	        	 
-	        	 System.out.println("수정 성공");
+	        	 
 	        	 	        	 
 	        	 
 	        	 String message = "정보가 성공적으로 수정되었습니다";
@@ -88,7 +86,7 @@ String method = request.getMethod();
 	         else {
 	        	 // 정보 수정 실패
 	        	 
-	        	 System.out.println("수정 실패");
+	        	 
 	        	 	        	 
 	        	 
 	        	 String message = "정보가 수정에 실패하였습니다";

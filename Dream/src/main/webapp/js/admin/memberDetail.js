@@ -158,13 +158,7 @@ $("button#edit_info").click( (event)=>{
     
 
 		
-	console.log(userid);
-	console.log(username);
-	console.log(mobile);
-	console.log(join_date);
-	console.log(secession);
-	console.log(rest_member);
-	console.log(membership);
+	
 	
 	$("input#userid").val(userid);
     $("input#username").val(username);
@@ -242,7 +236,7 @@ function goEditfrm() {
 	}
 	
 	new_rest_member = $("div.input_box>input#rest_member:checked").val();
-	console.log("new_rest_member"+new_rest_member);
+	
 	if(new_rest_member =="1"){
 		new_rest_member = "O";
 	}
@@ -260,12 +254,11 @@ function goEditfrm() {
 	
 	// 변한 거 있나 체크
 	let isItChange = false;
-	console.log(new_name);
-	console.log("origin_name"+origin_name);
+	
 	if(origin_name != new_name){
 		isItChange = true;
 	}
-	console.log(isItChange);
+	
 	if(origin_secession != new_secession){
 		/*alert("1");*/
 		isItChange = true;
@@ -295,11 +288,7 @@ function goEditfrm() {
 		$("input#rest_memberCHECK").val($("input#rest_member:checked").val());
 		$("input#membershipCHECK").val($("input#membership:checked").val());
 		
-		console.log($("input#secessionCHECK").val());
 		
-		console.log($("input#rest_memberCHECK").val());
-		
-		console.log($("input#membershipCHECK").val());
 		
 		
 		const frm = document.editFrm;
@@ -338,7 +327,7 @@ function goEditfrm() {
    function delete_confirm(userid) {      
    
        const username = $("td#username").text();
-   //  console.log(pname);
+   
    
       const bool = confirm(username+" 님을 회원에서 삭제하시겠습니까?");   
       

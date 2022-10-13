@@ -39,7 +39,7 @@ public class MemberDelete extends AbstractController {
 		else  {
 			// POST 방식이라면
 			
-			System.out.println("data 확인" + request.getParameter("userid"));
+			
 			
 			String userid = request.getParameter("userid");
 			

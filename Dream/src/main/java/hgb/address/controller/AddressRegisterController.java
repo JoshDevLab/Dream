@@ -49,7 +49,7 @@ public class AddressRegisterController extends AbstractController{
 	        
 	         
 	         
-	         System.out.println(basic_address);
+	         
 
 	         
 	         
@@ -74,7 +74,7 @@ public class AddressRegisterController extends AbstractController{
 	        	
 	        	if(basic_address.equalsIgnoreCase("on")){
 	        		n = adao.registerBasicAddress(address1);
-	        		System.out.println(basic_address);
+	        		
 	        	}
 	        	else {
 	        	

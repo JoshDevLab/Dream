@@ -55,7 +55,7 @@ public class AddressGoBasicController extends AbstractController {
      				super.setRedirect(true);
      				super.setViewPage(request.getContextPath()+"/member/address.dream"); 
      				
-     				System.out.println("확인" + userid);
+     				
      				
 	     			
 	        	 }

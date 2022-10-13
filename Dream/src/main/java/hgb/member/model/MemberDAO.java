@@ -161,8 +161,7 @@ public class MemberDAO implements InterMemberDAO{
 				pdto.setBuy_date(rs.getString(4));
 				pdto.setShipping(Integer.parseInt(rs.getString(5)));
 				cnt++;
-				System.out.println("cnt"+cnt);
-				System.out.println(Integer.parseInt(rs.getString(1)));
+				
 				plist.add(pdto);
 			}
 			
@@ -240,7 +239,7 @@ public class MemberDAO implements InterMemberDAO{
 			conn = ds.getConnection();
 			conn.setAutoCommit(false);
 			
-			System.out.println("passwd"+paraMap.get("passwd"));
+			
 			if( paraMap.get("passwd") != "없음") {
 				sql = " update tbl_member_login set  passwd = ? , secession = ? , rest_member = ? "
 					   + " where userid = ? "; 
