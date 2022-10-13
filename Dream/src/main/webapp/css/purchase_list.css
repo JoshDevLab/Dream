@@ -15,6 +15,10 @@ div#date_button>button {
 	font-size: 10pt;
 }
 
+form#purchaseFrm{
+	margin-top:20px;
+}
+
 .square {
 	width: 50%;
 }
@@ -271,6 +275,23 @@ div#shipping_cnt_right:hover{
 	div#purchase_item {
 		width: 100%;
 	}
+	
+	.sidebar {
+		display: none;
+	}
+	form#right-content {
+		width: 100%;
+	}
+	#footer {
+   	  display: none;
+   }
+}
+
+@media (min-width: 768px) {
+   #myPageFooter {
+      display: none;
+   } 
+  
 }
 
 
@@ -300,9 +321,6 @@ div#shipping_cnt_right:hover{
 		font-size:13px;
 		font-weight:bold;
 	}
-	
-	
-	
 	
 
 	

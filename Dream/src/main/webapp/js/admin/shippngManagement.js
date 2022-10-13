@@ -488,10 +488,10 @@ function callAjax(start) {
 	   		                        "</div>"+
 	   		                         "<a href='javascript:void(0);' onclick='viewShippingInfo(`"+item.userid+"`,`"+item.order_num+"`);'><div class='order_num'>[ D - "+item.order_num+" ]</div></a>"+
 	   		                         "<div class='purchase_cnt' style='width:50px;'>"+item.buy_cnt+" 개 </div>"+
-	   		                        "<div class='totalPrice' >"+(item.buy_cnt*item.salePrice).toLocaleString("en")+"</div>"+
+	   		                        "<div class='totalPrice' >"+(item.buy_cnt*item.salePrice).toLocaleString("en")+"원</div>"+
 	   		                        "<div class='totalPoint' >"+(item.point).toLocaleString("en")+" p</div>"+
    		                     "</div>"+
-   		                     "<div id='date_status'>"+
+   		                     "<div id='date_status' class='d-flex justify-content-between'>"+
 	   		                        "<div class = 'div_shipping_status'>"+
 	   		                           "<span class='purchase_status'>"+item.shipping+"</span>"+ 
 	   		                        "</div>"+
@@ -517,14 +517,29 @@ function callAjax(start) {
 								"</div>"+
    		                     "</div>"+
    		               "</div>";
-   		               
    				 })// end of $.each(json, function(index, item){}---------------------------
    			
    				//$("div#show_shipping").empty(); // div 초기화 
    				//$("div#show_shipping_completed").empty();		
    				
    				// 배송상태에 따라 다른 div에 append ///
+   					
    					$("div#show_shipping").append(html); // div 값 입력
+
+   					let status_shipping = $("input#input_shipping").val();
+
+   					if(status_shipping == 0 ){
+						$(".div_postSend").show();
+						$(".div_postEnd").show();							
+					}
+   					else if(status_shipping == 1 ){
+						$(".div_postSend").hide();
+						$(".div_postEnd").show();							
+					}
+   					else if(status_shipping == 2 ){
+						$(".div_postSend").hide();
+						$(".div_postEnd").hide();							
+					}
    					/*
    				if($("input#input_shipping").val()==0){
    					$("div#show_shipping_completed").empty();	

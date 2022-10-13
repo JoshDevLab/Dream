@@ -61,6 +61,7 @@
 		               <select name="detail_category" class="infoData rounded">
 		                  <option class="detail_category" value="">상세카테고리</option>
 		                  <%-- 제품명에 따른 상세카테고리를 배열로 받아와서 찍기 option value는 i로 찍기--%>
+		                  
 		                      <option value="1">침대</option>
 		                      <option value="2">베개커버</option>
 		                      <option value="3">이불</option>
@@ -84,7 +85,6 @@
 		            
 		            <%-- 상품이미지 --%>
 		            <tr>
-		            	
 		               <td width="25%" class="prodInputName">상품이미지</td>
 		               <td width="75%" align="left">
 		               <%-- 
@@ -147,9 +147,6 @@
 		               </td>
 		            </tr>
 		            
-		            
-		            
-		            
 		            <tr>
 		               <td width="25%" class="prodInputName">가격</td>
 		               <td width="75%" align="left">
@@ -167,7 +164,6 @@
 		                  <%-- <span class="error">필수입력</span> --%>
 		               </td>
 		            </tr>
-		            
 		            
 		            <tr>
 		               <td width="25%" class="prodInputName">상품설명</td>

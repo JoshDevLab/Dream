@@ -42,8 +42,8 @@ function viewShippingInfo(userid,order_num) {
 	// 나의정보 수정하기 팝업창 띄우기
 	const url = "<%=request.getContextPath()%>/admin/shippingInfo.dream?userid="+userid+"&ordernum="+order_num;
 	
-	const pop_width = 400;
-	const pop_height = 400; 
+	const pop_width = 350;
+	const pop_height = 250; 
 	const pop_left = Math.ceil((window.screen.width - pop_width)/2);   /*<!-- 정수로 만듦 -->*/
 	const pop_top = Math.ceil((window.screen.height - pop_height)/2);  /*<!-- 정수로 만듦 --> */                           
 	
@@ -102,15 +102,18 @@ function viewShippingInfo(userid,order_num) {
 				--%>
 					<%-- 배송 일괄 처리 버튼 div --%>
 			<div id="allCheckAndButtons">
-				<div class='div_postSend'>
+				<div class='div_postSend div_allcheck'>
 					<input id="allCheckSend" type="checkbox" name= "allCheckSend" onclick="allCheckBox();" /> <label for="allCheckSend" >전체선택(배송하기)</label>
 					<button class="btn_shipping" type="button" onclick="updateShipping();" >배송하기</button>
 				</div>
-				<div class='div_postEnd'>
+				<div class='div_postEnd div_allcheck'>
 					<input id="allCheckEnd" type="checkbox" name= "allCheckEnd" onclick="allCheckBox2();" /> <label for="allCheckEnd" >전체선택(배송완료)</label>
 					<button class="btn_shipping" type="button" onclick="updateShippingEnd();" >배송완료</button>
 				</div>
+				
+				
 			</div>
+				
 				
 					<button style="display:none;" type="button" id="search_simple">조회</button>
 					<button style="display:none;" type="button" id="search_date">기간조회</button>
@@ -132,10 +135,24 @@ function viewShippingInfo(userid,order_num) {
 					<option></option>
 				</select>
 				<%-- 모바일 화면에서 기간 선택 끝 --%>
+				
+				<table>
+					<th style="width:100px;"></th>
+					<th style="width:150px;">상품명</th>
+					<th style="width:100px;">주문번호</th>
+					<th style="width:50px; margin-right: 30px;">수량</th>
+					<th style="width:100px;">주문총액</th>
+					<th style="width:120px;">포인트</th>
+					<th></th>
+					<th style="width:100px;">배송상태</th>
+					<th style="width:230px;"></th>
+					<th></th>
+					<th style="width:100px;">거래일자</th>
+				</table>
 
-				<hr style="background-color: #ebebeb;">
+				<hr style="background-color: #ebebeb; margin-bottom:0px;">
 
-				<div id="result" class="my-4">
+				<div id="result">
 					<%-- 구매일, 상태 버튼 시작 --%>
 					<div id="result_buttons">
 						<%-- 전체버튼 일단 비활성화 --%>
@@ -152,8 +169,7 @@ function viewShippingInfo(userid,order_num) {
 			</form>
 			<%-- 구매일, 상태 버튼 끝 --%>
 			
-			
-			
+			<%-- 
 			<div id="sihpping_title">
 				<span class="span_stitle" style="width:100px">&nbsp;</span>
 				<span class="span_stitle" id="shipping_pname">상품명</span>
@@ -166,7 +182,7 @@ function viewShippingInfo(userid,order_num) {
 				<span class="span_stitle" id="shipping_end"></span>
 				<span class="span_stitle" id="shipping_odate">거래일자</span>
 			</div>
-			
+			--%>
 			
 			
 			<%-- jsp 넘어가서 조건문 넣어서 제품이 없을경우 거래 내역이 없습니다 출력  --%>
@@ -187,12 +203,10 @@ function viewShippingInfo(userid,order_num) {
 			
 			
 			
-			
 		<%-- 더보기 버튼 넣기 시작  --%>
 			<button type="button" id="btnMoreHIT" value="">더보기</button>
 			<span id="totalHITCount"></span>
             <span id="countHIT"></span>
-
 		</div>
 		<%-- 구매내역 끝  --%>
 </div>

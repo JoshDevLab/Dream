@@ -165,7 +165,10 @@ String ctxPath = request.getContextPath();
 		</div>
 	</div>
 
-
-
-<%--footer 호출 --%>
-	<jsp:include page="/WEB-INF/view/footer.jsp" />
+<%-- footer 호출 --%>
+<jsp:include page="/WEB-INF/view/footer.jsp" />
+	
+<%-- MyInfo footer 호출 --%>
+<jsp:include page="/WEB-INF/view/myPageFooter.jsp" />
+	
+	
