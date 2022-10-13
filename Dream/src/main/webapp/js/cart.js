@@ -151,8 +151,8 @@ $(document).ready(function () {
 			return false;
 		}
 		
-		if(Number($("span#prd_price").text().split(",").join("")) < $("input#point").val()) {
-			toastr["warning"]("구매가격보다 높은 포인트는 사용할 수 없습니다.");
+		if(Number($("span#prd_price").text().split(",").join("")) <= $("input#point").val()) {
+			toastr["warning"]("구매가격보다 높거나 같게 포인트를 사용할 수 없습니다.");
 			$("input#point").val('');
 			$("span.sale_point").text('0');
 			return false;
