@@ -344,7 +344,8 @@ public class MemberDAO implements InterMemberDAO {
 			
 			String sql = " select point_num, userid,point_amount,event_date, status, event_type "+
 					" from tbl_point "+
-					" where userid = ? ";
+					" where userid = ? "
+					+ " order by 1 desc";
 
 		
 				pstmt = conn.prepareStatement(sql);

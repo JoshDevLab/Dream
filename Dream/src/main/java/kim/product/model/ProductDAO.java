@@ -451,6 +451,45 @@ public class ProductDAO implements InterProductDAO {
       }
    }
 
+@Override
+public int deleeteproduct(String productNum) throws SQLException {
+	int result = 0;
+	
+	
+	 try {
+	     System.out.println("productNum"+productNum);
+         conn = ds.getConnection();
+        
+         String sql = " delete from tbl_product "+
+        		 " where PRODUCT_NUM = ? "; 
+         
+         pstmt = conn.prepareStatement(sql);
+                
+         pstmt.setString(1, productNum);
+        
+         result = pstmt.executeUpdate(); 
+         
+         if(result!=1) {// 0개행 업데이트
+            // system.out.println("업데이트가 되지 않았습니다.");
+        	
+         }
+         
+         
+         
+         
+     
+
+      } catch (Exception e) {
+         e.printStackTrace();
+         
+      } finally {
+    	 
+    
+         close();
+         return result;
+      }
+}
+
 }
 
 
