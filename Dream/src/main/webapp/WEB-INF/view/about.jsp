@@ -66,7 +66,7 @@
     <%-- 드림개발목적 section2 시작 --%>
     <div id="develop_reason_section" class="section">
       <h1 id="develop_reason" class="text-center" style="font-weight:bold">
-        Why was Dream created?
+        Dream은 왜 만들어졌나요?
       </h1>
     </div>
     <%-- 드림개발목적 section2 끝 --%>
