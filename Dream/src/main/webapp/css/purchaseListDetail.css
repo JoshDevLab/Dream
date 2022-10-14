@@ -172,6 +172,34 @@ i.fa-arrow-left{
 }
 
 
+
+@media screen and (max-width: 768px) {
+	div#purchase {
+		width: 100%;
+	}
+	div#purchase_item {
+		width: 100%;
+	}
+	
+	.sidebar {
+		display: none;
+	}
+	form#right-content {
+		width: 100%;
+	}
+	#footer {
+   	  display: none;
+   }
+}
+
+@media (min-width: 768px) {
+   #myPageFooter {
+      display: none;
+   } 
+  
+}
+
+
 @media screen and (min-width: 768px){
   div#purchaseDetailcontent{
     width: 100%; 
