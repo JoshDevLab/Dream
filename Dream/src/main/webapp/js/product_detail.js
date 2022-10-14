@@ -722,7 +722,7 @@ function goPurchasePage(){
 					toastr["success"]("장바구니에 성공적으로 추가되었습니다.");
 				}
 				else{
-					toastr["success"]("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.");
+					toastr["success"]("선택하신 제품의 재고가 부족합니다.");
 				}
 	        }// end of succes
 	        ,error: function(request, status, error){

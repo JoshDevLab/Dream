@@ -37,7 +37,7 @@ public class PurchaseEnd extends AbstractController {
 			
 			String message = "";
 			
-			if(n == 1) {
+			if(n >= 1) {
 				
 				message = "구매가 성공적으로 완료되었습니다!!";
 			}

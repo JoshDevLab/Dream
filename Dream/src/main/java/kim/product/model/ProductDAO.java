@@ -110,6 +110,7 @@ public class ProductDAO implements InterProductDAO {
                 cntList.add(rs.getString(3));
              }
              pvo.setProduct_size(sizeList); 
+             System.out.println(sizeList);
              pvo.setProduct_cnt(cntList);
              // 위 두 배열은 같은 인덱스 => 관계있는 값임
              // index0 ==> size=s  cnt=20

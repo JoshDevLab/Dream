@@ -142,7 +142,7 @@ String ctxPath = request.getContextPath();
 									</c:if>
 
 									<c:if test="${fn:length(size) == 0}">
-										<a class="dropdown-item">freeSize</a>
+										<a class="dropdown-item">잘못된 제품입니다.</a>
 									</c:if>
 
 									<%-- 사이즈(옵션이) 존재한다면 --%>

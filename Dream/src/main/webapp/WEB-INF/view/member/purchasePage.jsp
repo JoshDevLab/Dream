@@ -348,7 +348,7 @@
            <ul>
               <li>
                  <span class="product_price" >상품금액</span>
-                 <span class = "payment" id="payment_price" style="font-weight: 700;"><fmt:formatNumber value="${requestScope.fullPrice}" pattern="#,###" />원
+                 <span class = "payment" id="payment_price" value="${requestScope.fullPrice}" style="font-weight: 700;"><fmt:formatNumber value="${requestScope.fullPrice}" pattern="#,###" />원
 </span>
               </li>
               <li>
@@ -387,7 +387,7 @@
               <input class = "aaaa" name="li_check" id="checkbox_3" type="checkbox" />
            </li>
            <li>
-              <span class="total_amount">총결제금액</span><span id="final_price"><fmt:formatNumber value="${requestScope.fullPrice}" pattern="#,###" />원
+              <span class="total_amount">총결제금액</span><span id="final_price" value = "${requestScope.fullPrice}"><fmt:formatNumber value="${requestScope.fullPrice}" pattern="#,###" />원
               </span>
            </li>
            <li>
@@ -437,7 +437,7 @@
    	
 	
 	
-	<input type="hidden" id="length" name="length" value=""/>
+	<input type="hidden" id="length" name="length" value="${length}"/>
 	<input type="hidden" id=event_type name="event_type" value=""/>
 
 	
