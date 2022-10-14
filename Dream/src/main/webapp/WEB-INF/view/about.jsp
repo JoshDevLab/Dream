@@ -66,7 +66,7 @@
     <%-- 드림개발목적 section2 시작 --%>
     <div id="develop_reason_section" class="section">
       <h1 id="develop_reason" class="text-center" style="font-weight:bold">
-        Dream은 왜 만들어졌나요?
+        Why was Dream created?
       </h1>
     </div>
     <%-- 드림개발목적 section2 끝 --%>
@@ -77,12 +77,12 @@
     <div id="develop_reason_section2" class="section">
     
       <div id="develop_reason_text" class="clipText w-75">
-        <h1 style="font-weight:bold;">드림 개발 목적</h1>
-        <p>코로나로 인해 활성화된 온라인 커머스 시장에서 서비스를 제공해보고 싶다 생각하던 도중 현대인들에게 부족한 잠을 떠올리게 되었고</p>
-        <p>어떻게 하면 수면의 질을 올릴 수 있을까 하다가</p>
-        <p>수면용품 전문 쇼핑몰을 기획하게 되었습니다.</p>
+        <h1 style="font-weight:bold;">Why was Dream created?</h1>
+        <p>팀원들과 공부한 내용인 MVC패턴을 이용하여 어떠한 쇼핑몰을 만들어 볼까 회의하다가 코로나에 관련된 쇼핑몰을 만들고 싶다는 의견이 나왔고</p>
+        <p>코로나로 인해 활성화된 온라인 커머스 시장에서 어떤 서비스를 제공하면 좋을까 고민하던 도중</p>
+        <p>현대인들에게 부족한 잠을 떠올리게 되었으며, 디자인은 Kream 이라는 사이트를 벤치마킹하여 만들기로 하였습니다.</p>
+        <p>그리하여 수면의 질을 높일 수 있는 제품을 제공할 수 있는 수면용품 전문 쇼핑몰인 "Dream"이 탄생하였습니다.</p>
       </div>
-      
     </div>
     <%-- 드림개발목적 section3 끝 --%>
     
@@ -92,7 +92,7 @@
     <%-- 드림개발자소개 section4 시작 --%>
     <div id="developer_introduce_section" class="section">
       <h1 id="developer_introduce" class="text-center" style="font-weight:bold">
-        드림 개발자 소개
+        Dream 개발자 소개 
       </h1>
     </div>
     <%-- 드림개발자소개 section4 끝 --%>
@@ -185,7 +185,8 @@
 			팀원들과 첫 웹프로젝트를 진행하면서 여러가지 시행착오를 많이 겪었는데, 그중 첫번째로는<br>
 			다들 처음으로 Github를 통해 협업을 진행하여서 충돌이 났을때 대처가 많이 미흡하여 해결하는데 시간이 많이 지체되었습니다.
 			또한, 공부할때는 겪을 수 없었던 수많은 문제상황과 직면하였습니다. 예를들어 페이징처리를 먼저 한 뒤에, 상품목록을 가져오는 쿼리문을 작성하였는데
-			페이징처리를 a태그에 직접 링크에 걸어 파라미터를 넘겨주는식으로 로직을 짜버리는바람에 다중필터조건을 걸 때 쿼리문을 전부 수정해야하는 등의 문제상황이 정말 많았습니다.
+			페이징처리를 a태그에 직접 링크에 걸어 파라미터를 넘겨주는식으로 로직을 짜버리는바람에 다중필터조건을 걸 때 쿼리문을 전부 수정해야하는 등의 문제상황에 직면했지만
+			다른 팀원이 저와 비슷한 문제상황에 직면하였다는것을 알게되었고, 팀원에게 도움을 받아 해결하였습니다.
 			</p>
 			<p>
 			이번 프로젝트는 여러가지 문제상황에 직면하고, 그 상황들을 해결하면서 "문제해결능력"이 많이 향상되었던 프로젝트 였습니다.
@@ -312,7 +313,7 @@
         <div class="introduce d-flex">
           <div id="josh_profile_image" class="profile_image">
             <div class="profile_image_box">
-              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+              <img src="<%=ctxPath%>/images/about/조상운.jpg"/>
             </div>
             <p class="text-center" style="font-size:18pt; font-weight:bold">조상운</p>
           </div>
