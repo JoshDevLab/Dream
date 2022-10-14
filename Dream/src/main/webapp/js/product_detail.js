@@ -412,7 +412,7 @@ function calcbutton(objNo){
 		Selected = $(`button#plus${count}`).parent().children("#optionAmount");
 		
 		SelectedAmount = parseInt(Selected.text())+1;
-		Selected.text(SelectedAmount);		
+		Selected.text(SelectedAmount.toLocaleString('ko-KR'));		
 		// 금액 변경 반영	
 		HowMuchIsit();
 	});
@@ -572,7 +572,7 @@ function goPurchasePage(){
 				 
 				 }// end of outer
 				 
-				 if(count != length && sizeArray[0] != "freeSize"){
+				 if(count != length){
 					// 옵션의 갯수만큼 체크하지 않았다면 확인
 					// console.log("!!!");
 					isitOkay = false;
@@ -653,7 +653,7 @@ function goPurchasePage(){
 		let price = sum * discount_price;
 		$("input#fullPrice").val(price);
 		
-		$("em.num").text(price);
+		$("em.num").text(price.toLocaleString('ko-KR')+"원");
 		
 	};
 	
@@ -719,10 +719,10 @@ function goPurchasePage(){
 	        success:function(json){
 				
 				if(json.isItOk){
-					toastr["success"]("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.");
+					toastr["success"]("장바구니에 성공적으로 추가되었습니다.");
 				}
 				else{
-					toastr["success"]("장바구니에 추가하는중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.");
+					toastr["success"]("선택하신 제품의 재고가 부족합니다.");
 				}
 	        }// end of succes
 	        ,error: function(request, status, error){

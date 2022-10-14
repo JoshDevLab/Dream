@@ -33,12 +33,12 @@ public class GoUpdate extends AbstractController {
 				Map<String, String> paraMap = new HashMap<>();
 				 
 				int length = Integer.parseInt(request.getParameter("length")); 
-				// system.out.println("length"+length);
+				 System.out.println("length"+length);
 				String productNum = request.getParameter("productNum");
 				String PointPlus = request.getParameter("PointPlus");
-				// system.out.println("PointPlus"+PointPlus);
+				 System.out.println("PointPlus"+PointPlus);
 				String PointMinus = request.getParameter("PointMinus");
-				// system.out.println("PointMinus"+PointMinus);
+				 System.out.println("PointMinus"+PointMinus);
 				String event_type = request.getParameter("event_type");
 				String address_num = request.getParameter("address_num");
 				String discountPrice = request.getParameter("discountPrice");
@@ -75,7 +75,7 @@ public class GoUpdate extends AbstractController {
 				System.out.println(n);
 				if(n ==1 ) {// 안전하게 결제 다 끝나고 업데이트도 다 된 상태
 					String message = "구매가 성공적으로 완료되었습니다!!";
-					String loc = "javascript:history.back()";
+					String loc = request.getContextPath()+"/member/buylist.dream";
 					
 					request.setAttribute("message", message);
 					request.setAttribute("loc", loc);

@@ -36,9 +36,9 @@ public class PurchasePageController extends AbstractController {
 		}
 		else {
 			// 필요한 값들 일단 정리
-			// system.out.println("data 도착!");
-			// system.out.println(request.getParameter("length"));
-			// system.out.println(request.getParameter("productNum"));
+			// System.out.println("data 도착!");
+			// System.out.println(request.getParameter("length"));
+			// System.out.println(request.getParameter("productNum"));
 			int length = Integer.parseInt(request.getParameter("length")); 
 			String productNum = request.getParameter("productNum");
 			ArrayList<String>sizeArr = new ArrayList<String>();
