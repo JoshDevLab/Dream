@@ -362,7 +362,7 @@ String ctxPath = request.getContextPath();
 	</div>
 
 
-	<form  name="temporaryCart">
+	<form id="temporaryCart" name="temporaryCart">
 		<input type="hidden" id="discountPrice" name="discountPrice"
 			value="${product.discountPrice}" /> <input type="hidden"
 			id="fullPrice" name="fullPrice" value="" />
@@ -458,7 +458,7 @@ String ctxPath = request.getContextPath();
       </div>
       <div class="modal-footer">
         <button id="x" type="button" class="close" data-dismiss="modal">&times;</button>
-        <a id="deleteProduct" href="#" style = "color:red" class="btn btn_save solid medium" onclick="deleteProduct()"> 삭제하기 </a>
+        <a id="deleteProduct" href="#" style = "color:red" class="btn btn_save solid medium" onclick="location.href='/Dream/product/deleteProduct.dream'"> 삭제하기 </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <a id="goUpdateProduct" href="#" class="btn btn_save solid medium" onclick="goUpdateProduct()"> 저장하기 </a>
       </div>
