@@ -819,6 +819,25 @@ function goUpdateProduct(){
 	
 	
 	
+	
+	
+	
+
+}
+
+
+function deleteProduct(){
+	
+	
+
+	    
+		var frm = document.temporaryCart; 
+	
+		frm.method = "post";
+		frm.action = getContextPath()+"/product/deleteProduct.dream";
+
+	    
+	    frm.submit();
 
 }
 

@@ -26,4 +26,6 @@ public interface InterProductDAO {
 	/** userid 넣으면 보낸메일 목록, 받은메일 목록List 를 ArrayList 에 담아옴 */
 	Map<String, Object> getAllMessage(String loginuserid, String type) throws SQLException;
 
+	int deleeteproduct(String productNum)throws SQLException;
+
 }
