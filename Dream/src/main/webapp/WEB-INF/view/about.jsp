@@ -106,9 +106,9 @@
         <div class="introduce d-flex">
           <div id="hyunwoo_profile_image" class="profile_image">
             <div class="profile_image_box">
-              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+              <img src="<%=ctxPath%>/images/about/최현우.jpg"/>
             </div>
-            <p class="text-center" style="font-size:18pt; font-weight:bold">Hyun Woo</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">최현우</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -211,9 +211,9 @@
         <div class="introduce d-flex">
           <div id="jinyoung_profile_image" class="profile_image">
             <div class="profile_image_box">
-              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+              <img src="<%=ctxPath%>/images/about/장진영.jpg"/>
             </div>
-            <p class="text-center" style="font-size:18pt; font-weight:bold">Jin Young</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">장진영</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -221,7 +221,8 @@
               <h4 style="font-weight:bold">ABOUT ME</h4>
               <%-- 자기소개 내용물 시작 --%>
               <div class="about_me_content pl-4">
-                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+                컴퓨터만 있다면 만들고 싶은걸 다 만들 수 있다는 점에 매력을 느껴 개발공부를 시작하게 되었습니다.<br>
+				느리지만 꾸준히 성장하는 개발자가 되고싶습니다.
               </div>
               <%-- 자기소개 내용물 끝 --%>
             </div>
@@ -258,11 +259,11 @@
                 <ul class="contact_me">
                   <li>
                     <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
-                    <span>010-7423-9713</span>
+                    <span>010-8866-5389</span>
                   </li>
                   <li>
                     <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
-                    <span>https://github.com/hyunwoocastle</span>
+                    <span>https://github.com/hedgehog9</span>
                   </li>
                 </ul>
               </div>
@@ -280,7 +281,16 @@
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
           <div class="project_review_content mt-2">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+            미니 프로젝트때와는 다르게 뷰단부터 직접 만들어보니 
+			HTML, CSS, JavaScript 에 익숙해졌고, 
+			어떻게 해야 사용자가 더 편하게 사용할 수 있을까 고민하게 되었습니다. 
+			이번 프로젝트에서는 깃을 처음 사용했는데 처음에는 충돌도 많이 나고, 오류도 많았지만
+			적응을 하고나니 익숙해져서 편하게 작업할 수 있었습니다.
+			프로젝트 진행하면서 한달이라는 시간이 너무 짧게 느껴졌고, 
+			끝나갈때 쯤에는 조금만 더 할껄 하는 아쉬움을 많이 느꼈습니다.<br>
+			프로젝트를 진행하면서 수업때는 몰랐던 개념들을 알게되었고,
+			동기,비동기 통신방식과 MVC 모델을 명확하게 이해할 수 있어서 좋았고 성장하게된 계기가 된 것 같습니다.<br>
+			마지막으로 한달동안 부족한 저를 이끌어준 다른 조원들에게 감사합니다. 
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
@@ -304,7 +314,7 @@
             <div class="profile_image_box">
               <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
             </div>
-            <p class="text-center" style="font-size:18pt; font-weight:bold">Josh</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">조상운</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -408,9 +418,9 @@
         <div class="introduce d-flex">
           <div id="hgb_profile_image" class="profile_image">
             <div class="profile_image_box">
-              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+              <img src="<%=ctxPath%>/images/about/황광빈.jpg"/>
             </div>
-            <p class="text-center" style="font-size:18pt; font-weight:bold">hgb</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">황광빈</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -418,7 +428,11 @@
               <h4 style="font-weight:bold">ABOUT ME</h4>
               <%-- 자기소개 내용물 시작 --%>
               <div class="about_me_content pl-4">
-                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+                <p style="font-weight:bold; font-style:italic">"고통이 없으면 얻는 것도 없다."</p>
+				<p>
+				어려움을 이겨냈던 경험들을 통해 항상 성장하는 개발자가 되기위해 달리고 있습니다.
+				어릴적부터 컴퓨터를 너무 좋아했었기 때문에 사용자 입장에서 생각하고 서비스를 제공할수 있도록 노력하겠습니다.
+				</p>
               </div>
               <%-- 자기소개 내용물 끝 --%>
             </div>
@@ -455,11 +469,11 @@
                 <ul class="contact_me">
                   <li>
                     <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
-                    <span>010-7423-9713</span>
+                    <span>010-9020-9305</span>
                   </li>
                   <li>
                     <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
-                    <span>https://github.com/hyunwoocastle</span>
+                    <span>https://github.com/GGWANGBIN</span>
                   </li>
                 </ul>
               </div>
@@ -477,7 +491,13 @@
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
           <div class="project_review_content mt-2">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>7
+            미니 프로젝트를 거쳐 세미프로젝트를 진행해보니 마치 작은호숫가에서 물장난을 치다가 바다로 나온듯한 느낌이였습니다.<br>
+			콘솔에서만 코드를 구현하던것을 넘어 웹으로 프로젝트를 진행해보니 평소 너무 당연스럽고 친숙하게 사용하던 인터넷창이
+			어떤식으로 작동하고 구현되는지 알아가면서 많은 흥미를 느꼈습니다. 이번 프로젝트를 통해 웹개발에 대해 느끼던
+			막연함이 많이 해소된듯하고 팀원들과 여러 매체를 이용한 협업을 통해 컴퓨터를 다루는 일이지만 왜 사람들과의 소통이
+			중요한지에 대해 배우게된 좋은 경험이였습니다. <br>
+			서로 이끌어주며 열심히 참여해주신 팀원분들께 정말 감사합니다 !
+
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
@@ -500,9 +520,9 @@
         <div class="introduce d-flex">
           <div id="kimjs_profile_image" class="profile_image">
             <div class="profile_image_box">
-              <img src="<%=ctxPath%>/images/basic_profile_img.PNG"/>
+              <img src="<%=ctxPath%>/images/about/김진석.png"/>
             </div>
-            <p class="text-center" style="font-size:18pt; font-weight:bold">kimjs</p>
+            <p class="text-center" style="font-size:18pt; font-weight:bold">김진석</p>
           </div>
           
           <div class="introduct_my_self ml-5">
@@ -510,7 +530,14 @@
               <h4 style="font-weight:bold">ABOUT ME</h4>
               <%-- 자기소개 내용물 시작 --%>
               <div class="about_me_content pl-4">
-                1.자기소개 들어갈 공간임(4줄까지 허용)<br>2<br>3<br>4
+                <p style="font-weight:bold; font-style:italic">"코딩은 말꼬투리 잡기를 즐기는 상대와 말싸움해서 이기는 과정이다"</p>
+				<p>
+				내가 완벽한 논리로 작성했다고 생각한 코드가 단번에 에러를 띄우면 이제는 오히려 재밌어졌습니다.<br>
+				(대부분은 제 논리 문제이긴 하지만) 네까짓 게 감히? 라는 생각이 앞서고,
+				구글링으로 답을 얻으면 내가 틀렸다는 게 억울해서 한참 들여다봅니다.
+				제가 이길 때까지 싸우면 제가 이긴다는 생각으로 키보드를 두드립니다.
+				</p>
+
               </div>
               <%-- 자기소개 내용물 끝 --%>
             </div>
@@ -547,11 +574,11 @@
                 <ul class="contact_me">
                   <li>
                     <span class="mr-2"><i class="fa-solid fa-phone fa-lg"></i></span>
-                    <span>010-7423-9713</span>
+                    <span> 010-4446-3319</span>
                   </li>
                   <li>
                     <span class="mr-2"><i class="fa-brands fa-github fa-lg"></i></span>
-                    <span>https://github.com/hyunwoocastle</span>
+                    <span>https://github.com/DGJSKIM</span>
                   </li>
                 </ul>
               </div>
@@ -569,7 +596,18 @@
           </div>
           <%-- 프로젝트 후기 내용물 시작 --%>
           <div class="project_review_content mt-2">
-            1.프로젝트 후기 적는곳(10줄까지 허용)<br>2<br>3<br>4<br>5<br>6<br>
+            저는 팀 프로젝트를 할 때 의견을 제시하는 걸 즐기는 타입입니다.
+			그렇기에 무언가를 바꾸거나 다른 사람과 겹치는 파트에서의 변경점을 설명할 때도
+			근거를 바탕으로 왜 이렇게 진행했고 장단점은 어떤지 설명하려는 노력을 더욱 많이 하였습니다.
+			
+			팀원들이 모두 제가 의견을 내면 또 다른 의견을 제시해주어 더 나은 방향으로 발전시키거나
+			제 의견을 같이 발전시켜주는 의견을 내주는 등 무조건적 공감보다는 디벨롭에 집중해주는 팀원들이라
+			실력증진에 큰 도움이 되는 시간이었습니다. 팀원들에게 감사합니다.
+			
+			저번 프로젝트 때는 밤을 새우면서도 시간이 하루만 더 있었더라면 이라는 아쉬움이 있었지만
+			이번 프로젝트를 끝내는 지금은 다른 공부를 더 해보고 싶다는 생각이 듭니다.
+			java만 쓰던 1차 프로젝트와 달리 쓰는 언어가 많아지며 제가 직접 공부하고 확장할 부분도 많이 늘어난 만큼
+			수업 이외의 공부로 더 배우고 싶다고 생각하며 프로젝트를 마무리합니다.
           </div>
           <%-- 프로젝트 후기 내용물 끝 --%>
         </div>
