@@ -94,8 +94,14 @@ ul.contact_me{
 }
 /* section5 끝 */
 
+
 /* section6 시작 */
+div#jinyoung{
+	background-color:#e0b3ff;
+	color:white;
+}
 /* section6 끝 */
+
 
 /* section7 시작 */
 div#josh{
@@ -105,9 +111,18 @@ div#josh{
 /* section7 끝 */
 
 /* section8 시작 */
+div#hgb{
+	background-color:green;
+	color:white;
+}
 /* section8 끝 */
 
 /* section9 시작 */
+div#kimjs{
+	background-color:pink;
+	color:white;
+}
+
 /* section9 끝 */
 
 /* section10 시작 */

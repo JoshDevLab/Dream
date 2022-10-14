@@ -100,6 +100,8 @@ $(document).ready(function() {
           
           // == 6 진영 소개 == //
           if(idx == 6) { 				//6번섹션일때
+            const color = 'white';
+            header_color(color);
             $("div#jinyoung_about_me").show();
             $("div#jinyoung_skill").show();
             $("div#jinyoung_contact_me").show();
@@ -160,6 +162,8 @@ $(document).ready(function() {
           
           // == 8 광빈 소개 == //
           if(idx == 8) { 				//8번섹션일때
+            const color = 'white';
+            header_color(color);
             $("div#hgb_about_me").show();
             $("div#hgb_skill").show();
             $("div#hgb_contact_me").show();
@@ -189,6 +193,8 @@ $(document).ready(function() {
           
           // == 9 진석 소개 == //
           if(idx == 9) { 				//9번섹션일때
+            const color = 'white';
+            header_color(color);
             $("div#kimjs_about_me").show();
             $("div#kimjs_skill").show();
             $("div#kimjs_contact_me").show();
