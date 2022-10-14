@@ -78,7 +78,7 @@ public class PointDAO implements InterPointDAO {
 				
 				// 결제로 인한 포인트 차감
 				String sql = " insert into tbl_point (point_num, userid, point_amount , status, event_type, event_date) "
-			        + " values(seq_point_num.nextval , ? , ? , '차감',  '상상품구매' ,sysdate) "; 
+			        + " values(seq_point_num.nextval , ? , ? , '차감',  '상품구매' ,sysdate) "; 
 				
 				pstmt = conn.prepareStatement(sql);
 				
@@ -92,7 +92,7 @@ public class PointDAO implements InterPointDAO {
 			
 			// 결제로 인한 포인트 추가
 			String sql = " insert into tbl_point (point_num, userid, point_amount , status, event_type, event_date) "
-		               + " values(seq_point_num.nextval , ? , ? , '적립',  '상상품구매' ,sysdate) ";
+		               + " values(seq_point_num.nextval , ? , ? , '적립',  '상품구매' ,sysdate) ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
