@@ -180,7 +180,7 @@
     <%-- Main > content 시작 --%>
     <div class="content mt-5">
       <div class="shortcut d-flex justify-content-between">
-        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=수면용품&detail_category=LED양초'">
+        <div class="shortcut_item" onclick="location.href='<%=ctxPath %>/product/shop.dream?category=조명&detail_category=LED양초'">
           <div class="shortcut_img">
             <img src="<%= ctxPath%>/images/디테일카테고리/카테고리LED양초.PNG" alt="">
           </div>
